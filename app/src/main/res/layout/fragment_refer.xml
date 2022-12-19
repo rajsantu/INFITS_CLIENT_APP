@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/refer_gradient"
+    tools:context=".ReferFragment">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="345dp"
+        android:layout_height="325dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/refer_bg_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/reminder_bottom_sheet"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image">
+
+        <ImageView
+            android:layout_width="41dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="-10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/referral_bottom_sheet_decor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/nats_regular"
+            android:lineHeight="20dp"
+            android:text="@string/referral_text"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/btnrefer"
+            android:backgroundTint="#B3CEEC"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/referralTV"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/nats_regular"
+                android:text=""
+                android:paddingStart="20dp"
+                android:textColor="#0051AB"
+                android:textColorHint="#0051AB"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/copy"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/copy_vector"
+                android:scaleType="centerCrop"
+                android:background="@android:color/transparent"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/share"
+            android:layout_width="310dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btnrefer"
+            android:backgroundTint="#0051AB"
+            android:fontFamily="@font/nats_regular"
+            android:text="Share link"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/got_referred"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Got referred?"
+        android:fontFamily="@font/nats_regular"
+        android:textColor="#0051AB"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="2dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
