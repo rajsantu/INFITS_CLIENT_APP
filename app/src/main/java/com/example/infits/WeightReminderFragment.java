@@ -34,6 +34,8 @@ public class WeightReminderFragment extends Fragment {
 
     AlarmManager alarmManager;
 
+    PendingIntent weightReceiverPendingIntent;
+
     long remindOnceTimeInMillis = 0L;
 
     public WeightReminderFragment() {
@@ -73,9 +75,6 @@ public class WeightReminderFragment extends Fragment {
     }
 
     private void dismissAlarm() {
-        Intent weightReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent weightReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, weightReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
@@ -187,7 +186,8 @@ public class WeightReminderFragment extends Fragment {
 
         Intent weightReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
         weightReceiverIntent.putExtra("tracker", "weight");
-        PendingIntent weightReceiverPendingIntent = PendingIntent.getBroadcast(
+
+        weightReceiverPendingIntent = PendingIntent.getBroadcast(
                 requireActivity(), 0, weightReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 

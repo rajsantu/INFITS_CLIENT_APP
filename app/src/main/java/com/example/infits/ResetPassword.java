@@ -37,8 +37,9 @@ import javax.mail.internet.MimeMessage;
 
 public class ResetPassword extends AppCompatActivity {
 
-    private final String senderEmail = "2002atulgarg@gmail.com";
-    private final String senderPassword = "wqqcijugktsufkjx";
+    private final String senderEmail = "teaminfits@gmail.com";
+    // password is the app password for the email-id
+    private final String senderPassword = ""; // https://support.google.com/accounts/answer/185833?hl=en
 
     ImageView back_login;
     Button sendMailBtn;

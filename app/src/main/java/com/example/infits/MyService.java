@@ -148,7 +148,7 @@ public class MyService extends Service implements SensorEventListener {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("steps", FetchTrackerInfos.currentSteps);
+            editor.putFloat("steps", (float) FetchTrackerInfos.currentSteps);
             float goalPercent = ((FetchTrackerInfos.currentSteps/goal)*100)/100;
             editor.putFloat("goalPercent", goalPercent);
             editor.apply();

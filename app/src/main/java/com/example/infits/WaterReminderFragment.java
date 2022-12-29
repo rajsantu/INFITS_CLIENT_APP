@@ -44,6 +44,8 @@ public class WaterReminderFragment extends Fragment {
     AlarmManager alarmManager;
     SharedPreferences sharedPreferences;
 
+    PendingIntent waterReceiverPendingIntent;
+
     public WaterReminderFragment() {
         // Required empty public constructor
     }
@@ -187,34 +189,27 @@ public class WaterReminderFragment extends Fragment {
 
         Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
         waterReceiverIntent.putExtra("tracker", "water");
-        PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(
+
+        waterReceiverPendingIntent = PendingIntent.getBroadcast(
                 requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, waterReceiverPendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, waterReceiverPendingIntent);
         Toast.makeText(requireActivity(), "Reminder Set", Toast.LENGTH_LONG).show();
 
-        setCancelAlarm(waterReceiverPendingIntent);
+        setCancelAlarm();
     }
 
-    private void setCancelAlarm(PendingIntent waterReceiverPendingIntent) {
-        Intent waterCancelReceiverIntent = new Intent(requireContext(), WaterNotificationCancelReceiver.class);
-        waterCancelReceiverIntent.putExtra("AlarmToCancel", waterReceiverPendingIntent);
-
-        PendingIntent waterCancelReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterCancelReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
+    private void setCancelAlarm() {
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, waterCancelReceiverPendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, waterReceiverPendingIntent);
         Toast.makeText(requireActivity(), "Reminder Dismissed", Toast.LENGTH_LONG).show();
     }
 
     private void cancelAlarm() {
-        Intent waterReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }

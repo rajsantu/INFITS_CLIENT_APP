@@ -250,8 +250,8 @@ public class StepTrackerFragment extends Fragment {
                     SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
                     SharedPreferences.Editor editor = stepPrefs.edit();
                     editor.putFloat("goal", goalVal);
-                    editor.putFloat("steps", 0);
-                    editor.putFloat("goalPercent", 0);
+                    editor.putFloat("steps", 0f);
+                    editor.putFloat("goalPercent", 0f);
                     editor.apply();
 
                     SharedPreferences preferences = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
