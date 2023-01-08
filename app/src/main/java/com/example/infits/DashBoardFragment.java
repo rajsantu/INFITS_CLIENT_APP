@@ -210,7 +210,7 @@ public class DashBoardFragment extends Fragment {
         });
 
         SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        float steps = stepPrefs.getInt("steps", 0);
+        float steps = stepPrefs.getFloat("steps", 0);
         float stepGoal = stepPrefs.getFloat("goal", 0f);
         int stepPercent = stepGoal == 0 ? 0 : (int) ((steps * 100) / stepGoal);
         String stepText = stepGoal == 0 ? "----------" : (int) stepGoal + " Steps";
