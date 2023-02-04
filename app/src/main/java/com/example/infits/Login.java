@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -85,6 +87,7 @@ public class Login extends AppCompatActivity {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     if(response.equals("failure")){
                         Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "SatnamVolley: "+ response);
                         loginbtn.setClickable(true);
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
@@ -153,6 +156,7 @@ public class Login extends AppCompatActivity {
                     }
                 }, error -> {
                     Toast.makeText(Login.this,error.toString().trim(),Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "SatnamVolley: "+ error);
                     loginbtn.setClickable(true);
                 }){
                     @Override
