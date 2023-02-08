@@ -51,31 +51,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_marginTop="80dp">
-
+        android:orientation="vertical">
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardElevation="0dp"
             android:layout_gravity="center"
-            android:layout_marginEnd="15dp">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="130dp"
-                android:layout_height="272dp"
-                android:src="@drawable/water_bottle" />
-
+            android:layout_marginTop="80dp">
+<!--            <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator-->
+<!--                android:id="@+id/progress_barr"-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="300dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                app:direction="clockwise"-->
+<!--                app:dotColor="?colorPrimary"-->
+<!--                app:dotWidth="16dp"-->
+<!--                app:drawDot="true"-->
+<!--                app:enableProgressAnimation="true"-->
+<!--                app:progressBackgroundColor="?colorAccent"-->
+<!--                app:progressBackgroundStrokeWidth="8dp"-->
+<!--                app:progressCap="round"-->
+<!--                app:progressColor="?colorPrimary"-->
+<!--                app:progressStrokeWidth="16dp"-->
+<!--                app:startAngle="270"-->
+<!--                app:fillBackground="false"-->
+<!--                app:gradientType="linear"-->
+<!--                app:gradientEndColor="@color/colorAccent" />-->
             <ImageView
                 android:id="@+id/addliq"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center_horizontal|top"
+                android:layout_gravity="top"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="60dp"
-                app:srcCompat="@drawable/water_add"/>
+                app:srcCompat="@drawable/water_add" />
 
             <TextView
                 android:id="@+id/water_goal"
@@ -83,11 +94,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="1800ml"
-                android:layout_marginTop="85dp"
+                android:layout_marginTop="30dp"
                 android:textSize="6sp"
                 android:textColor="#0051AB"
-                android:fontFamily="@font/roboto_regular"
-                android:layout_marginStart="15dp"/>
+                android:fontFamily="@font/roboto_regular" />
+
 
             <TextView
                 android:id="@+id/water_consumed"
@@ -97,9 +108,55 @@
                 android:textSize="8dp"
                 android:textColor="#0051AB"
                 android:fontFamily="@font/roboto_regular"
-                android:layout_marginStart="15dp"
                 android:text="0ml"
                 android:layout_marginBottom="30dp"/>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/outSideCardView"
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:background="@color/transparent"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="-50dp">
+                <RelativeLayout
+                    android:layout_width="240dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="350dp">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="240dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        app:cardBackgroundColor="@color/transparent"
+                        app:cardElevation="-50dp">
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/water_bottle_final"
+                        android:layout_height="290dp">
+                    </ImageView>
+
+                        <RelativeLayout
+                            android:layout_width="240dp"
+                            android:layout_gravity="center"
+                            android:layout_height="match_parent">
+                            <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/waterAnimation"
+                            android:layout_width="240dp"
+                            android:layout_height="270dp"
+                            android:layout_alignParentBottom="true"
+                            tools:ignore="HardcodedText" />
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
 
         </androidx.cardview.widget.CardView>
 
@@ -168,6 +225,7 @@
             android:orientation="vertical" >
 
             <ImageView
+                android:id="@+id/upArrow"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/wateruparrow"

@@ -76,4 +76,6 @@
     </array>
 
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
+
+    <color name="colorAccent">#FF4081</color>
 </resources>
