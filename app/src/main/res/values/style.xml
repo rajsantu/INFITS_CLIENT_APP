@@ -18,6 +18,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="cancle_button_color">
+        <item name="android:fontFamily">@font/nats_regular</item>
+        <item name="android:textColor">#7D96F8</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="CustomCalendarMonth" parent="AppTheme">
         <item name="android:textColorPrimary">@color/orange</item>
         <item name="fontFamily">@font/baloo2</item>
