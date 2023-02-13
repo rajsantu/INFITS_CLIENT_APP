@@ -45,7 +45,6 @@ public class Login extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     public static int PERMISSION_ALL = 1;
-
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
