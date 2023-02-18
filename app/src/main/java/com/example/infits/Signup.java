@@ -36,7 +36,7 @@ public class Signup extends AppCompatActivity {
     String url = String.format("%sregister_client.php",DataFromDatabase.ipConfig);
     char gender = 'M';
 
-    EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
+    EditText fullName, userName, emailID, password, phoneNo, age, height, weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class Signup extends AppCompatActivity {
             if(!checkIfFieldsAreFilled(userID, passwordStr, emailStr, phoneStr, fullNameStr, ageStr, heightStr, weightStr)) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
             } else {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
                     System.out.println(response);
                     if (response.equals("success")){
                         Toast.makeText(getApplicationContext(), "Registration completed", Toast.LENGTH_SHORT).show();
@@ -104,6 +104,7 @@ public class Signup extends AppCompatActivity {
                         startActivity(id);
                     }
                     else{
+                        System.out.println("Response error "+response);
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 },error -> {
