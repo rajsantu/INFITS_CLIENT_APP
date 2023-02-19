@@ -36,21 +36,52 @@
                 android:layout_marginTop="-60dp"
                 />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:cardCornerRadius="80dp"
                 android:layout_marginTop="13dp">
 
                 <ImageView
+                    android:layout_width="212dp"
+                    android:layout_height="214dp"
+                    android:src="@drawable/profile_bg"
+                    android:scaleType="fitXY"
+                    android:rotation="45"
+                    />
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:src="@drawable/profilepic"
-                    android:id="@+id/dp"
-                    android:scaleType="fitXY"/>
+                    app:cardCornerRadius="80dp"
+                    android:layout_centerInParent="true">
 
-            </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:src="@drawable/profilepic"
+                        android:id="@+id/dp"
+                        android:scaleType="fitXY"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="140dp"-->
+<!--                android:layout_height="140dp"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                app:cardCornerRadius="80dp"-->
+<!--                android:layout_marginTop="13dp">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="140dp"-->
+<!--                    android:layout_height="140dp"-->
+<!--                    android:src="@drawable/profilepic"-->
+<!--                    android:id="@+id/dp"-->
+<!--                    android:scaleType="fitXY"/>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
 <!--            <ImageView-->
 <!--                android:id="@+id/select_dp"-->
 <!--                android:layout_width="40dp"-->
@@ -148,7 +179,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
-                                android:src="@drawable/ic_baseline_man_24"
+                                android:src="@drawable/gender_icon"
                                 />
 
                             <TextView
@@ -730,4 +761,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </FrameLayout>
