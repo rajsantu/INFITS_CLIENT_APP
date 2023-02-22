@@ -30,7 +30,7 @@ public class SettingsFragment extends Fragment {
 
     ImageView profilepic;
 
-    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp,imgbtnKnowDt;
+    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp, imgbtnKnowDt;
 
     TextView tvName;
 
@@ -145,6 +145,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+//        imgbtnAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), Account.class);
+//                startActivity(intent);
+//            }
+//        });
+
         imgbtnNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,9 +167,11 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         imgbtnAbout.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_aboutUsFragment);
         });
+
         imgbtnKnowDt.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_profile2);
         });
