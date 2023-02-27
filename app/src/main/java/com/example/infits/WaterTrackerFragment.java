@@ -53,6 +53,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.sql.Array;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -178,26 +180,52 @@ public class WaterTrackerFragment extends Fragment {
 //        waterGoalPercent.setText(String.valueOf(calculateGoal()));
 
         RecyclerView rc = view.findViewById(R.id.past_activity);
-
+        int noOfDays=10;
         ArrayList<String> dates = new ArrayList<>(); // ArrayList for past Activity
         ArrayList<String> datas = new ArrayList<>(); // ArrayList for past Activity
-
+        ArrayList<String> fetchedDateswater=new ArrayList<>();
+        fetchedDateswater.clear();
         String url = String.format("%spastActivityWaterdt.php", DataFromDatabase.ipConfig);
-
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             try {
                 System.out.println(response);
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("water");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String data = object.getString("water");
-                    String date = object.getString("date");
-                    dates.add(date);
-                    datas.add(data);
-                    System.out.println(datas.get(i));
-                    System.out.println(dates.get(i));
+                Log.d("arraylength",String.valueOf(jsonArray.length()));
+                for (int i=0;i<jsonArray.length();i++){
+                    fetchedDateswater.add(jsonArray.getJSONObject(i).getString("date"));
                 }
+                for (int i=0;i<noOfDays;i++){
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DATE, -i);
+                    Log.d("featched",fetchedDateswater.toString());
+                    Log.d("currentInstance",dateFormat.format(cal.getTime()).toString());
+                    if(fetchedDateswater.contains(dateFormat.format(cal.getTime()).toString())==true){
+                        int index=fetchedDateswater.indexOf(dateFormat.format(cal.getTime()));
+                        Log.d("index",String.valueOf(index));
+                        JSONObject object=jsonArray.getJSONObject(index);
+                        dates.add(dateFormat.format(cal.getTime()));
+                        String data=object.getString("water").toString();
+                        datas.add(data);
+                    }
+                    else {
+                        dates.add(dateFormat.format(cal.getTime()));
+                        datas.add("0");
+                    }
+                }
+
+
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject object = jsonArray.getJSONObject(i);
+//                        String data = object.getString("water");
+//                        String date = object.getString("date");
+//                        dates.add(date);
+//                        datas.add(data);
+//                        System.out.println(datas.get(i));
+//                        System.out.println(dates.get(i));
+//                }
+
                 AdapterForPastActivity ad = new AdapterForPastActivity(getContext(), dates, datas, Color.parseColor("#76A5FF"));
                 rc.setLayoutManager(new LinearLayoutManager(getContext()));
                 rc.setAdapter(ad);
@@ -233,30 +261,30 @@ public class WaterTrackerFragment extends Fragment {
                         waterGoal.setText(goaltxt.getText().toString() + " ml");
                         waterGoalPercent.setText(String.valueOf(calculateGoal()));
                         consumedInDay = 0;
-                            String url = String.format("%swatertrackerdt.php",DataFromDatabase.ipConfig);
-                            StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
-                                consumed.setText(consumedInDay +" ml");
-                                waterGoalPercent.setText(String.valueOf(calculateGoal()));
-                            },error -> {
-                                Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-                            }){
-                                @Nullable
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
-                                    Date date = new Date();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                                    sdf.format(date);
-                                    Map<String, String> data = new HashMap<>();
-                                    data.put("userID", DataFromDatabase.clientuserID);
-                                    data.put("dateandtime", String.valueOf(date));
-                                    data.put("consumed", String.valueOf(consumedInDay));
-                                    data.put("goal", String.valueOf(goal));
-                                    data.put("type", liqType);
-                                    data.put("amount", "0");
-                                    return data;
-                                }
-                            };
-                            Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+                        String url = String.format("%swatertrackerdt.php",DataFromDatabase.ipConfig);
+                        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+                            consumed.setText(consumedInDay +" ml");
+                            waterGoalPercent.setText(String.valueOf(calculateGoal()));
+                        },error -> {
+                            Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                        }){
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Date date = new Date();
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                                sdf.format(date);
+                                Map<String, String> data = new HashMap<>();
+                                data.put("userID", DataFromDatabase.clientuserID);
+                                data.put("dateandtime", String.valueOf(date));
+                                data.put("consumed", String.valueOf(consumedInDay));
+                                data.put("goal", String.valueOf(goal));
+                                data.put("type", liqType);
+                                data.put("amount", "0");
+                                return data;
+                            }
+                        };
+                        Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
 
                         SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
                         boolean waterNotificationPermission = notificationPrefs.getBoolean("waterSwitch", false);
@@ -402,15 +430,15 @@ public class WaterTrackerFragment extends Fragment {
                         lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
                         int durationOfAnimationFromLottie = 6000;
                         int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
-                    lottieAnimationViewWater.playAnimation();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            lottieAnimationViewWater.pauseAnimation();
-                         }
-                        },durationOfWaterAnimation
-                    );
-                    consumed.setText(String.valueOf(consumedInDay));
+                        lottieAnimationViewWater.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                                                      @Override
+                                                      public void run() {
+                                                          lottieAnimationViewWater.pauseAnimation();
+                                                      }
+                                                  },durationOfWaterAnimation
+                        );
+                        consumed.setText(String.valueOf(consumedInDay));
 
                     }, error -> {
                         Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();

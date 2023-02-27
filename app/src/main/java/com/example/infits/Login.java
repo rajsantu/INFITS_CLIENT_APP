@@ -3,12 +3,16 @@ package com.example.infits;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -44,14 +48,22 @@ public class Login extends AppCompatActivity {
     public static final String LOGIN_PREFS = "LoginPrefs";
 
     SharedPreferences sharedPreferences;
-
+    public static int PERMISSION_ALL = 1;
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
 
     String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     RequestQueue queue;
-
+    String[] PERMISSIONS={android.Manifest.permission.BODY_SENSORS,
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.RECORD_AUDIO,
+            android.Manifest.permission.BLUETOOTH_SCAN,
+            android.Manifest.permission.READ_PHONE_STATE,
+            android.Manifest.permission.ACTIVITY_RECOGNITION,
+            Manifest.permission.READ_EXTERNAL_STORAGE};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +74,10 @@ public class Login extends AppCompatActivity {
         loginbtn = (Button) findViewById(R.id.logbtn);
 
         queue = Volley.newRequestQueue(this);
+
+        if (!hasPermissions(this,PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
 
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +229,35 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+    public boolean hasPermissions(Context context, String...  permissions) {
+        if (context!=null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode,
+                permissions,
+                grantResults);
+
+        if (requestCode == PERMISSION_ALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Permission", "permissions GRANTED");
+            }
+            else {
+                Log.d("Permission", "permissions NOT GRANTED");
+            }
+        }
+    }
+
 
     private void putDataInPreferences(SharedPreferences.Editor editor) {
         editor.putBoolean("hasLoggedIn", true);
