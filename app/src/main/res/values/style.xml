@@ -3,7 +3,7 @@
 
     <style name="account_edt_views">
         <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_height">35dp</item>
         <item name="android:background">@drawable/edit_text_background</item>
         <item name="android:fontFamily">@font/nats_regular</item>
         <item name="android:layout_marginTop">2dp</item>
