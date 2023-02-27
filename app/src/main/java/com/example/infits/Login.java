@@ -1,6 +1,11 @@
 package com.example.infits;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +79,11 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        DashBoardFragment fragment = (DashBoardFragment) fragmentManager.findFragmentById(R.id.trackernav);
+
+
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +107,17 @@ public class Login extends AppCompatActivity {
                             try {
                                 JSONArray jsonArray = new JSONArray(response);
                                 JSONObject object = jsonArray.getJSONObject(1);
+                    if(response.equals("failure")){
+                        Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "SatnamVolley: "+ response);
+                        loginbtn.setClickable(true);
+                    }else{
+                        Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
+                        Intent id = new Intent(Login.this, DashBoardMain.class);
+                        Log.d("Response Login",response);
+                        try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject object = jsonArray.getJSONObject(0);
                                 DataFromDatabase.flag=true;
                                 DataFromDatabase.clientuserID  = object.getString("clientuserID");
                                 DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
@@ -151,6 +173,15 @@ public class Login extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+//                            if (fragment != null) {
+//                                fragment.setProfileImage(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile));
+//                            }
+
+
+                                finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                             startActivity(id);
                         }
@@ -166,6 +197,7 @@ public class Login extends AppCompatActivity {
                     
                 }, error -> {
                     Toast.makeText(Login.this,error.toString().trim(),Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "SatnamVolley: "+ error);
                     loginbtn.setClickable(true);
                 }){
                     @Override
@@ -184,6 +216,5 @@ public class Login extends AppCompatActivity {
 
     private void putDataInPreferences(SharedPreferences.Editor editor) {
         editor.putBoolean("hasLoggedIn", true);
-
     }
 }

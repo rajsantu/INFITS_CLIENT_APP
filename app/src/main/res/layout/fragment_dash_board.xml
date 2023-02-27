@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,14 +19,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-
                 <ImageView
                     android:id="@+id/hamburger_menu"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/menu_icon"
                     android:layout_marginTop="20dp"
+                    android:src="@drawable/menu_icon"
                     app:layout_constraintStart_toStartOf="@+id/nameInDash"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,11 +42,11 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/bell_icon_update"
                     android:layout_marginStart="-12dp"
+                    android:src="@drawable/bell_icon_update"
+                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@+id/dashboard_bell"
-                    app:layout_constraintTop_toTopOf="@id/dashboard_bell"
-                    android:visibility="gone"/>
+                    app:layout_constraintTop_toTopOf="@id/dashboard_bell" />
 
                 <TextView
                     android:id="@+id/nameInDash"
@@ -57,11 +54,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/nats_regular"
                     android:lineHeight="0dp"
                     android:text="Michael Simpson"
                     android:textSize="25sp"
-                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="@+id/left"
                     app:layout_constraintTop_toBottomOf="@+id/hamburger_menu" />
 
@@ -71,10 +68,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/nameInDash"
                     android:layout_alignParentStart="true"
+                    android:layout_marginTop="-10dp"
                     android:text="Feb 10, 2022"
                     android:textColor="#6A6A6A"
                     android:textSize="11sp"
-                    android:layout_marginTop="-10dp"
                     app:layout_constraintStart_toStartOf="@+id/nameInDash"
                     app:layout_constraintTop_toBottomOf="@+id/nameInDash" />
 
@@ -91,7 +88,7 @@
                     app:layout_constraintTop_toTopOf="@+id/nameInDash">
 
                     <ImageView
-                        android:id="@+id/profile"
+                        android:id="@+id/profile1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
@@ -103,10 +100,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:orientation="vertical"
-                    app:layout_constraintHorizontal_chainStyle="packed"
                     android:layout_marginEnd="20dp"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toStartOf="@+id/right"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/date">
 
@@ -153,10 +150,10 @@
                             android:layout_height="45dp"
                             android:layout_marginStart="98dp"
                             android:layout_marginTop="47dp"
-                            app:indicatorColor="@color/white"
                             android:progress="75"
+                            app:indicatorColor="@color/white"
                             app:indicatorDirectionCircular="counterclockwise"
-                            app:trackThickness="2dp"/>
+                            app:trackThickness="2dp" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -290,20 +287,21 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardElevation="0dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="15dp"
-                            app:cardCornerRadius="10dp">
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="0dp">
+
                             <TextView
                                 android:layout_width="100dp"
                                 android:layout_height="26dp"
-                                android:text="Coming Soon"
+                                android:background="@drawable/coming_soon"
                                 android:fontFamily="@font/nats_regular"
-                                android:textAlignment="center"
                                 android:paddingVertical="1dp"
+                                android:text="Coming Soon"
+                                android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="11sp"
-                                android:background="@drawable/coming_soon"/>
+                                android:textSize="11sp" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -514,20 +512,21 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardElevation="0dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="15dp"
-                            app:cardCornerRadius="10dp">
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="0dp">
+
                             <TextView
                                 android:layout_width="100dp"
                                 android:layout_height="26dp"
-                                android:text="Coming Soon"
+                                android:background="@drawable/coming_soon"
                                 android:fontFamily="@font/nats_regular"
-                                android:textAlignment="center"
                                 android:paddingVertical="1dp"
+                                android:text="Coming Soon"
+                                android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="11sp"
-                                android:background="@drawable/coming_soon"/>
+                                android:textSize="11sp" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -559,13 +558,10 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/left"/>
-
+                    app:layout_constraintTop_toBottomOf="@+id/left" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
         </LinearLayout>

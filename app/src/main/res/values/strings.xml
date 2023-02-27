@@ -13,6 +13,10 @@ incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud
 exercitation ullamco laboris nisi ut aliquip</string>
     <string name="referral_text">Sign  your  friends  up\nShare  the  app  via:</string>
+    <string name="Lorem_Ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="feature_1">Feature 1</string>
+    <string name="feature_2">Feature 2</string>
+    <string name="feature_3">Feature 3</string>
     <array name="month">
         <item>Jan</item>
         <item>Feb</item>

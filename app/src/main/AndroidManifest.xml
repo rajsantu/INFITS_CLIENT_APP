@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -63,7 +64,19 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Infits">
+        android:theme="@style/Theme.Infits"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".EditProfile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".OnboardingScreen"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".Fitbit"
             android:exported="false">
@@ -110,7 +123,7 @@
             android:name=".SplashScreen"
             android:exported="true"
             android:noHistory="true"
-            android:theme="@style/SplashTheme.Infits">
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -254,7 +267,8 @@
         <activity
             android:name=".HealthConnect"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Infits">
             <meta-data
                 android:name="health_permissions"
                 android:resource="@array/health_permissions"

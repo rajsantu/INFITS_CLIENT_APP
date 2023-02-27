@@ -6,10 +6,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.health.connect.client.HealthConnectClient;
-import androidx.health.connect.client.PermissionController;
-import androidx.health.connect.client.permission.HealthPermission;
-import androidx.health.connect.client.records.HeartRateRecord;
+//import androidx.health.connect.client.HealthConnectClient;
+//import androidx.health.connect.client.PermissionController;
+//import androidx.health.connect.client.permission.HealthPermission;
+//import androidx.health.connect.client.records.HeartRateRecord;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -22,66 +22,67 @@ import kotlin.coroutines.EmptyCoroutineContext;
 
 public class HealthConnect extends AppCompatActivity {
 
-    HealthConnectClient healthConnectClient;
+//    HealthConnectClient healthConnectClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_connect);
 
-        healthConnect();
+//        healthConnect();
     }
 
-    private void healthConnect() {
-        if (HealthConnectClient.isProviderAvailable(this)) {
-            // Health Connect is available and installed.
-            healthConnectClient = HealthConnectClient.getOrCreate(this);
-            checkPermissionsAndRun();
-        } else {
-            Toast.makeText(this, "Health Connect App not installed", Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void healthConnect() {
+//        if (HealthConnectClient.isProviderAvailable(this)) {
+//            // Health Connect is available and installed.
+//            healthConnectClient = HealthConnectClient.getOrCreate(this);
+//            checkPermissionsAndRun();
+//        } else {
+//            Toast.makeText(this, "Health Connect App not installed", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
-    private void readHeartRate(HealthConnectClient healthConnectClient) {
-//        LocalDateTime end = LocalDateTime.now();
-//        LocalDateTime start = end.minusYears(1);
-//        KClass<HeartRateRecord> HeartClass = kotlin.jvm.JvmClassMappingKt.getKotlinClass(HeartRateRecord.class);
+//    private void readHeartRate(HealthConnectClient healthConnectClient) {
+////        LocalDateTime end = LocalDateTime.now();
+////        LocalDateTime start = end.minusYears(1);
+////        KClass<HeartRateRecord> HeartClass = kotlin.jvm.JvmClassMappingKt.getKotlinClass(HeartRateRecord.class);
+//
+//        new Thread(()-> new HealthConnectKt().readStepsByTimeRange(healthConnectClient, new Continuation<Object>() {
+//            @NonNull
+//            @Override
+//            public CoroutineContext getContext() {
+//                return EmptyCoroutineContext.INSTANCE;
+//            }
+//
+//            @Override
+//            public void resumeWith(@NonNull Object o) {
+//                System.out.println("resumeWith()");
+//            }
+//        })).start();
+//    }
 
-        new Thread(()-> new HealthConnectKt().readStepsByTimeRange(healthConnectClient, new Continuation<Object>() {
-            @NonNull
-            @Override
-            public CoroutineContext getContext() {
-                return EmptyCoroutineContext.INSTANCE;
-            }
+//    Set<HealthPermission> PERMISSIONS = setOf(
+//            HealthPermission.createReadPermission(kotlin.jvm.JvmClassMappingKt.getKotlinClass(HeartRateRecord.class))
+//    );
 
-            @Override
-            public void resumeWith(@NonNull Object o) {
-                System.out.println("resumeWith()");
-            }
-        })).start();
-    }
+//    ActivityResultContract<Set<HealthPermission>, Set<HealthPermission>> requestPermissionActivityContract = PermissionController.createRequestPermissionResultContract();
 
-    Set<HealthPermission> PERMISSIONS = setOf(
-            HealthPermission.createReadPermission(kotlin.jvm.JvmClassMappingKt.getKotlinClass(HeartRateRecord.class))
-    );
+//    ActivityResultLauncher<Set<HealthPermission>> requestPermissions = registerForActivityResult(
+//            requestPermissionActivityContract,
+//            result -> {
+//                if (result.containsAll(PERMISSIONS)) {
+//                    Toast.makeText(this, "permissions granted", Toast.LENGTH_LONG).show();
+//                    readHeartRate(healthConnectClient);
+//                } else {
+//                    Toast.makeText(this, "permissions denied", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//    );
 
-    ActivityResultContract<Set<HealthPermission>, Set<HealthPermission>> requestPermissionActivityContract =
-            PermissionController.createRequestPermissionResultContract();
+//    private void checkPermissionsAndRun() {
+//        requestPermissions.launch(PERMISSIONS);
 
-    ActivityResultLauncher<Set<HealthPermission>> requestPermissions = registerForActivityResult(
-            requestPermissionActivityContract,
-            result -> {
-                if (result.containsAll(PERMISSIONS)) {
-                    Toast.makeText(this, "permissions granted", Toast.LENGTH_LONG).show();
-                    readHeartRate(healthConnectClient);
-                } else {
-                    Toast.makeText(this, "permissions denied", Toast.LENGTH_LONG).show();
-                }
-            }
-    );
-
-    private void checkPermissionsAndRun() {
-        requestPermissions.launch(PERMISSIONS);
+    // commented before
 
 //        @SuppressWarnings("unchecked")
 ////        Set<HealthPermission> granted = (Set<HealthPermission>) healthConnectClient.getPermissionController().getGrantedPermissions(PERMISSIONS, null);
@@ -108,5 +109,5 @@ public class HealthConnect extends AppCompatActivity {
 //                requestPermissions.launch(PERMISSIONS);
 //            }
 //        }
-    }
+//  }
 }
