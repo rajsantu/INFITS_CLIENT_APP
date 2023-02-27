@@ -22,15 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataFromDatabase {
-//    public static String ipConfig = "http://192.168.56.91/infits/";
-//    public static String ipConfig = "http://192.168.101.3/infits/"; // Home
-    public static String ipConfig = "http://192.168.1.102/infits/"; // Suraj Savji
-
-//    public static String ipConfig = "http://192.168.251.161/infits/"; // AB
-//    public static String ipConfig = "http://192.168.161.161/infits/"; // Yaman
+    public static String ipConfig = "http://192.168.1.11/infits/";
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
-    public static String dietitianuserID,clientuserID="Azarudeen",password,name,email,mobile,location,age,gender,weight,height;
+    public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,height;
     public static Bitmap profile;
     public static Bitmap dtPhoto;
     public static String profilePhotoBase;

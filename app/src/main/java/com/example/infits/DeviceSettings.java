@@ -96,6 +96,7 @@ public class DeviceSettings extends AppCompatActivity {
                 }
             }
         });
+
         scan_for_device.setOnClickListener(v -> {
             connect_div.setVisibility(View.GONE);
             number_of_devices.setVisibility(View.VISIBLE);
@@ -127,7 +128,6 @@ public class DeviceSettings extends AppCompatActivity {
     }
 
     void scanDiv() {
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
