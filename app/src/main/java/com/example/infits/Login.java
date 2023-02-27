@@ -48,6 +48,7 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
+
     String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     RequestQueue queue;
 
@@ -94,6 +95,18 @@ public class Login extends AppCompatActivity {
                 loginbtn.setClickable(false);
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    try {
+                        JSONArray json_response=new JSONArray(response);
+                        JSONObject json_status= (JSONObject) json_response.get(0);
+                        if(json_status.getString("Status").equals("Success"))
+                        {
+                           // System.out.println("Checked");
+                            Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
+                            Intent id = new Intent(Login.this, DashBoardMain.class);
+                            Log.d("Response Login",response);
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject object = jsonArray.getJSONObject(1);
                     if(response.equals("failure")){
                         Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "SatnamVolley: "+ response);
@@ -156,6 +169,10 @@ public class Login extends AppCompatActivity {
                                 editor.putBoolean("proUser",DataFromDatabase.proUser);
                                 editor.apply();
 
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 //                            if (fragment != null) {
 //                                fragment.setProfileImage(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile));
 //                            }
@@ -166,8 +183,18 @@ public class Login extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        startActivity(id);
+                            startActivity(id);
+                        }
+                        else
+                        {
+                            Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
+                            loginbtn.setClickable(true);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+
+                    
                 }, error -> {
                     Toast.makeText(Login.this,error.toString().trim(),Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "SatnamVolley: "+ error);
