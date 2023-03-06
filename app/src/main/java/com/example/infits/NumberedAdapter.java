@@ -13,11 +13,11 @@ import java.util.List;
 public class NumberedAdapter extends RecyclerView.Adapter<NumberedAdapter.ViewHolder>{
 
     private List<String> mData;
-    private boolean mIsHours;
+    private int mInterval;
 
-    public NumberedAdapter(List<String> data, boolean isHours) {
+    public NumberedAdapter(List<String> data, int interval) {
         mData = data;
-        mIsHours = isHours;
+        mInterval = interval;
     }
 
     @NonNull
@@ -30,16 +30,14 @@ public class NumberedAdapter extends RecyclerView.Adapter<NumberedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (mIsHours) {
-            holder.bind(String.valueOf(position + 1));
-        } else {
-            holder.bind(String.valueOf(position));
-        }
+        int positionInList = position % mData.size();
+        int minutesValue = positionInList * mInterval;
+        holder.bind(String.valueOf(minutesValue));
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return Integer.MAX_VALUE;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

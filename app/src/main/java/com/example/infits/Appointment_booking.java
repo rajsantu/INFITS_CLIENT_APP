@@ -3,9 +3,12 @@ package com.example.infits;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -59,7 +63,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
     private RecyclerView recyclerView;
     private List<Date> dateList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +71,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         customSpinner = findViewById(R.id.customIconSpinner);
         customList = getCustomList();
         CustomeAdapterSpinner adapter = new CustomeAdapterSpinner(this, customList);
-        if (customSpinner != null){
+        if (customSpinner != null) {
             customSpinner.setAdapter(adapter);
             customSpinner.setOnItemSelectedListener(this);
         }
@@ -160,7 +163,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             }
         };
 
-// Set appointmentTime OnClickListener to nowBtn and anyTimeBtn FrameLayouts
+        // Set appointmentTime OnClickListener to nowBtn and anyTimeBtn FrameLayouts
         findViewById(R.id.nowBtn).setOnClickListener(appointmentTime);
         findViewById(R.id.anyTimeBtn).setOnClickListener(appointmentTime);
 
@@ -174,10 +177,9 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                 startActivityForResult(intent, PICKFILE_RESULT_CODE);
             }
         });
-
     }
 
-
+    // Upload attachment
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,36 +187,130 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
             String filename = getFileName(uri);
+            ContentResolver contentResolver = getContentResolver(); // Get a reference to the ContentResolver
+
+// Get the MIME type of the file from the Uri
+            String fileType = contentResolver.getType(uri);
+//            Typeface nats = Typeface.createFromAsset(getAssets(), "font/nats_regular.ttf");
+            Typeface nats = ResourcesCompat.getFont(this, R.font.nats_regular);
+
+            String fileDispName;
+            //triming extension
+            if(filename.length() > 32)
+                fileDispName  = filename.substring(0,32)+"...";
+            else
+                fileDispName = filename.substring(0,filename.indexOf('.'));
+
+//            Toast.makeText(this, filename, Toast.LENGTH_SHORT).show();
 
             // Create a new RelativeLayout for the uploaded file
             RelativeLayout fileLayout = new RelativeLayout(this);
             fileLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            fileLayout.setId(View.generateViewId());
+
+            RelativeLayout.LayoutParams iconParam = new RelativeLayout.LayoutParams(
+//                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                    40,100
+            );
+
+            RelativeLayout.LayoutParams deleteParam = new RelativeLayout.LayoutParams(27,100);
+
+            RelativeLayout.LayoutParams shareParam = new RelativeLayout.LayoutParams(27,100);
+
+            RelativeLayout.LayoutParams nameParam = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            RelativeLayout.LayoutParams dateParam = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
+
+
+            iconParam.addRule(RelativeLayout.CENTER_VERTICAL);
 
             // Create a new ImageView for the file type icon
             ImageView fileTypeIcon = new ImageView(this);
-            fileTypeIcon.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+//            fileTypeIcon.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
             fileTypeIcon.setImageResource(getFileTypeIcon(filename));
             fileTypeIcon.setId(View.generateViewId());
+            fileTypeIcon.setLayoutParams(iconParam);
             fileLayout.addView(fileTypeIcon);
+
+            nameParam.addRule(RelativeLayout.RIGHT_OF, fileTypeIcon.getId());
+            nameParam.setMargins(25, -20, 0, 0);
 
             // Create a new TextView for the file name
             TextView fileNameView = new TextView(this);
-            fileNameView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-            fileNameView.setText(filename);
+//            fileNameView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+//            fileNameView.setText(filename);
+            fileNameView.setTypeface(nats);
+            fileNameView.setText(fileDispName);
             fileNameView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
             fileNameView.setTextColor(Color.parseColor("#000000"));
-            fileNameView.setPadding(25, 0, 0, 0);
+//            fileNameView.setPadding(25, 0, 0, 0);
+            fileNameView.setLayoutParams(nameParam);
             fileNameView.setId(View.generateViewId());
             fileLayout.addView(fileNameView);
 
+            dateParam.addRule(RelativeLayout.BELOW, fileNameView.getId());
+            dateParam.addRule(RelativeLayout.RIGHT_OF, fileTypeIcon.getId());
+            dateParam.setMargins(25, -50, 0, 0); // left, top, right, bottom
+
+
             // Create a new TextView for the file date
             TextView fileDateView = new TextView(this);
-            fileDateView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+//            fileDateView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
             fileDateView.setText(getCurrentDate());
+            fileDateView.setTypeface(nats);
             fileDateView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             fileDateView.setTextColor(Color.parseColor("#8D8D8D"));
-            fileDateView.setPadding(25, 12, 0, 0);
+            fileDateView.setLayoutParams(dateParam);
+//            fileDateView.setPadding(25, 12, 0, 0);
             fileLayout.addView(fileDateView);
+
+
+            deleteParam.addRule(RelativeLayout.CENTER_VERTICAL);
+            deleteParam.addRule(RelativeLayout.ALIGN_PARENT_END);
+            deleteParam.setMargins(0, 0, 20, 0);
+
+            //imageview for delete
+            ImageView deleteIcon = new ImageView(this);
+            deleteIcon.setId(View.generateViewId());
+            deleteIcon.setImageResource(R.drawable.delete_icon);
+            deleteIcon.setLayoutParams(deleteParam);
+            fileLayout.addView(deleteIcon);
+
+            shareParam.addRule(RelativeLayout.CENTER_VERTICAL);
+            shareParam.addRule(RelativeLayout.LEFT_OF,deleteIcon.getId());
+            shareParam.setMargins(0, 0, 20, 0);
+
+            //imageview for share
+
+            ImageView shareIcon = new ImageView(this);
+            shareIcon.setImageResource(R.drawable.share_icon);
+            shareIcon.setLayoutParams(shareParam);
+            fileLayout.addView(shareIcon);
+
+            shareIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(Appointment_booking.this, "Share Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                    // Set the data and MIME type of the file to be opened
+                    intent.setDataAndType(uri, fileType);
+
+                    // Add the FLAG_GRANT_READ_URI_PERMISSION flag to the intent
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    // Start the activity with the intent
+                    startActivity(intent);
+                }
+            });
+
 
             // Add the new RelativeLayout to the parent LinearLayout or RecyclerView
             // For example, if you have a LinearLayout with id "file_list":
@@ -224,7 +320,21 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             } else {
                 // Handle the case where fileList or fileLayout is null
             }
+
+            //delete button functionality
+
+            deleteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(Appointment_booking.this, "Deleted " + filename, Toast.LENGTH_SHORT).show();
+                    fileList.removeView(findViewById(fileLayout.getId()));
+                }
+            });
         }
+    }
+
+    private String setFileType(String ans){
+        return ans;
     }
 
     private String getFileName(Uri uri) {
@@ -253,7 +363,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
     // Helper method to get the current date in a specific format
     private String getCurrentDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM,yyyy", Locale.getDefault());
         return sdf.format(new Date());
     }
 
@@ -286,7 +396,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         return extension.toLowerCase();
     }
 
-
     private ArrayList<CustomItem> getCustomList() {
         customList = new ArrayList<>();
 
@@ -298,14 +407,15 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         return customList;
     }
 
-        @Override
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         CustomItem item = (CustomItem) parent.getSelectedItem();
 //        Toast.makeText(this, item.getSpinnerItem(), Toast.LENGTH_SHORT).show();
-     }
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

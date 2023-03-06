@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,17 @@ import java.util.Locale;
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder>{
 
     private List<Date> dates;
+    private Date selectedDate;
+
+    OnDateSelectedListener listener;
 
     public CalendarAdapter(List<Date> dates) {
         this.dates = dates;
+    }
+
+    public CalendarAdapter(Context context, List<Date> dates, OnDateSelectedListener listener) {
+        // ...
+        this.listener = listener;
     }
 
     @NonNull
@@ -43,7 +52,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
         // Check if the current date being bound is today's date
         Calendar today = Calendar.getInstance();
-        if (calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+        if (selectedDate != null && selectedDate.equals(date)) {
+            holder.itemView.setBackgroundResource(R.drawable.rounded_background);
+            holder.dayOfWeek.setTextColor(Color.WHITE);
+            holder.dateOfMonth.setTextColor(Color.WHITE);
+            holder.monthName.setTextColor(Color.WHITE);
+        } else if (selectedDate == null && calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR)
                 && calendar.get(Calendar.MONTH) == today.get(Calendar.MONTH)
                 && calendar.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
             holder.itemView.setBackgroundResource(R.drawable.rounded_background);
@@ -63,7 +77,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         return dates.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView dayOfWeek;
         TextView dateOfMonth;
@@ -74,6 +88,30 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             dayOfWeek = itemView.findViewById(R.id.day_of_week);
             dateOfMonth = itemView.findViewById(R.id.date_of_month);
             monthName = itemView.findViewById(R.id.month_name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedDate = dates.get(getAdapterPosition());
+                    notifyDataSetChanged();
+                }
+            });
         }
+    }
+
+    public String getSelectedDate() {
+        if (selectedDate == null) {
+            selectedDate = Calendar.getInstance().getTime();
+        }
+        // Format the selected date as a string in the desired format
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault());
+        String formattedDate = formatter.format(selectedDate);
+
+        return formattedDate;
+    }
+
+
+    public interface OnDateSelectedListener {
+        void onDateSelected(Date date);
     }
 }

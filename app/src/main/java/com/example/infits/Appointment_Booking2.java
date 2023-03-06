@@ -1,7 +1,12 @@
 package com.example.infits;
 
+import static android.content.ContentValues.TAG;
+import static java.security.AccessController.getContext;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +14,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
@@ -16,25 +22,43 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Appointment_Booking2 extends AppCompatActivity {
 
     FrameLayout confirmBtn;
     Dialog confirmDialog, customDialog;
     ImageView imgBack;
+
+    CalendarAdapter adapter;
+
+    private SwitchCompat phoneRadioButton, videoRadioButton, inpersonRadioButton;
+
+    private List<String> timingList = new ArrayList<>();
+
+    private TextView selectedDateValue;
+
+    Date endOfMonth;
 
     FrameLayout customBtnMorningSlot, customBtnEveningSlot;
 
@@ -45,6 +69,9 @@ public class Appointment_Booking2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_booking2);
+
+        timingList.add("PM");
+        timingList.add("AM");
 
         imgBack = findViewById(R.id.imgBackAppointment);
         confirmBtn = findViewById(R.id.confirm_btn);
@@ -59,6 +86,44 @@ public class Appointment_Booking2 extends AppCompatActivity {
             }
         });
 
+        phoneRadioButton = findViewById(R.id.phone_radio_button);
+        videoRadioButton = findViewById(R.id.video_radio_button);
+        inpersonRadioButton = findViewById(R.id.inperson_radio_button);
+
+        phoneRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Turn off other switches
+                    videoRadioButton.setChecked(false);
+                    inpersonRadioButton.setChecked(false);
+                }
+            }
+        });
+
+        videoRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Turn off other switches
+                    phoneRadioButton.setChecked(false);
+                    inpersonRadioButton.setChecked(false);
+                }
+            }
+        });
+
+        inpersonRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Turn off other switches
+                    phoneRadioButton.setChecked(false);
+                    videoRadioButton.setChecked(false);
+                }
+            }
+        });
+
+
         View.OnClickListener dayClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +135,6 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 dayText.setTextColor(ContextCompat.getColor(getApplicationContext(), isSelected ? R.color.black : R.color.white));
                 TextView dateText = (TextView) dayLayout.getChildAt(1);
                 dateText.setTextColor(ContextCompat.getColor(getApplicationContext(), isSelected ? R.color.black : R.color.white));
-
             }
         };
 
@@ -341,6 +405,8 @@ public class Appointment_Booking2 extends AppCompatActivity {
             }
         });
 
+
+        // Dates rcyclerView
         Date today = new Date();
         dateList = new ArrayList<>();
 
@@ -348,17 +414,15 @@ public class Appointment_Booking2 extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
         dateList.add(today);
-        for (int i = 0; i < 100; i++) {
+
+        for (int i = 0; i < 500; i++) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
             dateList.add(calendar.getTime());
         }
 
         recyclerView = findViewById(R.id.date_recyclerView);
 
-        // Create and set adapter to the recyclerview
-
-
-        CalendarAdapter adapter = new CalendarAdapter(dateList);
+        adapter = new CalendarAdapter(dateList);
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -366,8 +430,6 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-
-
 
 
         // Custom Time section
@@ -382,34 +444,82 @@ public class Appointment_Booking2 extends AppCompatActivity {
             }
         });
 
+        customBtnEveningSlot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customTimeDialog();
+            }
+        });
+
+        RadioGroup radioGroup = findViewById(R.id.radio_group);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    RadioButton button = (RadioButton) group.getChildAt(i);
+                    if (button.getId() == checkedId) {
+                        // Enable the clicked RadioButton and set opacity to 100%
+                        button.setEnabled(true);
+                        button.setAlpha(1f);
+                    } else {
+                        // Disable the other RadioButtons and set opacity to 50%
+                        button.setEnabled(false);
+                        button.setAlpha(0.5f);
+                    }
+                }
+            }
+        });
     }
 
     private void customTimeDialog(){
+        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+
         customDialog.setContentView(R.layout.custom_time_for_booking_appointment);
         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         CardView confirmCard = customDialog.findViewById(R.id.custom_time);
         customDialog.show();
 
-        RecyclerView hoursRV = customDialog.findViewById(R.id.hours_recycler_view);
+        ImageView closeBtn = customDialog.findViewById(R.id.close_time_for_booking);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+            }
+        });
 
+        // Set selected date in TextView
+        TextView selectedDateValue = customDialog.findViewById(R.id.date_year_custom_appointment);
+        selectedDateValue.setText(adapter.getSelectedDate());
+
+        // Hours
+        RecyclerView hoursRV = customDialog.findViewById(R.id.hours_recycler_view);
         List<String> hoursData = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            hoursData.add(String.valueOf(i));
+            String formattedNumber = String.format("%02d", i);
+            hoursData.add(formattedNumber);
         }
         hoursRV.setLayoutManager(new CenteredLinearLayoutManager(this));
-        NumberedAdapter hoursAdapter = new NumberedAdapter(hoursData, true);
+        NumberedAdapter hoursAdapter = new NumberedAdapter(hoursData, 1);
         hoursRV.setAdapter(hoursAdapter);
-//        hoursRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        hoursRV.setRecycledViewPool(recycledViewPool);
 
+        // Minutes
         RecyclerView minutesRV = customDialog.findViewById(R.id.min_recycler_view);
         List<String> minutesData = new ArrayList<>();
-        for (int i = 1; i <= 60; i++) {
-            minutesData.add(String.valueOf(i));
+        for (int i = 0; i < 60; i+=5) {
+            String formattedNumber = String.format("%02d", i);
+            minutesData.add(formattedNumber);
         }
-        NumberedAdapter minutesAdapter = new NumberedAdapter(minutesData, false);
-        minutesRV.setAdapter(minutesAdapter);
+        NumberedAdapter minutesAdapter = new NumberedAdapter(minutesData, 5); // Set the interval to 5
         minutesRV.setLayoutManager(new CenteredLinearLayoutManager(this));
-        minutesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        minutesRV.setAdapter(minutesAdapter);
+//        minutesRV.setRecycledViewPool(recycledViewPool);
+
+        // AM or PM
+        RecyclerView timingRecyclerView = customDialog.findViewById(R.id.timing_recycler_view);
+        timingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        timingRecyclerView.setAdapter(new TimingAdapter(timingList));
     }
 
     private void showConfirmDialog() {

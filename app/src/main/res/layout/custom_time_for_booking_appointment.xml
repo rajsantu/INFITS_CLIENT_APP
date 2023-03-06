@@ -104,19 +104,23 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="5dp"
+                android:layout_width="7dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="52dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="5dp"
+                <TextView
+                    android:layout_width="7dp"
                     android:layout_height="38dp"
-                    android:src="@drawable/time_3_dots" />
+                    android:text=":"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="24sp"
+                    android:textColor="#004EAD"
+                     />
 
             </LinearLayout>
 
@@ -174,6 +178,7 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="52dp"
+                android:layout_marginLeft="5dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -188,16 +193,12 @@
                     android:layout_height="33dp"
                     android:background="@drawable/rounded_background_grey_for_time">
 
-                    <TextView
-                        android:id="@+id/am_or_pm_textView"
-                        android:layout_width="55dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="-12dp"
-                        android:fontFamily="@font/nats_regular"
-                        android:gravity="center|top"
-                        android:text="AM"
-                        android:textColor="@color/black"
-                        android:textSize="26sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/timing_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        />
 
                 </FrameLayout>
 

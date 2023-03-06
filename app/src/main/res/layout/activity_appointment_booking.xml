@@ -99,8 +99,10 @@
                     android:gravity="center_horizontal"
                     android:background="@drawable/rectangle_2"
                     android:elevation="4dp"
-                    android:spinnerMode="dropdown" >
-             </Spinner>
+                    android:popupBackground="@drawable/rectangle_2"
+                    android:spinnerMode="dropdown"
+                    >
+                </Spinner>
 
                 <!--                    <TextView-->
                 <!--                        android:layout_width="wrap_content"-->
@@ -304,7 +306,7 @@
 
         <!-- Attachment -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
@@ -356,65 +358,73 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/attachment_relative_layout"
+            <LinearLayout
+                android:id="@+id/file_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="37dp"
-                android:layout_marginRight="37dp">
+                android:layout_marginRight="37dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/file_icon"
-                    android:layout_width="16dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/pdf" />
+                <!--                <RelativeLayout-->
+                <!--                    android:id="@+id/attachment_relative_layout"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-                <TextView
-                    android:id="@+id/file_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="-8dp"
-                    android:fontFamily="@font/nats_regular"
-                    android:text="Thyroid Report"
-                    android:textColor="#000000"
-                    android:textSize="19sp" />
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/file_icon"-->
+                <!--                        android:layout_width="16dp"-->
+                <!--                        android:layout_height="20dp"-->
+                <!--                        android:layout_marginTop="8dp"-->
+                <!--                        android:src="@drawable/pdf" />-->
 
-                <TextView
-                    android:id="@+id/file_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/nats_regular"
-                    android:text="11 Aug, 2022"
-                    android:textColor="#8D8D8D"
-                    android:textSize="15sp" />
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/file_name"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="25dp"-->
+                <!--                        android:layout_marginTop="-8dp"-->
+                <!--                        android:fontFamily="@font/nats_regular"-->
+                <!--                        android:text="Thyroid Report"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="19sp" />-->
 
-                <ImageView
-                    android:id="@+id/share_icon"
-                    android:layout_width="10dp"
-                    android:layout_height="13dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="26dp"
-                    android:contentDescription="three dots"
-                    android:src="@drawable/share_icon" />
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/file_date"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="25dp"-->
+                <!--                        android:layout_marginTop="12dp"-->
+                <!--                        android:fontFamily="@font/nats_regular"-->
+                <!--                        android:text="11 Aug, 2022"-->
+                <!--                        android:textColor="#8D8D8D"-->
+                <!--                        android:textSize="15sp" />-->
 
-                <ImageView
-                    android:id="@+id/delete_icon"
-                    android:layout_width="10dp"
-                    android:layout_height="13dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="three dots"
-                    android:src="@drawable/delete_icon" />
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/share_icon"-->
+                <!--                        android:layout_width="10dp"-->
+                <!--                        android:layout_height="13dp"-->
+                <!--                        android:layout_alignParentTop="true"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:layout_marginTop="15dp"-->
+                <!--                        android:layout_marginEnd="26dp"-->
+                <!--                        android:contentDescription="three dots"-->
+                <!--                        android:src="@drawable/share_icon" />-->
 
-            </RelativeLayout>
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/delete_icon"-->
+                <!--                        android:layout_width="10dp"-->
+                <!--                        android:layout_height="13dp"-->
+                <!--                        android:layout_alignParentTop="true"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:layout_marginTop="15dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:contentDescription="three dots"-->
+                <!--                        android:src="@drawable/delete_icon" />-->
+
+                <!--                </RelativeLayout>-->
+
+            </LinearLayout>
 
         </LinearLayout>
 

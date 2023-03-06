@@ -455,119 +455,126 @@
                 android:lineSpacingExtra="-40dp"
                 />
 
-            <!-- Phone with toggle button -->
-            <LinearLayout
+            <!-- RadioGroup -->
+            <RadioGroup
+                android:id="@+id/radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                >
-                
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/phone_icon_appointment"
-                    android:layout_marginRight="15dp"
-                    />
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="100dp"
+                <!-- Phone with toggle button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone"
-                    android:fontFamily="@font/nats_regular"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    />
+                    android:gravity="center"
+                    >
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/phone_icon_appointment"
+                        android:layout_marginRight="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/phone_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:textSize="24sp"
+                        android:thumb="@drawable/switch_thumb"
+                        app:track="@drawable/track_for_appointment"
+                        android:checked="true"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <!-- Video with toggle button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="130dp"
-                    android:textSize="24sp"
-                    android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/track_for_appointment"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    />
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/video_icon_appointment"
+                        />
 
-            <!-- Video with toggle button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                >
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Video Call"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="15dp"
+                        />
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/video_icon_appointment"
-                    />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/video_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:textSize="24sp"
+                        android:thumb="@drawable/switch_thumb"
+                        app:track="@drawable/track_for_appointment"
+                        android:checked="false"
+                        android:layout_gravity="center"
+                        />
 
-                <TextView
-                    android:layout_width="100dp"
+                </LinearLayout>
+
+                <!-- In Person with toggle button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Video Call"
-                    android:fontFamily="@font/nats_regular"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="15dp"
-                    />
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="130dp"
-                    android:textSize="24sp"
-                    android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/track_for_appointment"
-                    android:checked="false"
-                    android:layout_gravity="center"
-                    />
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/inperson_icon_appointment"
+                        />
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="In Person"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="15dp"
+                        />
 
-            <!-- In Person with toggle button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                >
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/inperson_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:textSize="24sp"
+                        android:thumb="@drawable/switch_thumb"
+                        app:track="@drawable/track_for_appointment"
+                        android:checked="false"
+                        android:layout_gravity="center"
+                        />
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/inperson_icon_appointment"
-                    />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="In Person"
-                    android:fontFamily="@font/nats_regular"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="15dp"
-                    />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="130dp"
-                    android:textSize="24sp"
-                    android:thumb="@drawable/switch_thumb"
-                    app:track="@drawable/track_for_appointment"
-                    android:checked="false"
-                    android:layout_gravity="center"
-                    />
-
-            </LinearLayout>
+            </RadioGroup>
 
         </LinearLayout>
 
