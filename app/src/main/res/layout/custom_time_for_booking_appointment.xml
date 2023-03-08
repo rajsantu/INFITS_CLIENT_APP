@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/custom_time"
-    android:layout_width="324dp"
-    android:layout_height="232dp"
+    android:layout_width="286dp"
+    android:layout_height="252dp"
     android:layout_margin="10dp"
     android:background="@color/white"
     android:gravity="center"
@@ -12,19 +12,19 @@
     app:cardElevation="5dp">
 
     <LinearLayout
-        android:layout_width="324dp"
-        android:layout_height="232dp"
+        android:layout_width="286dp"
+        android:layout_height="252dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/close_time_for_booking"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginTop="22dp"
-            android:src="@drawable/close_custom_time" />
+<!--        <ImageView-->
+<!--            android:id="@+id/close_time_for_booking"-->
+<!--            android:layout_width="13dp"-->
+<!--            android:layout_height="13dp"-->
+<!--            android:layout_marginStart="136dp"-->
+<!--            android:layout_marginTop="22dp"-->
+<!--            android:src="@drawable/close_custom_time" />-->
 
         <TextView
             android:id="@+id/date_year_custom_appointment"
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
             android:text="Tuesday, March 4, 2023"
+            android:layout_marginTop="18dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="23sp" />
@@ -42,7 +43,7 @@
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp"
             android:fontFamily="@font/nats_regular"
-            android:lineSpacingExtra="-20dp"
+            android:layout_marginTop="-10dp"
             android:text="Select a custom time"
             android:textAlignment="center"
             android:textColor="#C4C4C4"
@@ -51,7 +52,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
+            android:layout_marginTop="-15dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -101,6 +102,7 @@
                     android:layout_height="7dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/bottom_arrow_for_time" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -209,6 +211,48 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/bottom_arrow_for_time" />
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
+            android:layout_marginBottom="23dp">
+
+            <FrameLayout
+                android:id="@+id/custom_time_cancel_btn"
+                android:layout_width="98dp"
+                android:layout_height="36dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_background_appointment_white_btn">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:text="Cancel"
+                    android:textColor="#4B9AFB"
+                    android:textSize="18sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/custom_time_confirm_btn"
+                android:layout_width="98dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_background_appointment_btn">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:text="Confirm"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </FrameLayout>
 
         </LinearLayout>
 

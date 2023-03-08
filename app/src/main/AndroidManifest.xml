@@ -67,6 +67,20 @@
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Appointment_Booking2_Now_Warning"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Appointment_Booking2_Now"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Appointment_Booking2"
             android:exported="false">
             <meta-data
@@ -81,6 +95,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -142,9 +157,7 @@
             android:name=".SplashScreen"
             android:exported="true"
             android:noHistory="true"
-            android:theme="@style/SplashScreenTheme">
-
-        </activity>
+            android:theme="@style/SplashScreenTheme" />
         <activity
             android:name=".MealTracker"
             android:exported="false" />

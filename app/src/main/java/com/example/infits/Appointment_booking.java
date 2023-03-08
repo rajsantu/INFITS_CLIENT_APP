@@ -52,7 +52,10 @@ import java.util.List;
 
 public class Appointment_booking extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    FrameLayout nextBtn;
+    DataFromDatabase dataFromDatabase;
+//    String url = String.format("%appointment.php",DataFromDatabase.ipConfig);
+
+    FrameLayout nextBtn, nowBtn, anyTimeBtn;
     private List<FrameLayout> frameLayoutList;
 
     Spinner customSpinner;
@@ -86,6 +89,10 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
         nextBtn = findViewById(R.id.nextbtn);
 
+
+        nowBtn = findViewById(R.id.nowBtn);
+        anyTimeBtn = findViewById(R.id.anyTimeBtn);
+
 //        Spinner spinner = findViewById(R.id.spinner);
 //        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_options, android.R.layout.simple_spinner_item);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -94,7 +101,19 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Appointment_Booking2.class));
+                boolean isNowButtonSelected = nowBtn.isSelected();
+                boolean isAnytimeButtonSelected = anyTimeBtn.isSelected();
+
+                if (isNowButtonSelected) {
+                    Intent intent = new Intent(getApplicationContext(), Appointment_Booking2_Now.class);
+                    startActivity(intent);
+                } else if (isAnytimeButtonSelected) {
+                    Intent intent = new Intent(getApplicationContext(), Appointment_Booking2.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(Appointment_booking.this, "Please select the appointment type", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -160,13 +179,14 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                 if (dateText != null) {
                     dateText.setTextColor(ContextCompat.getColor(getApplicationContext(), dayLayout.isSelected() ? R.color.white : R.color.skyBlue));
                 }
+
+                // Launch the appropriate activity based on the button selection
             }
         };
 
         // Set appointmentTime OnClickListener to nowBtn and anyTimeBtn FrameLayouts
         findViewById(R.id.nowBtn).setOnClickListener(appointmentTime);
         findViewById(R.id.anyTimeBtn).setOnClickListener(appointmentTime);
-
 
         findViewById(R.id.upload_btn).setOnClickListener(new View.OnClickListener() {
             @Override

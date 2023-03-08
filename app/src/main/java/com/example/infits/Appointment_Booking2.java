@@ -60,6 +60,10 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
     Date endOfMonth;
 
+    private String selectedHours = "";
+    private String selectedMinutes = "";
+    private String selectedAmPm = "";
+
     FrameLayout customBtnMorningSlot, customBtnEveningSlot;
 
     private RecyclerView recyclerView;
@@ -473,20 +477,12 @@ public class Appointment_Booking2 extends AppCompatActivity {
     }
 
     private void customTimeDialog(){
-        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+//        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
 
         customDialog.setContentView(R.layout.custom_time_for_booking_appointment);
         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         CardView confirmCard = customDialog.findViewById(R.id.custom_time);
         customDialog.show();
-
-        ImageView closeBtn = customDialog.findViewById(R.id.close_time_for_booking);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                customDialog.dismiss();
-            }
-        });
 
         // Set selected date in TextView
         TextView selectedDateValue = customDialog.findViewById(R.id.date_year_custom_appointment);
@@ -520,6 +516,39 @@ public class Appointment_Booking2 extends AppCompatActivity {
         RecyclerView timingRecyclerView = customDialog.findViewById(R.id.timing_recycler_view);
         timingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         timingRecyclerView.setAdapter(new TimingAdapter(timingList));
+
+        // Confirm and Cancel Button
+        FrameLayout closeBtn = customDialog.findViewById(R.id.custom_time_cancel_btn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+            }
+        });
+
+        FrameLayout confirmBtn = customDialog.findViewById(R.id.custom_time_confirm_btn);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                // Get selected hours and minutes
+//                String selectedHours = hoursAdapter.getSelectedNumber();
+//                String selectedMinutes = minutesAdapter.getSelectedNumber();
+//
+//                // Get selected AM or PM
+//                int selectedTimingPosition = ((LinearLayoutManager) timingRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+//                String selectedTiming = timingList.get(selectedTimingPosition);
+//
+//                // Combine the selected values into a time string
+//                String selectedTime = selectedHours + ":" + selectedMinutes + " " + selectedTiming;
+//
+//                // Do something with the selected time, e.g. show in a TextView or pass to another function
+//                Log.d("Selected Time", selectedTime);
+//
+//                // Dismiss the dialog
+//                customDialog.dismiss();
+            }
+        });
     }
 
     private void showConfirmDialog() {

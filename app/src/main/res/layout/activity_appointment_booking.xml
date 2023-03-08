@@ -73,7 +73,6 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp">
-
                 <!--                    <Spinner-->
                 <!--                        android:id="@+id/customIconSpinner"-->
                 <!--                        android:layout_width="wrap_content"-->
@@ -123,7 +122,6 @@
                 <!--                        android:layout_centerVertical="true"-->
                 <!--                        android:layout_marginEnd="23dp"-->
                 <!--                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />-->
-
             </RelativeLayout>
 
         </LinearLayout>
@@ -240,7 +238,7 @@
 
                 <FrameLayout
                     android:id="@+id/anyTimeBtn"
-                    android:layout_width="95dp"
+                    android:layout_width="127dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="110dp"
                     android:background="@drawable/selector_rounded_background_btn"
@@ -252,7 +250,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/nats_regular"
                         android:gravity="center"
-                        android:text="Anytime"
+                        android:text="Select Custom"
                         android:textColor="#4B9AFB"
                         android:textSize="16sp" />
 
