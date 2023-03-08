@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/appointment_booking_background"
+    tools:context=".Appointment_booking">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:src="@mipmap/backarrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="-60dp"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-40dp"
+                android:text="PROFILE\nAPPOINTMENTS"
+                android:textColor="@color/black"
+                android:textSize="38sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-40dp"
+                android:text="Step 1/2"
+                android:textColor="#4B9AFB"
+                android:textSize="19sp" />
+
+        </LinearLayout>
+
+        <!-- Event name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="-10dp"
+                android:fontFamily="@font/nats_regular"
+                android:lineSpacingExtra="-40dp"
+                android:text="Event Name"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+                <!--                    <Spinner-->
+                <!--                        android:id="@+id/customIconSpinner"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_margin="10dp"-->
+                <!--                        android:background="@drawable/rectangle_2"-->
+                <!--                        android:dropDownHorizontalOffset="-16dp"-->
+                <!--                        android:dropDownVerticalOffset="45dp"-->
+                <!--                        android:elevation="8dp"-->
+                <!--                        android:layout_marginStart="7dp"-->
+                <!--                        android:layout_marginEnd="7dp"-->
+                <!--                        android:paddingStart="16dp"-->
+                <!--                        android:paddingEnd="16dp"-->
+                <!--                        android:spinnerMode="dropdown"-->
+                <!--                        />-->
+
+                <Spinner
+                    android:id="@+id/customIconSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/rectangle_2"
+                    android:elevation="4dp"
+                    android:popupBackground="@drawable/rectangle_2"
+                    android:spinnerMode="dropdown"
+                    >
+                </Spinner>
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_alignParentStart="true"-->
+                <!--                        android:layout_centerVertical="true"-->
+                <!--                        android:layout_marginStart="23dp"-->
+                <!--                        android:layout_toEndOf="@id/customIconSpinner"-->
+                <!--                        android:fontFamily="@font/nats_regular"-->
+                <!--                        android:text="Follow up"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="18sp" />-->
+
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="30dp"-->
+                <!--                        android:layout_height="30dp"-->
+                <!--                        android:layout_alignEnd="@id/customIconSpinner"-->
+                <!--                        android:layout_centerVertical="true"-->
+                <!--                        android:layout_marginEnd="23dp"-->
+                <!--                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />-->
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Add Dietitian -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/nats_regular"
+                android:lineSpacingExtra="-40dp"
+                android:text="Add Dietitian"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37dp"
+                android:layout_marginRight="37dp">
+
+                <FrameLayout
+                    android:layout_width="95dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/rounded_background">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:text="John Wayne"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="95dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="110dp"
+                    android:background="@drawable/rounded_background_white">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/add_dietition_icon" />
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:text="Other"
+                        android:textColor="#4B9AFB"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Appointment Time -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/nats_regular"
+                android:lineSpacingExtra="-40dp"
+                android:text="Appointment Time"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <RelativeLayout
+                android:id="@+id/rootView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37dp"
+                android:layout_marginRight="37dp">
+
+                <FrameLayout
+                    android:id="@+id/nowBtn"
+                    android:layout_width="95dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/selector_rounded_background_btn"
+                    android:tag="appointmentFrameLayout">
+
+                    <TextView
+                        android:id="@+id/nowText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:text="Now"
+                        android:textColor="#4B9AFB"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/anyTimeBtn"
+                    android:layout_width="127dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="110dp"
+                    android:background="@drawable/selector_rounded_background_btn"
+                    android:tag="appointmentFrameLayout">
+
+                    <TextView
+                        android:id="@+id/anyTimeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:text="Select Custom"
+                        android:textColor="#4B9AFB"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Description -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/nats_regular"
+                android:lineSpacingExtra="-40dp"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+
+                <EditText
+                    android:id="@+id/about_edt"
+                    style="@style/account_edt_views1"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:cursorVisible="false"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:elevation="4dp"
+                    android:gravity="top"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:focusableInTouchMode="true"
+                    android:hint="Type description here ... "
+                    android:inputType="text"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Attachment -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="37dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nats_regular"
+                    android:lineSpacingExtra="-40dp"
+                    android:text="Attachment"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <FrameLayout
+                    android:id="@+id/upload_btn"
+                    android:layout_width="95dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:layout_weight="0"
+                    android:background="@drawable/rounded_background_white"
+                    android:onClick="showFileChooser">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/upload_icon" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:text="Upload"
+                        android:textColor="#4B9AFB"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/file_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37dp"
+                android:layout_marginRight="37dp"
+                android:orientation="vertical">
+
+                <!--                <RelativeLayout-->
+                <!--                    android:id="@+id/attachment_relative_layout"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
+
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/file_icon"-->
+                <!--                        android:layout_width="16dp"-->
+                <!--                        android:layout_height="20dp"-->
+                <!--                        android:layout_marginTop="8dp"-->
+                <!--                        android:src="@drawable/pdf" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/file_name"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="25dp"-->
+                <!--                        android:layout_marginTop="-8dp"-->
+                <!--                        android:fontFamily="@font/nats_regular"-->
+                <!--                        android:text="Thyroid Report"-->
+                <!--                        android:textColor="#000000"-->
+                <!--                        android:textSize="19sp" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/file_date"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="25dp"-->
+                <!--                        android:layout_marginTop="12dp"-->
+                <!--                        android:fontFamily="@font/nats_regular"-->
+                <!--                        android:text="11 Aug, 2022"-->
+                <!--                        android:textColor="#8D8D8D"-->
+                <!--                        android:textSize="15sp" />-->
+
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/share_icon"-->
+                <!--                        android:layout_width="10dp"-->
+                <!--                        android:layout_height="13dp"-->
+                <!--                        android:layout_alignParentTop="true"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:layout_marginTop="15dp"-->
+                <!--                        android:layout_marginEnd="26dp"-->
+                <!--                        android:contentDescription="three dots"-->
+                <!--                        android:src="@drawable/share_icon" />-->
+
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/delete_icon"-->
+                <!--                        android:layout_width="10dp"-->
+                <!--                        android:layout_height="13dp"-->
+                <!--                        android:layout_alignParentTop="true"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:layout_marginTop="15dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:contentDescription="three dots"-->
+                <!--                        android:src="@drawable/delete_icon" />-->
+
+                <!--                </RelativeLayout>-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/nextbtn"
+                android:layout_width="208dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_background_button">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:text="Next"
+                    android:textColor="#FFFFFF"
+                    android:textSize="23sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

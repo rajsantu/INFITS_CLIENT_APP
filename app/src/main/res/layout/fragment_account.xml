@@ -547,6 +547,7 @@
                                 android:id="@+id/about_edt"
                                 style="@style/account_edt_views"
                                 android:textSize="14sp"
+                                android:gravity="top"
                                 android:layout_height="122dp"
                                 android:layout_marginTop="8dp"
                                 android:cursorVisible="false"

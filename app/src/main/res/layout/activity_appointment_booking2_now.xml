@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/appointment_booking_background"
+    tools:context=".Appointment_Booking2_Now">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgBackAppointment"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/backarrow"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="23dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:text="PROFILE\nAPPOINTMENTS"
+                android:textColor="@color/black"
+                android:textSize="38sp"
+                android:layout_marginTop="-60dp"
+                android:lineSpacingExtra="-40dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:text="Step 2/2"
+                android:textColor="#4B9AFB"
+                android:textSize="19sp"
+                android:layout_marginTop="-10dp"
+                android:lineSpacingExtra="-40dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            >
+
+            <FrameLayout
+                android:layout_width="210dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_background_appointment_white_btn">
+
+                <TextView
+                    android:id="@+id/today_date_for_appointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Wednesday, 8 March, 2023"
+                    android:textColor="#4B9AFB"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:textSize="19sp"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- Appointment Type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nats_regular"
+                android:text="Appointment Type"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="-10dp"
+                android:lineSpacingExtra="-40dp"
+                />
+
+                <!-- Phone with toggle button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/phone_icon_appointment"
+                        android:layout_marginRight="15dp"
+                        />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/phone_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:textSize="24sp"
+                        android:thumb="@drawable/switch_thumb"
+                        app:track="@drawable/track_for_appointment"
+                        android:checked="true"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <!-- Video with toggle button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/video_icon_appointment"
+                        />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Video Call"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="15dp"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/video_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:textSize="24sp"
+                        android:thumb="@drawable/switch_thumb"
+                        app:track="@drawable/track_for_appointment"
+                        android:checked="false"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <!-- In Person with toggle button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/inperson_icon_appointment"
+                        />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="In Person"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="15dp"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/inperson_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="130dp"
+                        android:textSize="24sp"
+                        android:thumb="@drawable/switch_thumb"
+                        app:track="@drawable/track_for_appointment"
+                        android:checked="false"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            >
+
+            <FrameLayout
+                android:id="@+id/confirm_btn"
+                android:layout_width="242dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="180dp"
+                android:background="@drawable/rounded_background_button">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Confirm Appointment"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:textSize="23sp"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

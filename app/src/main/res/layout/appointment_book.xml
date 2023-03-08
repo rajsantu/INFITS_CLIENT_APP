@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appointment_booked"
+    android:layout_width="339dp"
+    android:layout_height="314dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="339dp"
+        android:layout_height="314dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Booked"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="27sp"
+            android:fontFamily="@font/nats_regular"/>
+
+        <TextView
+            android:layout_width="249dp"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetu adipiscing elit, do eiusmod tem incididunt ut labore et dolore magna aliqua."
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="-20dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/nats_regular"/>
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/appointment_booked_icon"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
