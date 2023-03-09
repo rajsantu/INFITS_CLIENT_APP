@@ -169,13 +169,13 @@ public class DashBoardFragment extends Fragment {
 
         menuBtn.setOnClickListener(v -> onMenuClicked.menuClicked());
 
-        if (DataFromDatabase.proUser){
+        if (!DataFromDatabase.proUser){
             goProCard.setVisibility(View.GONE);
             mealTrackerCard.setVisibility(View.VISIBLE);
             dietCardPro.setVisibility(View.GONE);
             dietcard.setVisibility(View.VISIBLE);
         }
-        if (!DataFromDatabase.proUser){
+        if (DataFromDatabase.proUser){
             goProCard.setVisibility(View.VISIBLE);
             mealTrackerCard.setVisibility(View.GONE);
             dietCardPro.setVisibility(View.VISIBLE);
@@ -281,9 +281,11 @@ public class DashBoardFragment extends Fragment {
         });
 
         dietcard.setOnClickListener(v->{
-//            Intent intent = new Intent(getActivity(),Diet_plan_main_screen.class);
+//           Intent intent = new Intent(getActivity(),Diet_plan_main_screen.class);
 //            requireActivity().finish();
 //            startActivity(intent);
+            Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_fragment_diet_chart);
+
         });
 
         if (DataFromDatabase.proUser){

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="myGradientColors">
+
+        <item>#24F2F28F</item>
+        <item>#FFEB3B</item>
+        <item>#CDB903</item>
+
+    </array>
+</resources>
