@@ -38,7 +38,7 @@
         android:layout_width="267dp"
         android:layout_height="141dp"
         android:fontFamily="@font/raleway_regular"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        android:text="@string/Lorem_Ipsum"
         android:textAlignment="center"
         android:textColor="#264396"
         android:textSize="20sp"

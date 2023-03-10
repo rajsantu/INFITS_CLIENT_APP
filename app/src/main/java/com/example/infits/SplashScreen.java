@@ -4,20 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.animation.Animator; // Animator Import
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer; // Media Import
+import android.net.Uri; // URI import
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.VideoView; // VideoView Import
 
 public class SplashScreen extends AppCompatActivity {
 
     Intent intent;
-
+    VideoView videoView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // installing SplashScreen Starts
+        androidx.core.splashscreen.SplashScreen splashScreen = androidx.core.splashscreen.SplashScreen.installSplashScreen(this);
+        // installing SplashScreen Ends
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // VideoView for the SplashScreen Animation Starts
+        videoView = findViewById(R.id.videoView);
+        String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.logo_animation_splash_screen;
+        Uri uri = Uri.parse(videoPath);
+        videoView.setVideoURI(uri);
+        videoView.start();
+        // // VideoView for the SplashScreen Animation Ends
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -25,7 +41,12 @@ public class SplashScreen extends AppCompatActivity {
                 SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
                 boolean isLoggedIn = loginDetails.getBoolean("hasLoggedIn", false);
 
-                if(isLoggedIn) {
+                // Shared preferences for showing the OnBoarding Screen Starts.
+                SharedPreferences OnBoardingScreenSharedPreferences = getSharedPreferences("OnBoardingScreen",MODE_PRIVATE);
+                boolean isFirstTimeAppOpen = OnBoardingScreenSharedPreferences.getBoolean("isFirstTimeAppOpen",true);
+                // Shared preferences for showing the OnBoarding Screen Continues in "else if" Part.
+
+                if(isLoggedIn) { // Condition 1: If the user is already loggedin,he will directed to DashBoardMain.
                     intent = new Intent(SplashScreen.this, DashBoardMain.class);
                     setDataFromDatabase(loginDetails);
                     String cameFromNotification = getIntent().getStringExtra("notification");
@@ -39,14 +60,23 @@ public class SplashScreen extends AppCompatActivity {
                         }
                     }
 
-                } else {
-                    intent = new Intent(SplashScreen.this, Landing1.class);
+                }
+
+                else if(isFirstTimeAppOpen){ // Case 2: If the the user is first time user of the application, he will directed to OnboardingScreen.
+                    SharedPreferences.Editor editor = OnBoardingScreenSharedPreferences.edit();
+                    editor.putBoolean("isFirstTimeAppOpen",false);
+                    editor.apply();
+                    intent = new Intent(getApplicationContext(),OnboardingScreen.class);
+                }
+                else { // Case 3: If the the user is occasional user of the application but he is loggedout, he will directed to the Login Activity.
+                    intent = new Intent(getApplicationContext(),Login.class);
                 }
 
                 startActivity(intent);
+                overridePendingTransition(R.anim.right_slide_in,R.anim.left_slide_out); // Added
                 finish();
             }
-        }, 3000);
+        }, 2900); // Changed to 2900 ms.
     }
 
     private void setDataFromDatabase(SharedPreferences prefs) {

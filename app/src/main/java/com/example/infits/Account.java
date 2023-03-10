@@ -57,7 +57,7 @@ public class Account extends Fragment {
     ImageView male, female,profile_pic, backBtn;
 
     RequestQueue queue;
-    Button logout,save;
+    Button logout,save, editProfile;
     ImageButton yesLogout, noLogout;
     String client_gender, cleint_name, client_age, client_email,client_phoneno,client_userID;
 
@@ -125,8 +125,8 @@ public class Account extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        male = view.findViewById(R.id.gender_male_icon);
-        female=view.findViewById(R.id.gender_female_icon);
+//        male = view.findViewById(R.id.gender_male_icon);
+//        female=view.findViewById(R.id.gender_female_icon);
         EditText name=view.findViewById(R.id.name_edt);
         name.setText(DataFromDatabase.name);
         EditText age=view.findViewById(R.id.age_edt);
@@ -136,95 +136,99 @@ public class Account extends Fragment {
         EditText phone=view.findViewById(R.id.phone_edt);
         phone.setText(DataFromDatabase.mobile);
         profile_pic=view.findViewById(R.id.dp);
-        ImageView select_pic= view.findViewById(R.id.select_dp);
-        save=view.findViewById(R.id.button_save);
         logout=view.findViewById(R.id.button_logout);
         profile_pic.setImageBitmap(DataFromDatabase.profile);
         backBtn = view.findViewById(R.id.imgBack);
-
-        ImageView name_btn=view.findViewById(R.id.name_edt_button);
-        ImageView age_btn=view.findViewById(R.id.age_edt_button);
-        ImageView email_btn=view.findViewById(R.id.email_edt_button);
-        ImageView phone_btn=view.findViewById(R.id.phone_edt_button);
-
-        if(DataFromDatabase.gender.equals("M")) {
-            male.setImageResource(R.drawable.gender_male_selected);
-            female.setImageResource(R.drawable.gender_female);
-        } else {
-            male.setImageResource(R.drawable.gender_male);
-            female.setImageResource(R.drawable.gender_female_selected);
-        }
+        editProfile = view.findViewById(R.id.button_editProfile);
 
 
-        name_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"name edit enabled",Toast.LENGTH_SHORT).show();
-                name.setCursorVisible(true);
-                name.setFocusableInTouchMode(true);
-                name.setInputType(InputType.TYPE_CLASS_TEXT);
-            }
-        });
-        age_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"age edit enabled",Toast.LENGTH_SHORT).show();
-                age.setCursorVisible(true);
-                age.setFocusableInTouchMode(true);
-                age.setInputType(InputType.TYPE_CLASS_NUMBER);
-            }
-        });
-        email_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"email edit enabled",Toast.LENGTH_SHORT).show();
-                email.setCursorVisible(true);
-                email.setFocusableInTouchMode(true);
-                email.setInputType(InputType.TYPE_CLASS_TEXT);
-            }
-        });
-        phone_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"phone number edit enabled",Toast.LENGTH_SHORT).show();
-                phone.setCursorVisible(true);
-                phone.setFocusableInTouchMode(true);
-                phone.setInputType(InputType.TYPE_CLASS_PHONE);
-            }
-        });
+        //        ImageView select_pic= view.findViewById(R.id.select_dp);
+        //        save=view.findViewById(R.id.button_save);
 
-        if(DataFromDatabase.gender=="M"){
-            male.setImageResource(R.drawable.gender_male_selected);
-            female.setImageResource(R.drawable.gender_female);
-        }else if(DataFromDatabase.gender=="F"){
-            male.setImageResource(R.drawable.gender_male);
-            female.setImageResource(R.drawable.gender_female_selected);
-        }
-        select_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
+//        ImageView name_btn=view.findViewById(R.id.name_edt_button);
+//        ImageView age_btn=view.findViewById(R.id.age_edt_button);
+//        ImageView email_btn=view.findViewById(R.id.email_edt_button);
+//        ImageView phone_btn=view.findViewById(R.id.phone_edt_button);
+
+//        if(DataFromDatabase.gender.equals("M")) {
+//            male.setImageResource(R.drawable.gender_male_selected);
+//            female.setImageResource(R.drawable.gender_female);
+//        } else {
+//            male.setImageResource(R.drawable.gender_male);
+//            female.setImageResource(R.drawable.gender_female_selected);
+//        }
 
 
-        client_gender=DataFromDatabase.gender;
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                male.setImageResource(R.drawable.gender_male_selected);
-                female.setImageResource(R.drawable.gender_female);
-                client_gender="M";
-            }
-        });
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                male.setImageResource(R.drawable.gender_male);
-                female.setImageResource(R.drawable.gender_female_selected);
-                client_gender="F";
-            }
-        });
+//        name_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(),"name edit enabled",Toast.LENGTH_SHORT).show();
+//                name.setCursorVisible(true);
+//                name.setFocusableInTouchMode(true);
+//                name.setInputType(InputType.TYPE_CLASS_TEXT);
+//            }
+//        });
+//        age_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(),"age edit enabled",Toast.LENGTH_SHORT).show();
+//                age.setCursorVisible(true);
+//                age.setFocusableInTouchMode(true);
+//                age.setInputType(InputType.TYPE_CLASS_NUMBER);
+//            }
+//        });
+//        email_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(),"email edit enabled",Toast.LENGTH_SHORT).show();
+//                email.setCursorVisible(true);
+//                email.setFocusableInTouchMode(true);
+//                email.setInputType(InputType.TYPE_CLASS_TEXT);
+//            }
+//        });
+//        phone_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(),"phone number edit enabled",Toast.LENGTH_SHORT).show();
+//                phone.setCursorVisible(true);
+//                phone.setFocusableInTouchMode(true);
+//                phone.setInputType(InputType.TYPE_CLASS_PHONE);
+//            }
+//        });
+
+//        if(DataFromDatabase.gender=="M"){
+//            male.setImageResource(R.drawable.gender_male_selected);
+//            female.setImageResource(R.drawable.gender_female);
+//        }else if(DataFromDatabase.gender=="F"){
+//            male.setImageResource(R.drawable.gender_male);
+//            female.setImageResource(R.drawable.gender_female_selected);
+//        }
+
+//        select_pic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectImage();
+//            }
+//        });
+
+
+//        client_gender=DataFromDatabase.gender;
+//        male.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                male.setImageResource(R.drawable.gender_male_selected);
+//                female.setImageResource(R.drawable.gender_female);
+//                client_gender="M";
+//            }
+//        });
+//        female.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                male.setImageResource(R.drawable.gender_male);
+//                female.setImageResource(R.drawable.gender_female_selected);
+//                client_gender="F";
+//            }
+//        });
 
         backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
 
@@ -258,55 +262,57 @@ public class Account extends Fragment {
             }
         });
 
-        queue = Volley.newRequestQueue(requireContext());
-        save.setOnClickListener(v-> {
-
-            String nameStr = name.getText().toString().trim();
-            String ageStr = age.getText().toString().trim();
-            String emailStr = email.getText().toString().trim();
-            String mobile = phone.getText().toString().trim();
-
-
-
-            Log.d("account","before");
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-                if (response.equals("updated")){
-                    Log.d("account","success");
-                    Log.d("response account",response);
-
-
-                    Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
-
-                    updateDataLocally(nameStr, ageStr, emailStr, mobile);
-                }
-                else {
-                    Log.d("account","failure");
-                    Log.d("response account",response);
-                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
-                }
-            },error -> Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show()
-            ){
-                @NotNull
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> data = new HashMap<>();
-                    data.put("userID",DataFromDatabase.clientuserID);
-                    data.put("email",emailStr);
-                    data.put("gender",client_gender);
-                    data.put("age",ageStr);
-                    data.put("mobile",mobile);
-                    data.put("name",nameStr);
-                    data.put("img", getEncodedImg(bitmap));
-                    data.put("nameImg", DataFromDatabase.clientuserID);
-
-                    return data;
-
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-            requestQueue.add(stringRequest);
-            Log.d("account","at end");
+        editProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), EditProfile.class);
+            startActivity(intent);
         });
+
+        queue = Volley.newRequestQueue(requireContext());
+//        save.setOnClickListener(v-> {
+//
+//            String nameStr = name.getText().toString().trim();
+//            String ageStr = age.getText().toString().trim();
+//            String emailStr = email.getText().toString().trim();
+//            String mobile = phone.getText().toString().trim();
+//
+//            Log.d("account","before");
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+//                if (response.equals("updated")){
+//                    Log.d("account","success");
+//                    Log.d("response account",response);
+//
+//
+//                    Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
+//
+//                    updateDataLocally(nameStr, ageStr, emailStr, mobile);
+//                }
+//                else {
+//                    Log.d("account","failure");
+//                    Log.d("response account",response);
+//                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
+//                }
+//            },error -> Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show()
+//            ){
+//                @NotNull
+//                @Override
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                    Map<String,String> data = new HashMap<>();
+//                    data.put("userID",DataFromDatabase.clientuserID);
+//                    data.put("email",emailStr);
+//                    data.put("gender",client_gender);
+//                    data.put("age",ageStr);
+//                    data.put("mobile",mobile);
+//                    data.put("name",nameStr);
+//                    data.put("img", getEncodedImg(bitmap));
+//                    data.put("nameImg", DataFromDatabase.clientuserID);
+//
+//                    return data;
+//                }
+//            };
+//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//            requestQueue.add(stringRequest);
+//            Log.d("account","at end");
+//        });
 
         return view;
 

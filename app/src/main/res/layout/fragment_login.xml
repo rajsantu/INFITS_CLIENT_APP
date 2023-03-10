@@ -98,7 +98,7 @@
         app:layout_constraintVertical_bias="0.782" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/google"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/social_back"

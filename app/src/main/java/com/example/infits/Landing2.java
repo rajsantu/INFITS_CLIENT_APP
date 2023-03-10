@@ -23,6 +23,7 @@ public class Landing2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Landing2.this, Landing3.class);
                 startActivity(i);
+                overridePendingTransition(R.anim.right_slide_in,R.anim.left_slide_out); // Added
             }
         });
     }

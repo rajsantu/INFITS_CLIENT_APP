@@ -56,7 +56,7 @@
         android:stepSize="50"
         android:value="250"
         android:valueFrom="0"
-        android:valueTo="1000"
+        android:valueTo="500"
         app:thumbColor="#0051AB"
         app:trackColorActive="#0051AB"
         app:trackColorInactive="#DDECFF"

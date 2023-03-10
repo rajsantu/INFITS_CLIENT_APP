@@ -196,7 +196,20 @@ public class DeviceSettings extends AppCompatActivity {
 
 
             } );
+        });
 
+        scan_for_device.setOnClickListener(v -> {
+            connect_div.setVisibility(View.GONE);
+            number_of_devices.setVisibility(View.VISIBLE);
+            number_of_devices.setText("Searching for devices...");
+            selected_title.setText("It is going to take only few seconds");
+            deviceName.removeAll(deviceName);
+            deviceAddress.removeAll(deviceAddress);
+            bluetooth_list.setAdapter(null);
+            scanDiv();
+            scan_for_device.setVisibility(View.GONE);
+            mRipplePulseLayout.startRippleAnimation();
+        });
         getMacInterface = new GetMacInterface() {
             @Override
             public void getMac(String mac) {
@@ -218,7 +231,6 @@ public class DeviceSettings extends AppCompatActivity {
 
 
     void scanDiv() {
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
