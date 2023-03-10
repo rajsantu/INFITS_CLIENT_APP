@@ -39,6 +39,14 @@
             android:id="@+id/action_weightTrackerFragment_to_weightReminderFragment"
             app:destination="@id/weightReminderFragment" />
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/calorieTrackerFragment"-->
+<!--        android:name="com.example.infits.CalorieTrackerFragment">-->
+<!--        -->
+<!--        -->
+<!--        -->
+<!--    <fragment/>-->
+
     <fragment
         android:id="@+id/calorieTrackerFragment"
         android:name="com.example.infits.CalorieTrackerFragment"
@@ -110,6 +118,7 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_stepTrackerFragment"
             app:destination="@id/stepTrackerFragment" />
+
         <action
             android:id="@+id/action_dashBoardFragment_to_calorieTrackerFragment"
             app:destination="@id/calorieTrackerFragment" />
@@ -125,6 +134,10 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_heartRate"
             app:destination="@id/heartRate" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_fragment_diet_chart"
+            app:destination="@id/fragment_diet_chart" />
+
     </fragment>
     <fragment
         android:id="@+id/addLiquidFragment"
@@ -200,4 +213,33 @@
             android:id="@+id/action_weightReminderFragment_to_weightTrackerFragment"
             app:destination="@id/weightTrackerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_diet_chart"
+        android:name="com.example.infits.fragment_diet_chart"
+        android:label="fragment_diet_chart"
+        tools:layout="@layout/fragment_diet_chart" >
+
+        <action
+            android:id="@+id/action_fragment_diet_chart_to_stepReminderFragment"
+            app:destination="@id/stepReminderFragment" />
+        <action
+            android:id="@+id/action_fragment_diet_chart_to_diet_second_frag"
+            app:destination="@id/diet_second_frag" />
+        <action
+            android:id="@+id/action_fragment_diet_chart_to_fragment_diet_third_scrn"
+            app:destination="@id/fragment_diet_third_scrn" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/diet_second_frag"
+        android:name="com.example.infits.diet_second_frag"
+        android:label="fragment_diet_second_frag"
+        tools:layout="@layout/fragment_diet_second_frag" />
+    <fragment
+        android:id="@+id/fragment_diet_third_scrn"
+        android:name="com.example.infits.Fragment_diet_third_scrn"
+        android:label="fragment_diet_third_scrn"
+        tools:layout="@layout/fragment_diet_third_scrn" />
+
+
 </navigation>

@@ -47,20 +47,20 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
 
     @Override
     public void onBindViewHolder(@NonNull DeviceListViewHolder holder, int position) {
-            holder.name.setText(deviceName.get(position));
-            holder.linearLayout.setOnClickListener(v->{
-                row_index=position;
-                notifyDataSetChanged();
-            });
-            if (row_index == position){
-                holder.selected.setVisibility(View.VISIBLE);
-                holder.linearLayout.setBackground(context.getDrawable(R.drawable.outline_black));
-                getMacInterface.getMac(deviceAddress.get(row_index));
-            }
-            else{
-                holder.selected.setVisibility(View.GONE);
-                holder.linearLayout.setBackground(context.getDrawable(R.drawable.outline));
-            }
+        holder.name.setText(deviceName.get(position));
+        holder.linearLayout.setOnClickListener(v->{
+            row_index=position;
+            notifyDataSetChanged();
+        });
+        if (row_index == position){
+            holder.selected.setVisibility(View.VISIBLE);
+            holder.linearLayout.setBackground(context.getDrawable(R.drawable.outline_black));
+            getMacInterface.getMac(deviceAddress.get(row_index));
+        }
+        else{
+            holder.selected.setVisibility(View.GONE);
+            holder.linearLayout.setBackground(context.getDrawable(R.drawable.outline));
+        }
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
         TextView name;
         ImageView selected;
         LinearLayout linearLayout;
-//        Button button;
+        //        Button button;
         public DeviceListViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.deviceName);

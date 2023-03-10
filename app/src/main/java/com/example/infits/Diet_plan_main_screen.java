@@ -263,8 +263,8 @@ public class Diet_plan_main_screen extends AppCompatActivity {
 
         for (int i = 0; i < 4; i++) {
 
-            breakfastList.add(new ModelForFood("", "", photo));
-            breakfastListMon.add(new ModelForFood("", "", photo));
+            breakfastList.add(new ModelForFood("dust", "ui", photo));
+            breakfastListMon.add(new ModelForFood("hist", "mmuii", photo));
             breakfastListTue.add(new ModelForFood("", "", photo));
             breakfastListWed.add(new ModelForFood("", "", photo));
             breakfastListThur.add(new ModelForFood("", "", photo));

@@ -138,14 +138,6 @@
                         android:background="@drawable/seekback"
                         android:orientation="vertical">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="26dp"
-                            android:layout_height="28dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/sign"
-                            tools:ignore="ImageContrastCheck" />
-
                         <TextView
                             android:id="@+id/kcalLeft"
                             android:layout_width="wrap_content"
@@ -165,6 +157,14 @@
                             android:fontFamily="@font/baloo2"
                             android:text="kcal left"
                             android:textSize="14sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="26dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/sign"
+                            tools:ignore="ImageContrastCheck" />
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
