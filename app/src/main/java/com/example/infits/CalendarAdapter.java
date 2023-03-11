@@ -94,22 +94,26 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                 public void onClick(View v) {
                     selectedDate = dates.get(getAdapterPosition());
                     notifyDataSetChanged();
+                    if (listener != null) {
+                        listener.onDateSelected(selectedDate);
+                    }
                 }
             });
         }
     }
 
     public String getSelectedDate() {
+        // Update selectedDate to current time if it's null
         if (selectedDate == null) {
             selectedDate = Calendar.getInstance().getTime();
         }
+
         // Format the selected date as a string in the desired format
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault());
         String formattedDate = formatter.format(selectedDate);
 
         return formattedDate;
     }
-
 
     public interface OnDateSelectedListener {
         void onDateSelected(Date date);

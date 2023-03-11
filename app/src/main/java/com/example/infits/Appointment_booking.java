@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -53,13 +54,15 @@ import java.util.List;
 public class Appointment_booking extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     DataFromDatabase dataFromDatabase;
-//    String url = String.format("%appointment.php",DataFromDatabase.ipConfig);
 
     FrameLayout nextBtn, nowBtn, anyTimeBtn;
     private List<FrameLayout> frameLayoutList;
 
     Spinner customSpinner;
+    String spinnerItem, add_dietitian, appointmentTimeText, attachment;
     ArrayList<CustomItem> customList;
+
+    EditText description;
 
     private static final int PICKFILE_RESULT_CODE = 1;
 
@@ -89,14 +92,27 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
         nextBtn = findViewById(R.id.nextbtn);
 
-
         nowBtn = findViewById(R.id.nowBtn);
         anyTimeBtn = findViewById(R.id.anyTimeBtn);
 
-//        Spinner spinner = findViewById(R.id.spinner);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_options, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
+        add_dietitian = "Fredy Ludena";
+        appointmentTimeText = "";
+        attachment = "File";
+
+        description = findViewById(R.id.user_description);
+        String descript = description.getText().toString();
+
+        customSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CustomItem selectedItem = (CustomItem) parent.getItemAtPosition(position);
+                spinnerItem = selectedItem.getSpinnerItem();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +125,11 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     startActivity(intent);
                 } else if (isAnytimeButtonSelected) {
                     Intent intent = new Intent(getApplicationContext(), Appointment_Booking2.class);
+                    intent.putExtra("event_name", spinnerItem);
+                    intent.putExtra("add_dietitian", add_dietitian);
+                    intent.putExtra("appointmentTime", appointmentTimeText);
+                    intent.putExtra("description", descript);
+                    intent.putExtra("attachment", attachment);
                     startActivity(intent);
                 }
                 else{
@@ -141,9 +162,9 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     anyTimeButton.setSelected(false);
                     anyTimeButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background_white));
                     anytimeText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.skyBlue));
-
                     nowButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background));
                     nowText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                    appointmentTimeText = nowText.getText().toString();
                 } else if (isAnytimeButton) {
                     nowButton.setSelected(false);
                     nowButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background_white));
@@ -151,6 +172,8 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
                     anyTimeButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background));
                     anytimeText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+                    appointmentTimeText = anytimeText.getText().toString();
                 }
 
                 // Toggle the selection state of the clicked button
@@ -209,7 +232,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             String filename = getFileName(uri);
             ContentResolver contentResolver = getContentResolver(); // Get a reference to the ContentResolver
 
-// Get the MIME type of the file from the Uri
+            // Get the MIME type of the file from the Uri
             String fileType = contentResolver.getType(uri);
 //            Typeface nats = Typeface.createFromAsset(getAssets(), "font/nats_regular.ttf");
             Typeface nats = ResourcesCompat.getFont(this, R.font.nats_regular);
@@ -291,7 +314,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 //            fileDateView.setPadding(25, 12, 0, 0);
             fileLayout.addView(fileDateView);
 
-
             deleteParam.addRule(RelativeLayout.CENTER_VERTICAL);
             deleteParam.addRule(RelativeLayout.ALIGN_PARENT_END);
             deleteParam.setMargins(0, 0, 20, 0);
@@ -308,7 +330,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             shareParam.setMargins(0, 0, 20, 0);
 
             //imageview for share
-
             ImageView shareIcon = new ImageView(this);
             shareIcon.setImageResource(R.drawable.share_icon);
             shareIcon.setLayoutParams(shareParam);

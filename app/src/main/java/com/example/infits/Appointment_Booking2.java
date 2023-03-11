@@ -35,20 +35,34 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-public class Appointment_Booking2 extends AppCompatActivity {
+public class Appointment_Booking2 extends AppCompatActivity{
 
     FrameLayout confirmBtn;
     Dialog confirmDialog, customDialog;
     ImageView imgBack;
+
+    Intent intent;
+    String eventName, addDietitian, appointmentTimeText, description, attachment;
+    String selectScheduleText, morningSlotsText, eveningSlotsText, appointmentTypeText;
+
+    private Date selectedDate;
 
     CalendarAdapter adapter;
 
@@ -69,10 +83,25 @@ public class Appointment_Booking2 extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Date> dateList;
 
+    CardView confirmCard;
+
+    String url = String.format("%sappointment.php",DataFromDatabase.ipConfig);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_booking2);
+
+        intent = getIntent();
+
+        eventName = intent.getStringExtra("event_name");
+        addDietitian = intent.getStringExtra("add_dietitian");
+        appointmentTimeText = intent.getStringExtra("appointmentTime");
+        description = intent.getStringExtra("description");
+        attachment = intent.getStringExtra("attachment");
+
+        dateList = new ArrayList<>();
+        adapter = new CalendarAdapter(dateList);
 
         timingList.add("PM");
         timingList.add("AM");
@@ -101,6 +130,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     // Turn off other switches
                     videoRadioButton.setChecked(false);
                     inpersonRadioButton.setChecked(false);
+                    appointmentTypeText = "Phone";
                 }
             }
         });
@@ -112,6 +142,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     // Turn off other switches
                     phoneRadioButton.setChecked(false);
                     inpersonRadioButton.setChecked(false);
+                    appointmentTypeText = "Video Call";
                 }
             }
         });
@@ -123,10 +154,10 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     // Turn off other switches
                     phoneRadioButton.setChecked(false);
                     videoRadioButton.setChecked(false);
+                    appointmentTypeText = "In Person";
                 }
             }
         });
-
 
         View.OnClickListener dayClickListener = new View.OnClickListener() {
             @Override
@@ -266,10 +297,11 @@ public class Appointment_Booking2 extends AppCompatActivity {
                             selectedSlotText = null;
                             break;
                     }
+
                     if (selectedSlotText != null) {
                         selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     }
-
+                    morningSlotsText = selectedSlotText.getText().toString();
                     selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 }
             });
@@ -335,7 +367,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     if (selectedSlotText != null) {
                         selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     }
-
+                    eveningSlotsText = selectedSlotText.getText().toString();
                     selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 }
             });
@@ -402,17 +434,9 @@ public class Appointment_Booking2 extends AppCompatActivity {
 //        findViewById(R.id.eveningSlot6).setOnClickListener(allSlot);
 //
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showConfirmDialog();
-            }
-        });
-
-
         // Dates rcyclerView
+
         Date today = new Date();
-        dateList = new ArrayList<>();
 
         // Add some test data to the dateList
         Calendar calendar = Calendar.getInstance();
@@ -425,9 +449,9 @@ public class Appointment_Booking2 extends AppCompatActivity {
         }
 
         recyclerView = findViewById(R.id.date_recyclerView);
-
-        adapter = new CalendarAdapter(dateList);
         recyclerView.setAdapter(adapter);
+
+        selectScheduleText = adapter.getSelectedDate();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -435,9 +459,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
 
-
         // Custom Time section
-
         customBtnMorningSlot = findViewById(R.id.customBtn_morningSlot);
         customBtnEveningSlot = findViewById(R.id.customBtn_EveningSlot);
 
@@ -474,18 +496,76 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 }
             }
         });
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String eventName1 = eventName;
+                String dietitianName1 = addDietitian;
+                String appintmentTime1 = appointmentTimeText;
+                String description1 = "description";
+                String attachment1 = "attachment";
+                String selectSchedule = selectScheduleText;
+                String morningSlots = morningSlotsText;
+                String eveningSlots = eveningSlotsText;
+                String appointmentType = appointmentTypeText;
+
+                if(!checkIfFieldsAreFilled(eventName1, dietitianName1, appintmentTime1, description1, attachment1, selectSchedule, morningSlots, eveningSlots, appointmentType)) {
+                    Toast.makeText(Appointment_Booking2.this, "Please fill all the details", Toast.LENGTH_SHORT).show();
+                } else {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+                        System.out.println(response);
+                        if (response.equals("success")){
+                            Toast.makeText(getApplicationContext(), "Appointment completed", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            System.out.println("Response error "+response);
+                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                        }
+                    },error -> {
+                        Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> data = new HashMap<>();
+                            data.put("event_name",eventName1);
+                            data.put("add_dietitian",dietitianName1);
+                            data.put("appointment_time", appintmentTime1);
+                            data.put("description",description1);
+                            data.put("attachment", attachment1);
+                            data.put("select_schedule", selectSchedule);
+                            data.put("morning_slots",morningSlots);
+                            data.put("evening_slots",eveningSlots);
+                            data.put("appointment_type", appointmentType);
+                            return data;
+                        }
+                    };
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    requestQueue.add(stringRequest);
+                }
+
+                showConfirmDialog();
+            }
+        });
+    }
+
+    private boolean checkIfFieldsAreFilled(
+            String eventName1, String dietitianName1, String appointmentTime, String description1, String attachment, String selectSchedule, String morningSlots, String eveningSlots, String appointmentType
+    ) {
+        return !eventName1.equals("") && !dietitianName1.equals("") && !appointmentTime.equals("") && !description1.equals("") && !attachment.equals("") && !selectSchedule.equals("") && !morningSlots.equals("") &&
+                !eveningSlots.equals("") && !appointmentType.equals("");
     }
 
     private void customTimeDialog(){
 //        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
-
         customDialog.setContentView(R.layout.custom_time_for_booking_appointment);
         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        CardView confirmCard = customDialog.findViewById(R.id.custom_time);
+        confirmCard = customDialog.findViewById(R.id.custom_time);
         customDialog.show();
 
         // Set selected date in TextView
-        TextView selectedDateValue = customDialog.findViewById(R.id.date_year_custom_appointment);
+        selectedDateValue = customDialog.findViewById(R.id.date_year_custom_appointment);
         selectedDateValue.setText(adapter.getSelectedDate());
 
         // Hours
@@ -585,7 +665,5 @@ public class Appointment_Booking2 extends AppCompatActivity {
             }
         });
 
-
     }
-
 }
