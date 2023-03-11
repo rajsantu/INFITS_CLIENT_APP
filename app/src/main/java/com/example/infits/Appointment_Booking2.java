@@ -1,10 +1,5 @@
 package com.example.infits;
 
-import static android.content.ContentValues.TAG;
-import static java.security.AccessController.getContext;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
@@ -14,19 +9,13 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -35,20 +24,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class Appointment_Booking2 extends AppCompatActivity {
 
     FrameLayout confirmBtn;
     Dialog confirmDialog, customDialog;
-    ImageView imgBack;
+    ImageView imgBack,imgCustom;
 
     CalendarAdapter adapter;
 
@@ -56,7 +41,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
     private List<String> timingList = new ArrayList<>();
 
-    private TextView selectedDateValue;
+    private TextView selectedDateValue,customSlot,customSlotEve;
 
     Date endOfMonth;
 
@@ -64,7 +49,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
     private String selectedMinutes = "";
     private String selectedAmPm = "";
 
-    FrameLayout customBtnMorningSlot, customBtnEveningSlot;
+    FrameLayout customBtnMorningSlot, customBtnEveningSlot,customBtnAfterMorning,customBtnAfterEvening;
 
     private RecyclerView recyclerView;
     private List<Date> dateList;
@@ -441,19 +426,54 @@ public class Appointment_Booking2 extends AppCompatActivity {
         customBtnMorningSlot = findViewById(R.id.customBtn_morningSlot);
         customBtnEveningSlot = findViewById(R.id.customBtn_EveningSlot);
 
+        customBtnAfterMorning = findViewById(R.id.customBtn_afterSelected);
+        customBtnAfterMorning.setVisibility(View.GONE);
+
+        customBtnAfterEvening = findViewById(R.id.customBtnEve_afterSelected);
+        customBtnAfterEvening.setVisibility(View.GONE);
+
+//        customBtnAfterMorning.setVisibility(View.GONE);
+        customSlot = findViewById(R.id.slotTextCustom);
+        imgCustom = findViewById(R.id.custom_timeSelect);
+        customSlotEve = findViewById(R.id.slotTextEveCustom);
+
+
         customBtnMorningSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customTimeDialog();
+                customTimeDialog(customSlot);
+                customBtnMorningSlot.setVisibility(View.GONE);
+                customBtnAfterMorning.setVisibility(View.VISIBLE);
             }
         });
 
         customBtnEveningSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customTimeDialog();
+                customTimeDialog(customSlotEve);
+                customBtnEveningSlot.setVisibility(View.GONE);
+                customBtnAfterEvening.setVisibility(View.VISIBLE);
             }
         });
+        customBtnAfterMorning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customBtnMorningSlot.setVisibility(View.GONE);
+                customBtnAfterMorning.setVisibility(View.VISIBLE);
+                customTimeDialog(customSlot);
+            }
+        });
+
+        customBtnAfterEvening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customBtnEveningSlot.setVisibility(View.GONE);
+                customBtnAfterEvening.setVisibility(View.VISIBLE);
+                customTimeDialog(customSlotEve);
+
+            }
+        });
+
 
         RadioGroup radioGroup = findViewById(R.id.radio_group);
 
@@ -476,7 +496,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
         });
     }
 
-    private void customTimeDialog(){
+    private void customTimeDialog(TextView slot){
 //        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
 
         customDialog.setContentView(R.layout.custom_time_for_booking_appointment);
@@ -487,6 +507,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
         // Set selected date in TextView
         TextView selectedDateValue = customDialog.findViewById(R.id.date_year_custom_appointment);
         selectedDateValue.setText(adapter.getSelectedDate());
+//        Toast.makeText(this, adapter.getSelectedDate(), Toast.LENGTH_SHORT).show();
 
         // Hours
         RecyclerView hoursRV = customDialog.findViewById(R.id.hours_recycler_view);
@@ -495,9 +516,10 @@ public class Appointment_Booking2 extends AppCompatActivity {
             String formattedNumber = String.format("%02d", i);
             hoursData.add(formattedNumber);
         }
+        NumberedAdapter hoursAdapter = new NumberedAdapter(hoursData);
         hoursRV.setLayoutManager(new CenteredLinearLayoutManager(this));
-        NumberedAdapter hoursAdapter = new NumberedAdapter(hoursData, 1);
         hoursRV.setAdapter(hoursAdapter);
+//        hoursRV.scrollToPosition(getPosition(hoursRV));
 //        hoursRV.setRecycledViewPool(recycledViewPool);
 
         // Minutes
@@ -507,9 +529,10 @@ public class Appointment_Booking2 extends AppCompatActivity {
             String formattedNumber = String.format("%02d", i);
             minutesData.add(formattedNumber);
         }
-        NumberedAdapter minutesAdapter = new NumberedAdapter(minutesData, 5); // Set the interval to 5
+        NumberedAdapter minutesAdapter = new NumberedAdapter(minutesData); // Set the interval to 5
         minutesRV.setLayoutManager(new CenteredLinearLayoutManager(this));
         minutesRV.setAdapter(minutesAdapter);
+//        minutesRV.scrollToPosition(minutesAdapter.getPosition(selectedMinutes));
 //        minutesRV.setRecycledViewPool(recycledViewPool);
 
         // AM or PM
@@ -531,24 +554,48 @@ public class Appointment_Booking2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                // Get selected hours and minutes
-//                String selectedHours = hoursAdapter.getSelectedNumber();
-//                String selectedMinutes = minutesAdapter.getSelectedNumber();
+                // Get selected hours and minutes
+//                String selectedHours = hoursAdapter.get().toString();
+                String selectedHours = getSelectedValue(hoursRV);
+                String selectedMinutes = getSelectedValue(minutesRV);
 //
 //                // Get selected AM or PM
-//                int selectedTimingPosition = ((LinearLayoutManager) timingRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-//                String selectedTiming = timingList.get(selectedTimingPosition);
+                int selectedTimingPosition = ((LinearLayoutManager) timingRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                String selectedTiming = timingList.get(selectedTimingPosition);
 //
 //                // Combine the selected values into a time string
-//                String selectedTime = selectedHours + ":" + selectedMinutes + " " + selectedTiming;
+                String selectedTime = selectedHours + ":" + selectedMinutes + " " + selectedTiming;
+//                Toast.makeText(Appointment_Booking2.this, selectedTime, Toast.LENGTH_SHORT).show();
 //
 //                // Do something with the selected time, e.g. show in a TextView or pass to another function
+                setTime(slot,selectedTime);
 //                Log.d("Selected Time", selectedTime);
 //
 //                // Dismiss the dialog
-//                customDialog.dismiss();
+                customDialog.dismiss();
             }
         });
+
+    }
+
+    //    private int getPosition(RecyclerView recyclerView) {
+//        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        assert layoutManager != null;
+//        Toast.makeText(this, layoutManager.findLastVisibleItemPosition(), Toast.LENGTH_SHORT).show();
+//        return layoutManager.findLastVisibleItemPosition();
+//    }
+    private String getSelectedValue(RecyclerView recyclerView) {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        assert layoutManager != null;
+        int selectedPosition = layoutManager.findLastVisibleItemPosition();
+        NumberedAdapter adapter = (NumberedAdapter) recyclerView.getAdapter();
+        assert adapter != null;
+        return adapter.getNumber(selectedPosition);
+//        return ""+selectedPosition;
+    }
+
+    private void setTime(TextView tv,String time){
+        tv.setText(time);
     }
 
     private void showConfirmDialog() {

@@ -164,30 +164,30 @@
 
                 </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="95dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="110dp"
-                    android:background="@drawable/rounded_background_white">
+<!--                <FrameLayout-->
+<!--                    android:layout_width="95dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_marginLeft="110dp"-->
+<!--                    android:background="@drawable/rounded_background_white">-->
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/add_dietition_icon" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_marginLeft="18dp"-->
+<!--                        android:layout_marginTop="6dp"-->
+<!--                        android:src="@drawable/add_dietition_icon" />-->
 
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="14dp"
-                        android:fontFamily="@font/nats_regular"
-                        android:gravity="center"
-                        android:text="Other"
-                        android:textColor="#4B9AFB"
-                        android:textSize="16sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="96dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginLeft="14dp"-->
+<!--                        android:fontFamily="@font/nats_regular"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Other"-->
+<!--                        android:textColor="#4B9AFB"-->
+<!--                        android:textSize="16sp" />-->
 
-                </FrameLayout>
+<!--                </FrameLayout>-->
 
             </RelativeLayout>
 
@@ -284,7 +284,7 @@
                 android:layout_marginRight="30dp">
 
                 <EditText
-                    android:id="@+id/about_edt"
+                    android:id="@+id/user_description"
                     style="@style/account_edt_views1"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"

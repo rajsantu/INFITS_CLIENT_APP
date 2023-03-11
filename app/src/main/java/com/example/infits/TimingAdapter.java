@@ -33,7 +33,10 @@ public class TimingAdapter extends RecyclerView.Adapter<TimingAdapter.CustomView
 
     @Override
     public int getItemCount() {
-        return Integer.MAX_VALUE;
+
+        return stringList.size();
+
+//        return Integer.MAX_VALUE;
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
