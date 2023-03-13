@@ -33,6 +33,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -47,8 +54,10 @@ import org.json.JSONObject;
 
 import java.io.StringReader;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
@@ -65,6 +74,7 @@ public class Login extends AppCompatActivity {
 
     ImageView googlebn, btnFacebook, btnTwitter;
     String google_social_signin_url = String.format("%ssocial_login/loginClientGoogle.php",DataFromDatabase.ipConfig);
+    String facebook_social_signin_url = String.format("%ssocial_login/loginClientFacebook.php",DataFromDatabase.ipConfig);
     //needs email & token ( google token );
     String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     RequestQueue queue;
@@ -122,7 +132,8 @@ public class Login extends AppCompatActivity {
 
 
 
-        facebookCallbackManager = CallbackManager.Factory.create();
+        CallbackManager facebookCallbackManager = CallbackManager.Factory.create();
+
         List<String> permissionNeeds = Arrays.asList("email","user_profile");
         LoginManager.getInstance().registerCallback(facebookCallbackManager,
                 new FacebookCallback<LoginResult>() {
