@@ -64,8 +64,6 @@ public class NumberedAdapter extends RecyclerView.Adapter<NumberedAdapter.ViewHo
 //        return ""+selectedPosition;
     }
 
-
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mDataTextView;
 

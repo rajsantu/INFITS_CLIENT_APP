@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
@@ -24,16 +25,35 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Appointment_Booking2 extends AppCompatActivity {
 
     FrameLayout confirmBtn;
     Dialog confirmDialog, customDialog;
     ImageView imgBack,imgCustom;
+
+    String url = String.format("%sappointment1.php",DataFromDatabase.ipConfig);
+
+    String eventName, addDietition, appointmentTimeString, description, attachment, fileType, fileName, selectSchedule, morningSlotsString, eveningSlotsString, appointmentType;
+    String morningSlotText, eveningSlotText, appointmentTypeText;
+
+    Intent intent;
 
     CalendarAdapter adapter;
 
@@ -65,6 +85,8 @@ public class Appointment_Booking2 extends AppCompatActivity {
         imgBack = findViewById(R.id.imgBackAppointment);
         confirmBtn = findViewById(R.id.confirm_btn);
 
+        intent = getIntent();
+
         confirmDialog = new Dialog(this);
         customDialog = new Dialog(this);
 
@@ -86,6 +108,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     // Turn off other switches
                     videoRadioButton.setChecked(false);
                     inpersonRadioButton.setChecked(false);
+                    appointmentTypeText = "Phone";
                 }
             }
         });
@@ -97,6 +120,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     // Turn off other switches
                     phoneRadioButton.setChecked(false);
                     inpersonRadioButton.setChecked(false);
+                    appointmentTypeText = "Video call";
                 }
             }
         });
@@ -108,10 +132,10 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     // Turn off other switches
                     phoneRadioButton.setChecked(false);
                     videoRadioButton.setChecked(false);
+                    appointmentTypeText = "In person";
                 }
             }
         });
-
 
         View.OnClickListener dayClickListener = new View.OnClickListener() {
             @Override
@@ -256,6 +280,8 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     }
 
                     selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+                    morningSlotText = selectedSlotText.getText().toString();
                 }
             });
         }
@@ -322,6 +348,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                     }
 
                     selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                    eveningSlotText = selectedSlotText.getText().toString();
                 }
             });
         }
@@ -385,17 +412,67 @@ public class Appointment_Booking2 extends AppCompatActivity {
 //        findViewById(R.id.eveningSlot4).setOnClickListener(allSlot);
 //        findViewById(R.id.eveningSlot5).setOnClickListener(allSlot);
 //        findViewById(R.id.eveningSlot6).setOnClickListener(allSlot);
-//
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmDialog();
+
+                eventName = intent.getStringExtra("event_name");
+                addDietition = intent.getStringExtra("add_dietitian");
+                appointmentTimeString = intent.getStringExtra("appointmentTime");
+                description = intent.getStringExtra("description");
+                attachment = intent.getStringExtra("attachment");
+                fileType = intent.getStringExtra("file_type");
+                fileName = intent.getStringExtra("file_name");
+                selectSchedule = adapter.getSelectedDate();
+                morningSlotsString = morningSlotText;
+                eveningSlotsString = eveningSlotText;
+                appointmentType = appointmentTypeText;
+
+                if(!checkIfFieldsAreFilled(eventName, addDietition, appointmentTimeString, description, attachment, selectSchedule, morningSlotsString, eveningSlotsString, appointmentType)) {
+                    Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+                } else {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+//                        System.out.println(response);
+                        try {
+                            JSONObject responseJson = new JSONObject(response);
+                            if (responseJson.getString("status").equals("success")){
+                                showConfirmDialog();
+                            } else {
+                                System.out.println("Response error "+response);
+                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Handle the JSONException here
+                        }
+                    },error -> {
+                        Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> data = new HashMap<>();
+                            data.put("event_name",eventName);
+                            data.put("add_dietitian",addDietition);
+                            data.put("appointment_time",appointmentTimeString);
+                            data.put("description",description);
+                            data.put("attachment",attachment);
+                            data.put("select_schedule", selectSchedule);
+                            data.put("morning_slots",morningSlotsString);
+                            data.put("evening_slots",eveningSlotsString);
+                            data.put("appointment_type",appointmentType);
+                            data.put("file_type", fileType);
+                            data.put("file_name", fileName);
+                            return data;
+                        }
+                    };
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    requestQueue.add(stringRequest);
+                }
             }
         });
 
-
-        // Dates rcyclerView
+        // Select Schedule Dates RecyclerView
         Date today = new Date();
         dateList = new ArrayList<>();
 
@@ -422,7 +499,6 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
 
         // Custom Time section
-
         customBtnMorningSlot = findViewById(R.id.customBtn_morningSlot);
         customBtnEveningSlot = findViewById(R.id.customBtn_EveningSlot);
 
@@ -436,7 +512,6 @@ public class Appointment_Booking2 extends AppCompatActivity {
         customSlot = findViewById(R.id.slotTextCustom);
         imgCustom = findViewById(R.id.custom_timeSelect);
         customSlotEve = findViewById(R.id.slotTextEveCustom);
-
 
         customBtnMorningSlot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -455,6 +530,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 customBtnAfterEvening.setVisibility(View.VISIBLE);
             }
         });
+
         customBtnAfterMorning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -473,7 +549,6 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
             }
         });
-
 
         RadioGroup radioGroup = findViewById(R.id.radio_group);
 
@@ -494,6 +569,13 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean checkIfFieldsAreFilled(
+            String eventName, String addDietition, String appointmentTimeString, String description, String attachment, String selectSchedule, String morningSlotsString, String eveningSlotsString, String appointmentType
+    ) {
+        return !eventName.equals("") && !addDietition.equals("") && !appointmentTimeString.equals("") && !description.equals("") &&
+                !selectSchedule.equals("") && !morningSlotsString.equals("") && !eveningSlotsString.equals("") && !appointmentType.equals("");
     }
 
     private void customTimeDialog(TextView slot){
@@ -631,8 +713,6 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 confirmDialog.dismiss();
             }
         });
-
-
     }
 
 }
