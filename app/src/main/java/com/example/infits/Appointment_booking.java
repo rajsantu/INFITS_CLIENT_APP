@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Base64;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -55,11 +58,15 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
     DataFromDatabase dataFromDatabase;
 
+    public String base64File;
+
+    String extension, fileName;
+
     FrameLayout nextBtn, nowBtn, anyTimeBtn;
     private List<FrameLayout> frameLayoutList;
 
     Spinner customSpinner;
-    String spinnerItem, add_dietitian, appointmentTimeText, attachment;
+    String spinnerItem, add_dietitian, appointmentTimeText;
     ArrayList<CustomItem> customList;
 
     EditText description;
@@ -77,6 +84,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         customSpinner = findViewById(R.id.customIconSpinner);
         customList = getCustomList();
         CustomeAdapterSpinner adapter = new CustomeAdapterSpinner(this, customList);
+
         if (customSpinner != null) {
             customSpinner.setAdapter(adapter);
             customSpinner.setOnItemSelectedListener(this);
@@ -95,12 +103,14 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         nowBtn = findViewById(R.id.nowBtn);
         anyTimeBtn = findViewById(R.id.anyTimeBtn);
 
-        add_dietitian = "Fredy Ludena";
+        add_dietitian = "Ajit T.";
         appointmentTimeText = "";
-        attachment = "File";
+//        base64File = "attached";
+
+        fileName = DataFromDatabase.clientuserID+"_"+DataFromDatabase.dietitianuserID;
+//        fileName = "clientId_dietitionId_date";
 
         description = findViewById(R.id.user_description);
-        String descript = description.getText().toString();
 
         customSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -128,8 +138,12 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     intent.putExtra("event_name", spinnerItem);
                     intent.putExtra("add_dietitian", add_dietitian);
                     intent.putExtra("appointmentTime", appointmentTimeText);
-                    intent.putExtra("description", descript);
-                    intent.putExtra("attachment", attachment);
+                    intent.putExtra("description", description.getText().toString());
+                    if(base64File != null){
+                        intent.putExtra("attachment", base64File);
+                    }
+                    intent.putExtra("file_type", extension);
+                    intent.putExtra("file_name", fileName);
                     startActivity(intent);
                 }
                 else{
@@ -230,15 +244,29 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
             String filename = getFileName(uri);
-            ContentResolver contentResolver = getContentResolver(); // Get a reference to the ContentResolver
 
+            byte[] fileData = null;
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                int fileSize = inputStream.available();
+                fileData = new byte[fileSize];
+                inputStream.read(fileData);
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            base64File = Base64.encodeToString(fileData, Base64.DEFAULT);
+
+            ContentResolver contentResolver = getContentResolver(); // Get a reference to the ContentResolver
             // Get the MIME type of the file from the Uri
             String fileType = contentResolver.getType(uri);
+
 //            Typeface nats = Typeface.createFromAsset(getAssets(), "font/nats_regular.ttf");
             Typeface nats = ResourcesCompat.getFont(this, R.font.nats_regular);
 
             String fileDispName;
-            //triming extension
+            // triming extension
             if(filename.length() > 32)
                 fileDispName  = filename.substring(0,32)+"...";
             else
@@ -270,7 +298,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT
             );
-
 
             iconParam.addRule(RelativeLayout.CENTER_VERTICAL);
 
@@ -352,7 +379,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                 }
             });
 
-
             // Add the new RelativeLayout to the parent LinearLayout or RecyclerView
             // For example, if you have a LinearLayout with id "file_list":
             LinearLayout fileList = findViewById(R.id.file_list);
@@ -363,7 +389,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             }
 
             //delete button functionality
-
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -410,7 +435,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
     // Helper method to get the appropriate file type icon for a given file name
     private int getFileTypeIcon(String fileName) {
-        String extension = getFileExtension(fileName);
+        extension = getFileExtension(fileName);
         switch (extension) {
             case "pdf":
                 return R.drawable.pdf;

@@ -459,7 +459,6 @@ public class Login extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         DashBoardFragment fragment = (DashBoardFragment) fragmentManager.findFragmentById(R.id.trackernav);
 
-
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
