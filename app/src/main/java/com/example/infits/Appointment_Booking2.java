@@ -548,6 +548,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 } else {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                         try {
+                            System.out.println(response);
                             JSONObject responseJson = new JSONObject(response);
                             if (responseJson.getString("status").equals("success")) {
                                 View confirmationView = LayoutInflater.from(Appointment_Booking2.this).inflate(R.layout.appointment_book, null);
@@ -583,6 +584,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                             data.put("timing_slots", timingSlotsString);
                             data.put("appointment_type", appointmentType);
                             data.put("file_type", fileType);
+                            System.out.println(fileType + "Log 2");
                             data.put("file_name", fileName);
                             return data;
                         }
