@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -103,12 +104,12 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         nowBtn = findViewById(R.id.nowBtn);
         anyTimeBtn = findViewById(R.id.anyTimeBtn);
 
-        add_dietitian = "Ajit T.";
+        add_dietitian = "Smith K.";
         appointmentTimeText = "";
 //        base64File = "attached";
 
-        fileName = DataFromDatabase.clientuserID+"_"+DataFromDatabase.dietitianuserID;
-//        fileName = "clientId_dietitionId_date";
+//        fileName = DataFromDatabase.clientuserID+"_"+DataFromDatabase.dietitianuserID;
+        fileName = "smith12_faizan29";
 
         description = findViewById(R.id.user_description);
 
