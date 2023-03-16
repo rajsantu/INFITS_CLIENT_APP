@@ -96,9 +96,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nats_regular"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="0000"
                     android:textColor="@color/white"
-                    android:textSize="36sp"
+                    android:textSize="48sp"
                     android:textStyle="bold" />
 
                 <Button
@@ -119,13 +119,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="30dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
                     android:src="@drawable/trophy" />
 
                 <TextView

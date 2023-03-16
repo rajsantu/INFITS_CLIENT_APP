@@ -3,13 +3,24 @@
 
     <style name="account_edt_views">
         <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_height">35dp</item>
         <item name="android:background">@drawable/edit_text_background</item>
         <item name="android:fontFamily">@font/nats_regular</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:paddingHorizontal">10dp</item>
         <item name="text_size">14sp</item>
+    </style>
+
+    <style name="account_edt_views1">
+        <item name="android:layout_width">301dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:background">@drawable/edittext_background1</item>
+        <item name="android:fontFamily">@font/nats_regular</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="text_size">18sp</item>
     </style>
 
     <style name="account_txt_views">

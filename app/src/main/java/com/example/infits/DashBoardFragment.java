@@ -9,16 +9,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -55,6 +58,7 @@ public class DashBoardFragment extends Fragment {
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
 
     String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
+
     DataFromDatabase dataFromDatabase;
     TextView stepstv;
     TextView glassestv;
@@ -450,8 +454,17 @@ public class DashBoardFragment extends Fragment {
                     Navigation.findNavController(requireActivity(), R.id.trackernav).navigate(R.id.action_dashBoardFragment_to_waterTrackerFragment, waterBundle);
             }
         }
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ImageView imageView = view.findViewById(R.id.profile1);
+        imageView.setImageResource(R.drawable.profile);
+    }
+
+    public void setProfileImage(Drawable drawable) {
+        profile.setImageDrawable(drawable);
     }
 
     private void getLatestCalorieData() {
@@ -477,8 +490,6 @@ public class DashBoardFragment extends Fragment {
                             calorietv.setText(calorieValueText);
                             calorieGoaltv.setText(calorieGoalText);
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -505,9 +516,18 @@ public class DashBoardFragment extends Fragment {
 
         name = view.findViewById(R.id.nameInDash);
         date = view.findViewById(R.id.date);
-        profile = view.findViewById(R.id.profile);
 
-        profile.setImageBitmap(DataFromDatabase.profile);
+//        profile = view.findViewById(R.id.profile1);
+//
+////        if (DataFromDatabase.profile != null) {
+////            profile.setImageBitmap(DataFromDatabase.profile);
+////        } else {
+////            if (getActivity() != null) {
+////                fragment.setProfileImage(ContextCompat.getDrawable(getActivity(), R.drawable.profile));
+////            }
+////        }
+//
+//        profile.setImageBitmap(DataFromDatabase.profile);
 
         stepstv = view.findViewById(R.id.steps);
         glassestv = view.findViewById(R.id.glasses);

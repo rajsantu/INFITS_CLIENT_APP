@@ -52,8 +52,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -184,22 +186,48 @@ public class StepTrackerFragment extends Fragment {
 //                waterGoalPercent.setText(String.valueOf(calculateGoal()));
 //            }
 //        }
-
+        int noOfDays=10;
         String url = String.format("%spastActivity.php",DataFromDatabase.ipConfig);
+        ArrayList<String> fetchedDates=new ArrayList<>();
+        fetchedDates.clear();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
             try {
+                Log.d("response123",response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("steps");
-                for (int i = 0;i<jsonArray.length();i++){
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String data = object.getString("steps");
-                    String date = object.getString("date");
-                    dates.add(date);
-                    datas.add(data);
-                    System.out.println(datas.get(i));
-                    System.out.println(dates.get(i));
+                Log.d("jsonArrayoutput",jsonArray.toString());
+                for (int i=0;i<jsonArray.length();i++){
+                    fetchedDates.add(jsonArray.getJSONObject(i).getString("date"));
                 }
+                for (int i=0;i<noOfDays;i++){
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DATE, -i);
+                    Log.d("featched",fetchedDates.toString());
+                    Log.d("currentInstance",dateFormat.format(cal.getTime()).toString());
+                    if(fetchedDates.contains(dateFormat.format(cal.getTime()).toString())==true){
+                        int index=fetchedDates.indexOf(dateFormat.format(cal.getTime()));
+                        Log.d("index",String.valueOf(index));
+                        JSONObject object=jsonArray.getJSONObject(index);
+                        dates.add(dateFormat.format(cal.getTime()));
+                        String data=object.getString("steps").toString();
+                        datas.add(data);
+                    }
+                    else {
+                        dates.add(dateFormat.format(cal.getTime()));
+                        datas.add("0");
+                    }
+                }
+//                for (int i = 0;i<jsonArray.length();i++){
+//                    JSONObject object = jsonArray.getJSONObject(i);
+//                    String data = object.getString("steps");
+//                    String date = object.getString("date");
+//                    dates.add(date);
+//                    datas.add(data);
+//                    System.out.println(datas.get(i));
+//                    System.out.println(dates.get(i));
+//                }
                 AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#FF9872"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
@@ -207,8 +235,10 @@ public class StepTrackerFragment extends Fragment {
                 e.printStackTrace();
             }
         },error -> {
-            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            Log.d("Error",error.toString());
+            if (getActivity() != null) {
+                Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+            Log.d("Error", error.toString());
         }){
             @Nullable
             @Override
@@ -328,10 +358,10 @@ public class StepTrackerFragment extends Fragment {
     public boolean foregroundServiceRunning(){
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
-         if (MyService.class.getName().equals(service.service.getClassName())){
-             return true;
-         }
-     }
+            if (MyService.class.getName().equals(service.service.getClassName())){
+                return true;
+            }
+        }
         return false;
     }
     private void updateGUI(Intent intent) {

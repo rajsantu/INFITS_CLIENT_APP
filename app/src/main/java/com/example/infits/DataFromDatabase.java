@@ -22,9 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataFromDatabase {
- //   public static String ipConfig = "http://192.168.56.91/infits/";
-//    public static String ipConfig ="http://192.168.43.70:8090/login_client.php/";
-    public static String ipConfig ="http://192.168.43.70:8090/infits";
+    public static String ipConfig = "http://192.168.1.11/infits/";
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,height;
