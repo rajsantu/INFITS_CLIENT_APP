@@ -228,6 +228,9 @@
         <action
             android:id="@+id/action_fragment_diet_chart_to_fragment_diet_third_scrn"
             app:destination="@id/fragment_diet_third_scrn" />
+        <action
+            android:id="@+id/action_fragment_diet_chart_to_diet_fourth2"
+            app:destination="@id/diet_fourth2" />
 
     </fragment>
     <fragment
@@ -240,6 +243,10 @@
         android:name="com.example.infits.Fragment_diet_third_scrn"
         android:label="fragment_diet_third_scrn"
         tools:layout="@layout/fragment_diet_third_scrn" />
+    <fragment
+        android:id="@+id/diet_fourth2"
+        android:name="com.example.infits.diet_fourth"
+        android:label="diet_fourth" />
 
 
 </navigation>
