@@ -114,55 +114,55 @@ public class Login extends AppCompatActivity {
                             SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
                             SharedPreferences.Editor editor = loginDetails.edit();
 
-                            DataFromDatabase.password = object.getString("password");
-                            DataFromDatabase.email = object.getString("email");
-                            DataFromDatabase.mobile = object.getString("mobile");
-                            DataFromDatabase.profilePhoto = object.getString("profilePhoto");
-                            DataFromDatabase.location = object.getString("location");
-                            DataFromDatabase.age = object.getString("age");
-                            DataFromDatabase.gender  = object.getString("gender");
-                            DataFromDatabase.weight  = object.getString("weight");
-                            DataFromDatabase.height  = object.getString("height");
-                            DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
+                                DataFromDatabase.password = object.getString("password");
+                                DataFromDatabase.email = object.getString("email");
+                                DataFromDatabase.mobile = object.getString("mobile");
+                                DataFromDatabase.profilePhoto = object.getString("profilePhoto");
+                                DataFromDatabase.location = object.getString("location");
+                                DataFromDatabase.age = object.getString("age");
+                                DataFromDatabase.gender  = object.getString("gender");
+                                DataFromDatabase.weight  = object.getString("weight");
+                                DataFromDatabase.height  = object.getString("height");
+                                DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
 
-                            System.out.println(DataFromDatabase.weight);
-                            System.out.println(DataFromDatabase.height);
+                                System.out.println(DataFromDatabase.weight);
+                                System.out.println(DataFromDatabase.height);
 
-                            if (object.getString("verification").equals("0")){
-                                DataFromDatabase.proUser = false;
-                            }
-                            if (object.getString("verification").equals("1")){
-                                DataFromDatabase.proUser = true;
-                            }
-                            System.out.println(DataFromDatabase.proUser+" Prouser");
-                            byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
-                            DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
-                            Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
+                                if (object.getString("verification").equals("0")){
+                                    DataFromDatabase.proUser = false;
+                                }
+                                if (object.getString("verification").equals("1")){
+                                    DataFromDatabase.proUser = true;
+                                }
+                                System.out.println(DataFromDatabase.proUser+" Prouser");
+                                byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
+                                DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
+                                Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
 
-                            editor.putBoolean("hasLoggedIn", true);
-                            editor.putBoolean("flag", true);
-                            editor.putString("clientuserID",object.getString("clientuserID"));
-                            editor.putString("dietitianuserID",object.getString("dietitianuserID"));
-                            editor.putString("name",object.getString("name"));
-                            editor.putString("password",object.getString("password"));
-                            editor.putString("email",object.getString("email"));
-                            editor.putString("mobile",object.getString("mobile"));
-                            editor.putString("profilePhoto",object.getString("profilePhoto"));
-                            editor.putString("location",object.getString("location"));
-                            editor.putString("age",object.getString("age"));
-                            editor.putString("gender",object.getString("gender"));
-                            editor.putString("weight",object.getString("weight"));
-                            editor.putString("height",object.getString("height"));
-                            editor.putString("profilePhotoBase",object.getString("profilePhoto"));
-                            editor.putBoolean("proUser",DataFromDatabase.proUser);
-                            editor.apply();
+                                editor.putBoolean("hasLoggedIn", true);
+                                editor.putBoolean("flag", true);
+                                editor.putString("clientuserID",object.getString("clientuserID"));
+                                editor.putString("dietitianuserID",object.getString("dietitianuserID"));
+                                editor.putString("name",object.getString("name"));
+                                editor.putString("password",object.getString("password"));
+                                editor.putString("email",object.getString("email"));
+                                editor.putString("mobile",object.getString("mobile"));
+                                editor.putString("profilePhoto",object.getString("profilePhoto"));
+                                editor.putString("location",object.getString("location"));
+                                editor.putString("age",object.getString("age"));
+                                editor.putString("gender",object.getString("gender"));
+                                editor.putString("weight",object.getString("weight"));
+                                editor.putString("height",object.getString("height"));
+                                editor.putString("profilePhotoBase",object.getString("profilePhoto"));
+                                editor.putBoolean("proUser",DataFromDatabase.proUser);
+                                editor.apply();
 
 //                            if (fragment != null) {
 //                                fragment.setProfileImage(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile));
 //                            }
 
 
-                            finish();
+                                finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
