@@ -263,25 +263,33 @@ public class StepTrackerFragment extends Fragment {
                     SharedPreferences preferences = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
                     boolean stepNotificationPermission = preferences.getBoolean("stepSwitch", true);
 
-                    Intent serviceIntent = new Intent(getActivity(), MyService.class);
-                    serviceIntent.putExtra("goal",goalVal);
-                    serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
+                    //Intent serviceIntent = new Intent(getActivity(), MyService.class);
+                   // serviceIntent.putExtra("goal",goalVal);
+                   // serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
 
-                    if (!foregroundServiceRunning()){
-                        ContextCompat.startForegroundService(requireContext(), serviceIntent);
+                   // if (!foregroundServiceRunning()){
+                     //   ContextCompat.startForegroundService(requireContext(), serviceIntent);
+                    //}
+
+                    if(stepNotificationPermission) {
+                        // we have permission to run step service
+                        if (!foregroundServiceRunning()) {
+                            Intent serviceIntent = new Intent(requireContext(), MyService.class);
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                serviceIntent.putExtra("goal", goalVal);
+                                serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
+                                requireContext().startForegroundService(serviceIntent);
+
+                            }
+                            else{
+                                requireContext().startService(serviceIntent);
+                            }
+
+
+                    //requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
+                       }
                     }
-
-//                    if(stepNotificationPermission) {
-//                        // we have permission to run step service
-//                        if (!foregroundServiceRunning()) {
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                                Intent serviceIntent = new Intent(requireContext(), StepTrackerService.class);
-//                                requireActivity().startForegroundService(serviceIntent);
-//                            }
-////                    requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
-//                        }
-//                    }
-
                     dialog.dismiss();
                 });
                 dialog.show();

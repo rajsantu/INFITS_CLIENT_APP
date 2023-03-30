@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -45,7 +46,7 @@ public class MyService extends Service implements SensorEventListener {
     PendingIntent pendingIntent = null;
     boolean updatePrev = true, notificationPermission, inAppNotificationUpdated = false;
     float goal;
-
+   private static final int NOTIFICATION_ID = 123;
     NotificationManager manager;
 
     Intent intentAction = new Intent("com.example.infits");
@@ -54,39 +55,50 @@ public class MyService extends Service implements SensorEventListener {
     public void onCreate() {
         super.onCreate();
 
+
+
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        startForeground(NOTIFICATION_ID,createNotification());
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
+        goal = intent.getFloatExtra("goal", 0f);
+        var Goal = Double.toString(goal);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-
+        Log.d("goal--",Goal);
         if (stepSensor == null) {
             Log.e("service", "No sensor");
+            no_sensor();
+
         } else {
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
-        }
 
-        goal = intent.getFloatExtra("goal", 0f);
-        notificationPermission = intent.getBooleanExtra("notificationPermission", false);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel chan = new NotificationChannel(
-                    "MyChannelId",
-                    "My Foreground Service",
-                    NotificationManager.IMPORTANCE_HIGH);
-            chan.setLightColor(Color.BLUE);
-            chan.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+            goal = intent.getFloatExtra("goal", 0f);
 
-            manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            assert manager != null;
-            manager.createNotificationChannel(chan);
-        }
+
+            notificationPermission = intent.getBooleanExtra("notificationPermission", false);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel chan = new NotificationChannel(
+                        "MyChannelId",
+                        "My Foreground Service",
+                        NotificationManager.IMPORTANCE_HIGH);
+                chan.setLightColor(Color.BLUE);
+                chan.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+
+                manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                assert manager != null;
+                manager.createNotificationChannel(chan);
+            }
 
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this,
 //                0, notificationIntent, 0);
 
+
+        }
         return START_NOT_STICKY;
     }
 
@@ -318,11 +330,81 @@ public class MyService extends Service implements SensorEventListener {
                 data.put("avgspeed", speed);
                 data.put("calories",calories);
                 data.put("steps", String.valueOf(FetchTrackerInfos.currentSteps));
-                data.put("goal", "5000");
+                var Goal = Double.toString(goal);
+
+                data.put("goal", Goal);
                 return data;
             }
         };
         Volley.newRequestQueue(getApplicationContext()).add(request);
     }
 
-}
+
+    public void no_sensor()
+    {
+        String url= String.format("%ssteptracker.php",DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+            if (response.equals("updated")){
+//                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                Log.d("Respons3232e",response);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Not working", Toast.LENGTH_SHORT).show();
+                Log.d("Response",response);
+            }
+        },error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String steps="0";
+                String distance = "0";
+                String calories = "0";
+                Date dateSpeed = new Date();
+
+                SimpleDateFormat hour = new SimpleDateFormat("HH");
+                SimpleDateFormat mins = new SimpleDateFormat("mm");
+
+                int h = Integer.parseInt(hour.format(dateSpeed));
+                int m = Integer.parseInt(mins.format(dateSpeed));
+
+                int time = h+(m/60);
+
+                String speed = "0";
+                System.out.println("update: " + calories + " "+distance+" "+speed);
+
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                sdf.format(date);
+                Map<String,String> data = new HashMap<>();
+                data.put("userID",DataFromDatabase.clientuserID);
+                data.put("dateandtime", String.valueOf(date));
+                data.put("distance", distance);
+                data.put("avgspeed", speed);
+                data.put("calories",calories);
+                data.put("steps", steps);
+                var Goal=Double.toString(goal);
+                data.put("goal", Goal);
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    private Notification createNotification() {
+        // Create a notification for the foreground service
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "MyChannelId")
+                .setContentTitle("Foreground Service")
+                .setContentText("Running...")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setChannelId("MyChannelId");
+
+        return builder.build();
+    }
+    }
+
+
