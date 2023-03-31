@@ -12,26 +12,9 @@
         <item name="text_size">14sp</item>
     </style>
 
-    <style name="account_edt_views1">
-        <item name="android:layout_width">301dp</item>
-        <item name="android:layout_height">72dp</item>
-        <item name="android:background">@drawable/edittext_background1</item>
-        <item name="android:fontFamily">@font/nats_regular</item>
-        <item name="android:layout_marginTop">2dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:paddingHorizontal">10dp</item>
-        <item name="text_size">18sp</item>
-    </style>
-
     <style name="account_txt_views">
         <item name="android:fontFamily">@font/nats_regular</item>
         <item name="android:textColor">#6A6A6A</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="cancle_button_color">
-        <item name="android:fontFamily">@font/nats_regular</item>
-        <item name="android:textColor">#7D96F8</item>
         <item name="android:textSize">14sp</item>
     </style>
 

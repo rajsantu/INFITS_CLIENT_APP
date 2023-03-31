@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">Infits</string>
 
     <string name="navigation_open">Open Navigation drawer</string>
@@ -18,8 +17,12 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="feature_1">Feature 1</string>
     <string name="feature_2">Feature 2</string>
     <string name="feature_3">Feature 3</string>
-    <!--PLEASE PUT YOUR DEFAULT WEB CLIENT ID TO CONNECT TO FIREBASE OR GOOGLE PROJECT ONLINE -->
-    <string name="default_web_client_id">873409448319-v4hf9ri1pkmf2iijgofessfq5132om8u.apps.googleusercontent.com</string>
+    <string name="breakfast">B</string>
+    <string name="lunch">L</string>
+    <string name="dinner">D</string>
+    <string name="snacks">S</string>
+
+
     <array name="month">
         <item>Jan</item>
         <item>Feb</item>
@@ -34,27 +37,5 @@ exercitation ullamco laboris nisi ut aliquip</string>
         <item>Nov</item>
         <item>Dec</item>
     </array>
-
-    <string name="navigation_open">Open Navigation drawer</string>
-    <string name="navigation_close">Close Navigation drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
-
-    <string name="Loremipsum">Lorem ipsum dolor sit amet, consectetur
-adipiscing elit, sed do eiusmod tempo
-incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud
-exercitation ullamco laboris nisi ut aliquip</string>
-    <string name="referral_text">Sign  your  friends  up\nShare  the  app  via:</string>
-    <string name="app_name">Infits</string>
-    <string name="todo">TODO</string>
-
-    <string-array name="spinner_options">
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-        <item>Option 4</item>
-    </string-array>
 
 </resources>

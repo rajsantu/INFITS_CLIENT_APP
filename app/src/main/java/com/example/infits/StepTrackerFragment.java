@@ -149,7 +149,8 @@ public class StepTrackerFragment extends Fragment {
 
         stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
         float goal = stepPrefs.getFloat("goal", 0f);
-        int steps = (int) Math.min(stepPrefs.getInt("steps", 0), goal);
+        int steps = (int) Math.min((int)stepPrefs.getInt("steps", 0), (int)goal);
+//        int steps = 20;
         float goalPercent = stepPrefs.getFloat("goalPercent", 0f);
 
         progressBar.setProgress(goalPercent);
@@ -235,10 +236,8 @@ public class StepTrackerFragment extends Fragment {
                 e.printStackTrace();
             }
         },error -> {
-            if (getActivity() != null) {
-                Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-            Log.d("Error", error.toString());
+            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            Log.d("Error",error.toString());
         }){
             @Nullable
             @Override
