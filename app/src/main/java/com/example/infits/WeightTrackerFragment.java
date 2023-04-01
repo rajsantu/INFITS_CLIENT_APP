@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -281,6 +282,9 @@ public class WeightTrackerFragment extends Fragment {
                         }
                     };
                     Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+                    request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 }
             });
             PickerLayoutManager pickerLayoutManager = new PickerLayoutManager(getContext(), PickerLayoutManager.HORIZONTAL, false);
@@ -363,6 +367,9 @@ public class WeightTrackerFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         adddet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -420,7 +427,7 @@ public class WeightTrackerFragment extends Fragment {
                                 updatePastActivity();
                             }
                             else{
-                                Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_SHORT).show();
                             }
                         },error -> {
                             Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
@@ -444,6 +451,9 @@ public class WeightTrackerFragment extends Fragment {
                             }
                         };
                         Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+                        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                         updateInAppNotifications(cur_weight);
 
@@ -594,6 +604,9 @@ public class WeightTrackerFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(inAppRequest);
+        inAppRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void updatePastActivity() {
@@ -636,6 +649,9 @@ public class WeightTrackerFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     void setEvent(ArrayList<String> dateList, int color) {
@@ -755,6 +771,9 @@ public class WeightTrackerFragment extends Fragment {
                 }
             };
             Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
+        stringRequestCalUn.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     void markGreen(String month){
@@ -791,6 +810,9 @@ public class WeightTrackerFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(stringRequestCal);
+        stringRequestCal.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
     public List<String> getData(int count) {
         List<String> data = new ArrayList<>();
