@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     >
 
     <LinearLayout
-        android:layout_width="153dp"
+        android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_margin="10dp"
         android:background="@drawable/live_screen_message"
@@ -34,9 +34,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="4dp"
+            android:layout_marginEnd="10dp"
             >
 
             <TextView
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John Wayne"
@@ -47,6 +49,7 @@
                 />
 
             <TextView
+                android:id="@+id/userMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-19dp"
@@ -54,6 +57,8 @@
                 android:fontFamily="@font/nats_regular"
                 android:textSize="16sp"
                 android:textColor="@color/black"
+                android:ellipsize="none"
+                android:maxLines="5"
                 />
 
         </LinearLayout>

@@ -114,14 +114,15 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.9.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0-alpha02'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.viewpager:viewpager:1.1.0-alpha01"
     implementation("com.tbuonomo:dotsindicator:4.3")
     // Adding lottie library
     def lottieVersion = "4.2.2"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation 'io.agora.rtc:full-sdk:4.0.1'
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
     implementation 'com.github.4bh1nav:ProgressView:v1.0'
