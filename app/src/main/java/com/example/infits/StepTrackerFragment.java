@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -189,6 +190,7 @@ public class StepTrackerFragment extends Fragment {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
             try {
+                Log.d("dattaaaa:",response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("steps");
                 for (int i = 0;i<jsonArray.length();i++){
@@ -220,6 +222,9 @@ public class StepTrackerFragment extends Fragment {
         };
 
         Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         PowerManager powerManager = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
