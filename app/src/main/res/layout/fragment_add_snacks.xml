@@ -43,36 +43,36 @@
                     android:fontFamily="@font/nats_regular"
                     android:text="Snacks"
                     android:layout_weight="9"
-                    android:gravity="center|end"
+                    android:gravity="center"
                     android:textAlignment="gravity"
                     android:textColor="#F6B566"
                     android:textFontWeight="400"
                     android:textSize="38sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="7"
-                    android:outlineProvider="none"
-                    app:boxStrokeColor="@color/white"
-                    app:endIconMode="dropdown_menu"
-                    app:endIconTint="#F6B566">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="7"-->
+<!--                    android:outlineProvider="none"-->
+<!--                    app:boxStrokeColor="@color/white"-->
+<!--                    app:endIconMode="dropdown_menu"-->
+<!--                    app:endIconTint="#F6B566">-->
 
-                    <AutoCompleteTextView
-                        android:id="@+id/snacksSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/nats_regular"
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/snacksSpinner"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:fontFamily="@font/nats_regular"-->
 
-                        android:gravity="end|center"
-                        android:inputType="none"
-                        android:text="Today"
-                        android:textAlignment="gravity"
-                        android:textColor="#F6B566"
-                        android:textFontWeight="400"
-                        android:textSize="20dp" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                        android:gravity="end|center"-->
+<!--                        android:inputType="none"-->
+<!--                        android:text="Today"-->
+<!--                        android:textAlignment="gravity"-->
+<!--                        android:textColor="#F6B566"-->
+<!--                        android:textFontWeight="400"-->
+<!--                        android:textSize="20dp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

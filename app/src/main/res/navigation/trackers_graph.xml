@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trackers_graph"
-    app:startDestination="@id/weightTrackerFragment">
+    app:startDestination="@id/calorieTrackerFragment">
 
     <fragment
         android:id="@+id/stepTrackerFragment"
@@ -75,6 +75,7 @@
 <!--            android:id="@+id/action_calorieConsumedFragment_to_calorieAddBreakFastFragment"-->
 <!--            app:destination="@id/calorieAddBreakFastFragment" />-->
     </fragment>
+
     <fragment
         android:id="@+id/foodDetailsFragment"
         android:name="com.example.infits.FoodDetailsFragment"
@@ -294,6 +295,7 @@
             android:id="@+id/action_mealInfoWithPhoto_to_calorieAddBreakfastFragment"
             app:destination="@id/calorieAddBreakFastFragment" />
 
+
     </fragment>
     <fragment
         android:id="@+id/calorieConsumedFragment"
@@ -306,6 +308,7 @@
 
 
     </fragment>
+
     <fragment
         android:id="@+id/weightReminderFragment"
         android:name="com.example.infits.WeightReminderFragment"

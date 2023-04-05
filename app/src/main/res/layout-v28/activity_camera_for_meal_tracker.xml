@@ -1,136 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CameraForMealTracker">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/result"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@drawable/brand_color_for_device"-->
-<!--        android:orientation="vertical"-->
-<!--        android:translationZ="1dp"-->
-<!--        android:visibility="gone"-->
-<!--        tools:context=".EnterFoodDetails">-->
+    <LinearLayout
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EnterFoodDetails"
+        android:orientation="vertical"
+        android:background="@drawable/brand_color_for_device"
+        android:translationZ="1dp"
+        android:visibility="gone">
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="400dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="40dp"-->
-<!--            app:cardCornerRadius="20dp"-->
-<!--            app:cardElevation="30dp">-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center"
+            app:cardElevation="30dp">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/food_eaten"-->
-<!--                android:layout_width="325dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:scaleType="fitXY" />-->
+            <ImageView
+                android:id="@+id/food_eaten"
+                android:layout_width="325dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="fitXY" />
 
-<!--            <ScrollView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:layout_gravity="bottom|center">-->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="bottom|center">
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="bottom"-->
-<!--                    android:background="@drawable/color_for_meal_tracker_details"-->
-<!--                    android:orientation="vertical">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/color_for_meal_tracker_details"
+                    android:orientation="vertical">
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginHorizontal="10dp"-->
-<!--                        android:orientation="horizontal">-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="10dp">
 
-<!--                        <EditText-->
-<!--                            android:id="@+id/name"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="60dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:layout_marginEnd="10dp"-->
-<!--                            android:layout_weight="2"-->
-<!--                            android:fontFamily="@font/nats_regular"-->
-<!--                            android:hint="Enter the name"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textColorHint="@color/black"-->
-<!--                            android:textSize="20sp" />-->
+                        <EditText
+                            android:id="@+id/name"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:textColor="@color/black"
+                            android:hint="Enter the name"
+                            android:textColorHint="@color/black"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/nats_regular"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:layout_marginEnd="10dp"/>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/meal"-->
-<!--                            style="@style/enter_food_time"-->
-<!--                            android:layout_marginEnd="15dp"-->
-<!--                            android:gravity="end"-->
-<!--                            android:text="Bread Truffle" />-->
-<!--                    </LinearLayout>-->
+                        <TextView
+                            android:id="@+id/meal"
+                            android:text="Bread Truffle"
+                            android:gravity="end"
+                            android:layout_marginEnd="15dp"
+                            style="@style/enter_food_time" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/dateandtime"/>
+                        <TextView
+                            android:id="@+id/date_and_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="date_and_time"
+                            style="@style/enter_food_time"
+                            android:layout_marginStart="10dp"/>
+                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/enter_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter description (Optional)"
+                        style="@style/enter_food_time"
+                        android:lineHeight="20dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:textColorHint="#4A4A4A"
+                        android:layout_marginBottom="20dp"/>
+                </LinearLayout>
+            </ScrollView>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginHorizontal="10dp">-->
+        </androidx.cardview.widget.CardView>
 
-<!--                        <ImageView-->
-<!--                            android:layout_width="25dp"-->
-<!--                            android:layout_height="25dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:src="@drawable/dateandtime" />-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_meal"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/outline"
+            android:backgroundTint="@color/white"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/date_and_time"-->
-<!--                            style="@style/enter_food_time"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:text="date_and_time" />-->
-<!--                    </LinearLayout>-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/retake"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/outline"
+            android:backgroundTint="@color/white"
+            android:text="Retake"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/enter_description"-->
-<!--                        style="@style/enter_food_time"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginHorizontal="10dp"-->
-<!--                        android:layout_marginBottom="20dp"-->
-<!--                        android:hint="Enter description (Optional)"-->
-<!--                        android:lineHeight="20dp"-->
-<!--                        android:textColorHint="#4A4A4A" />-->
-<!--                </LinearLayout>-->
-<!--            </ScrollView>-->
-
-<!--        </androidx.cardview.widget.CardView>-->
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/save_meal"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@drawable/outline"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:text="Save"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/black" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/retake"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@drawable/outline"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:text="Retake"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/black" />-->
-
-<!--    </LinearLayout>-->
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/camera_layout"
@@ -140,70 +135,37 @@
         <SurfaceView
             android:id="@+id/camera_screen"
             android:layout_width="match_parent"
-            android:layout_alignBottom="@id/take"
-            android:layout_marginBottom="100dp"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
-        <ImageView
-            android:id="@+id/food_eaten_photo"
-            android:layout_width="match_parent"
-            android:visibility="invisible"
-            android:layout_alignBottom="@id/take"
-            android:layout_marginBottom="100dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true" />
         <TextView
-            android:layout_width="match_parent"
-            android:text="Take a photo"
-            android:fontFamily="@font/nats_regular"
-            android:textAlignment="center"
-            android:textSize="24dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginStart="78dp"
-            android:textColor="@color/white"
-            android:layout_marginEnd="78dp"
-            android:background="@drawable/rectangle_6273"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
-
+            android:id="@+id/barcodeText"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageView
-            android:id="@+id/saveImageButton"
-            android:layout_width="56dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="56dp"
-            android:visibility="invisible"
+            android:id="@+id/flash_on_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignTop="@+id/take"
             android:layout_alignBottom="@+id/take"
-            android:layout_marginStart="55dp"
-            android:padding="10dp"
-            android:src="@drawable/baseline_done_24"
-            android:background="@drawable/photo_done_background"
-            android:layout_toEndOf="@+id/take"/>
+            android:layout_marginStart="45dp"
+            android:layout_toEndOf="@+id/take"
+            android:src="@drawable/flash_on" />
         <ImageView
-            android:id="@+id/gallery"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
+            android:id="@+id/flash_off_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignTop="@+id/take"
-            android:scaleType="fitEnd"
             android:layout_alignBottom="@+id/take"
-            android:layout_marginEnd="45dp"
-            android:src="@drawable/gallary"
-            android:layout_toStartOf="@+id/take"/>
-<!--        <ImageView-->
-<!--            android:id="@+id/flash_off_btn"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="45dp"-->
-<!--            android:layout_alignTop="@+id/take"-->
-<!--            android:layout_alignBottom="@+id/take"-->
-<!--            android:layout_marginStart="45dp"-->
-<!--            android:layout_toEndOf="@+id/take"-->
-<!--            android:src="@drawable/flash_off"-->
-<!--            android:visibility="gone" />-->
+            android:layout_marginStart="45dp"
+            android:layout_toEndOf="@+id/take"
+            android:src="@drawable/flash_off"
+            android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/take"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"

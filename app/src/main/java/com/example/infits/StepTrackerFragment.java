@@ -149,8 +149,7 @@ public class StepTrackerFragment extends Fragment {
 
         stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
         float goal = stepPrefs.getFloat("goal", 0f);
-        int steps = (int) Math.min((int)stepPrefs.getInt("steps", 0), (int)goal);
-//        int steps = 20;
+        int steps = (int) Math.min(stepPrefs.getInt("steps", 0), goal);
         float goalPercent = stepPrefs.getFloat("goalPercent", 0f);
 
         progressBar.setProgress(goalPercent);

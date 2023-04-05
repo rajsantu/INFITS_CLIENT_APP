@@ -106,6 +106,7 @@ public class Login extends AppCompatActivity {
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject object = jsonArray.getJSONObject(0);
+                            Log.d("responseLogin",object.toString());
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");

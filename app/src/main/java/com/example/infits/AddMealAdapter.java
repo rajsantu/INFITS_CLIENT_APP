@@ -1,7 +1,12 @@
 package com.example.infits;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +48,8 @@ public class AddMealAdapter extends RecyclerView.Adapter<AddMealAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.addmealIcon.setImageDrawable(context.getDrawable(addmealInfos.get(position).mealIocn));
+
+
         holder.addMealName.setText(addmealInfos.get(position).mealname);
 //        holder.addMealQuantity.setText(addmealInfos.get(position).mealQuantity);
         holder.addMealCalorie.setText(addmealInfos.get(position).mealcalorie);
@@ -54,16 +61,20 @@ public class AddMealAdapter extends RecyclerView.Adapter<AddMealAdapter.ViewHold
                 Bundle bundle=new Bundle();
                 int icon=addmealInfos.get(position).mealIocn;
                 String Meal_Name=addmealInfos.get(position).mealname;
+                String Meal_type=addmealInfos.get(position).mealType;
                 String calorie=addmealInfos.get(position).mealcalorie;
                 String carbs=addmealInfos.get(position).carb;
                 String protin=addmealInfos.get(position).protein;
                 String fat=addmealInfos.get(position).fat;
                 mealInfotransfer.add(Meal_Name);
+                mealInfotransfer.add(Meal_type);
                 mealInfotransfer.add(calorie);
                 mealInfotransfer.add(carbs);
                 mealInfotransfer.add(protin);
                 mealInfotransfer.add(fat);
                 mealInfotransfer.add(String.valueOf(icon));
+                Log.d("mealInfotransfer",mealInfotransfer.toString());
+
                 bundle.putStringArrayList("mealInfotransfer",mealInfotransfer);
                 if (addmealInfos.get(position).mealType == "BreakFast") {
                     Navigation.findNavController(v).navigate(R.id.action_calorieAddBreakfastFragment_to_mealInfoWithPhoto, bundle);

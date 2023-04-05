@@ -130,8 +130,6 @@ public class FragmentCalorieConsumed extends Fragment {
                 pastAcivity();
             }
         });
-
-        totalCalorieValue.setText("80");
     }
     private void pieChart(){
         List<PieEntry> entries=new ArrayList<>();

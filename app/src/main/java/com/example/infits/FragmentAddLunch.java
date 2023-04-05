@@ -55,15 +55,12 @@ public class FragmentAddLunch extends Fragment {
     RequestQueue queue,requestQueue;
 
     private String mParam2;
-    AutoCompleteTextView lunchSpinner;
-    ArrayAdapter<String> arrayAdapter;
     ImageView underlineFrequent,underlineRecent,underlineFavourites;
     TextView recentTextView,FavouritesTextview,frequentTextView;
     SearchView searchlunch;
     RecyclerView lunchitems;
     ArrayList<addmealInfo> addmealInfos;
     ImageView calorieImgback;
-    String[] calorieDropDownitems={"Yesterday","Today","Tomorrow"};
     AddMealAdapter addMealAdapter;
     public FragmentAddLunch() {
         // Required empty public constructor
@@ -105,13 +102,7 @@ public class FragmentAddLunch extends Fragment {
         hooks(view);
         AddFrequentMeal();
         calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
-        lunchSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedSuggestion = (String) parent.getItemAtPosition(position);
-                AddFrequentMeal();
-            }
-        });
+
         searchlunch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -172,9 +163,6 @@ public class FragmentAddLunch extends Fragment {
         }
     }
     private void hooks(View view){
-        lunchSpinner=view.findViewById(R.id.lunchSpinner);
-        arrayAdapter=new ArrayAdapter<>(requireActivity(), R.layout.dropdownitems,calorieDropDownitems);
-        lunchSpinner.setAdapter(arrayAdapter);
         underlineFrequent=view.findViewById(R.id.underlineFrequent);
         underlineRecent=view.findViewById(R.id.underlineRecent);
         underlineFavourites=view.findViewById(R.id.underlineFavourites);
@@ -194,9 +182,10 @@ public class FragmentAddLunch extends Fragment {
             if(sharedPreferences.contains("RecentMealInfo")) {
                 JSONObject jsonObject = new JSONObject(sharedPreferences.getString("RecentMealInfo", ""));
                 JSONArray jsonArray1 = jsonObject.getJSONArray("RecentMealInfo");
+                Log.d("jsonArray1",jsonArray1.toString());
                 for (int i = 0; i < jsonArray1.length(); i++) {
                     JSONObject jsonObject1=jsonArray1.getJSONObject(i);
-                    addmealInfos.add(new addmealInfo(Integer.parseInt(jsonObject1.getString("icon")),"BreakFast",jsonObject1.getString("name"),
+                    addmealInfos.add(new addmealInfo(Integer.valueOf(jsonObject1.getString("icon")),"BreakFast",jsonObject1.getString("name"),
                             jsonObject1.getString("calorie"),jsonObject1.getString("protin"),jsonObject1.getString("carb"),
                             jsonObject1.getString("fat")));
                 }

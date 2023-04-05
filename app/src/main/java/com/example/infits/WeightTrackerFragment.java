@@ -3,34 +3,41 @@ package com.example.infits;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -41,20 +48,18 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.threeten.bp.LocalDate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -324,8 +329,6 @@ public class WeightTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        setDates(dates,datas);
-
         String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,urlPast, response -> {
@@ -336,15 +339,11 @@ public class WeightTrackerFragment extends Fragment {
                     JSONObject object = jsonArray.getJSONObject(i);
                     String data = object.getString("weight");
                     String date = object.getString("date");
-
-                    int index = dates.indexOf(date);
-                    if(index > 0)
-                        datas.set(index,data);
+                    dates.add(date);
+                    datas.add(data);
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                Collections.reverse(datas);
-                Collections.reverse(dates);
                 AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#1FB688"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
@@ -360,8 +359,6 @@ public class WeightTrackerFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
                 data.put("clientID",DataFromDatabase.clientuserID);
-//                data.put("clientID","Azarudeen");
-//                data.put("clientID","test");
                 return data;
             }
         };
@@ -599,30 +596,15 @@ public class WeightTrackerFragment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(inAppRequest);
     }
 
-    private void setDates(ArrayList<String> dates,ArrayList<String> data){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        System.out.println("setdates called");
-
-        for(int i=10;i>0;i--){
-            LocalDate yesterday = LocalDate.now().minusDays(i);
-            String yesterdayStr = yesterday.format(formatter);
-
-            dates.add(yesterdayStr);
-            System.out.println(yesterdayStr);
-            data.add("0");
-        }
-    }
-
     private void updatePastActivity() {
-        Log.d("I", "entered");
+        Log.d("updatePA", "entered");
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
-
-        setDates(dates,datas);
 
         String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,urlPast, response -> {
+            Log.d("updatePA", response);
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("weight");
@@ -630,14 +612,11 @@ public class WeightTrackerFragment extends Fragment {
                     JSONObject object = jsonArray.getJSONObject(i);
                     String data = object.getString("weight");
                     String date = object.getString("date");
-                    int index = dates.indexOf(date);
-                    if(index > 0)
-                        datas.set(index,data);
+                    dates.add(date);
+                    datas.add(data);
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                Collections.reverse(datas);
-                Collections.reverse(dates);
                 AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#1FB688"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
@@ -653,7 +632,6 @@ public class WeightTrackerFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
                 data.put("clientID",DataFromDatabase.clientuserID);
-//                data.put("clientID","test");
                 return data;
             }
         };

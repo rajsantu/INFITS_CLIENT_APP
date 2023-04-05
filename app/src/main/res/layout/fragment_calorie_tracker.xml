@@ -540,11 +540,12 @@
                 android:src="@drawable/swipeupct"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="@dimen/_6sdp"/>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_height="wrap_content">
                 <View
@@ -561,6 +562,7 @@
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/_15ssp"
                     android:text=" Add Meals "/>
                 <View
                     android:layout_width="0dp"
@@ -569,6 +571,37 @@
                     android:layout_weight="1"
                     android:layout_height="@dimen/_1sdp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add different food items to the meal and calorie"
+                android:layout_marginTop="@dimen/_55sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_16ssp"
+                android:textColor="#FF7E00"
+                android:gravity="center"
+                android:fontFamily="@font/nats_regular"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tracker from here to keep a track of everything!"
+                android:layout_marginTop="@dimen/_70sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_16ssp"
+                android:textColor="#FF7E00"
+                android:gravity="center"
+                android:fontFamily="@font/nats_regular"
+                />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -576,7 +609,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_115sdp"
-                    android:layout_marginTop="@dimen/_60sdp"
+                    android:layout_marginTop="@dimen/_120sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:background="#FF8610"
@@ -603,30 +636,36 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_13sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_marginStart="@dimen/_3ssp"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Breakfast"
+
+                                    android:fontFamily="@font/nats_regular"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_18ssp" />
+                                    android:textSize="@dimen/_20ssp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Select your breakfast meal"
+                                    android:fontFamily="@font/nats_regular"
+                                    android:layout_marginTop="-20dp"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_8ssp" />
+                                    android:textSize="@dimen/_15ssp" />
                             </LinearLayout>
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/add_breakfast"
                                 android:layout_width="@dimen/_60sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                app:cardCornerRadius="@dimen/_3sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                app:cardCornerRadius="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_12sdp"
                                 android:elevation="@dimen/_3sdp"
+                                android:layout_marginStart="@dimen/_3ssp"
                                 android:layout_alignParentBottom="true">
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -637,7 +676,7 @@
                                         android:layout_width="match_parent"
                                         android:gravity="center"
                                         android:layout_height="wrap_content"
-                                        android:textSize="@dimen/_9ssp"
+                                        android:textSize="@dimen/_12ssp"
                                         android:textColor="@color/white"
                                         android:text=" +  Add "/>
                                 </RelativeLayout>
@@ -692,28 +731,31 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_13sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Lunch"
+                                    android:fontFamily="@font/nats_regular"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_18ssp" />
+                                    android:textSize="@dimen/_20ssp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Select your lunch meal"
+                                    android:text="Select your breakfast meal"
+                                    android:fontFamily="@font/nats_regular"
+                                    android:layout_marginTop="-20dp"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_8ssp" />
+                                    android:textSize="@dimen/_15ssp"  />
                             </LinearLayout>
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/add_lunch"
                                 android:layout_width="@dimen/_60sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                app:cardCornerRadius="@dimen/_3sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                app:cardCornerRadius="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_12sdp"
                                 android:elevation="@dimen/_3sdp"
                                 android:layout_alignParentBottom="true">
@@ -726,7 +768,7 @@
                                         android:layout_width="match_parent"
                                         android:gravity="center"
                                         android:layout_height="wrap_content"
-                                        android:textSize="@dimen/_9ssp"
+                                        android:textSize="@dimen/_12ssp"
                                         android:textColor="@color/white"
                                         android:text=" +  Add "/>
                                 </RelativeLayout>
@@ -779,28 +821,31 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_13sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Snacks"
+                                    android:fontFamily="@font/nats_regular"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_18ssp" />
+                                    android:textSize="@dimen/_20ssp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Select your snacks meal"
+                                    android:fontFamily="@font/nats_regular"
+                                    android:layout_marginTop="-20dp"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_8ssp" />
+                                    android:textSize="@dimen/_15ssp" />
                             </LinearLayout>
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/add_snack"
                                 android:layout_width="@dimen/_60sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                app:cardCornerRadius="@dimen/_3sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                app:cardCornerRadius="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_12sdp"
                                 android:elevation="@dimen/_3sdp"
                                 android:layout_alignParentBottom="true">
@@ -813,7 +858,7 @@
                                         android:layout_width="match_parent"
                                         android:gravity="center"
                                         android:layout_height="wrap_content"
-                                        android:textSize="@dimen/_9ssp"
+                                        android:textSize="@dimen/_12ssp"
                                         android:textColor="@color/white"
                                         android:text=" +  Add "/>
                                 </RelativeLayout>
@@ -868,28 +913,31 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_13sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Dinner"
+                                    android:fontFamily="@font/nats_regular"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_18ssp" />
+                                    android:textSize="@dimen/_20ssp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Select your dinner meal"
+                                    android:fontFamily="@font/nats_regular"
+                                    android:layout_marginTop="-20dp"
                                     android:textColor="#FF7E00"
-                                    android:textSize="@dimen/_8ssp" />
+                                    android:textSize="@dimen/_15ssp"  />
                             </LinearLayout>
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/add_dinner"
                                 android:layout_width="@dimen/_60sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                app:cardCornerRadius="@dimen/_3sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                app:cardCornerRadius="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_12sdp"
                                 android:elevation="@dimen/_3sdp"
                                 android:layout_alignParentBottom="true">
@@ -902,7 +950,7 @@
                                         android:layout_width="match_parent"
                                         android:gravity="center"
                                         android:layout_height="wrap_content"
-                                        android:textSize="@dimen/_9ssp"
+                                        android:textSize="@dimen/_12ssp"
                                         android:textColor="@color/white"
                                         android:text=" +  Add "/>
                                 </RelativeLayout>

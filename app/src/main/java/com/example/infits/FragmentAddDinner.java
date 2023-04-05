@@ -56,15 +56,12 @@ public class FragmentAddDinner extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    AutoCompleteTextView dinnerSpinner;
-    ArrayAdapter<String> arrayAdapter;
     ImageView underlineFrequent,underlineRecent,underlineFavourites;
     TextView recentTextView,FavouritesTextview,frequentTextView;
     SearchView searchdinner;
     RecyclerView dinneritems;
     ArrayList<addmealInfo> addmealInfos;
     ImageView calorieImgback;
-    String[] calorieDropDownitems={"Yesterday","Today","Tomorrow"};
     AddMealAdapter addMealAdapter;
     public FragmentAddDinner() {
         // Required empty public constructor
@@ -107,13 +104,7 @@ public class FragmentAddDinner extends Fragment {
         hooks(view);
         AddFrequentMeal();
         calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
-        dinnerSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedSuggestion = (String) parent.getItemAtPosition(position);
-                AddFrequentMeal();
-            }
-        });
+
         searchdinner.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -174,9 +165,6 @@ public class FragmentAddDinner extends Fragment {
         }
     }
     private void hooks(View view){
-        dinnerSpinner=view.findViewById(R.id.dinnerSpinner);
-        arrayAdapter=new ArrayAdapter<>(requireActivity(), R.layout.dropdownitems,calorieDropDownitems);
-        dinnerSpinner.setAdapter(arrayAdapter);
         underlineFrequent=view.findViewById(R.id.underlineFrequent);
         underlineRecent=view.findViewById(R.id.underlineRecent);
         underlineFavourites=view.findViewById(R.id.underlineFavourites);

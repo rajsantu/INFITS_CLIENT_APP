@@ -56,8 +56,6 @@ public class FragmentAddBreakFast extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    AutoCompleteTextView breakfastSpinner;
-    ArrayAdapter<String> arrayAdapter;
     ImageView underlineFrequent,underlineRecent,underlineFavourites;
     TextView recentTextView,FavouritesTextview,frequentTextView;
     SearchView searchBreakfast;
@@ -67,7 +65,6 @@ public class FragmentAddBreakFast extends Fragment {
     RequestQueue queue,requestQueue;
     ArrayList<addmealInfo> addmealInfos;
     ImageView calorieImgback;
-    String[] calorieDropDownitems={"Yesterday","Today","Tomorrow"};
     AddMealAdapter addMealAdapter;
     public FragmentAddBreakFast() {
         // Required empty public constructor
@@ -110,15 +107,8 @@ public class FragmentAddBreakFast extends Fragment {
         jsonArray=new JSONArray();
         mainJSONobj=new JSONObject();
         AddFrequentMeal();
-
         calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
-        breakfastSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedSuggestion = (String) parent.getItemAtPosition(position);
-                AddFrequentMeal();
-            }
-        });
+
 
         searchBreakfast.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -177,9 +167,6 @@ public class FragmentAddBreakFast extends Fragment {
         }
     }
     private void hooks(View view){
-        breakfastSpinner=view.findViewById(R.id.breakfastSpinner);
-        arrayAdapter=new ArrayAdapter<>(requireActivity(), R.layout.dropdownitems,calorieDropDownitems);
-        breakfastSpinner.setAdapter(arrayAdapter);
         underlineFrequent=view.findViewById(R.id.underlineFrequent);
         underlineRecent=view.findViewById(R.id.underlineRecent);
         underlineFavourites=view.findViewById(R.id.underlineFavourites);

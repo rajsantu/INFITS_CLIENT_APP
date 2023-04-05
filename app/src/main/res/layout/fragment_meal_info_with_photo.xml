@@ -377,7 +377,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginStart="105dp"
-            android:layout_marginTop="-15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="105dp"
             android:layout_marginBottom="17dp"
             android:layout_weight="1">
@@ -385,9 +385,9 @@
                     android:layout_width="match_parent"
                     app:cardCornerRadius="10dp"
                     android:elevation="10dp"
-                    app:cardUseCompatPadding="false"
+                    app:cardUseCompatPadding="true"
                     android:layout_height="65dp">
-                    <Button
+                    <TextView
                         android:id="@+id/TakeaPhotoButton"
                         android:layout_width="match_parent"
                         android:text="Take a photo"

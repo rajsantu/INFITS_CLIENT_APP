@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -67,6 +66,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".CameraForCalorieTracker"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_Todays_Breakfast"
+            android:exported="false" />
         <activity
             android:name=".EditProfile"
             android:exported="false">
