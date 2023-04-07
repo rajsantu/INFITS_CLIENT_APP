@@ -162,9 +162,14 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
+
                             SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
                             SharedPreferences.Editor editor = loginDetails.edit();
 
+                            DataFromDatabase.client_id=object.getString("client_id");
+                            Log.d("clientID",DataFromDatabase.client_id);
+                            DataFromDatabase.dietitian_id=object.getString("dietitian_id");
+                            Log.d("dietitianID",DataFromDatabase.dietitian_id);
                             DataFromDatabase.password = object.getString("password");
                             DataFromDatabase.email = object.getString("email");
                             DataFromDatabase.mobile = object.getString("mobile");
@@ -193,6 +198,8 @@ public class Login extends AppCompatActivity {
                             editor.putBoolean("hasLoggedIn", true);
                             editor.putBoolean("flag", true);
                             editor.putString("clientuserID",object.getString("clientuserID"));
+                            editor.putString("dietitian_id",object.getString("dietitian_id"));
+                            editor.putString("client_id",object.getString("client_id"));
                             editor.putString("dietitianuserID",object.getString("dietitianuserID"));
                             editor.putString("name",object.getString("name"));
                             editor.putString("password",object.getString("password"));

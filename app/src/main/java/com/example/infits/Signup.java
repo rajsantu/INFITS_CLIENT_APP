@@ -128,9 +128,8 @@ public class Signup extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
 
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
 
                 generateReferral();
             }

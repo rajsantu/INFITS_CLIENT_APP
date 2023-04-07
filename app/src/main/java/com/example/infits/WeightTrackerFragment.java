@@ -272,12 +272,9 @@ public class WeightTrackerFragment extends Fragment {
                             data.put("height",String.valueOf(DataFromDatabase.height));
                             data.put("goal","70");
                             data.put("bmi",String.format("%.2f",bmi));
-//                            Log.d("weight", DataFromDatabase.clientuserID);
-//                            Log.d("weight", sdf.format(mcv.getSelectedDate().getDate()));
-//                            Log.d("weight", String.valueOf(cur_weight));
-//                            Log.d("weight", String.valueOf(DataFromDatabase.height));
-//                            Log.d("weight", "70");
-//                            Log.d("weight", String.format("%.2f",bmi));
+                            data.put("dietitian_id",String.valueOf(DataFromDatabase.dietitian_id));
+                            data.put("clientID",String.valueOf(DataFromDatabase.client_id));
+
                             return data;
                         }
                     };
@@ -362,7 +359,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("clientID",DataFromDatabase.client_id);
                 return data;
             }
         };
@@ -442,11 +439,11 @@ public class WeightTrackerFragment extends Fragment {
                                 data.put("date",sdf.format(date));
                                 data.put("weight", String.valueOf(cur_weight));
                                 data.put("height", String.valueOf(height));
+                                data.put("dietitian_id",String.valueOf(DataFromDatabase.dietitian_id));
+                                data.put("clientID",String.valueOf(DataFromDatabase.client_id));
                                 data.put("goal","70");
                                 data.put("bmi",String.format("%.2f",bmi));
-                                Log.d("height",String.valueOf(height));
-                                Log.d("weight",String.valueOf(cur_weight));
-                                Log.d("bmi",String.format("%.2f",bmi));
+
                                 return data;
                             }
                         };
@@ -644,7 +641,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("clientID",DataFromDatabase.client_id);
                 return data;
             }
         };
@@ -765,7 +762,7 @@ public class WeightTrackerFragment extends Fragment {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> data = new HashMap<>();
 //                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
-                    data.put("userID", DataFromDatabase.clientuserID);
+                    data.put("clientID", DataFromDatabase.client_id);
                     data.put("month",month);
                     return data;
                 }
@@ -804,7 +801,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", DataFromDatabase.clientuserID);
+                data.put("clientID", DataFromDatabase.client_id);
                 data.put("month",month);
                 return data;
             }
