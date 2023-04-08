@@ -223,7 +223,7 @@ public class StepsFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientID", DataFromDatabase.client_id);
                         return dataVol;
                     }
                 };
@@ -283,7 +283,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("clientID", DataFromDatabase.clientuserID);
+                    data.put("clientID", DataFromDatabase.client_id);
 
                     return data;
                 }
@@ -331,7 +331,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("userID", DataFromDatabase.clientuserID);
+                    data.put("userID", DataFromDatabase.client_id);
 
                     return data;
                 }
@@ -407,7 +407,7 @@ public class StepsFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientID", DataFromDatabase.client_id);
                         dataVol.put("from", from);
                         dataVol.put("to", to);
                         return dataVol;

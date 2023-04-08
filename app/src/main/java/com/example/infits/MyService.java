@@ -378,12 +378,14 @@ public class MyService extends Service implements SensorEventListener {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 sdf.format(date);
                 Map<String,String> data = new HashMap<>();
-                data.put("userID",DataFromDatabase.clientuserID);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
                 data.put("dateandtime", String.valueOf(date));
                 data.put("distance", distance);
                 data.put("avgspeed", speed);
                 data.put("calories",calories);
                 data.put("steps", steps);
+                data.put("clientID",DataFromDatabase.client_id);
+                data.put("dietitian_id",DataFromDatabase.dietitian_id);
                 var Goal=Double.toString(goal);
                 data.put("goal", Goal);
                 return data;

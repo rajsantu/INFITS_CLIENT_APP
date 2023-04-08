@@ -216,7 +216,7 @@ public class StepTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("clientID",DataFromDatabase.client_id);
                 return data;
             }
         };
