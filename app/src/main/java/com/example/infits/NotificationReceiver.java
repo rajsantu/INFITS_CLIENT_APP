@@ -8,9 +8,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -27,14 +29,21 @@ public class NotificationReceiver extends BroadcastReceiver {
         String tracker = intent.getStringExtra("tracker");
 
         switch (tracker) {
-            case "sleep" : sleep(context);
-            case "step" : step(context);
-            case "water" : water(context);
-            case "calorie" : calorie(context);
-            case "weight" : weight(context);
+            case "sleep":
+                sleep(context);
+            case "step":
+                step(context);
+            case "water":
+                water(context);
+            case "calorie":
+                calorie(context);
+            case "weight":
+                weight(context);
 
-            case "RecentMealInfo":DeleteRecentMealInfo(context);
-            case "TodaysBreakFast":DeleteRecentMealInfo1(context);
+            case "RecentMealInfo":
+                DeleteRecentMealInfo(context);
+            case "TodaysBreakFast":
+                DeleteRecentMealInfo1(context);
         }
     }
 

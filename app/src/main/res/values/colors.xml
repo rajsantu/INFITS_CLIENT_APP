@@ -27,6 +27,7 @@
     <color name="sleepNotification">#7D5DE6</color>
     <color name="weightNotification">#18A98B</color>
     <color name="calorieNotification">#F76DA0</color>
+    <color name="yellow">#FDD835</color>
 
     <array name="range">
         <item>#5884FE</item>
