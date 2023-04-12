@@ -48,8 +48,7 @@
                 android:src="@drawable/reminder_vector"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="24dp"
-                android:contentDescription="TODO" />
+                android:layout_marginEnd="24dp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -68,7 +67,6 @@
                 android:rotation="-15"
                 app:interactive="false"
                 app:progress="0.34"
-                android:visibility="visible"
                 app:progressGradient="@array/progress"
                 app:progressWidth="5dp"
                 app:startAngleDegrees="65"
@@ -96,9 +94,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nats_regular"
                     android:gravity="center"
-                    android:text="0000"
+                    android:text="0"
                     android:textColor="@color/white"
-                    android:textSize="48sp"
+                    android:textSize="36sp"
                     android:textStyle="bold" />
 
                 <Button

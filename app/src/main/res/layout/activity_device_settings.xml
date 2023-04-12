@@ -7,69 +7,54 @@
     xmlns:ripple="http://schemas.android.com/apk/res-auto"
     tools:context=".DeviceSettings"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@drawable/brand_color_for_device">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SETTINGS"
+        android:fontFamily="@font/nats_regular"
+        android:textSize="38sp"
+        android:textColor="@color/white"
+        android:layout_marginStart="25dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Device Management"
+        android:fontFamily="@font/nats_regular"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="-10dp"/>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_marginTop="17dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp">
-
-        </ImageView>
-<!--  Suraj changes state as under👇👇👇-->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bluetooth"
             android:fontFamily="@font/nats_regular"
-            android:textSize="28sp"
-            android:textColor="@color/black"
-            android:layout_marginStart="20dp"/>
-    </LinearLayout>
-    <!--  Suraj changes state as under👇👇👇-->
-        <LinearLayout
-            android:id="@+id/bluetooth_btn_layout"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginStart="25dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/bluetoothSwitch"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bluetooth_radio_button">
-
-           <TextView
-                android:id="@+id/select_title3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="off"
-                android:fontFamily="@font/nats_regular"
-                android:textSize="24sp"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:layout_marginStart="25dp"
-            />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/bluetoothSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nats_regular"
-                android:textSize="24sp"
-                app:thumbTint="#ffff"
-                android:textColor="@color/white"
-                app:track="@drawable/track_for_ble"
-                android:layout_gravity="center"
-                android:layout_marginEnd="35dp" />
-        </LinearLayout>
-
-
-
+            android:fontFamily="@font/nats_regular"
+            android:textSize="24sp"
+            app:thumbTint="@color/bluetoothThumb"
+            android:textColor="@color/white"
+            app:track="@drawable/track_for_ble"
+            android:layout_gravity="center"
+            android:layout_marginEnd="35dp" />
+    </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -86,7 +71,8 @@
         android:gravity="center"
         android:text="Found 2 devices"
         android:textSize="24sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         android:visibility="gone"/>
 
     <TextView
@@ -95,157 +81,42 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
         android:gravity="center"
-        android:text="To see available networks, turn on bluetooth"
+        android:text="No nearby Bluetooth devices found."
         android:textSize="20sp"
-        android:textColor="@color/black" />
-    <!--  Suraj Ripple changes state as under👇👇"#0099CC"👇-->
+        android:textColor="#E0E0E0" />
 
-    <com.skyfishjy.library.RippleBackground
-        android:id="@+id/content"
+    <com.gauravbhola.ripplepulsebackground.RipplePulseLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        ripple:rb_color="#7D96F8"
-        ripple:rb_radius="32dp"
-        ripple:rb_rippleAmount="6"
-        ripple:rb_duration="3000"
-        ripple:rb_scale="6">
+        ripple:rippleColor="@color/white"
+        ripple:rippleType="stroke"
+        ripple:strokeWidth="2dp"
+        ripple:startRadius="42dp"
+        ripple:endRadius="300dp"
+        ripple:duration="2000"
+        android:id="@+id/layout_ripplepulse">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bluetooth_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp" />
-        <ImageView
-            android:id="@+id/cross_bluetooth_img"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/cross_bluetooth" />
-        <ImageView
-            android:id="@+id/centerImage"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:visibility="gone"
-            android:layout_centerInParent="true"
-            android:src="@drawable/circle_bluetooth" />
 
-        <ImageView
-            android:id="@+id/img_bluetooth"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/bluetooth_icon"
-            android:visibility="gone" />
-    </com.skyfishjy.library.RippleBackground>
+    </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
 
-    <TextView
-        android:id="@+id/select_title2"
-        android:layout_marginBottom="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nats_regular"
-        android:gravity="center"
-         android:textSize="20sp"
-        android:textColor="@color/black" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cancel_btn_bluetooth"
-        android:layout_width="210dp"
-        android:layout_height="42dp"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/nats_regular"
-       android:textColor="@color/white"
-        android:textSize="23sp"
-        android:text="Cancel Search"
-        android:background="@drawable/cancel_search_btn"
-        android:textAllCaps="false">
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/try_again"
-        android:layout_width="210dp"
-        android:layout_height="42dp"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/nats_regular"
-        android:textColor="@color/white"
-        android:textSize="23sp"
-        android:text="Try Again"
-        android:background="@drawable/cancel_search_btn"
-        android:textAllCaps="false">
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/Back_blue"
-        android:layout_width="210dp"
-        android:layout_height="42dp"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/nats_regular"
-        android:textColor="@color/white"
-        android:textSize="23sp"
-        android:text="Back"
-        android:background="@drawable/cancel_search_btn"
-        android:textAllCaps="false">
-    </androidx.appcompat.widget.AppCompatButton>
-
-
-
-
-        />
-
-<!--    <com.gauravbhola.ripplepulsebackground.RipplePulseLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        ripple:rippleColor="@color/blue"-->
-<!--        ripple:rippleType="fill"-->
-<!--        ripple:strokeWidth="20dp"-->
-<!--        ripple:startRadius="42dp"-->
-<!--        ripple:endRadius="300dp"-->
-<!--        ripple:duration="2000"-->
-
-<!--        android:id="@+id/layout_ripplepulse">-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/bluetooth_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="25dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginBottom="10dp" />-->
-
-<!--    </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>-->
-
-    <!--    <zhan.rippleview.RippleView-->
-    <!--        android:id="@+id/ripple"-->
-    <!--        app:radius="100"-->
-    <!--        app:stroke_width="1"-->
-    <!--        app:duration="1500"-->
-    <!--        app:repeat_count="1000"-->
-    <!--        app:two_ripple_times=".1000"-->
-    <!--        app:three_ripple_times=".2000"-->
-    <!--        android:layout_width="100dp"-->
-    <!--        android:layout_height="100dp"/>-->
+<!--    <zhan.rippleview.RippleView-->
+<!--        android:id="@+id/ripple"-->
+<!--        app:radius="100"-->
+<!--        app:stroke_width="1"-->
+<!--        app:duration="1500"-->
+<!--        app:repeat_count="1000"-->
+<!--        app:two_ripple_times=".1000"-->
+<!--        app:three_ripple_times=".2000"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"/>-->
 
     <Button
         android:layout_width="match_parent"
@@ -260,349 +131,18 @@
         android:id="@+id/connect_div"/>
 
     <ImageView
-        android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="20dp"
         android:src="@drawable/horizontal_line"/>
 
     <ImageView
         android:id="@+id/scan_for_device"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="20dp"
-        android:src="@drawable/scan_img"
+        android:src="@drawable/scan_for_devices"
         android:layout_marginBottom="10dp"/>
 </LinearLayout>
-
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:ripple="http://schemas.android.com/apk/res-auto"-->
-<!--    tools:context=".DeviceSettings"-->
-<!--    android:orientation="vertical"-->
-<!--    >-->
-<!--<LinearLayout-->
-<!--    android:orientation="horizontal"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
-<!--    <ImageView-->
-<!--        android:layout_marginTop="17dp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:src="@drawable/ic_keyboard_arrow_left_black_24dp">-->
-
-<!--    </ImageView>-->
-
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Bluetooth"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:textSize="28sp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:layout_marginStart="20dp"/>-->
-<!--</LinearLayout>-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/bluetooth_radio_button">-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="off"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:textSize="24sp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginStart="25dp"/>-->
-
-<!--        <androidx.appcompat.widget.SwitchCompat-->
-<!--            android:id="@+id/bluetoothSwitch"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:textSize="24sp"-->
-<!--            app:thumbTint="#ffff"-->
-<!--            android:textColor="@color/white"-->
-<!--            app:track="@drawable/track_for_ble"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="35dp" />-->
-<!--    </LinearLayout>-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="10dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:src="@drawable/horizontal_line"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/number_of_devices"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Found 2 devices"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textStyle="bold"-->
-<!--        android:visibility="gone"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/select_title"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:gravity="center"-->
-<!--        android:text="To see available networks,turn on bluetooth"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textColor="@color/black" />-->
-
-<!--    <com.gauravbhola.ripplepulsebackground.RipplePulseLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        ripple:rippleColor="@color/white"-->
-<!--        ripple:rippleType="stroke"-->
-<!--        ripple:strokeWidth="2dp"-->
-<!--        ripple:startRadius="42dp"-->
-<!--        ripple:endRadius="300dp"-->
-<!--        ripple:duration="2000"-->
-<!--        android:id="@+id/layout_ripplepulse">-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/bluetooth_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="25dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginBottom="10dp" />-->
-
-<!--    </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>-->
-
-<!--&lt;!&ndash;    <zhan.rippleview.RippleView&ndash;&gt;-->
-<!--&lt;!&ndash;        android:id="@+id/ripple"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:radius="100"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:stroke_width="1"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:duration="1500"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:repeat_count="1000"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:two_ripple_times=".1000"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:three_ripple_times=".2000"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_width="100dp"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_height="100dp"/>&ndash;&gt;-->
-
-<!--    <Button-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="25dp"-->
-<!--        android:text="Connect Device"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:visibility="gone"-->
-<!--        android:textSize="20sp"-->
-<!--        android:id="@+id/connect_div"/>-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="10dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:src="@drawable/horizontal_line"/>-->
-<!--<LinearLayout-->
-
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
-<!--    <ImageView-->
-<!--        android:id="@+id/scan_for_device"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/scan_img"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:layout_marginLeft="150dp"-->
-
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_marginBottom="5dp"/>-->
-
-<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;        android:text="Scan"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:fontFamily="@font/nats_regular"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:textSize="23sp"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_centerInParent="true"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:textAlignment="center"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_marginLeft="5dp"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:textColor="@color/black"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_marginBottom="5dp"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_height="wrap_content">&ndash;&gt;-->
-
-<!--&lt;!&ndash;    </TextView>&ndash;&gt;-->
-<!--</LinearLayout>-->
-<!--</LinearLayout>-->
-
-<!--change make here-->
-
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:ripple="http://schemas.android.com/apk/res-auto"-->
-<!--    tools:context=".DeviceSettings"-->
-<!--    android:orientation="vertical"-->
-<!--    android:background="@drawable/brand_color_for_device">-->
-
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="SETTINGS"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:textSize="38sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:layout_marginStart="25dp"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Device Management"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:layout_marginStart="25dp"-->
-<!--        android:layout_marginTop="-10dp"/>-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Bluetooth"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:textSize="24sp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginStart="25dp"/>-->
-
-<!--        <androidx.appcompat.widget.SwitchCompat-->
-<!--            android:id="@+id/bluetoothSwitch"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:textSize="24sp"-->
-<!--            app:thumbTint="@color/bluetoothThumb"-->
-<!--            android:textColor="@color/white"-->
-<!--            app:track="@drawable/track_for_ble"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginEnd="35dp" />-->
-<!--    </LinearLayout>-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="10dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:src="@drawable/horizontal_line"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/number_of_devices"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Found 2 devices"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textStyle="bold"-->
-<!--        android:visibility="gone"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/select_title"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:gravity="center"-->
-<!--        android:text="No nearby Bluetooth devices found."-->
-<!--        android:textSize="20sp"-->
-<!--        android:textColor="#E0E0E0" />-->
-
-<!--    <com.gauravbhola.ripplepulsebackground.RipplePulseLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        ripple:rippleColor="@color/white"-->
-<!--        ripple:rippleType="stroke"-->
-<!--        ripple:strokeWidth="2dp"-->
-<!--        ripple:startRadius="42dp"-->
-<!--        ripple:endRadius="300dp"-->
-<!--        ripple:duration="2000"-->
-<!--        android:id="@+id/layout_ripplepulse">-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/bluetooth_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="25dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginBottom="10dp" />-->
-
-<!--    </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>-->
-
-<!--    &lt;!&ndash;    <zhan.rippleview.RippleView&ndash;&gt;-->
-<!--    &lt;!&ndash;        android:id="@+id/ripple"&ndash;&gt;-->
-<!--    &lt;!&ndash;        app:radius="100"&ndash;&gt;-->
-<!--    &lt;!&ndash;        app:stroke_width="1"&ndash;&gt;-->
-<!--    &lt;!&ndash;        app:duration="1500"&ndash;&gt;-->
-<!--    &lt;!&ndash;        app:repeat_count="1000"&ndash;&gt;-->
-<!--    &lt;!&ndash;        app:two_ripple_times=".1000"&ndash;&gt;-->
-<!--    &lt;!&ndash;        app:three_ripple_times=".2000"&ndash;&gt;-->
-<!--    &lt;!&ndash;        android:layout_width="100dp"&ndash;&gt;-->
-<!--    &lt;!&ndash;        android:layout_height="100dp"/>&ndash;&gt;-->
-
-<!--    <Button-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="25dp"-->
-<!--        android:text="Connect Device"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:fontFamily="@font/nats_regular"-->
-<!--        android:visibility="gone"-->
-<!--        android:textSize="20sp"-->
-<!--        android:id="@+id/connect_div"/>-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="10dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:src="@drawable/horizontal_line"/>-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/scan_for_device"-->
-<!--        android:layout_width="180dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:src="@drawable/scan_for_devices"-->
-<!--        android:layout_marginBottom="10dp"/>-->
-<!--</LinearLayout>-->

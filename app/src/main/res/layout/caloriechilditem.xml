@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat2"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.343"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="2dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="20dp"
+            android:background="#FF6262" />
+
+        <ImageView
+            android:id="@+id/concentricCircleView"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="62dp"
+            android:src="@drawable/concentrci_circle"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainCardView"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="15dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:layout_weight="1.1"
+                android:elevation="0dp"
+                app:cardCornerRadius="360dp">
+
+                <ImageView
+                    android:id="@+id/mealIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/istockphoto_860224944_612x612_removebg_preview_1" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mealName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="top"
+                        android:text="Blueberry Pancake"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/black"
+                        android:textFontWeight="400"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/mealcalorieValue"
+                        android:layout_width="0dp"
+
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nats_regular"
+                        android:paddingStart="25dp"
+                        android:text="452 kcal"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textFontWeight="400"
+                        android:textSize="15sp"
+                        app:drawableStartCompat="@drawable/caloriefire" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1.3"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/mealQuantity"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:fontFamily="@font/nats_regular"
+                            android:text="1"
+                            android:layout_marginStart="5dp"
+
+                            android:gravity="start|center"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textFontWeight="400"
+                            android:textSize="12sp" />
+                        <ImageView
+                            android:layout_width="5dp"
+                            android:src="@drawable/baseline_circle_24"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:id="@+id/mealSize"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/nats_regular"
+                            android:text="Small"
+                            android:layout_marginStart="5dp"
+                            android:gravity="center"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textFontWeight="400"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/mealTime"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nats_regular"
+                        android:paddingStart="45dp"
+                        android:paddingBottom="5dp"
+                        android:text="11:10 a.m."
+                        android:gravity="end|center"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/black"
+                        android:textFontWeight="400"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HeartRate"
-    android:background="@color/white">
+    android:background="@drawable/heart_color">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,8 +21,8 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/arrow_heart_rate_1"
-            />
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                app:tint="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,26 +31,9 @@
                 android:fontFamily="@font/nats_regular"
                 android:gravity="center"
                 android:text="Heart Rate"
-                android:textColor="#E963A2"
+                android:textColor="@color/white"
                 android:textSize="38sp" />
         </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       android:gravity="center"
-        android:orientation="vertical">
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="69dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:text="Today"
-            android:fontFamily="@font/nats_regular"
-            android:textColor="@color/white"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/today_bg"
-            android:drawableRight="@drawable/drop_down_arrow_heart"
-            />
         <TextView
             android:id="@+id/deviceName"
             android:layout_width="wrap_content"
@@ -60,24 +43,21 @@
             android:gravity="center"
             android:text="Device Connected:"
             android:layout_gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
-         />
-
-    </LinearLayout>
-
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="300dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            app:cardElevation="0dp"-->
-<!--            app:cardBackgroundColor="@android:color/transparent"-->
-<!--            android:layout_marginTop="-5dp">-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:src="@drawable/heart_btn_png"/>-->
+            android:layout_marginTop="-15dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            android:layout_marginTop="-5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/heart_background_image"/>
             <!--            <com.tenclouds.gaugeseekbar.GaugeSeekBar-->
             <!--                android:id="@+id/spin"-->
             <!--                android:layout_width="match_parent"-->
@@ -92,12 +72,11 @@
             <!--                app:showThumb="true"-->
             <!--                app:interactive="false"/>-->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="35dp"
+                android:layout_gravity="center"
                 android:gravity="center"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/result_from"
@@ -106,453 +85,143 @@
                     android:fontFamily="@font/nats_regular"
                     android:gravity="center"
                     android:text="000"
-                    android:visibility="gone"
                     android:layout_marginEnd="10dp"
                     android:textColor="@color/white"
                     android:textSize="90sp" />
 
-
-
-
-
-                <!--                    <TextView-->
-<!--                        android:id="@+id/bpm_title"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:fontFamily="@font/nats_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:text="START"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="30sp" />-->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/start_title"
-                    android:layout_width="134dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/start_btn_bg"
-                    android:fontFamily="@font/nats_regular"
-                    android:text="START"
-                    android:layout_marginBottom="20dp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="40px" />
-
-
-                <ImageView
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:id="@+id/bpm_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="BPM"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                    <ImageView
                         android:id="@+id/heart_anime"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:visibility="gone"
                         android:background="@drawable/heart_anime"
                         android:layout_gravity="center"/>
-
-<!--                <com.jjoe64.graphview.GraphView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="230dp"-->
-<!--                    android:layout_marginLeft="-5dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:id="@+id/graph"-->
-<!--                    />-->
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/line_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="255dp" />
-
-
+                </LinearLayout>
 
             </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="275dp"
-                android:background="@drawable/ellips_hrt_img"
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="-38dp"
-                android:background="@drawable/sphere_heart_img"
-                />
-        </LinearLayout>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-15dp"
-                android:background="@drawable/rectangle_bg_img_heat"
-                />
-
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="60dp"
-                    android:gravity="center"
-                    android:layout_marginTop="-125dp"
-                    android:layout_gravity="center"
-                   >
-                    <TextView
-                        android:id="@+id/avg_hr_digit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="81"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="35sp"
-                        android:fontFamily="@font/nats_regular"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/nats_regular"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp"
-                        android:text="BPM"
-                        />
-
-
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:src="@drawable/line_for_max_min_avg"-->
-<!--                        android:visibility="invisible"-->
-<!--                        android:layout_marginHorizontal="5dp"/>-->
-                    <TextView
-                        android:id="@+id/max_hr_digit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="35dp"
-                        android:text="155"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="35sp"
-                        android:fontFamily="@font/nats_regular"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/white"
-                        android:layout_marginLeft="-30dp"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/nats_regular"
-                        android:gravity="center"
-                        android:layout_marginTop="6dp"
-                        android:text="BPM"
-                        />
-                    <TextView
-                        android:id="@+id/min_hr_digit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="35sp"
-                        android:text="65"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="35dp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/nats_regular"/>
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginLeft="-32dp"
-                      android:layout_marginTop="6dp"
-                      android:fontFamily="@font/nats_regular"
-                      android:text="BPM"
-                      android:textColor="#ffffff"/>
-
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="60dp"
-                    android:gravity="center"
-                    android:id="@+id/after_measured"
-                    android:layout_gravity="center"
-
-                    android:layout_marginTop="-20dp">
-
-                    <TextView
-                        android:id="@+id/min"
-                        android:layout_width="85dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="0dp"
-                       android:gravity="center"
-                        android:lineSpacingMultiplier="0.5"
-                        android:fontFamily="@font/nats_regular"
-                        android:text="Average\nHR"
-                        android:textColor="#ffffff"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/max1"
-                        android:layout_width="65dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_marginLeft="25dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/nats_regular"
-                        android:lineSpacingMultiplier="0.5"
-                        android:text="Maximum\nHR"
-                        android:textColor="#ffffff"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/max"
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:lineSpacingMultiplier="0.5"
-                        android:text="Minimum\nHR"
-                        android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:gravity="center"
-                        android:textColor="#ffffff"
-                        android:fontFamily="@font/nats_regular"/>
-                </LinearLayout>
-<!--                <LinearLayout-->
-<!--                    android:layout_width="300dp"-->
-<!--                    android:layout_height="60dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginTop="-45dp">-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="65dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="@font/nats_regular"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_marginRight="35dp"-->
-<!--                        android:text="HR"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        />-->
-
-
-<!--                    <TextView-->
-<!--                        android:layout_width="65dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="HR"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:fontFamily="@font/nats_regular" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="65dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="HR"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_marginRight="15dp"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:fontFamily="@font/nats_regular"/>-->
-<!--                </LinearLayout>-->
-
-<!--        </androidx.cardview.widget.CardView>-->
+        </androidx.cardview.widget.CardView>
         <!--        <com.txusballesteros.SnakeView-->
         <!--            android:id="@+id/name"-->
         <!--            android:layout_width="match_parent"-->
         <!--            android:layout_height="50dp"-->
         <!--            android:visibility="gone"-->
         <!--            app:strokeColor="@color/white"/>-->
-        <!--on below line we are creating our calendar view
-    selector color is use as a indicator for selected date
-    text color normal is use to give text color to unselected date
-    text color selected is use to give text color to selected date-->
-<!--        <devs.mulham.horizontalcalendar.HorizontalCalendarView-->
-<!--            android:id="@+id/calendarView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:selectorColor="@android:color/holo_red_dark"-->
-<!--            app:textColorNormal="@color/purple_200"-->
-<!--            app:textColorSelected="@color/purple_200" />-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="45dp"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_marginTop="0dp"-->
-<!--            android:layout_marginBottom="0dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:id="@+id/after_measured_title">-->
-<!--            <TextView-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Minimum"-->
-<!--                android:textSize="18sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:fontFamily="@font/nats_regular"-->
-<!--                android:textColor="@color/white"/>-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:src="@drawable/line_for_max_min_avg"-->
-<!--                android:visibility="invisible"-->
-<!--                android:layout_marginHorizontal="5dp"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Average"-->
-<!--                android:textSize="18sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:gravity="center"-->
-<!--                android:layout_marginLeft="18dp"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:layout_weight="1"-->
-<!--                android:fontFamily="@font/nats_regular" />-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginHorizontal="15dp"-->
-<!--                android:visibility="invisible"-->
-<!--                android:src="@drawable/line_for_max_min_avg"/>-->
-<!--            <TextView-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Maximum"-->
-<!--                android:textSize="18sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:fontFamily="@font/nats_regular"/>-->
-<!--        </LinearLayout>-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:gravity="center"-->
-<!--            android:id="@+id/after_measured"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="-35dp">-->
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:id="@+id/after_measured"
+            android:layout_gravity="center"
+            android:layout_marginTop="-10dp">
 
-<!--            <TextView-->
-<!--                android:id="@+id/min"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:fontFamily="@font/nats_regular"-->
-<!--                android:gravity="center"-->
-<!--                android:text="73"-->
-<!--                android:textColor="#FF2F2F"-->
-<!--                android:textSize="34sp" />-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:src="@drawable/line_for_max_min_avg"-->
-<!--                android:layout_marginHorizontal="15dp"-->
-<!--                />-->
-<!--            <TextView-->
-<!--                android:id="@+id/avg"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="73"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textSize="34sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="#FF2F2F"-->
-<!--                android:fontFamily="@font/nats_regular" />-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginHorizontal="15dp"-->
-<!--                android:src="@drawable/line_for_max_min_avg"/>-->
-<!--            <TextView-->
-<!--                android:id="@+id/max"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="73"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textSize="34sp"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="#FF2F2F"-->
-<!--                android:fontFamily="@font/nats_regular"/>-->
-<!--        </LinearLayout>-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="-30dp">-->
-
-<!--            <TextView-->
-
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:fontFamily="@font/nats_regular"-->
-<!--                android:gravity="center"-->
-<!--                android:text="BPM"-->
-<!--                android:textSize="18sp"-->
-<!--                android:textColor="@color/white"-->
-<!--                />-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:src="@drawable/line_for_max_min_avg"-->
-<!--                android:layout_marginHorizontal="15dp"-->
-<!--                android:visibility="invisible"-->
-<!--                />-->
-<!--            <TextView-->
-
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="BPM"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textSize="18sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:fontFamily="@font/nats_regular" />-->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginHorizontal="15dp"-->
-<!--                android:visibility="invisible"-->
-<!--                android:src="@drawable/line_for_max_main"/>-->
-<!--            <TextView-->
-
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="BPM"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textSize="18sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:fontFamily="@font/nats_regular"/>-->
-<!--        </LinearLayout>-->
-
-
+            <TextView
+                android:id="@+id/min"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center"
+                android:text="73"
+                android:textColor="@color/white"
+                android:textSize="34sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:src="@drawable/line_for_max_main"
+                android:layout_marginHorizontal="15dp"
+                />
+            <TextView
+                android:id="@+id/avg"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="73"
+                android:layout_weight="1"
+                android:textSize="34sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/nats_regular" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="15dp"
+                android:src="@drawable/line_for_max_main"/>
+            <TextView
+                android:id="@+id/max"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="73"
+                android:layout_weight="1"
+                android:textSize="34sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/nats_regular"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/after_measured_title">
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="Minimum"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/nats_regular"
+                android:textColor="@color/white"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:src="@drawable/line_for_max_main"
+                android:layout_marginHorizontal="15dp"/>
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="Average"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:fontFamily="@font/nats_regular" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="15dp"
+                android:src="@drawable/line_for_max_main"/>
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="Maximum"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:fontFamily="@font/nats_regular"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/measuring"
             android:visibility="gone"
@@ -566,7 +235,6 @@
         <Button
             android:id="@+id/startListening"
             android:layout_width="120dp"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
             android:text="Start"
@@ -589,7 +257,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:background="@drawable/pastactivitybg"
             app:layout_behavior="@string/bottom_sheet_behavior"
             app:behavior_hideable="true"
@@ -639,176 +306,3 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:orientation="vertical"-->
-<!--    android:gravity="center"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:background="@drawable/heart_rate_bg"-->
-<!--    tools:context=".HeartRate">-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:background="@drawable/arrowleft"-->
-<!--            tools:ignore="MissingConstraints" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textAlignment="center"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:layout_marginLeft="50dp"-->
-<!--            android:text="HEART RATE"-->
-<!--            android:textColor="#ffffff"-->
-<!--            android:textSize="38sp" />-->
-
-<!--    </LinearLayout>-->
-
-<!--    <LinearLayout-->
-
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout">-->
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/deviceName"-->
-<!--            android:gravity="center"-->
-<!--            android:textSize="20sp"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginLeft="85dp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="#ffff"-->
-<!--            android:fontFamily="@font/nunito"-->
-<!--            android:layout_marginTop="70dp"-->
-<!--            android:text="Device connected:"-->
-
-
-<!--            />-->
-
-
-
-
-
-<!--    </LinearLayout>-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayout6"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        tools:ignore="MissingConstraints">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/txtview_2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="115dp"-->
-<!--            android:layout_marginTop="140dp"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Press heart button"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#ffff"-->
-<!--            android:textSize="20sp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/txtview_3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="135dp"-->
-<!--            android:layout_marginTop="0dp"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:gravity="center"-->
-<!--            android:text="to start measuring"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#ffff"-->
-<!--            android:textSize="12sp"-->
-
-<!--            />-->
-<!--    </LinearLayout>-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="60dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@drawable/heart_btn_png" />-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="-150dp"-->
-<!--            android:background="@drawable/heart_shape" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="START"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="-130dp"-->
-<!--            android:fontFamily="@font/nats_regular"-->
-<!--            android:textSize="35.56sp"-->
-<!--            android:textColor="#ffff"-->
-<!--            />-->
-
-<!--        <devs.mulham.horizontalcalendar.HorizontalCalendarView-->
-<!--            android:id="@+id/calendarView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:selectorColor="@android:color/holo_red_dark"-->
-<!--            app:textColorNormal="@color/purple_200"-->
-<!--            app:textColorSelected="@color/purple_200" />-->
-<!--    </LinearLayout>-->
-
-
-
-
-
-
-
-
-
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
