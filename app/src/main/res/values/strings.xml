@@ -21,6 +21,8 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="lunch">L</string>
     <string name="dinner">D</string>
     <string name="snacks">S</string>
+    <string name="go_pro">Go Pro!</string>
+    <string name="workout_tracker">Workout Tracker</string>
 
 
     <array name="month">
