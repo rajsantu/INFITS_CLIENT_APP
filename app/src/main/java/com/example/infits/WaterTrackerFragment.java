@@ -295,7 +295,7 @@ public class WaterTrackerFragment extends Fragment {
                                 data.put("time",timeFormat.format(date));
                                 data.put("consumed", String.valueOf(consumedInDay));
                                 data.put("goal", String.valueOf(goal));
-                                data.put("type", liqType);
+                                data.put("type", "water");
                                 data.put("amount", "0");
                                 data.put("clientID",DataFromDatabase.client_id);
                                 data.put("dietitian_id",DataFromDatabase.dietitian_id);

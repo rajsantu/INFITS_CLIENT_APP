@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -312,6 +312,8 @@
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 
+
+        <service android:name=".MyService"></service>
 </application>
 
 </manifest>

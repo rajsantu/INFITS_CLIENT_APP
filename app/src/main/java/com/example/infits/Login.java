@@ -120,6 +120,7 @@ public class Login extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
 
+
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +140,9 @@ public class Login extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 EditText username= findViewById(R.id.username);
                 EditText password= findViewById(R.id.password);
                 usernameStr = username.getText().toString();
@@ -146,13 +150,14 @@ public class Login extends AppCompatActivity {
 
                 loginbtn.setClickable(false);
 
+
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     if(response.equals("failure")){
                         Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
                         loginbtn.setClickable(true);
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
-                        Intent id = new Intent(Login.this, DashBoardMain.class);
+                            Intent id = new Intent(Login.this, DashBoardMain.class);
                         Log.d("Response Login",response);
                         try {
                             JSONArray jsonArray = new JSONArray(response);

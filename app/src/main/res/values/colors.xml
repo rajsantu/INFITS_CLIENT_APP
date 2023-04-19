@@ -49,6 +49,11 @@
     <color name="bluetoothThumb">#2C3F96</color>
     <array name="progress">
         <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+
     </array>
     <array name="track">
         <item>@color/whitesixty</item>

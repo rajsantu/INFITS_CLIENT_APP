@@ -62,7 +62,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class StepTrackerFragment extends Fragment {
-
+    Float goalPercent2;
+    Handler handler = new Handler();
+    Thread mythread;
     Button setgoal;
     ImageButton imgback;
     TextView steps_label,goal_step_count,distance,calories,speed;
@@ -144,16 +146,50 @@ public class StepTrackerFragment extends Fragment {
         calories = view.findViewById(R.id.calories);
         reminder = view.findViewById(R.id.reminder);
 
-        progressBar.setProgress(0);
+        //progressBar.setProgress(0.2F);
 
         stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        float goal = stepPrefs.getFloat("goal", 0f);
+        float goal = stepPrefs.getFloat("goal", 1f);
         var steps = Math.min(stepPrefs.getFloat("steps", 0f), goal);
+
         float goalPercent = stepPrefs.getFloat("goalPercent", 0f);
 
-        progressBar.setProgress(goalPercent);
+        //progressBar.setProgress(goalPercent);
         goal_step_count.setText(String.valueOf((int) goal));
+
         steps_label.setText(String.valueOf(steps));
+
+
+        mythread = new Thread( new Runnable() {
+            @Override
+            public void run() {
+
+                if(goalVal>=FetchTrackerInfos.currentSteps && goalVal!=1 &&goalVal!=0 )
+                {
+                    Log.d("completed","1");
+
+                    //Toast.makeText(getActivity().getApplicationContext(), "Steps Completed", Toast.LENGTH_SHORT).show();
+                    mythread.interrupt();
+
+                }
+
+                steps_label.setText( String.valueOf(FetchTrackerInfos.currentSteps  ));
+                handler.postDelayed(this,0);
+
+                goalPercent2= (float) (FetchTrackerInfos.currentSteps)/(int) goalVal;
+                progressBar.setProgress(   goalPercent2   );
+
+                speed.setText(FetchTrackerInfos.Avg_speed.substring(0,1));
+                distance.setText(String.valueOf(FetchTrackerInfos.Distance));
+                calories.setText(String.valueOf(FetchTrackerInfos.Calories));
+
+            }
+        });
+
+        mythread.start();
+
+
+
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
@@ -243,12 +279,14 @@ public class StepTrackerFragment extends Fragment {
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 EditText goal = dialog.findViewById(R.id.goal);
                 Button save = dialog.findViewById(R.id.save_btn_steps);
-//                progressBar.setProgress(0);
+                FetchTrackerInfos.currentSteps=0;
+                FetchTrackerInfos.flag_steps=0;
+
 //                steps_label.setText(String.valueOf(0));
                 save.setOnClickListener(v->{
 //                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
                     goal_step_count.setText(goal.getText().toString());
-                    progressBar.setProgress(0f);
+                    progressBar.setProgress(0);
                     steps_label.setText(String.valueOf(0));
 
                     if(goal.getText().toString().equals(""))
@@ -257,6 +295,7 @@ public class StepTrackerFragment extends Fragment {
                     }
                     else
                         goalVal = Integer.parseInt(goal.getText().toString());
+                    FetchTrackerInfos.stop_steps= (int) goalVal;
 
                     SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
                     SharedPreferences.Editor editor = stepPrefs.edit();
@@ -268,13 +307,7 @@ public class StepTrackerFragment extends Fragment {
                     SharedPreferences preferences = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
                     boolean stepNotificationPermission = preferences.getBoolean("stepSwitch", true);
 
-                    //Intent serviceIntent = new Intent(getActivity(), MyService.class);
-                   // serviceIntent.putExtra("goal",goalVal);
-                   // serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
 
-                   // if (!foregroundServiceRunning()){
-                     //   ContextCompat.startForegroundService(requireContext(), serviceIntent);
-                    //}
 
                     if(stepNotificationPermission) {
                         // we have permission to run step service
@@ -292,7 +325,7 @@ public class StepTrackerFragment extends Fragment {
                             }
 
 
-                    //requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
+
                        }
                     }
                     dialog.dismiss();
@@ -301,11 +334,7 @@ public class StepTrackerFragment extends Fragment {
             }
         });
 
-//        Intent serviceIntent = new Intent(getActivity(), MyService.class);
-//        serviceIntent.putExtra("goal",goalVal);
-//        if (true /*!foregroundServiceRunning()*/){
-//            ContextCompat.startForegroundService(getActivity(), serviceIntent);
-//        }
+
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override

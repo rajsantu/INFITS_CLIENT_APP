@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -51,13 +52,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DashBoardFragment extends Fragment {
 
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
+    String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
 
     DataFromDatabase dataFromDatabase;
     TextView stepstv;
@@ -401,6 +404,10 @@ public class DashBoardFragment extends Fragment {
                     }if (weightGoal.equals("null")){
                         weightGoaltv.setText("no data available");
                     }
+
+                    steps_update(stepsStr,stepsGoal);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -416,12 +423,16 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", clientuserID);
+                data.put("clientID", DataFromDatabase.client_id);
                 return data;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //        Log.d("ClientMetrics","at end");
 
         DashBoardMain dashBoardMain = (DashBoardMain) requireActivity();
@@ -505,6 +516,9 @@ public class DashBoardFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(calorieRequest);
+        calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void hooks(View view) {
@@ -584,6 +598,9 @@ public class DashBoardFragment extends Fragment {
                 }
             };
              Volley.newRequestQueue(getContext()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             dialog.dismiss();
         });
         dialog.show();
@@ -638,13 +655,30 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-
-                data.put("clientID", DataFromDatabase.clientuserID);
-
+                Date date= new Date();
+                data.put("clientID", DataFromDatabase.client_id);
+                data.put("date",dateFormat.format(date));
                 return data;
             }
         };
         Volley.newRequestQueue(requireContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
+
+    public void steps_update(String steps , String goal)
+    {
+        int step1=Integer.parseInt(steps);
+        int goal1= Integer.parseInt(goal);
+
+        int stepPercent= (int) (step1 * 100)/goal1;
+        String stepPercentText = stepPercent + "%";
+        stepsProgressPercent.setText(stepPercentText);
+        stepsProgressBar.setProgress(stepPercent);
+
+
+    }
+
 
 }
