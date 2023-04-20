@@ -310,6 +310,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/MealtrackerTodays_Breakfast"
+        android:name="com.example.infits.MealtrackerTodays_Breakfast"
+        android:label="fragment_mealtracker_final_screen"
+        tools:layout="@layout/fragment_mealtracker_todays__breakfast">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/weightReminderFragment"
         android:name="com.example.infits.WeightReminderFragment"
         android:label="fragment_weight_reminder"

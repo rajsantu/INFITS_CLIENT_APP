@@ -67,14 +67,11 @@
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MealtrackerAddMeal"
+            android:exported="false" />
+        <activity
             android:name=".feedback"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".CameraForCalorieTracker"
             android:exported="false" />
@@ -143,7 +140,13 @@
         </activity>
         <activity
             android:name=".MealTracker"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".QuestionsAfterScan"
             android:exported="false" />
@@ -218,7 +221,7 @@
             android:exported="true" />
         <activity
             android:name=".ResetPassword"
-            android:exported="true" />
+            android:exported="true"></activity>
         <activity
             android:name=".Signup"
             android:exported="true" />
@@ -245,14 +248,17 @@
             android:exported="true" />
         <activity
             android:name=".DashBoardMain"
-            android:exported="false"
-            android:noHistory="false" />
+            android:exported="true"
+            android:noHistory="false">
+        </activity>
         <activity
             android:name=".Diet_plan_main_screen"
             android:exported="false" />
         <activity
             android:name=".Meal_main"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Login"
             android:exported="true"
