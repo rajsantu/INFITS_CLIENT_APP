@@ -140,7 +140,7 @@ public class LiveScreen extends AppCompatActivity {
             showMessage("Remote user joined " + uid);
 
             // Set the remote video view
-            runOnUiThread(() -> setupRemoteVideo(uid));
+            //runOnUiThread(() -> setupRemoteVideo(uid));
         }
 
         @Override
@@ -156,6 +156,7 @@ public class LiveScreen extends AppCompatActivity {
         }
     };
 
+    /*
     private void setupRemoteVideo(int uid) {
         FrameLayout container = findViewById(R.id.remote_video_view_container);
         remoteSurfaceView = new SurfaceView(getBaseContext());
@@ -165,6 +166,7 @@ public class LiveScreen extends AppCompatActivity {
         // Display RemoteSurfaceView.
         remoteSurfaceView.setVisibility(View.VISIBLE);
     }
+     */
 
     private void setupLocalVideo() {
         FrameLayout container = findViewById(R.id.local_video_view_container);

@@ -94,9 +94,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nats_regular"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="0000"
                     android:textColor="@color/white"
-                    android:textSize="36sp"
+                    android:textSize="48sp"
                     android:textStyle="bold" />
 
                 <Button

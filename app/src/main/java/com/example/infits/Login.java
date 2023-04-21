@@ -100,19 +100,17 @@ public class Login extends AppCompatActivity {
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
                         Intent id = new Intent(Login.this, DashBoardMain.class);
-                        startActivity(id);
                         Log.d("Response Login",response);
                         try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject object = jsonArray.getJSONObject(0);
-                            Log.d("responseLogin",object.toString());
-                            DataFromDatabase.flag=true;
-                            DataFromDatabase.clientuserID  = object.getString("clientuserID");
-                            DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
-                            DataFromDatabase.name = object.getString("name");
-                            Log.d("name login",DataFromDatabase.name);
-                            SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
-                            SharedPreferences.Editor editor = loginDetails.edit();
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject object = jsonArray.getJSONObject(0);
+                                DataFromDatabase.flag=true;
+                                DataFromDatabase.clientuserID  = object.getString("clientuserID");
+                                DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
+                                DataFromDatabase.name = object.getString("name");
+                                Log.d("name login",DataFromDatabase.name);
+                                SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
+                                SharedPreferences.Editor editor = loginDetails.edit();
 
                                 DataFromDatabase.password = object.getString("password");
                                 DataFromDatabase.email = object.getString("email");
@@ -156,11 +154,6 @@ public class Login extends AppCompatActivity {
                                 editor.putString("profilePhotoBase",object.getString("profilePhoto"));
                                 editor.putBoolean("proUser",DataFromDatabase.proUser);
                                 editor.apply();
-
-//                            if (fragment != null) {
-//                                fragment.setProfileImage(ContextCompat.getDrawable(getApplicationContext(), R.drawable.profile));
-//                            }
-
 
                                 finish();
                         } catch (JSONException e) {

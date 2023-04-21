@@ -278,7 +278,37 @@
                             android:scaleType="fitCenter"
                             android:src="@drawable/consultation_bkg" />
 
+                        <TextView
+                            android:id="@+id/consultation_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/manrope_light"
+                            android:gravity="top"
+                            android:text="@string/workout_tracker"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/consultation_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/manrope_medium"
+                            android:gravity="top"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            tools:text="Feb 10,2022"
+                            android:visibility="gone"/>
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/consultation_gopro_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -315,7 +345,37 @@
                             android:scaleType="fitXY"
                             android:src="@drawable/meal_tracker_card" />
 
+                        <TextView
+                            android:id="@+id/meal_track_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/manrope_light"
+                            android:gravity="top"
+                            android:text="@string/workout_tracker"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/meal_track_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/manrope_medium"
+                            android:gravity="top"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            tools:text="Feb 10,2022"
+                            android:visibility="gone"/>
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/mealtracker_go_pro_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -550,7 +610,37 @@
                             android:scaleType="fitXY"
                             android:src="@drawable/diet_chart_bkg" />
 
+                        <TextView
+                            android:id="@+id/diet_chart_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/manrope_light"
+                            android:gravity="top"
+                            android:text="@string/workout_tracker"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/diet_chart_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/manrope_medium"
+                            android:gravity="top"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            tools:text="Feb 10,2022"
+                            android:visibility="gone"/>
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/diet_chart_gopro_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
