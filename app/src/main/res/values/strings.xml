@@ -6,7 +6,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
-
+    <string name="facebook_app_id">1234</string>
+    <string name="facebook_client_token">56789</string>
     <string name="Loremipsum">Lorem ipsum dolor sit amet, consectetur
 adipiscing elit, sed do eiusmod tempo
 incididunt ut labore et dolore magna aliqua.
@@ -17,6 +18,7 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="feature_1">Feature 1</string>
     <string name="feature_2">Feature 2</string>
     <string name="feature_3">Feature 3</string>
+
     <string name="breakfast">B</string>
     <string name="lunch">L</string>
     <string name="dinner">D</string>
@@ -37,5 +39,6 @@ exercitation ullamco laboris nisi ut aliquip</string>
         <item>Nov</item>
         <item>Dec</item>
     </array>
+
 
 </resources>

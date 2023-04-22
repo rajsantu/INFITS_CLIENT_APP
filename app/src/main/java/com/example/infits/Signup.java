@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.util.Base64;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -36,7 +36,7 @@ public class Signup extends AppCompatActivity {
     String url = String.format("%sregister_client.php",DataFromDatabase.ipConfig);
     char gender = 'M';
 
-    EditText fullName, userName, emailID, password, phoneNo, age, height, weight;
+    EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class Signup extends AppCompatActivity {
             if(!checkIfFieldsAreFilled(userID, passwordStr, emailStr, phoneStr, fullNameStr, ageStr, heightStr, weightStr)) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
             } else {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
                     System.out.println(response);
 //                        Log.i(response, "onCreate: ");
                     if (response != null && response.equals("success")){
@@ -105,7 +105,8 @@ public class Signup extends AppCompatActivity {
                         startActivity(id);
                     }
                     else{
-                        Log.i(response, "onCreate: ");
+
+
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 },error -> {
@@ -129,6 +130,9 @@ public class Signup extends AppCompatActivity {
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
+
+
+
 
                 generateReferral();
             }

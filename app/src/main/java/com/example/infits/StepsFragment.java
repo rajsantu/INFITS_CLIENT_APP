@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -222,11 +223,15 @@ public class StepsFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientID", DataFromDatabase.client_id);
                         return dataVol;
                     }
                 };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
             }
         });
 
@@ -245,6 +250,7 @@ public class StepsFragment extends Fragment {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
                     for (int i = 0; i < cast.length(); i++) {
+                        Log.d("data",cast.toString());
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("steps");
                         String date = actor.getString("date");
@@ -277,12 +283,16 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("clientID", DataFromDatabase.clientuserID);
+                    data.put("clientID", DataFromDatabase.client_id);
 
                     return data;
                 }
             };
             Volley.newRequestQueue(getActivity()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         });
         year_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
@@ -321,12 +331,16 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("userID", DataFromDatabase.clientuserID);
+                    data.put("userID", DataFromDatabase.client_id);
 
                     return data;
                 }
             };
             Volley.newRequestQueue(getActivity()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         });
         custom_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
@@ -393,14 +407,18 @@ public class StepsFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientID", DataFromDatabase.client_id);
                         dataVol.put("from", from);
                         dataVol.put("to", to);
                         return dataVol;
                     }
                 };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
-                    dialog.dismiss();
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                dialog.dismiss();
                 });
 
                 cancel.setOnClickListener(view1 -> {
