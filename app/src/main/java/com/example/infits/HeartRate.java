@@ -196,10 +196,8 @@ public class HeartRate extends Fragment {
                 e.printStackTrace();
             }
         },error -> {
-            if (getActivity() != null) {
-                Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-            Log.d("Error", error.toString());
+            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            Log.d("Error",error.toString());
         }){
             @Nullable
             @Override

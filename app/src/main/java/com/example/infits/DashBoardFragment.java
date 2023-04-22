@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -42,6 +45,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -60,7 +64,9 @@ public class DashBoardFragment extends Fragment {
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
+
     String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
+
 
     DataFromDatabase dataFromDatabase;
     TextView stepstv;
@@ -110,7 +116,7 @@ public class DashBoardFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        onMenuClicked = (OnMenuClicked) context;
+          onMenuClicked = (OnMenuClicked) context;
     }
 
     public static DashBoardFragment newInstance(String param1, String param2) {
@@ -164,6 +170,42 @@ public class DashBoardFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         String clientuserID = prefs.getString("clientuserID", DataFromDatabase.clientuserID);
+
+        ImageView profileImageView = view.findViewById(R.id.profile1);
+
+        // Execute the query using a Volley StringRequest
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, response -> {
+            try {
+                JSONObject responseJson = new JSONObject(response);
+
+                String profilePhoto = responseJson.getString("profile");
+                // decode the base64 string to a byte array
+                byte[] decodedBytes = Base64.decode(profilePhoto, Base64.DEFAULT);
+                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                if (decodedBitmap != null) {
+                    profileImageView.setImageBitmap(decodedBitmap);
+                } else {
+                    Log.e("TAG", "Failed to decode bitmap.");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("ProfilePhotoFetcher", "JSON parsing error: " + e.getMessage());
+                // Handle the JSONException here
+            }
+        }, error -> {
+            Toast.makeText(getContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("userID",clientuserID);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
 
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
@@ -361,7 +403,7 @@ public class DashBoardFragment extends Fragment {
 
         Volley.newRequestQueue(getContext()).add(stringRequestHeart);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+        StringRequest stringRequest1 = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("ClientMetrics","success");
                 Log.d("response",response);
@@ -427,12 +469,14 @@ public class DashBoardFragment extends Fragment {
                 return data;
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
 //        Log.d("ClientMetrics","at end");
 
         DashBoardMain dashBoardMain = (DashBoardMain) requireActivity();
@@ -466,11 +510,11 @@ public class DashBoardFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ImageView imageView = view.findViewById(R.id.profile1);
-        imageView.setImageResource(R.drawable.profile);
-    }
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        ImageView imageView = view.findViewById(R.id.profile1);
+//        imageView.setImageResource(R.drawable.profile);
+//    }
 
     public void setProfileImage(Drawable drawable) {
         profile.setImageDrawable(drawable);

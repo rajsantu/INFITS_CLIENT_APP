@@ -32,7 +32,7 @@ public class Appointment_Booking2_Now extends AppCompatActivity {
         setContentView(R.layout.activity_appointment_booking2_now);
 
         imgBack = findViewById(R.id.imgBackAppointment);
-        confirmBtn = findViewById(R.id.confirm_btn);
+        confirmBtn = findViewById(R.id.confirm_btn2);
 
         confirmDialog = new Dialog(this);
 
@@ -128,7 +128,6 @@ public class Appointment_Booking2_Now extends AppCompatActivity {
                 confirmDialog.dismiss();
             }
         });
-
 
     }
 }

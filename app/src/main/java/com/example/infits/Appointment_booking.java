@@ -12,8 +12,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -53,13 +58,19 @@ import java.util.List;
 public class Appointment_booking extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     DataFromDatabase dataFromDatabase;
-//    String url = String.format("%appointment.php",DataFromDatabase.ipConfig);
+
+    public String base64File;
+
+    String extension, fileName;
 
     FrameLayout nextBtn, nowBtn, anyTimeBtn;
     private List<FrameLayout> frameLayoutList;
 
     Spinner customSpinner;
+    String spinnerItem, add_dietitian, appointmentTimeText;
     ArrayList<CustomItem> customList;
+
+    EditText description;
 
     private static final int PICKFILE_RESULT_CODE = 1;
 
@@ -74,6 +85,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         customSpinner = findViewById(R.id.customIconSpinner);
         customList = getCustomList();
         CustomeAdapterSpinner adapter = new CustomeAdapterSpinner(this, customList);
+
         if (customSpinner != null) {
             customSpinner.setAdapter(adapter);
             customSpinner.setOnItemSelectedListener(this);
@@ -89,14 +101,29 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
         nextBtn = findViewById(R.id.nextbtn);
 
-
         nowBtn = findViewById(R.id.nowBtn);
         anyTimeBtn = findViewById(R.id.anyTimeBtn);
 
-//        Spinner spinner = findViewById(R.id.spinner);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_options, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
+        add_dietitian = "Smith M.";
+        appointmentTimeText = "";
+//        base64File = "attached";
+
+//        fileName = DataFromDatabase.clientuserID+"_"+DataFromDatabase.dietitianuserID;
+        fileName = "smith12_faizan29";
+
+        description = findViewById(R.id.user_description);
+
+        customSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CustomItem selectedItem = (CustomItem) parent.getItemAtPosition(position);
+                spinnerItem = selectedItem.getSpinnerItem();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +136,15 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     startActivity(intent);
                 } else if (isAnytimeButtonSelected) {
                     Intent intent = new Intent(getApplicationContext(), Appointment_Booking2.class);
+                    intent.putExtra("event_name", spinnerItem);
+                    intent.putExtra("add_dietitian", add_dietitian);
+                    intent.putExtra("appointmentTime", appointmentTimeText);
+                    intent.putExtra("description", description.getText().toString());
+                    if(base64File != null){
+                        intent.putExtra("attachment", base64File);
+                    }
+                    intent.putExtra("file_type", extension);
+                    intent.putExtra("file_name", fileName);
                     startActivity(intent);
                 }
                 else{
@@ -141,9 +177,9 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     anyTimeButton.setSelected(false);
                     anyTimeButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background_white));
                     anytimeText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.skyBlue));
-
                     nowButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background));
                     nowText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                    appointmentTimeText = nowText.getText().toString();
                 } else if (isAnytimeButton) {
                     nowButton.setSelected(false);
                     nowButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background_white));
@@ -151,6 +187,8 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
                     anyTimeButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background));
                     anytimeText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+                    appointmentTimeText = anytimeText.getText().toString();
                 }
 
                 // Toggle the selection state of the clicked button
@@ -207,15 +245,29 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
         if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
             String filename = getFileName(uri);
-            ContentResolver contentResolver = getContentResolver(); // Get a reference to the ContentResolver
 
-// Get the MIME type of the file from the Uri
+            byte[] fileData = null;
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                int fileSize = inputStream.available();
+                fileData = new byte[fileSize];
+                inputStream.read(fileData);
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            base64File = Base64.encodeToString(fileData, Base64.DEFAULT);
+
+            ContentResolver contentResolver = getContentResolver(); // Get a reference to the ContentResolver
+            // Get the MIME type of the file from the Uri
             String fileType = contentResolver.getType(uri);
+
 //            Typeface nats = Typeface.createFromAsset(getAssets(), "font/nats_regular.ttf");
             Typeface nats = ResourcesCompat.getFont(this, R.font.nats_regular);
 
             String fileDispName;
-            //triming extension
+            // triming extension
             if(filename.length() > 32)
                 fileDispName  = filename.substring(0,32)+"...";
             else
@@ -247,7 +299,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT
             );
-
 
             iconParam.addRule(RelativeLayout.CENTER_VERTICAL);
 
@@ -291,7 +342,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 //            fileDateView.setPadding(25, 12, 0, 0);
             fileLayout.addView(fileDateView);
 
-
             deleteParam.addRule(RelativeLayout.CENTER_VERTICAL);
             deleteParam.addRule(RelativeLayout.ALIGN_PARENT_END);
             deleteParam.setMargins(0, 0, 20, 0);
@@ -308,7 +358,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             shareParam.setMargins(0, 0, 20, 0);
 
             //imageview for share
-
             ImageView shareIcon = new ImageView(this);
             shareIcon.setImageResource(R.drawable.share_icon);
             shareIcon.setLayoutParams(shareParam);
@@ -331,7 +380,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
                 }
             });
 
-
             // Add the new RelativeLayout to the parent LinearLayout or RecyclerView
             // For example, if you have a LinearLayout with id "file_list":
             LinearLayout fileList = findViewById(R.id.file_list);
@@ -342,7 +390,6 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
             }
 
             //delete button functionality
-
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -389,7 +436,7 @@ public class Appointment_booking extends AppCompatActivity implements AdapterVie
 
     // Helper method to get the appropriate file type icon for a given file name
     private int getFileTypeIcon(String fileName) {
-        String extension = getFileExtension(fileName);
+        extension = getFileExtension(fileName);
         switch (extension) {
             case "pdf":
                 return R.drawable.pdf;

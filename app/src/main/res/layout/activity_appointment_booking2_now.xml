@@ -228,7 +228,7 @@
             >
 
             <FrameLayout
-                android:id="@+id/confirm_btn"
+                android:id="@+id/confirm_btn2"
                 android:layout_width="242dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="180dp"
