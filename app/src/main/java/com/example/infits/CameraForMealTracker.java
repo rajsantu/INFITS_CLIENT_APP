@@ -373,6 +373,7 @@ package com.example.infits;
         import java.io.FileDescriptor;
         import java.io.IOException;
         import java.util.ArrayList;
+        import java.util.UUID;
 
 public class CameraForMealTracker extends AppCompatActivity {
 
@@ -436,42 +437,79 @@ public class CameraForMealTracker extends AppCompatActivity {
                 .setFlashMode(Camera.Parameters.FLASH_MODE_AUTO)
                 .build();
 
-        saveImageButton.setOnClickListener(v -> {
-            try {
+//        saveImageButton.setOnClickListener(v -> {
+//            try {
 //                JSONObject jsonObject1=new JSONObject(getIntent.getStringExtra("mealInfoForPhoto"));
 //                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 //                food_eaten_photoBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
 //                String base64String = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-
-//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, Activity_Todays_Breakfast.class);
-//                try {
-//                    JSONArray jsonArray = new JSONArray(jsonObject);
-//                    // Do something with the JSONArray...
-//                    Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-//                } catch (JSONException e) {
-//                    Toast.makeText(this, "NotDone", Toast.LENGTH_SHORT).show();
-//                    e.printStackTrace();
-//                }
-                intent.putExtra("mealInfoForPhoto", jsonObject.toString());
-                intent.putExtra("fragment","MealtrackerTodays_Breakfast.class");
 //
-//
+////                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(this, Activity_Todays_Breakfast.class);
+////                try {
+////                    JSONArray jsonArray = new JSONArray(jsonObject);
+////                    // Do something with the JSONArray...
+////                    Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+////                } catch (JSONException e) {
+////                    Toast.makeText(this, "NotDone", Toast.LENGTH_SHORT).show();
+////                    e.printStackTrace();
+////                }
+//                intent.putExtra("mealInfoForPhoto", jsonObject.toString());
+//                intent.putExtra("fragment","MealtrackerTodays_Breakfast.class");
+////
+////
 ////                for saving bitmap
 //                SharedPreferences sharedPreferences=getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
 //                SharedPreferences.Editor editor=sharedPreferences.edit();
-
+//
 //                editor.putString("ClickedPhoto",base64String);
 //                editor.commit();
 //
 //                Log.d("ClickedPhoto", jsonObject1.toString());
+//                startActivity(intent);
+//            }catch (Exception e){
+//                Log.d("Exception123",e.toString());
+//                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//        });
+
+        saveImageButton.setOnClickListener(v -> {
+            try {
+                JSONObject jsonObject1 = new JSONObject(getIntent.getStringExtra("mealInfoForPhoto"));
+
+                // Convert bitmap to base64 string
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                food_eaten_photoBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+                String base64String = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+
+                // Add base64 string to jsonObject1
+//                jsonObject1.put("image", base64String);
+                String uniqueID = UUID.randomUUID().toString();
+                jsonObject1.put("image",uniqueID);
+
+                Intent intent = new Intent(this, Activity_Todays_Breakfast.class);
+                intent.putExtra("mealInfoForPhoto", jsonObject1.toString());
+                intent.putExtra("fragment", "MealtrackerTodays_Breakfast.class");
+
+                // Save base64 string in shared preferences
+                SharedPreferences sharedPreferences = getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
+//                SharedPreferences sharedPreferences = getSharedPreferences("", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("ClickedPhoto", base64String);
+                editor.putString(uniqueID, base64String);
+                editor.commit();
+
+                Log.d("jsonobj1", jsonObject1.toString());
+
                 startActivity(intent);
-            }catch (Exception e){
-                Log.d("Exception123",e.toString());
+            } catch (Exception e) {
+                Log.d("Exception123", e.toString());
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
             }
-
         });
+
+
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -504,6 +542,7 @@ public class CameraForMealTracker extends AppCompatActivity {
                     food_eaten_photoBitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                     surfaceView.setVisibility(View.INVISIBLE);
                     food_eaten_photo.setVisibility(View.VISIBLE);
+//                    food_eaten_photo.setRotationX(90);
                     food_eaten_photo.setImageBitmap(food_eaten_photoBitmap);
 
 

@@ -245,6 +245,11 @@ public class MealtrackerTodays_Breakfast extends Fragment {
         rcview = view.findViewById(R.id.rcview);
         recyclerView_Todays_breakfast = view.findViewById(R.id.recyclerView_Todays_breakfast);
         recyclerView_Todays_breakfast.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        //Correcting the Sharedpref
+//        correctPref();
+
+        //displaying data
         DisplayDataInList();
 //        todays_breakFast_infos.clear();
 
@@ -253,12 +258,24 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
         //backbutton
         calorieImgback = view.findViewById(R.id.calorieImgback);
-//        calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
+        calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
         calorieImgback.setOnClickListener(v -> {
             FragmentManager fm = getParentFragmentManager();
             fm.popBackStack();
             requireActivity().onBackPressed();
         });
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                // Handle the back button event
+//                FragmentManager fm = getParentFragmentManager();
+//                if(fm.getBackStackEntryCount() > 1)   fm.popBackStack();
+//                requireActivity().onBackPressed();
+//            }
+//        };
+//
+//        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         //DoneButtonView
         linear_layout1 = view.findViewById(R.id.linear_layout1);
@@ -271,7 +288,6 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 try {
                     linear_layout1.setVisibility(View.GONE);
                     linear_layout2.setVisibility(View.VISIBLE);
-                    startActivity(new Intent(getContext(),MealTracker.class));
                     AddDatatoTable();
                 } catch (Exception e) {
                     Log.d("Exception123", e.toString());
@@ -281,15 +297,63 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
         //delete shared preference
 
-        DeleteSharedPreference();
+//        DeleteSharedPreference();
         return view;
     }
+
+//    private void correctPref() {
+//        sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
+//        try{
+//        JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
+//        JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//            String mealName = jsonObject1.getString("mealName");
+//            boolean isDuplicate = false;
+//            for (Todays_BreakFast_info info : todays_breakFast_infos) {
+//                if (info.getMealName().equals(mealName)) {
+//                    // Found a duplicate, increase quantity and remove duplicate object
+//                    int quantity = Integer.parseInt(info.getQuantity()) + 1;
+//                    info.setQuantity(String.valueOf(quantity));
+//                    todays_breakFast_infos.remove(info);
+//                    isDuplicate = true;
+//                    break;
+//                }
+//            }
+//            if (!isDuplicate) {
+//                // Add new object to list if not a duplicate
+//                todays_breakFast_infos.add(new Todays_BreakFast_info(getContext().getDrawable(R.drawable.pizza_img),
+//                        mealName,
+//                        jsonObject1.getString("calorieValue"),
+//                        jsonObject1.getString("carbsValue"),
+//                        jsonObject1.getString("fatValue"),
+//                        jsonObject1.getString("proteinValue"),
+//                        jsonObject1.getString("Quantity"),
+//                        jsonObject1.getString("Size")));
+//            }
+//        }}catch (Exception e){
+//
+//        }
+//
+//    }
 
     public void AddDatatoTable() {
         try {
             sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
             JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
             JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject obj = jsonArray.getJSONObject(i);
+                // Get the SharedPreferences object
+                String prefName = obj.getString("image");
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
+
+// Retrieve the value with the specified key, or return a default value if the key doesn't exist
+                String myValue = sharedPreferences.getString(prefName, "image");
+                obj.remove("image");
+                obj.put("image",myValue);
+                Log.d("TAG", "AddDatatoTable: got "+obj.getString("image"));
+            }
             JSONObject jsonObject1 = jsonArray.getJSONObject(0);
             String mealName=jsonObject1.getString("mealName");
             String Meal_Type=jsonObject1.getString("Meal_Type");
@@ -301,12 +365,28 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
 
 
+
+
             RequestQueue queue= Volley.newRequestQueue(requireContext());
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-                Log.d("responseCalorie",response.toString());
-                if (response.equals("updated")) {
+                Log.d("responseCalorie", response);
+                
+                if (response.contains("true")) {
+                    startActivity(new Intent(getContext(),MealTracker.class));
+                    DeleteSharedPreference();
                     linear_layout2.setVisibility(View.GONE);
-
+//                    Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.clear(); // remove all data from shared preferences
+//                    editor.apply(); // commit the changes
+//                    sharedPreferences = getActivity().getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
+//                    editor = sharedPreferences.edit();
+//                    editor.clear();
+//                    editor.apply();
+                }
+                else{
+                    Toast.makeText(getContext(), "Error with database", Toast.LENGTH_SHORT).show();
                 }
 
                 new Handler().postDelayed(new Runnable() {
@@ -377,7 +457,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
     public void DisplayDataInList() {
         try {
-            sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
+
 
 //            //        holder.addmealIcon.
 //            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
@@ -390,7 +470,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
             // Set the Bitmap as the Drawable of the ImageView
 
 //        holder.addmealIcon.setImageDrawable(new BitmapDrawable(context.getResources(), decodedBitmap));
-
+            sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
             JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
             JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -413,12 +493,20 @@ public class MealtrackerTodays_Breakfast extends Fragment {
     }
 
     private void DeleteSharedPreference() {
-
-        AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getContext(), NotificationReceiver.class);
-        intent.putExtra("tracker", "TodaysBreakFast");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0L, 59 * 1000, pendingIntent);
+//        Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+//        AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(getContext(), NotificationReceiver.class);
+//        intent.putExtra("tracker", "TodaysBreakFast");
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0L, 59 * 1000, pendingIntent);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // remove all data from shared preferences
+        editor.apply(); // commit the changes
+        sharedPreferences = getActivity().getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
 }

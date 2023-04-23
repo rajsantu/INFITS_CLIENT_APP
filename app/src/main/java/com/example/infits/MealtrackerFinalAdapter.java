@@ -4,6 +4,7 @@ package com.example.infits;
 
         import android.content.Context;
         import android.content.SharedPreferences;
+        import android.os.Handler;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -41,8 +42,8 @@ public class MealtrackerFinalAdapter extends RecyclerView.Adapter<MealtrackerFin
 //        holder.icon.setImageBitmap(todays_breakFast_infos.get(position).icon);
         holder.mealName.setText(todays_breakFast_infos.get(position).mealName);
         holder.calorieValue.setText(todays_breakFast_infos.get(position).calorieValue);
-        holder.fatvalue.setText(todays_breakFast_infos.get(position).fatvalue);
-        holder.carbsValue.setText(todays_breakFast_infos.get(position).carbsValue);
+        holder.fatvalue.setText(todays_breakFast_infos.get(position).fatvalue + " Fat");
+        holder.carbsValue.setText(todays_breakFast_infos.get(position).carbsValue + " Carbs");
         holder.quantityValue.setText(todays_breakFast_infos.get(position).quantityValue);
         holder.sizeValue.setText(todays_breakFast_infos.get(position).sizeValue);
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +52,13 @@ public class MealtrackerFinalAdapter extends RecyclerView.Adapter<MealtrackerFin
 //                Toast.makeText(context, "clicked for "+todays_breakFast_infos.get(position).mealName, Toast.LENGTH_SHORT).show();
                 todays_breakFast_infos.remove(position);
                 notifyItemRemoved(position);
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                },400);
+//                notifyDataSetChanged();
                 SharedPreferences sharedPreferences = context.getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
                 String jsonString = sharedPreferences.getString("TodaysBreakFast", "");
                 try {

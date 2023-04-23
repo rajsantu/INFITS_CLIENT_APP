@@ -3,12 +3,14 @@ package com.example.infits;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,7 +45,7 @@ public class MealtrackerAddMeal extends AppCompatActivity {
     JSONArray jsonArray= new JSONArray();
     RequestQueue queue,requestQueue;
     ArrayList<addmealInfo> addmealInfos = new ArrayList<>();
-    ImageView calorieImgback;
+    ImageView calorieImgback,searchbarSetting;
 //    AddMealAdapter addMealAdapter;
     MealtrackerAddMealAdapter addMealAdapter;
     ArrayList<addmealInfo> filteredlist;
@@ -64,6 +66,7 @@ public class MealtrackerAddMeal extends AppCompatActivity {
         recentTextView = findViewById(R.id.recentTextView);
         FavouritesTextview = findViewById(R.id.FavouritesTextview);
         frequentTextView = findViewById(R.id.frequentTextView);
+        searchbarSetting = findViewById(R.id.search_bar_setting);
 //        Toast.makeText(this, "textview", Toast.LENGTH_SHORT).show();
 
         searchBreakfast=findViewById(R.id.searchBreakfast);
@@ -71,7 +74,8 @@ public class MealtrackerAddMeal extends AppCompatActivity {
 
         breakfastitems=findViewById(R.id.breakfastitems);
         calorieImgback=findViewById(R.id.calorieImgback);
-        breakfastitems.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+//        breakfastitems.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        breakfastitems.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
 
         //setting title
@@ -90,10 +94,12 @@ public class MealtrackerAddMeal extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-//                filter(newText);
+//                if(newText.isEmpty())
+                if (TextUtils.isEmpty(newText)) searchbarSetting.setVisibility(View.VISIBLE);
+                else    searchbarSetting.setVisibility(View.GONE);
+                filter(newText);
                 return false;
             }
         });
@@ -130,6 +136,7 @@ public class MealtrackerAddMeal extends AppCompatActivity {
     }
 
     private void filter(String text) {
+//        Toast.makeText(this, "Filter called", Toast.LENGTH_SHORT).show();
         filteredlist = new ArrayList<addmealInfo>();
 
         for (addmealInfo item : addmealInfos) {
@@ -158,7 +165,9 @@ public class MealtrackerAddMeal extends AppCompatActivity {
                             jsonObject1.getString("calorie"),jsonObject1.getString("protin"),jsonObject1.getString("carb"),
                             jsonObject1.getString("fat")));
                 }
+                Log.d("TAG", "AddRecentMeal: "+jsonObject.toString());
             }
+
             addMealAdapter=new MealtrackerAddMealAdapter(getApplicationContext(),addmealInfos);
             breakfastitems.setAdapter(addMealAdapter);
         }catch (JSONException jsonException){
@@ -180,9 +189,16 @@ public class MealtrackerAddMeal extends AppCompatActivity {
                     String carb=jsonObject1.getString("carb");
                     String protein=jsonObject1.getString("protein");
                     String fat=jsonObject1.getString("fat");
+//                    String fiber = jsonObject1.getString("fiber");
 //                    Log.d("error123", name);
 
+//                     addmealInfo a = new addmealInfo(R.drawable.donutimg_full,heading,name,calorie,carb,protein,fat);
+//                     a.setFiber(fiber);
+
                     addmealInfos.add(new addmealInfo(R.drawable.donutimg_full,heading,name,calorie,carb,protein,fat));
+//                    addmealInfos.add(a);
+
+
                 }
 //                Log.d("error123", addmealInfos.toString());
                 addMealAdapter=new MealtrackerAddMealAdapter(this,addmealInfos);
@@ -216,6 +232,7 @@ public class MealtrackerAddMeal extends AppCompatActivity {
                     String carb=jsonObject1.getString("carb");
                     String protein=jsonObject1.getString("protein");
                     String fat=jsonObject1.getString("fat");
+//                    String fiber = jsonObject1.getString("fiber");
                     addmealInfos.add(new addmealInfo(R.drawable.hotdog,heading,name,calorie,carb,protein,fat));
                 }
                 addMealAdapter=new MealtrackerAddMealAdapter(this,addmealInfos);

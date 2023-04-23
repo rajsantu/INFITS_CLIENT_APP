@@ -1,7 +1,10 @@
 package com.example.infits;
 
+        import static android.content.Context.MODE_PRIVATE;
+
         import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.LayoutInflater;
@@ -16,6 +19,9 @@ package com.example.infits;
         import androidx.cardview.widget.CardView;
         import androidx.navigation.Navigation;
         import androidx.recyclerview.widget.RecyclerView;
+
+        import org.json.JSONArray;
+        import org.json.JSONObject;
 
         import java.util.ArrayList;
 
@@ -43,7 +49,15 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        holder.addmealIcon.setImageDrawable(context.getDrawable(addmealInfos.get(position).mealIocn));
-        holder.addMealName.setText(addmealInfos.get(position).mealname);
+        String name = addmealInfos.get(position).mealname;
+//        if(name.contains(" ") && name.indexOf(" ") <name.length() && name.indexOf(" ") != 0) {
+//            int index = name.indexOf(" ");
+//            String temp = name.substring(0,index)+"\n"+name.substring(index+1);
+//            holder.addMealName.setText(temp);
+//            Log.d("TAG", "onBindViewHolder: "+temp);
+//        }
+//        else
+            holder.addMealName.setText(addmealInfos.get(position).mealname);
 //        holder.addMealQuantity.setText(addmealInfos.get(position).mealQuantity);
 //        holder.addMealCalorie.setText(addmealInfos.get(position).mealcalorie);
 //        holder.addMealWeight.setText(addmealInfos.get(position).mealWeight);
@@ -59,6 +73,7 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
                 String carbs=addmealInfos.get(position).carb;
                 String protin=addmealInfos.get(position).protein;
                 String fat=addmealInfos.get(position).fat;
+//                String fiber = addmealInfos.get(position).getFiber();
                 mealInfotransfer.add(Meal_Name);
                 mealInfotransfer.add(Meal_type);
                 mealInfotransfer.add(calorie);
@@ -66,10 +81,58 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
                 mealInfotransfer.add(protin);
                 mealInfotransfer.add(fat);
                 mealInfotransfer.add(String.valueOf(icon));
+//                mealInfotransfer.add(fiber);
+//                try{
+//                    SharedPreferences sharedPreferences = context.getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
+//                    String jsonString = sharedPreferences.getString("TodaysBreakFast", "");
+//
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(jsonString);
+//                        JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
+//
+//                        boolean isDuplicateFound = false;
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            JSONObject mealObject = jsonArray.getJSONObject(i);
+//                            if (mealObject.getString("mealName").equals(Meal_Name)) {
+//                                isDuplicateFound = true;
+//                                // Update the existing entry with new data
+//                                int a = Integer.parseInt(mealObject.getString("sizeValue"));
+//                                a++;
+//                                mealObject.put("sizeValue", Integer.toString(a));
+//                                break;
+//                            }
+//                        }
+//
+//                        if (!isDuplicateFound) {
+//                            // Add a new entry
+//                            JSONObject mealObject = new JSONObject();
+//                            mealObject.put("mealName", newMealName);
+//                            mealObject.put("calorieValue", newCalorieValue);
+//                            mealObject.put("fatvalue", newFatValue);
+//                            mealObject.put("carbsValue", newCarbsValue);
+//                            mealObject.put("quantityValue", newQuantityValue);
+//                            mealObject.put("sizeValue", newSizeValue);
+//                            jsonArray.put(mealObject);
+//                        }
+//
+//                        jsonObject.put("TodaysBreakFast", jsonArray);
+//                        String modifiedJsonString = jsonObject.toString();
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString("TodaysBreakFast", modifiedJsonString);
+//                        editor.apply();
+//                    } catch (Exception e) {
+//                        Log.d("TAG", "Error: " + e.getMessage());
+//                    }
+//
+//                }catch (Exception e){
+//                    Log.d("TAG", "onClick: "+e.toString());
+//                }
+                mealInfotransfer.add("1");
                 Log.d("mealInfotransfer",mealInfotransfer.toString());
 
                 bundle.putStringArrayList("mealInfotransfer",mealInfotransfer);
                 Intent intent = new Intent(context, Activity_Todays_Breakfast.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("bundle",bundle);
                 intent.putExtra("fragment", "mealinfowithphoto");
                 context.startActivity(intent);

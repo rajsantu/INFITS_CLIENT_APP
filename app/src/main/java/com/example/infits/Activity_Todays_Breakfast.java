@@ -169,19 +169,18 @@ public class Activity_Todays_Breakfast extends AppCompatActivity {
 
             Log.d("TAG", "TodayBreakfast: Called");
 
-            Toast.makeText(this, "TodayBreakfast: Called", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "TodayBreakfast: Called", Toast.LENGTH_SHORT).show();
 
 
             }
             transaction.addToBackStack(null);
             transaction.commit();
             finish();
-            Toast.makeText(this, "Finished activity", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Finished activity", Toast.LENGTH_SHORT).show();
 
 
         }catch (Exception e){
             Log.d("ActivityException", e.toString());
         }
     }
-
 }

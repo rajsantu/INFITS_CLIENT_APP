@@ -64,6 +64,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity

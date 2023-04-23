@@ -1,6 +1,8 @@
 package com.example.infits;
 
 import static android.content.ContentValues.TAG;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlarmManager;
@@ -11,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -142,12 +145,27 @@ public class mealInfoWithPhoto extends Fragment {
         Meal_Type=mealInfotransfer.get(1);
         calorieValue.setText(mealInfotransfer.get(2));
         carbsValue.setText(mealInfotransfer.get(3));
-        proteinValue.setText(mealInfotransfer.get(4) + " g");
-        fatValue.setText(mealInfotransfer.get(5) + " g");
+        proteinValue.setText(mealInfotransfer.get(4));
+        fatValue.setText(mealInfotransfer.get(5));
+
+
+        //handling on backpressed
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                // Handle the back button event
+//                FragmentManager fm = getParentFragmentManager();
+//                if(fm.getBackStackEntryCount() > 1)   fm.popBackStack();
+//                requireActivity().onBackPressed();
+//            }
+//        };
+//
+//        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
 
         //delete shared preference
 
-//        DeleteSharedPreference();
+        DeleteSharedPreference();
 //        Add Recent Meal Data
         AddingDataForRecentMeal();
 //        //numberPicker 1
@@ -404,13 +422,13 @@ public class mealInfoWithPhoto extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientuserID", DataFromDatabase.clientuserID);
+//                data.put("clientuserID", DataFromDatabase.clientuserID);
+                data.put("clientuserID", "test");
                 return data;
             }
         };
         requestQueue.add(stringRequest);
     }
-
 
 
 
