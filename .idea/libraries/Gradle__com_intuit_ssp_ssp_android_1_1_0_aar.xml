@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.intuit.ssp:ssp-android:1.1.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e02678e653c80801b0b139c44e369628/transformed/jetified-ssp-android-1.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e02678e653c80801b0b139c44e369628/transformed/jetified-ssp-android-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e02678e653c80801b0b139c44e369628/transformed/jetified-ssp-android-1.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

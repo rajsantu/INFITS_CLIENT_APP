@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.gauravbhola.ripplepulsebackground:library:1.0.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a9e9f52b97de6555a8cffa6c05df2f14/transformed/jetified-library-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a9e9f52b97de6555a8cffa6c05df2f14/transformed/jetified-library-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a9e9f52b97de6555a8cffa6c05df2f14/transformed/jetified-library-1.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gauravbhola.ripplepulsebackground/library/1.0.0/3d25d4fa6eb54d7547785bbea483ad708dc5cb4b/library-1.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gauravbhola.ripplepulsebackground/library/1.0.0/f2aa09469c1154990a9eeb30c48734ceb0100dbf/library-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
