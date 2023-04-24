@@ -176,7 +176,6 @@ public class SettingsFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_profile2);
         });
 
-
         return view;
     }
 

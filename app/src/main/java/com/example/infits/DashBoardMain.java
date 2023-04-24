@@ -220,7 +220,6 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
 
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

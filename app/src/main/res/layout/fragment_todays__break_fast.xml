@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentTodays_BreakFast">
+
+
+
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollView2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.8">
+
+                <ImageView
+                    android:id="@+id/calorieImgback"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                    app:tint="#F6B566" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center|start"
+                    android:paddingStart="15dp"
+                    android:layout_marginStart="40dp"
+                    android:text="Today’s"
+                    android:textAlignment="gravity"
+                    android:textColor="#000000"
+                    android:textFontWeight="400"
+                    android:textSize="35sp" />
+                <TextView
+                    android:id="@+id/header_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7.5"
+                    android:gravity="center|start"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="Breakfast"
+                    android:textAlignment="gravity"
+                    android:textColor="#000000"
+                    android:textFontWeight="400"
+                    android:textSize="35sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_Todays_breakfast"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginEnd="29dp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-15dp"
+                android:layout_weight="0.4"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/info"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="129dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/breakfast_textborder">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:text="The food items selected here are added"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#F6B566"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-12dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:text="to the meal tracker and the calorie value"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#F6B566"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-12dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:text="of each food item is added to the total"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#F6B566"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-12dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:text="calorie consumed. "
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#F6B566"
+                        android:textSize="18sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginBottom="25dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginEnd="130dp">
+
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="top"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="10dp"
+
+                    app:cardUseCompatPadding="true">
+
+                    <TextView
+                        android:id="@+id/DoneButtonView"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/baloo2"
+                        android:text="Done"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#F6B566"
+                        android:textSize="25dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linear_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:visibility="gone"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginEnd="25dp"
+                android:translationZ="1dp"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:elevation="10dp"
+                    android:layout_weight="1"
+                    app:cardUseCompatPadding="true"
+                    android:minHeight="76dp"
+                    android:backgroundTint="#FF7777"
+                    app:cardCornerRadius="15dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/approval"
+                            android:paddingStart="15dp"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingEnd="5dp"
+                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal">
+
+                            <TextView
+                                android:text="Meal Tracker and"
+                                android:textSize="22sp"
+                                android:fontFamily="@font/baloo2"
+                                android:textColor="#FFFFFF"
+                                android:textAlignment="gravity"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:id="@+id/done_meal"
+                                android:text="Breakfast"
+                                android:textSize="22sp"
+                                android:fontFamily="@font/baloo2"
+                                android:textColor="#FFFFFF"
+                                android:textAlignment="gravity"
+                                android:paddingStart="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                 />
+
+                        </LinearLayout>
+                        <TextView
+                            android:text="Calories updated!"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/baloo2"
+                            android:textColor="#FFFFFF"
+                            android:textAlignment="gravity"
+                            android:gravity="center_horizontal"
+                            android:paddingStart="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+<!--    </ScrollView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

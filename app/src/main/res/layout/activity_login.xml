@@ -127,7 +127,7 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/google"
+            android:id="@+id/imageButton"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:scaleType="fitXY"
@@ -142,7 +142,9 @@
             android:src="@drawable/twitter_sign"/>
 
         <ImageView
-            android:id="@+id/facebook"
+
+            android:id="@+id/imageButton2"
+
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:scaleType="fitXY"

@@ -1,5 +1,6 @@
 package com.example.infits;
 
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -30,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -43,6 +46,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -51,10 +55,8 @@ import org.json.JSONObject;
 
 import java.io.StringReader;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
@@ -68,6 +70,7 @@ public class Login extends AppCompatActivity {
     String passwordStr,usernameStr;
     String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     RequestQueue queue;
+
 
     String google_social_signin_url = String.format("%ssocial_login/loginClientGoogle.php",DataFromDatabase.ipConfig);
     //needs email & token ( google token );
@@ -106,6 +109,7 @@ public class Login extends AppCompatActivity {
     //token = "token"
     CallbackManager facebookCallbackManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,11 +118,13 @@ public class Login extends AppCompatActivity {
         reg = (TextView) findViewById(R.id.reg);
         fpass = (TextView) findViewById(R.id.fpass);
         loginbtn = (Button) findViewById(R.id.logbtn);
+
         btnGoogle = (ImageView) findViewById(R.id.google);
          btnTwitter = (ImageView) findViewById(R.id.twitter);
         btnFacebook = (ImageView) findViewById(R.id.facebook);
 
         queue = Volley.newRequestQueue(this);
+
 
 
         reg.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +142,7 @@ public class Login extends AppCompatActivity {
                 startActivity(ip);
             }
         });
+
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -488,5 +495,6 @@ public class Login extends AppCompatActivity {
             facebookCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 
 }
