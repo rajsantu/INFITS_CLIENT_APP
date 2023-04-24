@@ -67,7 +67,7 @@ public class StepTrackerFragment extends Fragment {
     Thread mythread;
     Button setgoal;
     ImageButton imgback;
-    TextView steps_label,goal_step_count,distance,calories,speed;
+    TextView steps_label,goal_step_count,distance,calories,speed,Distance_unit;
     ImageView reminder;
 
     SharedPreferences stepPrefs;
@@ -145,6 +145,7 @@ public class StepTrackerFragment extends Fragment {
         distance = view.findViewById(R.id.distance);
         calories = view.findViewById(R.id.calories);
         reminder = view.findViewById(R.id.reminder);
+        Distance_unit=view.findViewById(R.id.distance_unit);
 
         //progressBar.setProgress(0.2F);
 
@@ -180,8 +181,21 @@ public class StepTrackerFragment extends Fragment {
                 progressBar.setProgress(   goalPercent2   );
 
                 speed.setText(FetchTrackerInfos.Avg_speed.substring(0,1));
-                distance.setText(String.valueOf(FetchTrackerInfos.Distance));
-                calories.setText(String.valueOf(FetchTrackerInfos.Calories));
+
+
+                if(FetchTrackerInfos.Distance>1) {
+                    distance.setText(String.format("%.3f", (FetchTrackerInfos.Distance)));
+                    Distance_unit.setText("Km");
+                }
+
+                else {
+                    distance.setText(String.format("%.2f",FetchTrackerInfos.Distance*1000));
+                    Distance_unit.setText("Meters");
+                }
+
+
+
+                calories.setText(String.format("%.2f",(FetchTrackerInfos.Calories)) );
 
             }
         });

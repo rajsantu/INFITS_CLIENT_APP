@@ -180,7 +180,7 @@ public class MyService extends Service implements SensorEventListener {
 
                     float acceleration=(float)(Math.sqrt(x*x + y*y + z*z));
 
-                    float dV=acceleration *elapsed_time/1000;
+                    float dV=acceleration *elapsed_time;
                     speed+=dV;
                     FetchTrackerInfos.speed=speed;
                     s++;
