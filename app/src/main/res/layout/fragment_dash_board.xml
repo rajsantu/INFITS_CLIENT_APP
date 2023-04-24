@@ -25,6 +25,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/menu_icon"
+                    tools:ignore="contentDescription"
                     app:layout_constraintStart_toStartOf="@+id/nameInDash"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +35,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/bell_icon"
+                    tools:ignore="contentDescription"
                     app:layout_constraintEnd_toEndOf="@+id/cardView"
                     app:layout_constraintTop_toTopOf="@+id/hamburger_menu" />
 
@@ -45,6 +47,7 @@
                     android:layout_marginStart="-12dp"
                     android:src="@drawable/bell_icon_update"
                     android:visibility="gone"
+                    tools:ignore="contentDescription"
                     app:layout_constraintStart_toEndOf="@+id/dashboard_bell"
                     app:layout_constraintTop_toTopOf="@id/dashboard_bell" />
 
@@ -57,10 +60,11 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/nats_regular"
                     android:lineHeight="0dp"
-                    android:text="Michael Simpson"
+                    tools:text="Michael Simpson"
                     android:textSize="25sp"
                     app:layout_constraintStart_toStartOf="@+id/left"
-                    app:layout_constraintTop_toBottomOf="@+id/hamburger_menu" />
+                    app:layout_constraintTop_toBottomOf="@+id/hamburger_menu"
+                    tools:targetApi="p" />
 
                 <TextView
                     android:id="@+id/date"
@@ -69,7 +73,7 @@
                     android:layout_below="@+id/nameInDash"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="-10dp"
-                    android:text="Feb 10, 2022"
+                    tools:text="Feb 10, 2022"
                     android:textColor="#6A6A6A"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="@+id/nameInDash"
@@ -92,6 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
+                        tools:ignore="contentDescription"
                         app:srcCompat="@drawable/profilepic" />
                 </androidx.cardview.widget.CardView>
 
@@ -118,6 +123,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/metrics_steps" />
 
                         <TextView
@@ -129,7 +135,7 @@
                             android:layout_marginBottom="20dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -142,7 +148,7 @@
                             android:layout_marginBottom="22dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="75%"
+                            tools:text="75%"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -170,6 +176,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/metrics_water" />
 
                         <TextView
@@ -181,7 +188,7 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -193,9 +200,10 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="10dp"
                             android:gravity="top"
-                            android:text="Goal"
+                            android:text="@string/goal"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/glassesGoal"
@@ -205,9 +213,10 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -222,6 +231,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/metrics_weight" />
 
                         <TextView
@@ -233,7 +243,7 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -246,9 +256,10 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="Goal"
+                            android:text="@string/goal"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/weightGoal"
@@ -259,9 +270,10 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -276,6 +288,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitCenter"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/consultation_bkg" />
 
                         <TextView
@@ -343,6 +356,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/meal_tracker_card" />
 
                         <TextView
@@ -431,6 +445,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/metrics_heart_rate" />
 
                         <TextView
@@ -442,7 +457,7 @@
                             android:layout_marginBottom="20dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="0 BPM"
+                            tools:text="0 BPM"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
 
@@ -454,9 +469,10 @@
                             android:layout_marginTop="53dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="0 bpm"
+                            tools:text="0 bpm"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/bpmDown"
@@ -466,9 +482,10 @@
                             android:layout_marginTop="73dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="0 bpm"
+                            tools:text="0 bpm"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -483,6 +500,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/metrics_sleep" />
 
                         <TextView
@@ -494,7 +512,7 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -507,9 +525,10 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="Goal"
+                            android:text="@string/goal"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/sleepgoal"
@@ -520,9 +539,10 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -537,6 +557,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/calorie_track_bkg" />
 
                         <TextView
@@ -548,7 +569,7 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -561,9 +582,10 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="Limit"
+                            android:text="@string/limit"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/GoalCalorie"
@@ -574,18 +596,19 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
-                            android:text="----------"
+                            tools:text="----------"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:ignore="SmallSp" />
 
                     </androidx.cardview.widget.CardView>
+
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/dietcardPro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:visibility="gone"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="5dp">
 
@@ -593,21 +616,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/deitchart" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/dietcard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
-
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
+                            tools:ignore="contentDescription"
                             android:src="@drawable/diet_chart_bkg" />
 
                         <TextView
@@ -685,7 +694,8 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/workout_bkg" />
+                            android:src="@drawable/workout_bkg"
+                            tools:ignore="contentDescription"/>
 
                         <TextView
                             android:id="@+id/workout"
@@ -702,6 +712,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/workout_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
