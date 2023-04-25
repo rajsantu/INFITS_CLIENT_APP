@@ -12,11 +12,13 @@ package com.example.infits;
         import android.view.ViewGroup;
         import android.widget.ImageButton;
         import android.widget.ImageView;
+        import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
 
         import androidx.annotation.NonNull;
         import androidx.cardview.widget.CardView;
+        import androidx.core.content.ContextCompat;
         import androidx.navigation.Navigation;
         import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +50,7 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.addmealIcon.setImageDrawable(context.getDrawable(addmealInfos.get(position).mealIocn));
+        holder.addmealIcon.setImageDrawable(context.getDrawable(addmealInfos.get(position).mealIocn));
         String name = addmealInfos.get(position).mealname;
 //        if(name.contains(" ") && name.indexOf(" ") <name.length() && name.indexOf(" ") != 0) {
 //            int index = name.indexOf(" ");
@@ -58,13 +60,33 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
 //        }
 //        else
             holder.addMealName.setText(addmealInfos.get(position).mealname);
+
+//            holder.ll.setBackground(R.drawable.mealtracker_op1);
+        switch (position%4){
+            case 0:
+                holder.ll.setBackground(ContextCompat.getDrawable(context, R.drawable.mealtracker_op1));
+                break;
+            case 1:
+                holder.ll.setBackground(ContextCompat.getDrawable(context, R.drawable.mealtracker_op2));
+                break;
+            case 2:
+                holder.ll.setBackground(ContextCompat.getDrawable(context, R.drawable.mealtracker_op3));
+                break;
+            default:
+                holder.ll.setBackground(ContextCompat.getDrawable(context, R.drawable.mealtracker_op4));
+                break;
+
+        }
+
+
 //        holder.addMealQuantity.setText(addmealInfos.get(position).mealQuantity);
 //        holder.addMealCalorie.setText(addmealInfos.get(position).mealcalorie);
 //        holder.addMealWeight.setText(addmealInfos.get(position).mealWeight);
-        mealInfotransfer.clear();
+
         holder.addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mealInfotransfer.clear();
                 Bundle bundle=new Bundle();
                 int icon=addmealInfos.get(position).mealIocn;
                 String Meal_Name=addmealInfos.get(position).mealname;
@@ -81,52 +103,6 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
                 mealInfotransfer.add(protin);
                 mealInfotransfer.add(fat);
                 mealInfotransfer.add(String.valueOf(icon));
-//                mealInfotransfer.add(fiber);
-//                try{
-//                    SharedPreferences sharedPreferences = context.getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
-//                    String jsonString = sharedPreferences.getString("TodaysBreakFast", "");
-//
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(jsonString);
-//                        JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
-//
-//                        boolean isDuplicateFound = false;
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            JSONObject mealObject = jsonArray.getJSONObject(i);
-//                            if (mealObject.getString("mealName").equals(Meal_Name)) {
-//                                isDuplicateFound = true;
-//                                // Update the existing entry with new data
-//                                int a = Integer.parseInt(mealObject.getString("sizeValue"));
-//                                a++;
-//                                mealObject.put("sizeValue", Integer.toString(a));
-//                                break;
-//                            }
-//                        }
-//
-//                        if (!isDuplicateFound) {
-//                            // Add a new entry
-//                            JSONObject mealObject = new JSONObject();
-//                            mealObject.put("mealName", newMealName);
-//                            mealObject.put("calorieValue", newCalorieValue);
-//                            mealObject.put("fatvalue", newFatValue);
-//                            mealObject.put("carbsValue", newCarbsValue);
-//                            mealObject.put("quantityValue", newQuantityValue);
-//                            mealObject.put("sizeValue", newSizeValue);
-//                            jsonArray.put(mealObject);
-//                        }
-//
-//                        jsonObject.put("TodaysBreakFast", jsonArray);
-//                        String modifiedJsonString = jsonObject.toString();
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putString("TodaysBreakFast", modifiedJsonString);
-//                        editor.apply();
-//                    } catch (Exception e) {
-//                        Log.d("TAG", "Error: " + e.getMessage());
-//                    }
-//
-//                }catch (Exception e){
-//                    Log.d("TAG", "onClick: "+e.toString());
-//                }
                 mealInfotransfer.add("1");
                 Log.d("mealInfotransfer",mealInfotransfer.toString());
 
@@ -174,11 +150,14 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
         CardView addMealButton;
         ImageView addmealIcon;
         TextView addMealName;
+        LinearLayout ll;
         public ViewHolder(View itemView){
             super(itemView);
             addMealButton=itemView.findViewById(R.id.addMealButton);
             addmealIcon=itemView.findViewById(R.id.addmealIcon);
             addMealName=itemView.findViewById(R.id.addMealName);
+            ll = itemView.findViewById(R.id.LL);
+
 //            addMealCalorie=itemView.findViewById(R.id.addMealCalorie);
 //            addMealQuantity= itemView.findViewById(R.id.addMealQuantity);
 //            addMealWeight=itemView.findViewById(R.id.addMealWeight);

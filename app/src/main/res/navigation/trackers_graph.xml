@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trackers_graph"
+    app:startDestination="@id/mealTracker"
     >
+
+    <fragment
+        android:id="@+id/mealTracker"
+        android:name="com.example.infits.MealTrackerFragment"
+        android:label="mealTracker"
+        tools:layout="@layout/fragment_meal_tracker">
+        <action
+            android:id="@+id/action_mealTrackerFragment_to_mealinfowithphotoFragment"
+            app:destination="@id/mealInfoWithPhoto" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/stepTrackerFragment"

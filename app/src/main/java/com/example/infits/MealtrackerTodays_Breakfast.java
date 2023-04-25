@@ -110,6 +110,7 @@ package com.example.infits;
         import androidx.fragment.app.Fragment;
         import androidx.fragment.app.FragmentManager;
         import androidx.fragment.app.FragmentTransaction;
+        import androidx.navigation.Navigation;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
@@ -259,23 +260,6 @@ public class MealtrackerTodays_Breakfast extends Fragment {
         //backbutton
         calorieImgback = view.findViewById(R.id.calorieImgback);
         calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
-        calorieImgback.setOnClickListener(v -> {
-            FragmentManager fm = getParentFragmentManager();
-            fm.popBackStack();
-            requireActivity().onBackPressed();
-        });
-
-//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                // Handle the back button event
-//                FragmentManager fm = getParentFragmentManager();
-//                if(fm.getBackStackEntryCount() > 1)   fm.popBackStack();
-//                requireActivity().onBackPressed();
-//            }
-//        };
-//
-//        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         //DoneButtonView
         linear_layout1 = view.findViewById(R.id.linear_layout1);
@@ -288,7 +272,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 try {
                     linear_layout1.setVisibility(View.GONE);
                     linear_layout2.setVisibility(View.VISIBLE);
-                    AddDatatoTable();
+                    AddDatatoTable(view);
                 } catch (Exception e) {
                     Log.d("Exception123", e.toString());
                 }
@@ -337,7 +321,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 //
 //    }
 
-    public void AddDatatoTable() {
+    public void AddDatatoTable(View view) {
         try {
             sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
             JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
@@ -372,7 +356,8 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 Log.d("responseCalorie", response);
                 
                 if (response.contains("true")) {
-                    startActivity(new Intent(getContext(),MealTracker.class));
+//                    startActivity(new Intent(getContext(),MealTracker.class));
+                    Navigation.findNavController(view).navigate(R.id.action_mealTrackerFragment_to_mealinfowithphotoFragment);
                     DeleteSharedPreference();
                     linear_layout2.setVisibility(View.GONE);
 //                    Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();

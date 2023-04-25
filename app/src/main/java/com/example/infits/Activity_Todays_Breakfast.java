@@ -173,7 +173,7 @@ public class Activity_Todays_Breakfast extends AppCompatActivity {
 
 
             }
-            transaction.addToBackStack(null);
+//            transaction.addToBackStack(null);
             transaction.commit();
             finish();
 //            Toast.makeText(this, "Finished activity", Toast.LENGTH_SHORT).show();

@@ -386,12 +386,7 @@ public class mealInfoWithPhoto extends Fragment {
 
         //calorieImgback
         calorieImgback = view.findViewById(R.id.calorieImgback);
-//        calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
-        calorieImgback.setOnClickListener(v -> {
-            FragmentManager fm = getParentFragmentManager();
-            fm.popBackStack();
-            requireActivity().onBackPressed();
-        });
+        calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
     }
 
     public void getFavouriteFoodItems() {
