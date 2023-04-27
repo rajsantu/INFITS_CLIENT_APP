@@ -285,6 +285,7 @@
                             android:src="@drawable/meal_tracker_card" />
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/mealtracker"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

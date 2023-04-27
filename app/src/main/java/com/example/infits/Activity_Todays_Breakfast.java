@@ -28,6 +28,7 @@ public class Activity_Todays_Breakfast extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_breakfast);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         try {
 
 //            SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -93,7 +94,7 @@ public class Activity_Todays_Breakfast extends AppCompatActivity {
 //            Toast.makeText(this, "TodayBreakfast: Called", Toast.LENGTH_SHORT).show();
 
             String message = getIntent().getStringExtra("fragment");
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
             if(message.equals("mealinfowithphoto")) {
                 Bundle bundle = getIntent().getBundleExtra("bundle");
 //                if (bundle != null) {
@@ -175,7 +176,7 @@ public class Activity_Todays_Breakfast extends AppCompatActivity {
             }
 //            transaction.addToBackStack(null);
             transaction.commit();
-            finish();
+//            finish();
 //            Toast.makeText(this, "Finished activity", Toast.LENGTH_SHORT).show();
 
 

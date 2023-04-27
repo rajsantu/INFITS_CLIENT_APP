@@ -110,6 +110,7 @@ package com.example.infits;
         import androidx.fragment.app.Fragment;
         import androidx.fragment.app.FragmentManager;
         import androidx.fragment.app.FragmentTransaction;
+        import androidx.navigation.NavController;
         import androidx.navigation.Navigation;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
@@ -342,9 +343,9 @@ public class MealtrackerTodays_Breakfast extends Fragment {
             String mealName=jsonObject1.getString("mealName");
             String Meal_Type=jsonObject1.getString("Meal_Type");
 
-//            SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
-//            Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto","").toString());
-//            String base64String=sharedPreferences1.getString("ClickedPhoto","").toString();
+            SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
+            Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto","").toString());
+            String base64String=sharedPreferences1.getString("ClickedPhoto","").toString();
 
 
 
@@ -354,10 +355,11 @@ public class MealtrackerTodays_Breakfast extends Fragment {
             RequestQueue queue= Volley.newRequestQueue(requireContext());
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 Log.d("responseCalorie", response);
-                
+
                 if (response.contains("true")) {
 //                    startActivity(new Intent(getContext(),MealTracker.class));
-                    Navigation.findNavController(view).navigate(R.id.action_mealTrackerFragment_to_mealinfowithphotoFragment);
+
+//                    Navigation.findNavController(view).navigate(R.id.mealTracker);
                     DeleteSharedPreference();
                     linear_layout2.setVisibility(View.GONE);
 //                    Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
@@ -377,11 +379,10 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        startActivity(new Intent(getContext(),MealTracker.class));
-//                        CalorieTrackerFragment calorieTrackerFragment = new CalorieTrackerFragment();
-//                        fragmentTransaction.add(R.id.frameLayout, calorieTrackerFragment).commit();
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        MealTrackerFragment mealTrackerFragment = new MealTrackerFragment();
+                        fragmentTransaction.add(R.id.frameLayout, mealTrackerFragment).commit();
                     }
                 }, 2000);
             },
@@ -484,6 +485,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 //        intent.putExtra("tracker", "TodaysBreakFast");
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE);
 //        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 0L, 59 * 1000, pendingIntent);
+        Log.d("TAG", "DeleteSharedPreference: " + "Deleted");
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear(); // remove all data from shared preferences

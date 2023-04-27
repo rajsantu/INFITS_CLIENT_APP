@@ -47,6 +47,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -132,12 +133,20 @@ public class mealInfoWithPhoto extends Fragment {
         BottomSheetBehavior.from(bottomSheetN).setPeekHeight(1520);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
 
-        getFavouriteFoodItems();
+
         Bundle args = getArguments();
         mainJSONobj=new JSONObject();
-//        Toast.makeText(getContext(), "Bundle", Toast.LENGTH_SHORT).show();
-        mealInfotransfer = args.getStringArrayList("mealInfotransfer");
-//        Toast.makeText(getContext(), "Array", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(requireContext(), "Bundle", Toast.LENGTH_SHORT).show();
+        if(args != null) {
+            mealInfotransfer = args.getStringArrayList("mealInfotransfer");
+        }
+        else {
+            mealInfotransfer = new ArrayList<>(Arrays.asList("sheera", "Dinner", "190 kcal", "29.6", "1.9", "7.4", "2131230991", "1"));
+            Log.d(TAG, "onCreateView: NULL bundle");
+        }
+
+        getFavouriteFoodItems();
+
         //set TextView
         mainJsonArray=new JSONArray();
 //        Toast.makeText(getContext(), "JsonArray", Toast.LENGTH_SHORT).show();

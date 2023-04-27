@@ -87,7 +87,7 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
             @Override
             public void onClick(View v) {
                 mealInfotransfer.clear();
-                Bundle bundle=new Bundle();
+
                 int icon=addmealInfos.get(position).mealIocn;
                 String Meal_Name=addmealInfos.get(position).mealname;
                 String Meal_type=addmealInfos.get(position).mealType;
@@ -106,12 +106,18 @@ public class MealtrackerAddMealAdapter extends RecyclerView.Adapter<MealtrackerA
                 mealInfotransfer.add("1");
                 Log.d("mealInfotransfer",mealInfotransfer.toString());
 
+                Bundle bundle=new Bundle();
                 bundle.putStringArrayList("mealInfotransfer",mealInfotransfer);
-                Intent intent = new Intent(context, Activity_Todays_Breakfast.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("bundle",bundle);
-                intent.putExtra("fragment", "mealinfowithphoto");
-                context.startActivity(intent);
+
+                Navigation.findNavController(v).navigate(R.id.action_addMeal_to_mealinfowithphotoFragment,bundle);
+
+                //                Intent intent = new Intent(context, Activity_Todays_Breakfast.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("bundle",bundle);
+//                intent.putExtra("fragment", "mealinfowithphoto");
+//                context.startActivity(intent);
+
+
 //                Toast.makeText(context, "Activity", Toast.LENGTH_SHORT).show();
 
 

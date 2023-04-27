@@ -105,7 +105,7 @@ public class MealTrackerFragment extends Fragment {
             public void onClick(View view) {
                 String message = "Breakfast";
                 bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_mealTrackerFragment_to_mealinfowithphotoFragment, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
             }
         });
 
@@ -118,7 +118,7 @@ public class MealTrackerFragment extends Fragment {
 //                startActivity(intent);
                 String message = "Lunch";
                 bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_calorieAddLunchFragment_to_mealInfoWithPhoto, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
             }
         });
         snack.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +130,7 @@ public class MealTrackerFragment extends Fragment {
 //                startActivity(intent);
                 String message = "Snack";
                 bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_calorieAddLunchFragment_to_mealInfoWithPhoto, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
             }
         });
         dinner.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +142,7 @@ public class MealTrackerFragment extends Fragment {
 //                startActivity(intent);
                 String message = "Dinner";
                 bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_calorieAddLunchFragment_to_mealInfoWithPhoto, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
             }
         });
 
@@ -224,6 +224,7 @@ public class MealTrackerFragment extends Fragment {
                 Map<String, String> data = new HashMap<>();
                 data.put("clientID", "test");
                 data.put("date",formattedDate);
+//                data.put("date","25 apr 2023");
                 return data;
             }
         };

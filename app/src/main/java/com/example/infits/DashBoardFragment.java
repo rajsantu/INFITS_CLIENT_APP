@@ -278,16 +278,19 @@ public class DashBoardFragment extends Fragment {
 //            Intent intent = new Intent(getActivity(),Meal_main.class);
 //            requireActivity().finish();
 //            startActivity(intent);
+            Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_mealTracker);
         });
 
         heartcard.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate);
+//            Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_mealTracker);
         });
 
         dietcard.setOnClickListener(v->{
 //            Intent intent = new Intent(getActivity(),Diet_plan_main_screen.class);
 //            requireActivity().finish();
 //            startActivity(intent);
+
         });
 
         if (DataFromDatabase.proUser){

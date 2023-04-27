@@ -12,9 +12,28 @@
         android:label="mealTracker"
         tools:layout="@layout/fragment_meal_tracker">
         <action
-            android:id="@+id/action_mealTrackerFragment_to_mealinfowithphotoFragment"
+            android:id="@+id/action_mealTracker_to_addmealFragment"
+            app:destination="@id/MealTrackerAddMeal"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/MealTrackerAddMeal"
+        android:name="com.example.infits.MealTrackerAddMealFragment"
+        android:label="addMealFragment"
+        tools:layout="@layout/fragment_meal_tracker_add_meal">
+        <action
+            android:id="@+id/action_addMeal_to_mealinfowithphotoFragment"
             app:destination="@id/mealInfoWithPhoto" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/MealTrackerTodayMeal"
+        android:name="com.example.infits.MealtrackerTodays_Breakfast"
+        android:label="TodaysMeal"
+        tools:layout="@layout/fragment_mealtracker_todays__breakfast">
+        <action
+            android:id="@+id/action_TodayMeal_to_mealtrackerFragment"
+            app:destination="@id/mealTracker"/>
     </fragment>
 
     <fragment
@@ -159,6 +178,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_heartRate"
             app:destination="@id/heartRate" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_mealTracker"
+            app:destination="@id/mealTracker"/>
     </fragment>
     <fragment
         android:id="@+id/addLiquidFragment"
