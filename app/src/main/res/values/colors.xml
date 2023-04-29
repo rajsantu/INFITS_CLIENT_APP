@@ -27,6 +27,7 @@
     <color name="sleepNotification">#7D5DE6</color>
     <color name="weightNotification">#18A98B</color>
     <color name="calorieNotification">#F76DA0</color>
+    <color name="yellow">#FDD835</color>
 
     <array name="range">
         <item>#5884FE</item>
@@ -49,6 +50,11 @@
     <color name="bluetoothThumb">#2C3F96</color>
     <array name="progress">
         <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+
     </array>
     <array name="track">
         <item>@color/whitesixty</item>
@@ -76,4 +82,12 @@
     </array>
 
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
+    <color name="skyBlue">#4B9AFB</color>
+    <color name="lightGrey">#CBCBCB</color>
+
+    <color name="colorAccent">#FF4081</color>
+    <color name="progressGreenColor">#0C9900</color>
+    <color name="progressRedColor">#DD4200</color>
+    <color name="progressPurpleColor">#9500DB</color>
+    <color name="progressBlueColor">#7098FF</color>
 </resources>

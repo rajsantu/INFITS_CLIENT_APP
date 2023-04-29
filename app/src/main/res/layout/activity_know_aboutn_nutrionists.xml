@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C7E6FF"
+    tools:context=".KnowAboutnNutrionists">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/know_about_dieition_bg"
+        >
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:src="@mipmap/backarrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="-60dp"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-40dp"
+                android:text="Know about \nNutrionists"
+                android:textColor="@color/black"
+                android:textSize="38sp" />
+
+        </LinearLayout>
+
+        <!-- About dieition -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="107dp"
+                    android:layout_height="107dp"
+                    android:layout_marginStart="60dp"
+                    app:cardCornerRadius="80dp">
+
+                    <ImageView
+                        android:layout_width="107dp"
+                        android:layout_height="107dp"
+                        android:src="@drawable/dietition_img"
+                        android:id="@+id/dp"
+                        android:scaleType="fitXY"/>
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/message_icon"
+                    android:layout_marginTop="-40dp"
+                    android:layout_marginStart="42dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dietitionName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="John Wayne"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="28sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@id/dietitionProfession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Professional Dietitian"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#78C3FF"
+                />
+
+        </LinearLayout>
+
+        <!-- About dieition -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="38dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <FrameLayout
+                android:layout_width="94dp"
+                android:layout_height="37dp"
+                android:layout_gravity="start"
+                android:background="@drawable/dietition_age_gender">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="31 | Male"
+                    android:layout_marginTop="-3dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="170dp"
+                android:gravity="center_vertical"
+                >
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/start_for_ratings"
+                    />
+
+                <TextView
+                    android:id="@+id/ratings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/nats_regular"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Details -->
+
+        <!-- Email -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="13dp"
+                android:src="@drawable/dietition_email_icon"
+                />
+
+            <TextView
+                android:id="@id/dietitionEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="john@gmail.con"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="21dp"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+        <!-- Phone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="13dp"
+                android:src="@drawable/dietition_phone_icon"
+                />
+
+            <TextView
+                android:id="@+id/dietitionPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9108082867"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="21dp"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+        <!-- Location -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="13dp"
+                android:src="@drawable/dietition_location_icon"
+                />
+
+            <TextView
+                android:id="@+id/location_dietitian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mumbai"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/black"
+                />
+
+
+        </LinearLayout>
+
+        <!-- Experience -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/experience_dietition_icon"
+                />
+
+            <TextView
+                android:id="@+id/dieitician_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 Years of Experience"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="21dp"
+                android:textColor="@color/black"
+                />
+
+
+        </LinearLayout>
+
+        <!-- Certifications -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="13dp"
+                android:src="@drawable/dietition_certificates_icon"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Achievements and Certifications"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="21dp"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Achievements and Certifications"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="36dp"
+                android:textColor="#78C3FF"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="-10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Special Diet Certification"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:layout_marginStart="36dp"
+                android:textColor="#78C3FF"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

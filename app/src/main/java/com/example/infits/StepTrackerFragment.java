@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -61,17 +62,19 @@ import java.util.Map;
 import java.util.Objects;
 
 public class StepTrackerFragment extends Fragment {
-
+    Float goalPercent2;
+    Handler handler = new Handler();
+    Thread mythread;
     Button setgoal;
     ImageButton imgback;
-    TextView steps_label,goal_step_count,distance,calories,speed;
+    TextView steps_label,goal_step_count,distance,calories,speed,Distance_unit;
     ImageView reminder;
 
     SharedPreferences stepPrefs;
 
     GaugeSeekBar  progressBar;
 
-    static float goalVal = 5000;
+    static float goalVal ;
 
     float goalPercent = 0;
 
@@ -142,17 +145,65 @@ public class StepTrackerFragment extends Fragment {
         distance = view.findViewById(R.id.distance);
         calories = view.findViewById(R.id.calories);
         reminder = view.findViewById(R.id.reminder);
+        Distance_unit=view.findViewById(R.id.distance_unit);
 
-        progressBar.setProgress(0);
+        //progressBar.setProgress(0.2F);
 
         stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        float goal = stepPrefs.getFloat("goal", 0f);
-        int steps = (int) Math.min(stepPrefs.getInt("steps", 0), goal);
+        float goal = stepPrefs.getFloat("goal", 1f);
+        var steps = Math.min(stepPrefs.getFloat("steps", 0f), goal);
+
         float goalPercent = stepPrefs.getFloat("goalPercent", 0f);
 
-        progressBar.setProgress(goalPercent);
+        //progressBar.setProgress(goalPercent);
         goal_step_count.setText(String.valueOf((int) goal));
+
         steps_label.setText(String.valueOf(steps));
+
+
+        mythread = new Thread( new Runnable() {
+            @Override
+            public void run() {
+
+                if(goalVal>=FetchTrackerInfos.currentSteps && goalVal!=1 &&goalVal!=0 )
+                {
+                    Log.d("completed","1");
+
+                    //Toast.makeText(getActivity().getApplicationContext(), "Steps Completed", Toast.LENGTH_SHORT).show();
+                    mythread.interrupt();
+
+                }
+
+                steps_label.setText( String.valueOf(FetchTrackerInfos.currentSteps  ));
+                handler.postDelayed(this,0);
+
+                goalPercent2= (float) (FetchTrackerInfos.currentSteps)/(int) goalVal;
+                progressBar.setProgress(   goalPercent2   );
+
+                speed.setText(FetchTrackerInfos.Avg_speed.substring(0,1));
+
+
+                if(FetchTrackerInfos.Distance>1) {
+                    distance.setText(String.format("%.3f", (FetchTrackerInfos.Distance)));
+                    Distance_unit.setText("Km");
+                }
+
+                else {
+                    distance.setText(String.format("%.2f",FetchTrackerInfos.Distance*1000));
+                    Distance_unit.setText("Meters");
+                }
+
+
+
+                calories.setText(String.format("%.2f",(FetchTrackerInfos.Calories)) );
+
+            }
+        });
+
+        mythread.start();
+
+
+
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
@@ -189,6 +240,7 @@ public class StepTrackerFragment extends Fragment {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
             try {
+                Log.d("dattaaaa:",response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("steps");
                 for (int i = 0;i<jsonArray.length();i++){
@@ -214,12 +266,15 @@ public class StepTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("clientID",DataFromDatabase.client_id);
                 return data;
             }
         };
 
         Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         PowerManager powerManager = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -238,55 +293,62 @@ public class StepTrackerFragment extends Fragment {
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 EditText goal = dialog.findViewById(R.id.goal);
                 Button save = dialog.findViewById(R.id.save_btn_steps);
-//                progressBar.setProgress(0);
+                FetchTrackerInfos.currentSteps=0;
+                FetchTrackerInfos.flag_steps=0;
+
 //                steps_label.setText(String.valueOf(0));
                 save.setOnClickListener(v->{
 //                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
                     goal_step_count.setText(goal.getText().toString());
-                    progressBar.setProgress(0f);
+                    progressBar.setProgress(0);
                     steps_label.setText(String.valueOf(0));
-                    goalVal = Integer.parseInt(goal.getText().toString());
+
+                    if(goal.getText().toString().equals(""))
+                    {
+                        Toast.makeText(getActivity().getApplicationContext() , "fill goal", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                        goalVal = Integer.parseInt(goal.getText().toString());
+                    FetchTrackerInfos.stop_steps= (int) goalVal;
 
                     SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
                     SharedPreferences.Editor editor = stepPrefs.edit();
                     editor.putFloat("goal", goalVal);
-                    editor.putFloat("steps", 0);
-                    editor.putFloat("goalPercent", 0);
+                    editor.putFloat("steps", 0f);
+                    editor.putFloat("goalPercent", 0f);
                     editor.apply();
 
                     SharedPreferences preferences = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
-                    boolean stepNotificationPermission = preferences.getBoolean("stepSwitch", false);
+                    boolean stepNotificationPermission = preferences.getBoolean("stepSwitch", true);
 
-                    Intent serviceIntent = new Intent(getActivity(), MyService.class);
-                    serviceIntent.putExtra("goal",goalVal);
-                    serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
 
-                    if (!foregroundServiceRunning()){
-                        ContextCompat.startForegroundService(requireContext(), serviceIntent);
+
+                    if(stepNotificationPermission) {
+                        // we have permission to run step service
+                        if (!foregroundServiceRunning()) {
+                            Intent serviceIntent = new Intent(requireContext(), MyService.class);
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                serviceIntent.putExtra("goal", goalVal);
+                                serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
+                                requireContext().startForegroundService(serviceIntent);
+
+                            }
+                            else{
+                                requireContext().startService(serviceIntent);
+                            }
+
+
+
+                       }
                     }
-
-//                    if(stepNotificationPermission) {
-//                        // we have permission to run step service
-//                        if (!foregroundServiceRunning()) {
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                                Intent serviceIntent = new Intent(requireContext(), StepTrackerService.class);
-//                                requireActivity().startForegroundService(serviceIntent);
-//                            }
-////                    requireActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
-//                        }
-//                    }
-
                     dialog.dismiss();
                 });
                 dialog.show();
             }
         });
 
-//        Intent serviceIntent = new Intent(getActivity(), MyService.class);
-//        serviceIntent.putExtra("goal",goalVal);
-//        if (true /*!foregroundServiceRunning()*/){
-//            ContextCompat.startForegroundService(getActivity(), serviceIntent);
-//        }
+
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,10 +390,10 @@ public class StepTrackerFragment extends Fragment {
     public boolean foregroundServiceRunning(){
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
-         if (MyService.class.getName().equals(service.service.getClassName())){
-             return true;
-         }
-     }
+            if (MyService.class.getName().equals(service.service.getClassName())){
+                return true;
+            }
+        }
         return false;
     }
     private void updateGUI(Intent intent) {

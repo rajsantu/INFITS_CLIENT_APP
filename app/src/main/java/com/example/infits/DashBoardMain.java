@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -21,6 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -41,12 +45,28 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     String cardClicked;
     String hours, minutes, secs;
 
+
 //    String url ="http://192.168.1.7/infits/recipiesDisplay.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board_main);
+
+//        Fragment fragment = new DashBoardFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.trackernav, fragment);
+//        fragmentTransaction.commit();
+//
+//        fragment.getView().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                ImageView imageView = fragment.getView().findViewById(R.id.profile1);
+//                imageView.setImageResource(R.drawable.profile);
+//            }
+//        });
+
 
         permissionsCheck();
 
@@ -199,7 +219,6 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
         return true;
 
     }
-
 
     @Override
     protected void onDestroy() {

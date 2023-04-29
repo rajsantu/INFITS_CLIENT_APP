@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".feedback">
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:background="@drawable/background"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="0dip" />
+<LinearLayout
+    android:id="@+id/LL1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="0dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="34dp"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+        app:tint="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="10dp"
+        android:text="FEEDBACK"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nats_regular"
+        android:textSize="38sp" />
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/LL2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/LL1"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/nats_regular"
+        android:textStyle="bold"
+        android:layout_margin="0dp"
+        android:paddingStart="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="Rate your dietician" />
+
+</LinearLayout>
+
+
+<com.iarcuschin.simpleratingbar.SimpleRatingBar
+    android:id="@+id/bar1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/LL2"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
+    app:srb_starSize="40dp"
+    app:srb_numberOfStars="5"
+    app:srb_rating="3"
+    app:srb_stepSize="1"
+    app:srb_starsSeparation="20dp"
+    app:srb_borderColor="@color/yellow"
+    app:srb_fillColor="@color/yellow"
+    />
+
+<LinearLayout
+    android:id="@+id/LL4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/bar1"
+    android:layout_marginTop="15dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nats_regular"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:layout_margin="0dp"
+        android:paddingLeft="20dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="Rate your overall experience" />
+
+</LinearLayout>
+
+
+
+<com.iarcuschin.simpleratingbar.SimpleRatingBar
+    android:id="@+id/bar2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/LL4"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
+    app:srb_starSize="40dp"
+    app:srb_numberOfStars="5"
+    app:srb_rating="3"
+    app:srb_stepSize="1"
+    app:srb_starsSeparation="20dp"
+    app:srb_borderColor="@color/yellow"
+    app:srb_fillColor="@color/yellow"
+    />
+
+<LinearLayout
+    android:id="@+id/LL6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/bar2"
+    android:layout_marginTop="15dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:fontFamily="@font/nats_regular"
+        android:layout_margin="0dp"
+        android:paddingLeft="20dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="Give your feedback" />
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/LL7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/LL6"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/RL2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/user_feedback"
+            style="@style/account_edt_views1"
+            android:layout_width="350dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            android:cursorVisible="false"
+            android:elevation="4dp"
+            android:focusableInTouchMode="true"
+            android:gravity="top"
+
+            android:hint="Type here ... "
+            android:inputType="text"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="5dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textSize="18sp" />
+
+        <FrameLayout
+            android:id="@+id/submitbtn"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/user_feedback"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_background_button">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center"
+                android:text="Submit"
+                android:textColor="#FFFFFF"
+                android:textSize="23sp" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <!--        <RatingBar-->
+    <!--            android:id="@+id/ratingBar"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="14dp"-->
+    <!--            android:theme="@style/RatingBar"-->
+    <!--            />-->
+    <!--        <RatingBar-->
+    <!--            android:id="@+id/ratingBar"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="37dp"-->
+    <!--            android:layout_marginTop="14dp"-->
+    <!--            android:progressDrawable="@drawable/star_rating_bar" />-->
+
+    <!--        <com.iarcuschin.simpleratingbar.SimpleRatingBar-->
+    <!--            android:id="@+id/bar"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:srb_starSize="40dp"-->
+    <!--            app:srb_numberOfStars="5"-->
+    <!--            app:srb_rating="3"-->
+    <!--            app:srb_stepSize="0.5"-->
+    <!--            app:srb_starsSeparation="20dp"-->
+    <!--            app:srb_borderColor="@color/yellow"-->
+    <!--            app:srb_fillColor="@color/yellow"-->
+    <!--            />-->
+
+
+    <!--        <com.aids61517.easyratingview.EasyRatingView-->
+    <!--            android:id="@+id/ratingView"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:emptyDrawable="@drawable/star"-->
+    <!--            app:fullDrawable="@drawable/fullstar"-->
+    <!--            app:numStars="5"-->
+    <!--            app:spacing="29dp"-->
+    <!--            app:step="1" />-->
+
+    <!--        <RatingBar-->
+    <!--            android:id="@+id/ratingBa"-->
+    <!--            style="@style/GlassRating"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="4dp"-->
+    <!--            android:numStars="5"-->
+    <!--            android:stepSize="1.0"-->
+    <!--            android:progressTint="@color/yellow"/>-->
+
+</LinearLayout>
+
+
+
+</RelativeLayout>

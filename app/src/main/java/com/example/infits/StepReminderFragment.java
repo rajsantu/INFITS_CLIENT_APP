@@ -34,6 +34,8 @@ public class StepReminderFragment extends Fragment {
 
     AlarmManager alarmManager;
 
+    PendingIntent stepReceiverPendingIntent;
+
     long remindOnceTimeInMillis = 0L;
 
     public StepReminderFragment() {
@@ -73,26 +75,23 @@ public class StepReminderFragment extends Fragment {
     }
 
     private void dismissAlarm() {
-        Intent weightReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent weightReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, weightReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
-        alarmManager.cancel(weightReceiverPendingIntent);
+        alarmManager.cancel(stepReceiverPendingIntent);
         Toast.makeText(requireContext(), "Alarm Dismissed", Toast.LENGTH_LONG).show();
     }
 
     private void cancelOnceAlarm() {
-        Intent weightReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent weightReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, weightReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+        Intent stepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
+        PendingIntent stepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, stepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
-        alarmManager.cancel(weightReceiverPendingIntent);
+        alarmManager.cancel(stepReceiverPendingIntent);
     }
 
     private void showTimePickerOnce() {
@@ -187,7 +186,8 @@ public class StepReminderFragment extends Fragment {
 
         Intent stepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
         stepReceiverIntent.putExtra("tracker", "step");
-        PendingIntent stepReceiverPendingIntent = PendingIntent.getBroadcast(
+
+        stepReceiverPendingIntent = PendingIntent.getBroadcast(
                 requireActivity(), 0, stepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 

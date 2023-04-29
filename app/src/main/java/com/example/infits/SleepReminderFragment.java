@@ -36,6 +36,8 @@ public class SleepReminderFragment extends Fragment {
     AlarmManager alarmManager;
     long remindOnceTimeInMillis = 0L;
 
+    PendingIntent sleepReceiverPendingIntent;
+
     public SleepReminderFragment() {
         // Required empty public constructor
     }
@@ -74,9 +76,6 @@ public class SleepReminderFragment extends Fragment {
     }
 
     private void dismissAlarm() {
-        Intent sleepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent sleepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
@@ -188,7 +187,8 @@ public class SleepReminderFragment extends Fragment {
 
         Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
         sleepReceiverIntent.putExtra("tracker", "sleep");
-        PendingIntent sleepReceiverPendingIntent = PendingIntent.getBroadcast(
+
+        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
                 requireActivity(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 

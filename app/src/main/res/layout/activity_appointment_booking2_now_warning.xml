@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/appointment_booking_background"
+    tools:context=".Appointment_Booking2_Now_Warning">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgBackAppointment"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/backarrow"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="23dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:text="PROFILE\nAPPOINTMENTS"
+                android:textColor="@color/black"
+                android:textSize="38sp"
+                android:layout_marginTop="-60dp"
+                android:lineSpacingExtra="-40dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center_horizontal"
+                android:text="Step 2/2"
+                android:textColor="#4B9AFB"
+                android:textSize="19sp"
+                android:layout_marginTop="-10dp"
+                android:lineSpacingExtra="-40dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            >
+
+            <FrameLayout
+                android:id="@+id/today_date"
+                android:layout_width="191dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_background_appointment_white_btn">
+
+                <TextView
+                    android:id="@+id/date_warning_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Tuesday, 4 March, 2023"
+                    android:textColor="#4B9AFB"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:textSize="19sp"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- Appointment Type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/information_icon"
+
+                />
+
+            <!-- Phone with toggle button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                >
+
+                <FrameLayout
+                    android:layout_width="314dp"
+                    android:layout_height="151dp"
+                    android:background="@drawable/rounded_background_red">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="The dietitian is currently not available at the moment as they might have another appointment scheduled for this time!"
+                        android:textColor="#FF0000"
+                        android:lineSpacingExtra="-15dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Try scheduling for another date and time!"
+                        android:textColor="#FF0000"
+                        android:fontFamily="@font/nats_regular"
+                        android:gravity="center"
+                        android:layout_marginTop="105dp"
+                        android:textSize="18sp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            >
+
+            <FrameLayout
+                android:id="@+id/go_back_btn"
+                android:layout_width="154dp"
+                android:layout_height="45dp"
+                android:background="@drawable/rounded_background_appointment_white_btn">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/go_back_blue_arrow" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="51dp"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:text="Go back"
+                    android:textColor="#4B9AFB"
+                    android:textSize="23sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

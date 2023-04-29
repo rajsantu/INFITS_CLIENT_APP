@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -28,7 +30,7 @@ public class SettingsFragment extends Fragment {
 
     ImageView profilepic;
 
-    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp,imgbtnKnowDt;
+    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp, imgbtnKnowDt;
 
     TextView tvName;
 
@@ -143,6 +145,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+//        imgbtnAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), Account.class);
+//                startActivity(intent);
+//            }
+//        });
+
         imgbtnNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,15 +167,22 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         imgbtnAbout.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_aboutUsFragment);
         });
+
         imgbtnKnowDt.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_profile2);
         });
 
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ImageView imageView = view.findViewById(R.id.profilepic);
+        imageView.setImageResource(R.drawable.profile);
     }
 
     private String getReferralCode() {

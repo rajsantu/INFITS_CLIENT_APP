@@ -8,17 +8,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -34,10 +40,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -48,13 +56,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DashBoardFragment extends Fragment {
 
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
+
+    String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
+
+
     DataFromDatabase dataFromDatabase;
     TextView stepstv;
     TextView glassestv;
@@ -70,6 +83,8 @@ public class DashBoardFragment extends Fragment {
     TextView bpmDowntv;
     TextView meal_date;
     TextView diet_date;
+    String url1 = String.format("%sprofilePicture.php", DataFromDatabase.ipConfig);
+
     static TextView stepsProgressPercent;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
@@ -103,7 +118,7 @@ public class DashBoardFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        onMenuClicked = (OnMenuClicked) context;
+          onMenuClicked = (OnMenuClicked) context;
     }
 
     public static DashBoardFragment newInstance(String param1, String param2) {
@@ -157,6 +172,42 @@ public class DashBoardFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         String clientuserID = prefs.getString("clientuserID", DataFromDatabase.clientuserID);
+
+        ImageView profileImageView = view.findViewById(R.id.profile1);
+
+        // Execute the query using a Volley StringRequest
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, response -> {
+            try {
+                JSONObject responseJson = new JSONObject(response);
+
+                String profilePhoto = responseJson.getString("profile");
+                // decode the base64 string to a byte array
+                byte[] decodedBytes = Base64.decode(profilePhoto, Base64.DEFAULT);
+                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                if (decodedBitmap != null) {
+                    profileImageView.setImageBitmap(decodedBitmap);
+                } else {
+                    Log.e("TAG", "Failed to decode bitmap.");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("ProfilePhotoFetcher", "JSON parsing error: " + e.getMessage());
+                // Handle the JSONException here
+            }
+        }, error -> {
+            Toast.makeText(getContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("userID",clientuserID);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
 
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
@@ -354,7 +405,7 @@ public class DashBoardFragment extends Fragment {
 
         Volley.newRequestQueue(getContext()).add(stringRequestHeart);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+        StringRequest stringRequest1 = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("ClientMetrics","success");
                 Log.d("response",response);
@@ -397,6 +448,10 @@ public class DashBoardFragment extends Fragment {
                     }if (weightGoal.equals("null")){
                         weightGoaltv.setText("no data available");
                     }
+
+                    steps_update(stepsStr,stepsGoal);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -412,12 +467,18 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", clientuserID);
+                data.put("clientID", DataFromDatabase.client_id);
                 return data;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
+
+        RequestQueue requestQueue1 = Volley.newRequestQueue(getContext());
+        requestQueue1.add(stringRequest);
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
 //        Log.d("ClientMetrics","at end");
 
         DashBoardMain dashBoardMain = (DashBoardMain) requireActivity();
@@ -448,8 +509,17 @@ public class DashBoardFragment extends Fragment {
                     Navigation.findNavController(requireActivity(), R.id.trackernav).navigate(R.id.action_dashBoardFragment_to_waterTrackerFragment, waterBundle);
             }
         }
-
         return view;
+    }
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        ImageView imageView = view.findViewById(R.id.profile1);
+//        imageView.setImageResource(R.drawable.profile);
+//    }
+
+    public void setProfileImage(Drawable drawable) {
+        profile.setImageDrawable(drawable);
     }
 
     private void getLatestCalorieData() {
@@ -475,8 +545,6 @@ public class DashBoardFragment extends Fragment {
                             calorietv.setText(calorieValueText);
                             calorieGoaltv.setText(calorieGoalText);
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -494,6 +562,9 @@ public class DashBoardFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(calorieRequest);
+        calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void hooks(View view) {
@@ -503,9 +574,18 @@ public class DashBoardFragment extends Fragment {
 
         name = view.findViewById(R.id.nameInDash);
         date = view.findViewById(R.id.date);
-        profile = view.findViewById(R.id.profile);
 
-        profile.setImageBitmap(DataFromDatabase.profile);
+//        profile = view.findViewById(R.id.profile1);
+//
+////        if (DataFromDatabase.profile != null) {
+////            profile.setImageBitmap(DataFromDatabase.profile);
+////        } else {
+////            if (getActivity() != null) {
+////                fragment.setProfileImage(ContextCompat.getDrawable(getActivity(), R.drawable.profile));
+////            }
+////        }
+//
+//        profile.setImageBitmap(DataFromDatabase.profile);
 
         stepstv = view.findViewById(R.id.steps);
         glassestv = view.findViewById(R.id.glasses);
@@ -564,6 +644,9 @@ public class DashBoardFragment extends Fragment {
                 }
             };
              Volley.newRequestQueue(getContext()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             dialog.dismiss();
         });
         dialog.show();
@@ -618,13 +701,30 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-
-                data.put("clientID", DataFromDatabase.clientuserID);
-
+                Date date= new Date();
+                data.put("clientID", DataFromDatabase.client_id);
+                data.put("date",dateFormat.format(date));
                 return data;
             }
         };
         Volley.newRequestQueue(requireContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
+
+    public void steps_update(String steps , String goal)
+    {
+        int step1=Integer.parseInt(steps);
+        int goal1= Integer.parseInt(goal);
+
+        int stepPercent= (int) (step1 * 100)/goal1;
+        String stepPercentText = stepPercent + "%";
+        stepsProgressPercent.setText(stepPercentText);
+        stepsProgressBar.setProgress(stepPercent);
+
+
+    }
+
 
 }

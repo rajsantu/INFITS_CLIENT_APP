@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -97,12 +98,15 @@ public class Signup extends AppCompatActivity {
             } else {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
                     System.out.println(response);
-                    if (response.equals("success")){
+//                        Log.i(response, "onCreate: ");
+                    if (response != null && response.equals("success")){
                         Toast.makeText(getApplicationContext(), "Registration completed", Toast.LENGTH_SHORT).show();
                         Intent id = new Intent(getApplicationContext(), Login.class);
                         startActivity(id);
                     }
                     else{
+
+
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 },error -> {
@@ -126,6 +130,9 @@ public class Signup extends AppCompatActivity {
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
+
+
+
 
                 generateReferral();
             }

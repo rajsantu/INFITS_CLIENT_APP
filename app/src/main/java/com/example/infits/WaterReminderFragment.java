@@ -14,6 +14,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,13 @@ import android.widget.Toast;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
+import java.util.Timer;
 
 public class WaterReminderFragment extends Fragment {
 
@@ -42,7 +51,12 @@ public class WaterReminderFragment extends Fragment {
     String[] hours, minutes, type, times;
 
     AlarmManager alarmManager;
+    AlarmManager alarmManager2;
+
     SharedPreferences sharedPreferences;
+
+    static PendingIntent waterReceiverPendingIntent,alarmCancelPendingIntent;
+    Thread thread;
 
     public WaterReminderFragment() {
         // Required empty public constructor
@@ -127,6 +141,8 @@ public class WaterReminderFragment extends Fragment {
         remindOnceTime.setOnClickListener(v -> showTimePickerOnce());
         remindOnceAmPm.setOnClickListener(v -> showTimePickerOnce());
 
+
+
         set.setOnClickListener(v -> {
             if(pickedFromTime == 0L || pickedToTime == 0L) {
                 Toast.makeText(requireActivity(), "Please select a time slot.", Toast.LENGTH_LONG).show();
@@ -149,8 +165,9 @@ public class WaterReminderFragment extends Fragment {
 
         Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
         waterReceiverIntent.putExtra("tracker", "water");
+        waterReceiverIntent.putExtra("pickedToTime",pickedToTime);
         PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+                requireActivity(), 1, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, remindOnceTimeMillis, waterReceiverPendingIntent);
@@ -175,52 +192,54 @@ public class WaterReminderFragment extends Fragment {
     }
 
     private void setAlarm() {
-        long alarmInterval = defaultInterval;
-
-        if(remindEveryRB.isChecked()) alarmInterval = intervalTime;
-        else if(remindTimesRB.isChecked()) alarmInterval = timesTime;
-
-        // set alarm
-        createNotificationChannel();
-
-        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
-        waterReceiverIntent.putExtra("tracker", "water");
-        PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
-
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, waterReceiverPendingIntent);
-        Toast.makeText(requireActivity(), "Reminder Set", Toast.LENGTH_LONG).show();
-
-        setCancelAlarm(waterReceiverPendingIntent);
-    }
-
-    private void setCancelAlarm(PendingIntent waterReceiverPendingIntent) {
-        Intent waterCancelReceiverIntent = new Intent(requireContext(), WaterNotificationCancelReceiver.class);
-        waterCancelReceiverIntent.putExtra("AlarmToCancel", waterReceiverPendingIntent);
-
-        PendingIntent waterCancelReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterCancelReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
-        if(alarmManager == null) {
+        try {
+            long alarmInterval = defaultInterval;
+            if (remindEveryRB.isChecked()) alarmInterval = intervalTime;
+            else if (remindTimesRB.isChecked()) alarmInterval = timesTime;
+            createNotificationChannel();
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-        }
+            Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+            waterReceiverIntent.putExtra("tracker", "water");
+            waterReceiverPendingIntent = PendingIntent.getBroadcast(
+                    requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+            );
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, waterReceiverPendingIntent);
+            Toast.makeText(requireActivity(), "Reminder Set", Toast.LENGTH_LONG).show();
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, waterCancelReceiverPendingIntent);
-        Toast.makeText(requireActivity(), "Reminder Dismissed", Toast.LENGTH_LONG).show();
+        }catch (Exception e){
+            Log.d("Exception123",e.toString());
+        }
+        setCancelAlarm();
     }
+
+    private void setCancelAlarm(){
+        try {
+            String alarmStarttime=fromTime.getText().toString()+" "+fromAmPm.getText().toString();
+            String alarmEndtime = toTime.getText().toString()+" " + toAmPm.getText().toString();
+            SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm a");
+            Date dt, dt1;
+            dt = sdfs.parse(alarmStarttime);
+            Log.d("StartTime: " , String.valueOf(dt.getHours())+":"+String.valueOf(dt.getMinutes())+":"+String.valueOf(dt.getSeconds())); // <-- I got result here
+            dt1 = sdfs.parse(alarmEndtime);
+            Timer timer = new Timer();
+            long delay=dt1.getTime()-dt.getTime();
+            Log.d("IntervalTime:  ",String.valueOf(delay));
+            timer.schedule(new ScheduleTask(alarmManager,waterReceiverPendingIntent), delay);
+
+        }catch (Exception p){
+            Log.d("Exception123",p.toString());
+        }
+    }
+
 
     private void cancelAlarm() {
-        Intent waterReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
         alarmManager.cancel(waterReceiverPendingIntent);
         Toast.makeText(requireContext(), "Alarm Dismissed", Toast.LENGTH_LONG).show();
+//        Log.d("EndTime: " + Calendar.getInstance().getTime());
     }
 
     private void showTimePickerOnce() {
@@ -235,13 +254,19 @@ public class WaterReminderFragment extends Fragment {
         timePicker.show(requireActivity().getSupportFragmentManager(), "Reminder");
 
         timePicker.addOnPositiveButtonClickListener(view -> {
+
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
 
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY,pickedHour);
+            calendar.set(Calendar.MINUTE,pickedMinute);
+            remindOnceTimeMillis = calendar.getTimeInMillis();
+
             long millisInHour = 60 * 60 * 1000;
             long millisInMinute = 60 * 1000;
-            remindOnceTimeMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
-
+            //remindOnceTimeMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            Log.d("remindOnceTimeMillis", String.valueOf(remindOnceTimeMillis));
             setTextFieldsOnce(pickedHour, pickedMinute);
         });
     }
@@ -368,7 +393,12 @@ public class WaterReminderFragment extends Fragment {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
 
-            pickedToTime = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY,pickedHour);
+            calendar.set(Calendar.MINUTE,pickedMinute);
+            pickedToTime = calendar.getTimeInMillis();
+
+            //pickedToTime = pickedHour * millisInHour + pickedMinute * millisInMinute;
 
             setTextFieldsTo(pickedHour, pickedMinute);
         });
@@ -413,10 +443,18 @@ public class WaterReminderFragment extends Fragment {
         timePicker.addOnPositiveButtonClickListener(view -> {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
+            Toast.makeText(requireActivity(), "picked Hour of day = "+pickedHour+"\npicked Minute = "+pickedMinute, Toast.LENGTH_SHORT).show();
+
+
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Calendar.HOUR_OF_DAY, pickedHour);
+            calendar.set(Calendar.MINUTE, pickedMinute);
 
             long millisInHour = 60 * 60 * 1000;
             long millisInMinute = 60 * 1000;
-            pickedFromTime = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            //pickedFromTime = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            pickedFromTime = calendar.getTimeInMillis();
 
             setTextFieldsFrom(pickedHour, pickedMinute);
         });
@@ -474,3 +512,5 @@ public class WaterReminderFragment extends Fragment {
         set = view.findViewById(R.id.set);
     }
 }
+
+

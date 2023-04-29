@@ -44,6 +44,8 @@ public class CalorieReminderFragment extends Fragment {
     AlarmManager alarmManager;
     SharedPreferences sharedPreferences;
 
+    PendingIntent calorieReceiverPendingIntent;
+
     public CalorieReminderFragment() {
         // Required empty public constructor
     }
@@ -189,34 +191,27 @@ public class CalorieReminderFragment extends Fragment {
 
         Intent calorieReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
         calorieReceiverIntent.putExtra("tracker", "calorie");
-        PendingIntent calorieReceiverPendingIntent = PendingIntent.getBroadcast(
+
+        calorieReceiverPendingIntent = PendingIntent.getBroadcast(
                 requireActivity(), 0, calorieReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, calorieReceiverPendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, calorieReceiverPendingIntent);
         Toast.makeText(requireActivity(), "Reminder Set", Toast.LENGTH_LONG).show();
+        System.out.println("from: " + pickedFromTime + ", to:" + pickedToTime + ", interval:" + alarmInterval);
 
-        setCancelAlarm(calorieReceiverPendingIntent);
+        setCancelAlarm();
     }
 
-    private void setCancelAlarm(PendingIntent calorieReceiverPendingIntent) {
-        Intent calorieCancelReceiverIntent = new Intent(requireContext(), WaterNotificationCancelReceiver.class);
-        calorieCancelReceiverIntent.putExtra("AlarmToCancel", calorieReceiverPendingIntent);
-
-        PendingIntent calorieCancelReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, calorieCancelReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
+    private void setCancelAlarm() {
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, calorieCancelReceiverPendingIntent);
-        Toast.makeText(requireActivity(), "Reminder Dismissed", Toast.LENGTH_LONG).show();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, calorieReceiverPendingIntent);
     }
 
     private void cancelAlarm() {
-        Intent calorieReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent calorieReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, calorieReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
