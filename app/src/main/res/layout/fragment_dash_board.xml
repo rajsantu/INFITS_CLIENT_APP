@@ -60,7 +60,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/nats_regular"
                     android:lineHeight="0dp"
-                    android:text="Ankit Sharma"
+                    tools:text="Ankit Sharma"
                     android:textSize="25sp"
                     app:layout_constraintStart_toStartOf="@+id/left"
                     app:layout_constraintTop_toBottomOf="@+id/hamburger_menu"

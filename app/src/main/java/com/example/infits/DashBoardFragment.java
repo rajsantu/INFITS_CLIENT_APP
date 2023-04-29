@@ -18,9 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,7 +36,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,9 +50,11 @@ public class DashBoardFragment extends Fragment {
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
 
     String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
-    String url1 = String.format("%sprofilePicture.php", DataFromDatabase.ipConfig);
+    String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
 
-    DataFromDatabase dataFromDatabase;
+    //No such file!
+    // String url1 = String.format("%sprofilePicture.php", DataFromDatabase.ipConfig);
+
     TextView stepstv;
     TextView glassestv;
     TextView glassesGoaltv;
@@ -71,9 +70,9 @@ public class DashBoardFragment extends Fragment {
     TextView meal_date,diet_date,workout_date,consul_date;
     static TextView stepsProgressPercent;
     RequestQueue queue;
-    ImageButton sidemenu, notifmenu;
+    //ImageButton sidemenu, notifmenu;
     CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard, consultation_card,mealTrackerCard,dietCardPro,workout_card;
-    Button btnsub, btnsub1;
+    //Button btnsub, btnsub1;
     TextView name,date;
     ImageView profile;
 
@@ -188,8 +187,7 @@ public class DashBoardFragment extends Fragment {
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
 
-        //For demonstration disabled, otherwise should be enabled
-        // name.setText(DataFromDatabase.name);
+        name.setText(DataFromDatabase.name);
         date.setText(sf.format(dateToday));
 
         meal_date.setText(sf.format(dateToday));
