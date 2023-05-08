@@ -83,6 +83,8 @@ public class DashBoardFragment extends Fragment {
     TextView bpmDowntv;
     TextView meal_date;
     TextView diet_date;
+    String url1 = String.format("%sprofilePicture.php", DataFromDatabase.ipConfig);
+
     static TextView stepsProgressPercent;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
@@ -470,8 +472,10 @@ public class DashBoardFragment extends Fragment {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
+        // RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        // requestQueue.add(stringRequest);
+        RequestQueue requestQueue1 = Volley.newRequestQueue(getContext());
+        requestQueue1.add(stringRequest);
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

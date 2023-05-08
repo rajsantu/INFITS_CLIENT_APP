@@ -86,7 +86,8 @@ public class Appointment_Booking2 extends AppCompatActivity {
         timingList.add("AM");
 
         imgBack = findViewById(R.id.imgBackAppointment);
-        confirmBtn = findViewById(R.id.confirm_btn1);
+        // confirmBtn = findViewById(R.id.confirm_btn1);
+        confirmBtn = findViewById(R.id.confirm_btn);
 
         intent = getIntent();
 

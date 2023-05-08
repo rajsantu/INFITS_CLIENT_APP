@@ -157,7 +157,8 @@ public class LiveScreen extends AppCompatActivity {
     };
 
     private void setupRemoteVideo(int uid) {
-        FrameLayout container = findViewById(R.id.remote_video_view_container);
+        // FrameLayout container = findViewById(R.id.remote_video_view_container);
+        FrameLayout container = findViewById(R.id.local_video_view_container);
         remoteSurfaceView = new SurfaceView(getBaseContext());
         remoteSurfaceView.setZOrderMediaOverlay(true);
         container.addView(remoteSurfaceView);

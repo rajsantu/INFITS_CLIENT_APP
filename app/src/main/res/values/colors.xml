@@ -82,6 +82,8 @@
     </array>
 
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
+    <color name="skyBlue">#4B9AFB</color>
+    <color name="lightGrey">#CBCBCB</color>
 
     <color name="colorAccent">#FF4081</color>
     <color name="progressGreenColor">#0C9900</color>
