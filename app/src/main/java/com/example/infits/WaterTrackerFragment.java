@@ -54,6 +54,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -205,7 +206,7 @@ public class WaterTrackerFragment extends Fragment {
                     datas.add(jsonArray.getJSONObject(i).getString("water"));
                     Log.d("watt",datas.toString());
                 }
-                for (int i=0;i<noOfDays;i++){
+                for (int i=0;i<5;i++){ //noOfDays
                     Calendar cal = Calendar.getInstance();
                     cal.add(Calendar.DATE, -i);
                     Log.d("featched",fetchedDateswater.toString());

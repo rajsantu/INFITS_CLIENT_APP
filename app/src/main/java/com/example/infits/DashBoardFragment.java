@@ -55,7 +55,7 @@ public class DashBoardFragment extends Fragment {
 
     String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
 
-    String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
+    // String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
     String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
 
     //No such file!

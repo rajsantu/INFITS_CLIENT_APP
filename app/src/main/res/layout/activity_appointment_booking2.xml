@@ -664,7 +664,7 @@
             >
 
             <FrameLayout
-                android:id="@+id/confirm_btn1"
+                android:id="@+id/confirm_btn"
                 android:layout_width="208dp"
                 android:layout_height="50dp"
                 android:background="@drawable/rounded_background_button">
