@@ -332,8 +332,16 @@
             android:exported="true" />
         <activity
             android:name=".DashBoardMain"
-            android:exported="false"
-            android:noHistory="false" />
+            android:exported="true"
+            android:noHistory="false" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Diet_plan_main_screen"
             android:exported="false" />

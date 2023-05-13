@@ -1,18 +1,5 @@
 package com.example.infits;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -21,16 +8,18 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class DashBoardMain extends AppCompatActivity implements DashBoardFragment.OnMenuClicked, UpdateStepCard {
@@ -38,7 +27,6 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     NavigationView nav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
-    Toolbar toolbar;
 
     private String[] allPermissions;
     boolean drawerState = false;
@@ -53,30 +41,20 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board_main);
 
-       Fragment fragment = new DashBoardFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.trackernav, fragment);
-       fragmentTransaction.commit();
-
-        fragment.getView().post(new Runnable() {
-           @Override
-            public void run() {
-                ImageView imageView = fragment.getView().findViewById(R.id.profile1);
-               imageView.setImageResource(R.drawable.profile);
-           }
-        });
+        /*
+        fragment.getView().post(() -> {
+             ImageView imageView = fragment.getView().findViewById(R.id.profile1);
+            imageView.setImageResource(R.drawable.profile);
+        });*/
 
 
         permissionsCheck();
 
         permissions();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        nav = (NavigationView) findViewById(R.id.navmenu);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
+        nav = findViewById(R.id.navmenu);
+        drawerLayout = findViewById(R.id.drawer);
 
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_open,R.string.navigation_close);
         drawerLayout.addDrawerListener(toggle);
@@ -96,13 +74,15 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
             }
         });
 
+        /*
         if (!DataFromDatabase.proUser){
             Menu nav_Menu = nav.getMenu();
-//            nav_Menu.findItem(R.id.consul).setVisible(false);
-//            nav_Menu.findItem(R.id.message).setVisible(false);
-//            nav_Menu.findItem(R.id.live).setVisible(false);
-//            nav_Menu.findItem(R.id.scan).setVisible(false);
-        }
+            nav_Menu.findItem(R.id.consul).setVisible(false);
+            //nav_Menu.findItem(R.id.message).setVisible(false);
+            nav_Menu.findItem(R.id.live).setVisible(false);
+            nav_Menu.findItem(R.id.scan).setVisible(false);
+        }*/
+
 
         cardClicked = getIntent().getStringExtra("notification");
 
@@ -114,57 +94,53 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
             }
         }
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch(menuItem.getItemId()) {
-                    case R.id.dboard:
-                        Intent idb = new Intent(DashBoardMain.this, DashBoardMain.class);
-                        startActivity(idb);
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        finish();
-                        break;
+        nav.setNavigationItemSelectedListener(menuItem -> {
+            switch(menuItem.getItemId()) {
+                case R.id.dboard:
+                    Intent idb = new Intent(DashBoardMain.this, DashBoardMain.class);
+                    startActivity(idb);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    finish();
+                    break;
 
-                    case R.id.charts:
-                        Intent ich = new Intent(DashBoardMain.this, Statistics.class);
-//                        finish();
-                        startActivity(ich);
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.charts:
+                    Intent ich = new Intent(DashBoardMain.this, Statistics.class);
+                    startActivity(ich);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
 
-//                    case R.id.live:
-//                        Intent icL = new Intent(DashBoardMain.this, LiveListAct.class);
-//                        startActivity(icL);
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                        break;
-
-//                    case R.id.consul:
-//                        Intent icl = new Intent(DashBoardMain.this, Consultation.class);
-//                        startActivity(icl);
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                        break;
-
-                    case R.id.setting:
-                        Intent ist = new Intent(DashBoardMain.this, Settings.class);
-//                        finish();
-                        startActivity(ist);
+                    case R.id.live:
+                        Intent icL = new Intent(DashBoardMain.this, LiveListAct.class);
+                        startActivity(icL);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-//                    case R.id.message:
-//                        Intent imt = new Intent(DashBoardMain.this, ChatArea.class);
-//                        startActivity(imt);
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                        break;
+                    case R.id.consul:
+                        Intent icl = new Intent(DashBoardMain.this, Consultation.class);
+                        startActivity(icl);
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-//                    case R.id.scan:
-//                        Intent iscan = new Intent(DashBoardMain.this,ScanActivity.class);
-//                        startActivity(iscan);
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                        break;
-                }
-                return true;
+                case R.id.setting:
+                    Intent ist = new Intent(DashBoardMain.this, Settings.class);
+                    startActivity(ist);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+
+                    /*
+                    case R.id.message:
+                        Intent imt = new Intent(DashBoardMain.this, ChatArea.class);
+                        startActivity(imt);
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;*/
+
+                    case R.id.scan:
+                        Intent iscan = new Intent(DashBoardMain.this,ScanActivity.class);
+                        startActivity(iscan);
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
             }
+            return true;
         });
     }
 
@@ -196,7 +172,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
             for(int i=0;i<allPermissions.length;i++)
             {
                 if(grantResults[i]==PackageManager.PERMISSION_GRANTED){
-//                    Toast.makeText(this, "All Permissions are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "All Permissions are required", Toast.LENGTH_SHORT).show();
                 }else{
                     x=true;
                 }
