@@ -249,7 +249,7 @@ public class CameraForMealTracker extends AppCompatActivity {
                         }
                     });
                 }
-            }
+                }
         });
 
         datetime.setText(dateAndTime);

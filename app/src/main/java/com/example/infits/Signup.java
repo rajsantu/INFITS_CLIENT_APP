@@ -136,7 +136,6 @@ public class Signup extends AppCompatActivity {
 
                 generateReferral();
             }
-
         });
     }
 

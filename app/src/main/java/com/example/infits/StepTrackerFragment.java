@@ -259,8 +259,10 @@ public class StepTrackerFragment extends Fragment {
                 e.printStackTrace();
             }
         },error -> {
-            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            Log.d("Error",error.toString());
+            if (getActivity() != null) {
+                Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+            Log.d("Error", error.toString());
         }){
             @Nullable
             @Override
@@ -390,10 +392,10 @@ public class StepTrackerFragment extends Fragment {
     public boolean foregroundServiceRunning(){
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
-            if (MyService.class.getName().equals(service.service.getClassName())){
-                return true;
-            }
-        }
+         if (MyService.class.getName().equals(service.service.getClassName())){
+             return true;
+         }
+     }
         return false;
     }
     private void updateGUI(Intent intent) {

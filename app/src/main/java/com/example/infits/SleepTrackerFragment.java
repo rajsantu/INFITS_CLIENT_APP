@@ -1,4 +1,3 @@
-
 package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -53,7 +52,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -131,50 +129,22 @@ public class SleepTrackerFragment extends Fragment {
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
-        ArrayList<String> fetchedDatesSleep=new ArrayList<>();
-        fetchedDatesSleep.clear();
-        int noOfDays=10;
+
         String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
-
-                Log.d("response123",response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("sleep");
-                Log.d("arraylength",String.valueOf(jsonArray.length()));
-
-                for (int i=0;i<jsonArray.length();i++){
-                    fetchedDatesSleep.add(jsonArray.getJSONObject(i).getString("date"));
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String data = object.getString("hrsSlept");
+                    String date = object.getString("date");
+                    dates.add(date);
+                    datas.add(data);
+                    System.out.println(datas.get(i));
+                    System.out.println(dates.get(i));
                 }
-                for (int i=0;i<noOfDays;i++){
-                    Calendar cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, -i);
-                    Log.d("featched",fetchedDatesSleep.toString());
-                    Log.d("currentInstance",dateFormat.format(cal.getTime()).toString());
-                    if(fetchedDatesSleep.contains(dateFormat.format(cal.getTime()).toString())==true){
-                        int index=fetchedDatesSleep.indexOf(dateFormat.format(cal.getTime()));
-                        Log.d("index",String.valueOf(index));
-                        JSONObject object=jsonArray.getJSONObject(index);
-                        dates.add(dateFormat.format(cal.getTime()));
-                        String data=object.getString("hrsSlept").toString();
-                        datas.add(data);
-                    }
-                    else {
-                        dates.add(dateFormat.format(cal.getTime()));
-                        datas.add("0");
-                    }
-                }
-//                for (int i = 0;i<jsonArray.length();i++){
-//                    JSONObject object = jsonArray.getJSONObject(i);
-//                    String data = object.getString("hrsSlept");
-//                    String date = object.getString("date");
-//                    dates.add(date);
-//                    datas.add(data);
-//                    System.out.println(datas.get(i));
-//                    System.out.println(dates.get(i));
-//                }
                 AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#9C74F5"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
@@ -243,7 +213,7 @@ public class SleepTrackerFragment extends Fragment {
         }
 
 //        runTimer();
-
+        
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override

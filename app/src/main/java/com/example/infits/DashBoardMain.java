@@ -53,34 +53,34 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board_main);
 
-//        Fragment fragment = new DashBoardFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.trackernav, fragment);
-//        fragmentTransaction.commit();
-//
-//        fragment.getView().post(new Runnable() {
-//            @Override
-//            public void run() {
-//                ImageView imageView = fragment.getView().findViewById(R.id.profile1);
-//                imageView.setImageResource(R.drawable.profile);
-//            }
-//        });
+       Fragment fragment = new DashBoardFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.trackernav, fragment);
+       fragmentTransaction.commit();
+
+        fragment.getView().post(new Runnable() {
+           @Override
+            public void run() {
+                ImageView imageView = fragment.getView().findViewById(R.id.profile1);
+               imageView.setImageResource(R.drawable.profile);
+           }
+        });
 
 
         permissionsCheck();
 
         permissions();
 
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         nav = (NavigationView) findViewById(R.id.navmenu);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
 
-        /*toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_open,R.string.navigation_close);
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_open,R.string.navigation_close);
         drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();*/
+        toggle.syncState();
 
         drawerLayout.addDrawerListener(new ActionBarDrawerToggle(this, drawerLayout, 0, 0) {
             @Override

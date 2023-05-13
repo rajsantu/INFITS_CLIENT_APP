@@ -28,6 +28,7 @@ public class DataFromDatabase {
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,height,dietitian_id,client_id;
 
+
     public static Bitmap profile;
     public static Bitmap dtPhoto;
     public static String profilePhotoBase;

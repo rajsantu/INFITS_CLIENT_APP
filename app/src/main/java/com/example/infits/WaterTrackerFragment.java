@@ -54,8 +54,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-import java.sql.Array;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -187,7 +185,7 @@ public class WaterTrackerFragment extends Fragment {
 //        waterGoalPercent.setText(String.valueOf(calculateGoal()));
 
         RecyclerView rc = view.findViewById(R.id.past_activity);
-        int noOfDays=10;
+
         ArrayList<String> dates = new ArrayList<>(); // ArrayList for past Activity
         ArrayList<String> datas = new ArrayList<>(); // ArrayList for past Activity
         ArrayList<String> fetchedDateswater=new ArrayList<>();
@@ -453,15 +451,15 @@ public class WaterTrackerFragment extends Fragment {
                         lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
                         int durationOfAnimationFromLottie = 6000;
                         int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
-                        lottieAnimationViewWater.playAnimation();
-                        new Handler().postDelayed(new Runnable() {
-                                                      @Override
-                                                      public void run() {
-                                                          lottieAnimationViewWater.pauseAnimation();
-                                                      }
-                                                  },durationOfWaterAnimation
-                        );
-                        consumed.setText(String.valueOf(consumedInDay));
+                    lottieAnimationViewWater.playAnimation();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lottieAnimationViewWater.pauseAnimation();
+                         }
+                        },durationOfWaterAnimation
+                    );
+                    consumed.setText(String.valueOf(consumedInDay));
 
                     }, error -> {
                         Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
