@@ -53,18 +53,30 @@
 
                 <TextView
                     android:id="@+id/nameInDash"
-                    android:layout_width="250dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/nats_regular"
                     android:lineHeight="0dp"
+                    android:gravity="top"
                     tools:text="Ankit Sharma"
                     android:textSize="25sp"
                     app:layout_constraintStart_toStartOf="@+id/left"
                     app:layout_constraintTop_toBottomOf="@+id/hamburger_menu"
                     tools:targetApi="p" />
+
+                <ImageView
+                    android:id="@+id/pro_identifier"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/pro_identifier_dashboard"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@id/nameInDash"
+                    app:layout_constraintTop_toBottomOf="@+id/hamburger_menu"/>
 
                 <TextView
                     android:id="@+id/date"
@@ -97,7 +109,7 @@
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
                         tools:ignore="contentDescription"
-                        app:srcCompat="@drawable/profilepic" />
+                        app:srcCompat="@drawable/profilepic_dashboard" />
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
@@ -124,7 +136,7 @@
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
                             tools:ignore="contentDescription"
-                            android:src="@drawable/metrics_steps" />
+                            android:src="@drawable/metrics_steps_dashboard" />
 
                         <TextView
                             android:id="@+id/steps"
@@ -289,7 +301,7 @@
                             android:layout_height="100dp"
                             android:scaleType="fitCenter"
                             tools:ignore="contentDescription"
-                            android:src="@drawable/consultation_bkg" />
+                            android:src="@drawable/consultation_bkg_dashboard" />
 
                         <TextView
                             android:id="@+id/consultation_txt"
@@ -298,7 +310,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_light"
+                            android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
                             android:text="@string/workout_tracker"
                             android:textColor="@color/white"
@@ -366,7 +378,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_light"
+                            android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
                             android:text="@string/workout_tracker"
                             android:textColor="@color/white"
@@ -389,7 +401,7 @@
                             android:visibility="gone"/>
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/mealtracker_go_pro_btn"
+                            android:id="@+id/meal_tracker_go_pro_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -547,7 +559,7 @@
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
                             tools:ignore="contentDescription"
-                            android:src="@drawable/calorie_track_bkg" />
+                            android:src="@drawable/calorie_track_bkg_dashboard" />
 
                         <TextView
                             android:id="@+id/calorie"
@@ -593,13 +605,6 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/dietcard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                    />
-
-                    <androidx.cardview.widget.CardView
                         android:id="@+id/dietcardPro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -612,7 +617,7 @@
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
                             tools:ignore="contentDescription"
-                            android:src="@drawable/diet_chart_bkg" />
+                            android:src="@drawable/diet_chart_bkg_dashboard" />
 
                         <TextView
                             android:id="@+id/diet_chart_txt"
@@ -621,7 +626,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_light"
+                            android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
                             android:text="@string/workout_tracker"
                             android:textColor="@color/white"
@@ -677,7 +682,7 @@
                             android:layout_width="150dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/workout_bkg"
+                            android:src="@drawable/workout_bkg_dashboard"
                             tools:ignore="contentDescription"/>
 
                         <TextView
@@ -687,7 +692,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_light"
+                            android:fontFamily="@font/manrope_medium"
                             android:gravity="top"
                             android:text="@string/workout_tracker"
                             android:textColor="@color/white"

@@ -70,11 +70,14 @@ public class DashBoardFragment extends Fragment {
     TextView meal_date,diet_date,workout_date,consul_date;
     static TextView stepsProgressPercent;
     RequestQueue queue;
-    //ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard, consultation_card,mealTrackerCard,dietCardPro,workout_card;
-    //Button btnsub, btnsub1;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard, consultation_card,mealTrackerCard, dietCard,workout_card;
     TextView name,date;
     ImageView profile;
+
+    CardView consultation_gopro_btn, diet_chart_gopro_btn,meal_tracker_gopro_btn;
+
+    TextView meal_tracker_text, consultation_text, diet_chart_text;
+    ImageView pro_identifier;
 
     static ProgressBar stepsProgressBar;
 
@@ -198,19 +201,22 @@ public class DashBoardFragment extends Fragment {
 
         menuBtn.setOnClickListener(v -> onMenuClicked.menuClicked());
 
-        /*
+
         if (DataFromDatabase.proUser){
-            consultation_card.setVisibility(View.GONE);
-            mealTrackerCard.setVisibility(View.VISIBLE);
-            dietCardPro.setVisibility(View.GONE);
-            dietcard.setVisibility(View.VISIBLE);
+
+            consultation_gopro_btn.setVisibility(View.GONE);
+            meal_tracker_gopro_btn.setVisibility(View.GONE);
+            diet_chart_gopro_btn.setVisibility(View.GONE);
+
+            consul_date.setVisibility(View.VISIBLE);
+            meal_date.setVisibility(View.VISIBLE);
+            diet_date.setVisibility(View.VISIBLE);
+            consultation_text.setVisibility(View.VISIBLE);
+            meal_tracker_text.setVisibility(View.VISIBLE);
+            diet_chart_text.setVisibility(View.VISIBLE);
+
+            pro_identifier.setVisibility(View.VISIBLE);
         }
-        if (!DataFromDatabase.proUser){
-            consultation_card.setVisibility(View.VISIBLE);
-            mealTrackerCard.setVisibility(View.GONE);
-            dietCardPro.setVisibility(View.VISIBLE);
-            dietcard.setVisibility(View.GONE);
-        }*/
 
 
         SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", Context.MODE_PRIVATE);
@@ -276,18 +282,45 @@ public class DashBoardFragment extends Fragment {
 
         getLatestCalorieData();
 
+
         mealTrackerCard.setOnClickListener(v->{
-//            Intent intent = new Intent(getActivity(),Meal_main.class);
-//            requireActivity().finish();
-//            startActivity(intent);
+            if (DataFromDatabase.proUser){
+            Intent intent = new Intent(getActivity(),Meal_main.class);
+            requireActivity().finish();
+            startActivity(intent);
+            }
+            else {
+                showDialog();
+            }
+        });
+
+        consultation_card.setOnClickListener(v->{
+            if (DataFromDatabase.proUser){
+                //Intent intent = new Intent(getActivity(),Consultation.class);
+                //requireActivity().finish();
+                //startActivity(intent);
+                Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                showDialog();
+            }
+        });
+
+        workout_card.setOnClickListener(v->{
+                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
         });
 
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 
-        dietcard.setOnClickListener(v->{
-//            Intent intent = new Intent(getActivity(),Diet_plan_main_screen.class);
-//            requireActivity().finish();
-//            startActivity(intent);
+        dietCard.setOnClickListener(v->{
+            if (DataFromDatabase.proUser) {
+                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
+                requireActivity().finish();
+                startActivity(intent);
+            }
+            else {
+                showDialog();
+            }
         });
 
         if (DataFromDatabase.proUser){
@@ -321,11 +354,6 @@ public class DashBoardFragment extends Fragment {
             Volley.newRequestQueue(getContext()).add(dietitianDetails);
         }
 
-        consultation_card.setOnClickListener(v-> showDialog());
-
-        dietCardPro.setOnClickListener(v-> showDialog());
-
-        mealTrackerCard.setOnClickListener(v-> showDialog());
 
         queue = Volley.newRequestQueue(getContext());
         Log.d("ClientMetrics","before");
@@ -454,12 +482,6 @@ public class DashBoardFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        ImageView imageView = view.findViewById(R.id.profile1);
-//        imageView.setImageResource(R.drawable.profile);
-//    }
-
     public void setProfileImage(Drawable drawable) {
         profile.setImageDrawable(drawable);
     }
@@ -514,17 +536,18 @@ public class DashBoardFragment extends Fragment {
         name = view.findViewById(R.id.nameInDash);
         date = view.findViewById(R.id.date);
 
-//        profile = view.findViewById(R.id.profile1);
-//
-////        if (DataFromDatabase.profile != null) {
-////            profile.setImageBitmap(DataFromDatabase.profile);
-////        } else {
-////            if (getActivity() != null) {
-////                fragment.setProfileImage(ContextCompat.getDrawable(getActivity(), R.drawable.profile));
-////            }
-////        }
-//
-//        profile.setImageBitmap(DataFromDatabase.profile);
+        //profile = view.findViewById(R.id.profile1);
+
+        /*
+        if (DataFromDatabase.profile != null) {
+            profile.setImageBitmap(DataFromDatabase.profile);
+        } else {
+            if (getActivity() != null) {
+                fragment.setProfileImage(ContextCompat.getDrawable(getActivity(), R.drawable.profile));
+            }
+        }*/
+
+        //profile.setImageBitmap(DataFromDatabase.profile);
 
         stepstv = view.findViewById(R.id.steps);
         glassestv = view.findViewById(R.id.glasses);
@@ -539,12 +562,24 @@ public class DashBoardFragment extends Fragment {
         bpmUptv = view.findViewById(R.id.bpmUp);
         bpmDowntv = view.findViewById(R.id.bpmDown);
 
+        //Dates
         meal_date = view.findViewById(R.id.date_meal);
         diet_date = view.findViewById(R.id.date_diet);
         workout_date = view.findViewById(R.id.workout_date);
         consul_date = view.findViewById(R.id.consultation_date);
 
+        //goPro buttons
+        consultation_gopro_btn=view.findViewById(R.id.consultation_gopro_btn);
+        diet_chart_gopro_btn=view.findViewById(R.id.diet_chart_gopro_btn);
+        meal_tracker_gopro_btn=view.findViewById(R.id.meal_tracker_go_pro_btn);
 
+        //Pro textviews
+        consultation_text=view.findViewById(R.id.consultation_txt);
+        meal_tracker_text=view.findViewById(R.id.meal_track_txt);
+        diet_chart_text=view.findViewById(R.id.diet_chart_txt);
+        pro_identifier=view.findViewById(R.id.pro_identifier);
+
+        //CardView
         stepcard = view.findViewById(R.id.stepcard);
         heartcard = view.findViewById(R.id.heartcard);
         watercard = view.findViewById(R.id.watercard);
@@ -552,11 +587,9 @@ public class DashBoardFragment extends Fragment {
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
         consultation_card = view.findViewById(R.id.proCrad);
-        dietCardPro = view.findViewById(R.id.dietcardPro);
+        dietCard = view.findViewById(R.id.dietcardPro);
         mealTrackerCard = view.findViewById(R.id.meal_tracker);
         workout_card = view.findViewById(R.id.workout_card);
-
-        dietcard = view.findViewById(R.id.dietcard);    //has no use remove
 
         stepsProgressPercent = view.findViewById(R.id.steps_progress_percent);
         stepsProgressBar = view.findViewById(R.id.steps_progress_bar);
