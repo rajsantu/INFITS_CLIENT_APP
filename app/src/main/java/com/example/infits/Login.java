@@ -160,7 +160,7 @@ public class Login extends AppCompatActivity {
                             Intent id = new Intent(Login.this, DashBoardMain.class);
                         Log.d("Response Login",response);
                         try {
-                            JSONArray jsonArray = new JSONArray(response);
+                                JSONArray jsonArray = new JSONArray(response);
                             JSONObject object = jsonArray.getJSONObject(0);
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");

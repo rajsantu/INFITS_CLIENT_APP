@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="progressbar">
+        <item>0.1F</item>
+        <item>0.3F</item>
+        <item>0.5F</item>
+        <item>0.7F</item>
+        <item>1.0F</item>
+    </array>
+</resources>

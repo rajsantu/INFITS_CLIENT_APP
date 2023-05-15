@@ -76,11 +76,11 @@ public class DashBoardFragment extends Fragment {
     TextView bpmUptv;
     TextView bpmDowntv;
     TextView meal_date;
-    TextView diet_date;
+    TextView diet_date,meal_tracker_text;
     static TextView stepsProgressPercent;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,dietCardPro;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,dietCardPro,workout_card;
     Button btnsub, btnsub1;
     TextView name,date;
     ImageView profile;
@@ -186,7 +186,7 @@ public class DashBoardFragment extends Fragment {
             goProCard.setVisibility(View.VISIBLE);
             mealTrackerCard.setVisibility(View.GONE);
             dietCardPro.setVisibility(View.VISIBLE);
-            dietcard.setVisibility(View.GONE);
+            //dietcard.setVisibility(View.GONE);
         }
 
         SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", Context.MODE_PRIVATE);
@@ -275,7 +275,15 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
+
         getLatestCalorieData();
+
+        workout_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_activityTracker2);
+            }
+        });
 
         mealTrackerCard.setOnClickListener(v->{
 //            Intent intent = new Intent(getActivity(),Meal_main.class);
@@ -287,11 +295,11 @@ public class DashBoardFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate);
         });
 
-        dietcard.setOnClickListener(v->{
+       // dietcard.setOnClickListener(v->{
 //            Intent intent = new Intent(getActivity(),Diet_plan_main_screen.class);
 //            requireActivity().finish();
 //            startActivity(intent);
-        });
+       // });
 
         if (DataFromDatabase.proUser){
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
@@ -331,6 +339,9 @@ public class DashBoardFragment extends Fragment {
         dietCardPro.setOnClickListener(v->{
             showDialog();
         });
+
+
+
 
         queue = Volley.newRequestQueue(getContext());
         Log.d("ClientMetrics","before");
@@ -555,18 +566,22 @@ public class DashBoardFragment extends Fragment {
         bpmDowntv = view.findViewById(R.id.bpmDown);
         meal_date = view.findViewById(R.id.date_meal);
 
+        meal_tracker_text=view.findViewById(R.id.meal_track_txt);
+
         stepcard = view.findViewById(R.id.stepcard);
         heartcard = view.findViewById(R.id.heartcard);
         watercard = view.findViewById(R.id.watercard);
         sleepcard = view.findViewById(R.id.sleepcard);
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
-        dietcard = view.findViewById(R.id.dietcard);
+       //dietcard = view.findViewById(R.id.dietcard);
+
+
         goProCard = view.findViewById(R.id.proCrad);
         mealTrackerCard = view.findViewById(R.id.meal_tracker);
         dietCardPro = view.findViewById(R.id.dietcardPro);
         diet_date = view.findViewById(R.id.date_diet);
-
+        workout_card = view.findViewById(R.id.workout_card);
         stepsProgressPercent = view.findViewById(R.id.steps_progress_percent);
         stepsProgressBar = view.findViewById(R.id.steps_progress_bar);
     }
