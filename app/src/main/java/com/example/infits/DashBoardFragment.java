@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -78,14 +80,14 @@ public class DashBoardFragment extends Fragment {
     static TextView stepsProgressPercent;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,dietCardPro,workout_card;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietCard,goProCard,mealTrackerCard,dietCardPro,workout_card;
     Button btnsub, btnsub1;
-    TextView name,date;
+    TextView name,date, workout_date, consul_date;
     ImageView profile;
 
     CardView consultation_gopro_btn, diet_chart_gopro_btn,meal_tracker_gopro_btn;
 
-    TextView meal_tracker_text, consultation_text, diet_chart_text;
+    TextView consultation_text, diet_chart_text;
     ImageView pro_identifier;
 
     static ProgressBar stepsProgressBar;
@@ -215,7 +217,7 @@ public class DashBoardFragment extends Fragment {
             goProCard.setVisibility(View.GONE);
             mealTrackerCard.setVisibility(View.VISIBLE);
             dietCardPro.setVisibility(View.GONE);
-            dietcard.setVisibility(View.VISIBLE);
+            dietCard.setVisibility(View.VISIBLE);
         }
         if (!DataFromDatabase.proUser){
             goProCard.setVisibility(View.VISIBLE);
@@ -325,16 +327,16 @@ public class DashBoardFragment extends Fragment {
 
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 
-        dietCard.setOnClickListener(v->{
-            if (DataFromDatabase.proUser) {
-                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
-                requireActivity().finish();
-                startActivity(intent);
-            }
-            else {
-                showDialog();
-            }
-        });
+//        dietCard.setOnClickListener(v->{
+//            if (DataFromDatabase.proUser) {
+//                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
+//                requireActivity().finish();
+//                startActivity(intent);
+//            }
+//            else {
+//                showDialog();
+//            }
+//        });
 
         if (DataFromDatabase.proUser){
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
