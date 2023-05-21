@@ -73,13 +73,13 @@ public class DashBoardFragment extends Fragment {
     TextView bpmtv;
     TextView bpmUptv;
     TextView bpmDowntv;
-    
-    // String url1 = String.format("%sprofilePicture.php", DataFromDatabase.ipConfig);
-
-    TextView meal_date,diet_date,workout_date,consul_date;
+    TextView meal_date;
+    TextView diet_date,meal_tracker_text;
     static TextView stepsProgressPercent;
     RequestQueue queue;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard, consultation_card,mealTrackerCard, dietCard,workout_card;
+    ImageButton sidemenu, notifmenu;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,dietCardPro,workout_card;
+    Button btnsub, btnsub1;
     TextView name,date;
     ImageView profile;
 
@@ -212,19 +212,16 @@ public class DashBoardFragment extends Fragment {
 
 
         if (DataFromDatabase.proUser){
-
-            consultation_gopro_btn.setVisibility(View.GONE);
-            meal_tracker_gopro_btn.setVisibility(View.GONE);
-            diet_chart_gopro_btn.setVisibility(View.GONE);
-
-            consul_date.setVisibility(View.VISIBLE);
-            meal_date.setVisibility(View.VISIBLE);
-            diet_date.setVisibility(View.VISIBLE);
-            consultation_text.setVisibility(View.VISIBLE);
-            meal_tracker_text.setVisibility(View.VISIBLE);
-            diet_chart_text.setVisibility(View.VISIBLE);
-
-            pro_identifier.setVisibility(View.VISIBLE);
+            goProCard.setVisibility(View.GONE);
+            mealTrackerCard.setVisibility(View.VISIBLE);
+            dietCardPro.setVisibility(View.GONE);
+            dietcard.setVisibility(View.VISIBLE);
+        }
+        if (!DataFromDatabase.proUser){
+            goProCard.setVisibility(View.VISIBLE);
+            mealTrackerCard.setVisibility(View.GONE);
+            dietCardPro.setVisibility(View.VISIBLE);
+            //dietcard.setVisibility(View.GONE);
         }
 
 
@@ -289,8 +286,15 @@ public class DashBoardFragment extends Fragment {
 
         caloriecard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_calorieTrackerFragment));
 
+
         getLatestCalorieData();
 
+        workout_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_activityTracker2);
+            }
+        });
 
         mealTrackerCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
@@ -303,7 +307,7 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        consultation_card.setOnClickListener(v->{
+        goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
                 //Intent intent = new Intent(getActivity(),Consultation.class);
                 //requireActivity().finish();
@@ -362,6 +366,9 @@ public class DashBoardFragment extends Fragment {
 
             Volley.newRequestQueue(getContext()).add(dietitianDetails);
         }
+
+
+
 
 
         queue = Volley.newRequestQueue(getContext());
@@ -610,11 +617,14 @@ public class DashBoardFragment extends Fragment {
         sleepcard = view.findViewById(R.id.sleepcard);
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
-        consultation_card = view.findViewById(R.id.proCrad);
-        dietCard = view.findViewById(R.id.dietcardPro);
-        mealTrackerCard = view.findViewById(R.id.meal_tracker);
-        workout_card = view.findViewById(R.id.workout_card);
+       //dietcard = view.findViewById(R.id.dietcard);
 
+
+        goProCard = view.findViewById(R.id.proCrad);
+        mealTrackerCard = view.findViewById(R.id.meal_tracker);
+        dietCardPro = view.findViewById(R.id.dietcardPro);
+        diet_date = view.findViewById(R.id.date_diet);
+        workout_card = view.findViewById(R.id.workout_card);
         stepsProgressPercent = view.findViewById(R.id.steps_progress_percent);
         stepsProgressBar = view.findViewById(R.id.steps_progress_bar);
     }
