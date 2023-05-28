@@ -1,6 +1,6 @@
 package com.example.infits;
 
-import android.app.Notification;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +9,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,12 +22,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,54 +46,89 @@ import java.util.Map;
 
 public class MyService extends Service implements SensorEventListener {
 
+
+    private static final int PERMISSION_REQUEST_BODY_SENSORS = 1;
+
+    float[] Last_accelerometer_values;
+    long lastUpdatetime;
+    float speed,distance,s=1;
+    int pre_step=0,current=0, flag = 0;
     SensorManager sensorManager;
-    Sensor stepSensor;
+    Sensor stepSensor, accelerometer;
     PendingIntent pendingIntent = null;
     boolean updatePrev = true, notificationPermission, inAppNotificationUpdated = false;
     float goal;
+    private static final int NOTIFICATION_ID = 123;
 
-    NotificationManager manager;
-
+    NotificationCompat.Builder notificationBuilder;
     Intent intentAction = new Intent("com.example.infits");
+    private boolean isNotificationPermissionGranted, sensoravailable;
+
+    int stepCount, stepGoal;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        FetchTrackerInfos.Avg_speed="0000";
+        FetchTrackerInfos.Distance=0;
+        Last_accelerometer_values=new float[3];
+
+
+
+
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accelerometer= sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
-        if (stepSensor == null) {
-            Log.e("service", "No sensor");
+
+
+
+
+
+        if(accelerometer !=null)
+        {
+            sensorManager.registerListener(this,accelerometer,sensorManager.SENSOR_DELAY_NORMAL);
+            Log.d("accelerometer Alive:",accelerometer.toString());
+        }
+        else{
+            Log.d("Accelerometer not Alive:","");
+        }
+
+        if (stepSensor != null) {
+            Log.d("Sensor ALive::", stepSensor.toString());
+            sensoravailable = true;
         } else {
-            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
+            Toast.makeText(this, "sensor Not Available", Toast.LENGTH_SHORT).show();
+            sensoravailable = false;
+        }
+        if (stepSensor != null) {
+            sensorManager.registerListener(this, stepSensor,sensorManager.SENSOR_DELAY_NORMAL);
         }
 
-        goal = intent.getFloatExtra("goal", 0f);
-        notificationPermission = intent.getBooleanExtra("notificationPermission", false);
+        final String Channel_id = "Steps Counting Service";
+        NotificationChannel channel = new NotificationChannel(
+                Channel_id,
+                Channel_id,
+                NotificationManager.IMPORTANCE_LOW
+        );
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel chan = new NotificationChannel(
-                    "MyChannelId",
-                    "My Foreground Service",
-                    NotificationManager.IMPORTANCE_HIGH);
-            chan.setLightColor(Color.BLUE);
-            chan.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+        getSystemService(NotificationManager.class).createNotificationChannel(channel);
+        notificationBuilder = new NotificationCompat.Builder(this, Channel_id)
+                .setContentText("Service is running" + FetchTrackerInfos.currentSteps + " steps")
+                .setContentTitle("Step Count")
+                .setSmallIcon(R.drawable.ic_launcher_background);
+        startForeground(101, notificationBuilder.build());
 
-            manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            assert manager != null;
-            manager.createNotificationChannel(chan);
-        }
 
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-//                0, notificationIntent, 0);
-
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Nullable
@@ -97,137 +138,85 @@ public class MyService extends Service implements SensorEventListener {
     }
 
 
-
+    @SuppressLint("SuspiciousIndentation")
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        if(FetchTrackerInfos.currentSteps>=FetchTrackerInfos.stop_steps-1 && FetchTrackerInfos.currentSteps!=1)
+                onDestroy();
         Log.d("service", "sensorChng");
-        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            if(updatePrev) {
-                FetchTrackerInfos.previousStep = (int) event.values[0];
-                updatePrev = false;
-            }
-
-            SharedPreferences sh = getSharedPreferences("DateForSteps", Context.MODE_PRIVATE);
-
-            Date dateObj = new Date();
-
-            String date = sh.getString("date","");
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d-M-yyyy");
-
-            System.out.println("sensor date: " + date);
-
-            System.out.println("sensor dateObj: " + simpleDateFormat.format(dateObj));
-
-            if (!date.equals(simpleDateFormat.format(dateObj))) {
-                FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
-                System.out.println("Reset");
-                SharedPreferences sharedPreferences = getSharedPreferences("DateForSteps", Context.MODE_PRIVATE);
-                Date dateForSteps = new Date();
-
-                System.out.println("sensor dateForSteps: " + simpleDateFormat.format(dateForSteps));
-
-                SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-                myEdit.putString("date", simpleDateFormat.format(dateForSteps));
-                myEdit.putBoolean("verified",false);
-                myEdit.commit();
-            }
-
-            Calendar calendar = new GregorianCalendar();
-            int hour = calendar.get(Calendar.HOUR);
-            int minute = calendar.get(Calendar.MINUTE);
-
-            FetchTrackerInfos.totalSteps = (int) event.values[0];
-            FetchTrackerInfos.currentSteps = ((int) FetchTrackerInfos.totalSteps - (int) FetchTrackerInfos.previousStep);
-            Log.d("service", "totalSteps: " + FetchTrackerInfos.totalSteps);
-            Log.d("service", "previousSteps: " + FetchTrackerInfos.previousStep);
-            Log.d("service", "currentSteps: " + FetchTrackerInfos.currentSteps);
-
-            updateSteps();
-
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putFloat("steps", (float) FetchTrackerInfos.currentSteps);
-            float goalPercent = ((FetchTrackerInfos.currentSteps/goal)*100)/100;
-            editor.putFloat("goalPercent", goalPercent);
-            editor.apply();
-
-            if(FetchTrackerInfos.currentSteps >= goal) {
-                stopSelf();
-                if(!inAppNotificationUpdated) {
-                    inAppNotificationUpdated = true;
-                    updateInAppNotifications((int) goal);
-                }
-
-                if(notificationPermission) {
-                    Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
-                    intent.putExtra("notification", "step");
-
-                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-                    Notification notification = new NotificationCompat.Builder(this, "MyChannelId")
-                            .setOngoing(false)
-                            .setSmallIcon(R.mipmap.logo)
-                            .setContentTitle("Step Tracker")
-                            .setContentText("Congratulations! You have reached your goal.")
-                            .setChannelId("MyChannelId")
-                            .setAutoCancel(true)
-                            .setContentIntent(pendingIntent)
-                            .build();
-
-                    manager.notify(2, notification);
-                }
-            }
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
-                intent.putExtra("notification", "step");
-
-                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
-                        this, "MyChannelId");
-                Notification notification = notificationBuilder.setOngoing(true)
-                        .setSmallIcon(R.mipmap.logo)
-                        .setContentTitle("Step Tracker")
-                        .setContentText(String.valueOf(FetchTrackerInfos.currentSteps))
-                        .setPriority(NotificationManager.IMPORTANCE_LOW)
-                        .setCategory(Notification.CATEGORY_SERVICE)
-                        .setChannelId("MyChannelId")
-                        .setContentIntent(pendingIntent)
-                        .build();
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//                    NotificationChannel channel = new NotificationChannel(CHANNEL_ID,TAG,
-//                            NotificationManager.IMPORTANCE_HIGH);
-//                    notificationManager.createNotificationChannel(channel);
-//
-//                    Notification notification = new Notification.Builder(getApplicationContext(),CHANNEL_ID).build();
-//                    startForeground(1, notification);
-//                }
-//                else {
-//
-//                     startForeground(1, notification);
-//                }
-
-//                Intent notificationIntent= new Intent(this, DashBoardMain.class);
-//
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-//                    pendingIntent = PendingIntent.getActivity
-//                            (this, 0, notificationIntent, PendingIntent.FLAG_MUTABLE);
-//                }
-//                else
-//                {
-//                    pendingIntent = PendingIntent.getActivity
-//                            (this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
-//                }
-                startForeground(1, notification);
-                intentAction.putExtra("steps", FetchTrackerInfos.currentSteps);
-                sendBroadcast(intentAction);
-                String time = "Current Time : " + hour + ":" + minute + " " ;
-                System.out.println(time);
-            }
+        if (FetchTrackerInfos.flag_steps == 0) {
+            pre_step = (int) event.values[0] - 1;
+            FetchTrackerInfos.flag_steps= 1;
         }
+
+        Log.d("Sensor changing", "1");
+
+        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+            current= (int) event.values[0];
+            FetchTrackerInfos.currentSteps  =  current - pre_step;
+            FetchTrackerInfos.Distance= (float)0.0005*FetchTrackerInfos.currentSteps;
+            Log.d("steps",String.valueOf(FetchTrackerInfos.currentSteps));
+            FetchTrackerInfos.Calories=(float)0.05*FetchTrackerInfos.currentSteps;
+            notificationBuilder.setContentText("Service is running" + FetchTrackerInfos.currentSteps + " steps");
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            managerCompat.notify(101, notificationBuilder.build());
+
+        }
+
+        if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
+                long current_time=System.currentTimeMillis();
+                long elapsed_time=current_time-lastUpdatetime;
+
+                    float[] values=event.values;
+                    float x,y,z;
+                    x=values[0];
+                    y=values[1];
+                    z=values[2];
+
+
+
+
+                    float acceleration=(float)(Math.sqrt(x*x + y*y + z*z));
+
+                    float dV=acceleration *elapsed_time;
+                    speed+=dV;
+                    FetchTrackerInfos.speed=speed;
+                    s++;
+                    Last_accelerometer_values=values;
+
+                    float dT=elapsed_time/1000f;
+
+
+                   FetchTrackerInfos.Avg_speed= String.format("%2f",(speed/s));
+
+            FetchTrackerInfos.avgs= FetchTrackerInfos.Avg_speed.charAt(0);
+
+            //float average= (speed/s);
+                   //Log.d("avggggg=",String.valueOf(average));
+
+                  //  Log.d("Sensor_data_speed",String.valueOf(speed));
+            Log.d("Sensor_data_Avg_speed",String.valueOf(FetchTrackerInfos.Avg_speed.charAt(0)));
+            Log.d("distance",String.valueOf(FetchTrackerInfos.Distance));
+        }
+
+
+
+
     }
+
+
+
 
     private void updateInAppNotifications(int goal) {
         SharedPreferences inAppPrefs = getApplicationContext().getSharedPreferences("inAppNotification", MODE_PRIVATE);
@@ -272,7 +261,23 @@ public class MyService extends Service implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopSelf();
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
+            sensorManager.unregisterListener(this,stepSensor);
+        stopForeground(true);
+        stopSelf();
+        FetchTrackerInfos.flag_steps=0;
+    }
+
+
+
+
 
     void updateSteps() {
         String url= String.format("%ssteptracker.php",DataFromDatabase.ipConfig);
@@ -318,11 +323,89 @@ public class MyService extends Service implements SensorEventListener {
                 data.put("avgspeed", speed);
                 data.put("calories",calories);
                 data.put("steps", String.valueOf(FetchTrackerInfos.currentSteps));
-                data.put("goal", "5000");
+                var Goal = Double.toString(goal);
+                data.put("goal", Goal);
                 return data;
             }
         };
         Volley.newRequestQueue(getApplicationContext()).add(request);
     }
 
+
+
+
+    public void no_sensor()
+    {
+        String url= String.format("%ssteptracker.php",DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+            if (response.equals("updated")){
+//                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                Log.d("Respons3232e",response);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Not working", Toast.LENGTH_SHORT).show();
+                Log.d("Response",response);
+            }
+        },error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String steps="0";
+                String distance = "0";
+                String calories = "0";
+                Date dateSpeed = new Date();
+
+                SimpleDateFormat hour = new SimpleDateFormat("HH");
+                SimpleDateFormat mins = new SimpleDateFormat("mm");
+
+                int h = Integer.parseInt(hour.format(dateSpeed));
+                int m = Integer.parseInt(mins.format(dateSpeed));
+
+                int time = h+(m/60);
+
+                String speed = "0";
+                System.out.println("update: " + calories + " "+distance+" "+speed);
+
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                sdf.format(date);
+                Map<String,String> data = new HashMap<>();
+                data.put("clientuserID",DataFromDatabase.clientuserID);
+                data.put("dateandtime", String.valueOf(date));
+                data.put("distance", distance);
+                data.put("avgspeed", speed);
+                data.put("calories",calories);
+                data.put("steps", steps);
+                data.put("clientID",DataFromDatabase.client_id);
+                data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                var Goal=Double.toString(goal);
+                data.put("goal", Goal);
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+   /* private Notification createNotification() {
+        // Create a notification for the foreground service
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "MyChannelId")
+                .setContentTitle("Foreground Service")
+                .setContentText("Running...")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setChannelId("MyChannelId");
+
+        return builder.build();
+    }*/
+
+
 }
+
+
+
+
+

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trackers_graph"
-    app:startDestination="@id/dashBoardFragment">
+    app:startDestination="@id/dashBoardFragment"
+    >
 
     <fragment
         android:id="@+id/stepTrackerFragment"
@@ -147,6 +148,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_heartRate"
             app:destination="@id/heartRate" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
         android:id="@+id/addLiquidFragment"
@@ -318,4 +322,64 @@
             android:id="@+id/action_weightReminderFragment_to_weightTrackerFragment"
             app:destination="@id/weightTrackerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/activityTracker2"
+        android:name="com.example.infits.activityTracker2"
+        android:label="fragment_activity_tracker2"
+        tools:layout="@layout/fragment_activity_tracker2" >
+        <action
+            android:id="@+id/action_activityTracker2_to_activityfourthfragment"
+            app:destination="@id/activityfourthfragment" />
+        <action
+            android:id="@+id/action_activityTracker2_to_activitythirdfragment"
+            app:destination="@id/activitythirdfragment" />
+        <action
+            android:id="@+id/action_activityTracker2_to_activitySecondFragment"
+            app:destination="@id/activitySecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityfourthfragment"
+        android:name="com.example.infits.activityfourthfragment"
+        android:label="fragment_activityfourthfragment"
+        tools:layout="@layout/fragment_activityfourthfragment" >
+        <action
+            android:id="@+id/action_activityfourthfragment_self"
+            app:destination="@id/activityfourthfragment" />
+        <action
+            android:id="@+id/action_activityfourthfragment_to_walking_frag2"
+            app:destination="@id/walking_frag2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activitythirdfragment"
+        android:name="com.example.infits.activitythirdfragment"
+        android:label="fragment_activitythirdfragment"
+        tools:layout="@layout/fragment_activitythirdfragment" >
+        <action
+            android:id="@+id/action_activitythirdfragment_to_cycling_frag2"
+            app:destination="@id/cycling_frag2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activitySecondFragment"
+        android:name="com.example.infits.activitySecondFragment"
+        android:label="fragment_activity_second"
+        tools:layout="@layout/fragment_activity_second" >
+        <action
+            android:id="@+id/action_activitySecondFragment_to_running_frag1"
+            app:destination="@id/running_frag1" />
+    </fragment>
+    <fragment
+        android:id="@+id/running_frag1"
+        android:name="com.example.infits.running_frag1"
+        android:label="fragment_running_frag1"
+        tools:layout="@layout/fragment_running_frag1" />
+    <fragment
+        android:id="@+id/cycling_frag2"
+        android:name="com.example.infits.cycling_frag2"
+        android:label="fragment_cycling_frag2"
+        tools:layout="@layout/fragment_cycling_frag2" />
+    <fragment
+        android:id="@+id/walking_frag2"
+        android:name="com.example.infits.walking_frag2"
+        android:label="fragment_walking_frag2"
+        tools:layout="@layout/fragment_walking_frag2" />
 </navigation>

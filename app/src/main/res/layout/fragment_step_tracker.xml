@@ -28,7 +28,8 @@
                 android:layout_marginStart="24dp"
                 android:backgroundTint="@android:color/transparent"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/textviewstep"
@@ -65,8 +66,9 @@
                 android:layout_height="250dp"
                 android:layout_centerInParent="true"
                 android:rotation="-15"
+
                 app:interactive="false"
-                app:progress="0.34"
+
                 app:progressGradient="@array/progress"
                 app:progressWidth="5dp"
                 app:startAngleDegrees="65"
@@ -257,7 +259,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"/>
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/distance_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Km"

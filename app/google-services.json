@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1066325555947",
+    "project_id": "infits-a9914",
+    "storage_bucket": "infits-a9914.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066325555947:android:1b6f16ec2f9b96c1565cae",
+        "android_client_info": {
+          "package_name": "com.example.infits"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066325555947-faijrqjmelrdhdk7e66h9f88b43jv3vg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHexDeiCWW38AmPYXaQp-4SMUvc0naqLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066325555947-faijrqjmelrdhdk7e66h9f88b43jv3vg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

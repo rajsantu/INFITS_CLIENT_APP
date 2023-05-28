@@ -24,6 +24,7 @@ import java.util.Map;
 public class DataFromDatabase {
 
     public static String ipConfig = "http://192.168.56.213/infits/";
+
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,height,dietitian_id,client_id;

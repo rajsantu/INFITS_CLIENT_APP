@@ -6,7 +6,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
-
+    <string name="facebook_app_id">1234</string>
+    <string name="facebook_client_token">56789</string>
     <string name="Loremipsum">Lorem ipsum dolor sit amet, consectetur
 adipiscing elit, sed do eiusmod tempo
 incididunt ut labore et dolore magna aliqua.
@@ -28,6 +29,8 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="No_data">No data available</string>
 
 
+    <!--PLEASE PUT YOUR DEFAULT WEB CLIENT ID TO CONNECT TO FIREBASE OR GOOGLE PROJECT ONLINE -->
+
     <array name="month">
         <item>Jan</item>
         <item>Feb</item>
@@ -42,5 +45,6 @@ exercitation ullamco laboris nisi ut aliquip</string>
         <item>Nov</item>
         <item>Dec</item>
     </array>
+
 
 </resources>

@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -43,13 +46,18 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DashBoardFragment extends Fragment {
 
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
+
+    String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
+
+    // String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
     String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
 
     //No such file!
@@ -67,16 +75,19 @@ public class DashBoardFragment extends Fragment {
     TextView bpmtv;
     TextView bpmUptv;
     TextView bpmDowntv;
-    TextView meal_date,diet_date,workout_date,consul_date;
+    TextView meal_date;
+    TextView diet_date,meal_tracker_text;
     static TextView stepsProgressPercent;
     RequestQueue queue;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard, consultation_card,mealTrackerCard, dietCard,workout_card;
-    TextView name,date;
+    ImageButton sidemenu, notifmenu;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietCard,goProCard,mealTrackerCard,dietCardPro,workout_card;
+    Button btnsub, btnsub1;
+    TextView name,date, workout_date, consul_date;
     ImageView profile;
 
     CardView consultation_gopro_btn, diet_chart_gopro_btn,meal_tracker_gopro_btn;
 
-    TextView meal_tracker_text, consultation_text, diet_chart_text;
+    TextView consultation_text, diet_chart_text;
     ImageView pro_identifier;
 
     static ProgressBar stepsProgressBar;
@@ -203,19 +214,16 @@ public class DashBoardFragment extends Fragment {
 
 
         if (DataFromDatabase.proUser){
-
-            consultation_gopro_btn.setVisibility(View.GONE);
-            meal_tracker_gopro_btn.setVisibility(View.GONE);
-            diet_chart_gopro_btn.setVisibility(View.GONE);
-
-            consul_date.setVisibility(View.VISIBLE);
-            meal_date.setVisibility(View.VISIBLE);
-            diet_date.setVisibility(View.VISIBLE);
-            consultation_text.setVisibility(View.VISIBLE);
-            meal_tracker_text.setVisibility(View.VISIBLE);
-            diet_chart_text.setVisibility(View.VISIBLE);
-
-            pro_identifier.setVisibility(View.VISIBLE);
+            goProCard.setVisibility(View.GONE);
+            mealTrackerCard.setVisibility(View.VISIBLE);
+            dietCardPro.setVisibility(View.GONE);
+            dietCard.setVisibility(View.VISIBLE);
+        }
+        if (!DataFromDatabase.proUser){
+            goProCard.setVisibility(View.VISIBLE);
+            mealTrackerCard.setVisibility(View.GONE);
+            dietCardPro.setVisibility(View.VISIBLE);
+            //dietcard.setVisibility(View.GONE);
         }
 
 
@@ -280,8 +288,15 @@ public class DashBoardFragment extends Fragment {
 
         caloriecard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_calorieTrackerFragment));
 
+
         getLatestCalorieData();
 
+        workout_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_activityTracker2);
+            }
+        });
 
         mealTrackerCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
@@ -294,7 +309,7 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        consultation_card.setOnClickListener(v->{
+        goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
                 //Intent intent = new Intent(getActivity(),Consultation.class);
                 //requireActivity().finish();
@@ -312,16 +327,16 @@ public class DashBoardFragment extends Fragment {
 
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 
-        dietCard.setOnClickListener(v->{
-            if (DataFromDatabase.proUser) {
-                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
-                requireActivity().finish();
-                startActivity(intent);
-            }
-            else {
-                showDialog();
-            }
-        });
+//        dietCard.setOnClickListener(v->{
+//            if (DataFromDatabase.proUser) {
+//                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
+//                requireActivity().finish();
+//                startActivity(intent);
+//            }
+//            else {
+//                showDialog();
+//            }
+//        });
 
         if (DataFromDatabase.proUser){
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
@@ -353,6 +368,9 @@ public class DashBoardFragment extends Fragment {
 
             Volley.newRequestQueue(getContext()).add(dietitianDetails);
         }
+
+
+
 
 
         queue = Volley.newRequestQueue(getContext());
@@ -427,6 +445,10 @@ public class DashBoardFragment extends Fragment {
                     }if (weightGoal.equals("null")){
                         weightGoaltv.setText(R.string.No_data);
                     }
+
+                    steps_update(stepsStr,stepsGoal);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -443,12 +465,20 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", clientuserID);
+                data.put("clientID", DataFromDatabase.client_id);
                 return data;
             }
         };
+
+        // RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        // requestQueue.add(stringRequest);
         RequestQueue requestQueue1 = Volley.newRequestQueue(getContext());
-        requestQueue1.add(stringRequest1);
+        requestQueue1.add(stringRequest);
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
 //        Log.d("ClientMetrics","at end");
 
         DashBoardMain dashBoardMain = (DashBoardMain) requireActivity();
@@ -526,6 +556,9 @@ public class DashBoardFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(calorieRequest);
+        calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void hooks(View view) {
@@ -586,11 +619,14 @@ public class DashBoardFragment extends Fragment {
         sleepcard = view.findViewById(R.id.sleepcard);
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
-        consultation_card = view.findViewById(R.id.proCrad);
-        dietCard = view.findViewById(R.id.dietcardPro);
-        mealTrackerCard = view.findViewById(R.id.meal_tracker);
-        workout_card = view.findViewById(R.id.workout_card);
+       //dietcard = view.findViewById(R.id.dietcard);
 
+
+        goProCard = view.findViewById(R.id.proCrad);
+        mealTrackerCard = view.findViewById(R.id.meal_tracker);
+        dietCardPro = view.findViewById(R.id.dietcardPro);
+        diet_date = view.findViewById(R.id.date_diet);
+        workout_card = view.findViewById(R.id.workout_card);
         stepsProgressPercent = view.findViewById(R.id.steps_progress_percent);
         stepsProgressBar = view.findViewById(R.id.steps_progress_bar);
     }
@@ -622,6 +658,9 @@ public class DashBoardFragment extends Fragment {
                 }
             };
              Volley.newRequestQueue(getContext()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             dialog.dismiss();
         });
         dialog.show();
@@ -676,13 +715,30 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-
-                data.put("clientID", DataFromDatabase.clientuserID);
-
+                Date date= new Date();
+                data.put("clientID", DataFromDatabase.client_id);
+                data.put("date",dateFormat.format(date));
                 return data;
             }
         };
         Volley.newRequestQueue(requireContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
+
+    public void steps_update(String steps , String goal)
+    {
+        int step1=Integer.parseInt(steps);
+        int goal1= Integer.parseInt(goal);
+
+        int stepPercent= (int) (step1 * 100)/goal1;
+        String stepPercentText = stepPercent + "%";
+        stepsProgressPercent.setText(stepPercentText);
+        stepsProgressBar.setProgress(stepPercent);
+
+
+    }
+
 
 }
