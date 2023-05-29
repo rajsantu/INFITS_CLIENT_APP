@@ -214,16 +214,19 @@ public class DashBoardFragment extends Fragment {
 
 
         if (DataFromDatabase.proUser){
-            goProCard.setVisibility(View.GONE);
-            mealTrackerCard.setVisibility(View.VISIBLE);
-            dietCardPro.setVisibility(View.GONE);
-            dietCard.setVisibility(View.VISIBLE);
-        }
-        if (!DataFromDatabase.proUser){
-            goProCard.setVisibility(View.VISIBLE);
-            mealTrackerCard.setVisibility(View.GONE);
-            dietCardPro.setVisibility(View.VISIBLE);
-            //dietcard.setVisibility(View.GONE);
+
+            consultation_gopro_btn.setVisibility(View.GONE);
+            meal_tracker_gopro_btn.setVisibility(View.GONE);
+            diet_chart_gopro_btn.setVisibility(View.GONE);
+
+            consul_date.setVisibility(View.VISIBLE);
+            meal_date.setVisibility(View.VISIBLE);
+            diet_date.setVisibility(View.VISIBLE);
+            consultation_text.setVisibility(View.VISIBLE);
+            meal_tracker_text.setVisibility(View.VISIBLE);
+            diet_chart_text.setVisibility(View.VISIBLE);
+
+            pro_identifier.setVisibility(View.VISIBLE);
         }
 
 
