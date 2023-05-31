@@ -53,6 +53,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -159,7 +161,7 @@ public class SleepTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -213,7 +215,7 @@ public class SleepTrackerFragment extends Fragment {
         }
 
 //        runTimer();
-        
+
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,7 +247,7 @@ public class SleepTrackerFragment extends Fragment {
                 Date date = new Date();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
-                SimpleDateFormat sleepTime = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+                SimpleDateFormat sleepTime = new SimpleDateFormat("yyyy-MM-dd H:m:s");
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
@@ -348,7 +350,7 @@ public class SleepTrackerFragment extends Fragment {
                         String sleepTime = sh.getString("sleepTime", "");
 
                         Date date = new Date();
-                        String pat = "dd-MM-yyyy hh:mm:ss";
+                        String pat = "yyyy-MM-dd H:m:s";
                         SimpleDateFormat sdf = new SimpleDateFormat(pat);
                         Map<String,String> data = new HashMap<>();
                         data.put("userID",DataFromDatabase.clientuserID);
@@ -359,6 +361,9 @@ public class SleepTrackerFragment extends Fragment {
                         data.put("goal", "8");
                         data.put("hrsslept", hours);
                         data.put("minsslept", minutes);
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                        LocalDateTime now = LocalDateTime.now();
+                        data.put("date",dtf.format(now));
                         Log.d("sleep", "userId: " + DataFromDatabase.clientuserID);
                         Log.d("sleep", "sleepTime: " + sleepTime);
                         Log.d("sleep", "wakeTime: " + sdf.format(date));
@@ -366,6 +371,7 @@ public class SleepTrackerFragment extends Fragment {
                         Log.d("sleep", "goal: " + 8);
                         Log.d("sleep", "hrsSlept: " + hours);
                         Log.d("sleep", "minSlept: " + minutes);
+                        Log.d("sleep",dtf.format(now));
                         return data;
                     }
                 };

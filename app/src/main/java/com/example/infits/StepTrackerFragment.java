@@ -3,6 +3,7 @@ package com.example.infits;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
@@ -58,6 +59,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,6 +70,7 @@ import java.util.Objects;
 
 public class StepTrackerFragment extends Fragment {
     Float goalPercent2;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
     Handler handler = new Handler();
     Thread mythread;
     Button setgoal;
@@ -175,35 +179,35 @@ public class StepTrackerFragment extends Fragment {
             @Override
             public void run() {
 
-                    if (goalVal >= FetchTrackerInfos.currentSteps && goalVal != 1 && goalVal != 0) {
-                        Log.d("completed", "1");
+                if (goalVal >= FetchTrackerInfos.currentSteps && goalVal != 1 && goalVal != 0) {
+                    Log.d("completed", "1");
 
-                        //Toast.makeText(getActivity().getApplicationContext(), "Steps Completed", Toast.LENGTH_SHORT).show();
-                        mythread.interrupt();
-
-                    }
-
-                    steps_label.setText(String.valueOf(FetchTrackerInfos.currentSteps));
-                    handler.postDelayed(this, 0);
-
-                    goalPercent2 = (float) (FetchTrackerInfos.currentSteps) / (int) goalVal;
-                    progressBar.setProgress(goalPercent2);
-
-                    speed.setText(FetchTrackerInfos.Avg_speed.substring(0, 1));
-
-
-                    if (FetchTrackerInfos.Distance > 1) {
-                        distance.setText(String.format("%.3f", (FetchTrackerInfos.Distance)));
-                        Distance_unit.setText("Km");
-                    } else {
-                        distance.setText(String.format("%.2f", FetchTrackerInfos.Distance * 1000));
-                        Distance_unit.setText("Meters");
-                    }
-
-
-                    calories.setText(String.format("%.2f", (FetchTrackerInfos.Calories)));
+                    //Toast.makeText(getActivity().getApplicationContext(), "Steps Completed", Toast.LENGTH_SHORT).show();
+                    mythread.interrupt();
 
                 }
+
+                steps_label.setText(String.valueOf(FetchTrackerInfos.currentSteps));
+                handler.postDelayed(this, 0);
+
+                goalPercent2 = (float) (FetchTrackerInfos.currentSteps) / (int) goalVal;
+                progressBar.setProgress(goalPercent2);
+
+                speed.setText(FetchTrackerInfos.Avg_speed.substring(0, 1));
+
+
+                if (FetchTrackerInfos.Distance > 1) {
+                    distance.setText(String.format("%.3f", (FetchTrackerInfos.Distance)));
+                    Distance_unit.setText("Km");
+                } else {
+                    distance.setText(String.format("%.2f", FetchTrackerInfos.Distance * 1000));
+                    Distance_unit.setText("Meters");
+                }
+
+
+                calories.setText(String.format("%.2f", (FetchTrackerInfos.Calories)));
+
+            }
 
         });
 
@@ -271,7 +275,7 @@ public class StepTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientID", DataFromDatabase.client_id);
+                data.put("clientID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -355,6 +359,33 @@ public class StepTrackerFragment extends Fragment {
 
                         }
                     }
+                    String url = String.format("%supdatestepgoal.php", DataFromDatabase.ipConfig);
+                    final StringRequest requestGoal = new StringRequest(Request.Method.POST, url, response -> {
+                        try {
+                            Toast.makeText(requireContext(), response, Toast.LENGTH_LONG).show();
+                            Log.e("goal","success");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }, error -> {
+                        Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.d("Error", error.toString());
+                        Log.e("goal","error");
+                    }) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> data = new HashMap<>();
+                            Log.e("clienttuserID",DataFromDatabase.clientuserID);
+                            data.put("clientuserID",DataFromDatabase.clientuserID );
+                            data.put("goal",String.valueOf(goalVal));
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                            LocalDateTime now = LocalDateTime.now();
+                            data.put("dateandtime",dtf.format(now));
+                            return data;
+                        }
+                    };
+                    Volley.newRequestQueue(requireContext()).add(requestGoal);
                     dialog.dismiss();
                 });
                 dialog.show();
@@ -438,12 +469,38 @@ public class StepTrackerFragment extends Fragment {
                     int m = Integer.parseInt(mins.format(date));
 
                     int time = h + (m / 60);
-
+                    Toast.makeText(requireContext(), String.valueOf(steps), Toast.LENGTH_SHORT).show();
                     speed.setText(String.format("%.2f", (steps / 1312.33595801f) / time));
                     System.out.println("steps: " + 0.04f * steps);
                     System.out.println("steps/time: " + (steps / 1312.33595801f) / time);
+
+                    String url = String.format("%supdateStepFragmentDetails.php", DataFromDatabase.ipConfig);
+                    StringRequest stringRequest =  new StringRequest(Request.Method.POST,url,response -> {
+                        Log.e("calorieUpdate","success");
+                    },
+                            error -> {
+                                Log.e("calorieUpdate","fail");
+                                Log.e("calorieUpdate",error.toString());
+                            }){
+                        @SuppressLint("DefaultLocale")
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> data = new HashMap<>();
+                            data.put("clientuserID",DataFromDatabase.clientuserID);
+                            data.put("steps",String.valueOf(steps));
+                            data.put("distance",String.valueOf(steps / 1312.33595801f));
+                            data.put("calories",String.valueOf(0.04f * steps));
+                            data.put("avgspeed",String.format("%.2f", (steps / 1312.33595801f) / time));
+                            data.put("goal",goal_step_count.getText().toString());
+                            LocalDateTime now = LocalDateTime.now();
+                            data.put("dateandtime",dtf.format(now));
+                            return data;
+                        }
+                    };
+                    Volley.newRequestQueue(requireContext()).add(stringRequest);
                 }
-            }, 2000);
+            }, 120000);
 
 //            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 //            sharedPreferences.edit().putInt("steps",steps).apply();
@@ -484,16 +541,16 @@ public class StepTrackerFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
 
-            if (requestCode == PERMISSION_REQUEST_ACTIVITY_RECOGNITION) {
-                if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission is granted, start listening to activity updates
+        if (requestCode == PERMISSION_REQUEST_ACTIVITY_RECOGNITION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted, start listening to activity updates
 
-                } else {
-                    // Permission is denied, show an error message
-                    Log.d("error in physical activity permission", "");
-                }
-
-
+            } else {
+                // Permission is denied, show an error message
+                Log.d("error in physical activity permission", "");
             }
+
+
         }
     }
+}

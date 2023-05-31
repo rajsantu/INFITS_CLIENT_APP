@@ -122,7 +122,7 @@ public class Login extends AppCompatActivity {
         loginbtn = (Button) findViewById(R.id.logbtn);
 
         btnGoogle = (ImageView) findViewById(R.id.google);
-         btnTwitter = (ImageView) findViewById(R.id.twitter);
+        btnTwitter = (ImageView) findViewById(R.id.twitter);
         btnFacebook = (ImageView) findViewById(R.id.facebook);
 
         queue = Volley.newRequestQueue(this);
@@ -161,16 +161,18 @@ public class Login extends AppCompatActivity {
 
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
                     if(response.equals("failure")){
                         Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
                         loginbtn.setClickable(true);
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
-                            Intent id = new Intent(Login.this, DashBoardMain.class);
+                        Intent id = new Intent(Login.this, DashBoardMain.class);
+                        Log.e("loginInfo",response.toString());
                         Log.d("Response Login",response);
                         try {
-                                JSONArray jsonArray = new JSONArray(response);
-                            JSONObject object = jsonArray.getJSONObject(0);
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject object = jsonArray.getJSONObject(1);
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
@@ -242,7 +244,7 @@ public class Login extends AppCompatActivity {
                 }){
                     @Override
                     protected Map<String,String> getParams() throws AuthFailureError{
-                        LinkedHashMap<String,String> data = new LinkedHashMap<>();
+                        HashMap<String,String> data = new HashMap<>();
                         data.put("userID",usernameStr);
                         data.put("password",passwordStr);
                         return data;
