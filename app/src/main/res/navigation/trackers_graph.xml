@@ -4,7 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trackers_graph"
     app:startDestination="@id/dashBoardFragment"
+    <!--app:startDestination="@id/mealTracker"-->
     >
+
+    <fragment
+        android:id="@+id/mealTracker"
+        android:name="com.example.infits.MealTrackerFragment"
+        android:label="mealTracker"
+        tools:layout="@layout/fragment_meal_tracker">
+        <action
+            android:id="@+id/action_mealTracker_to_addmealFragment"
+            app:destination="@id/MealTrackerAddMeal"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/MealTrackerAddMeal"
+        android:name="com.example.infits.MealTrackerAddMealFragment"
+        android:label="addMealFragment"
+        tools:layout="@layout/fragment_meal_tracker_add_meal">
+        <action
+            android:id="@+id/action_addMeal_to_mealinfowithphotoFragment"
+            app:destination="@id/mealInfoWithPhoto" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/MealTrackerTodayMeal"
+        android:name="com.example.infits.MealtrackerTodays_Breakfast"
+        android:label="TodaysMeal"
+        tools:layout="@layout/fragment_mealtracker_todays__breakfast">
+        <action
+            android:id="@+id/action_TodayMeal_to_mealtrackerFragment"
+            app:destination="@id/mealTracker"/>
+    </fragment>
 
     <fragment
         android:id="@+id/stepTrackerFragment"
@@ -151,6 +182,10 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_activityTracker2"
             app:destination="@id/activityTracker2" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_mealTracker"
+            app:destination="@id/mealTracker"/>
+
     </fragment>
     <fragment
         android:id="@+id/addLiquidFragment"
@@ -310,6 +345,14 @@
             android:id="@+id/action_calorieConsumedFragment_to_calorieTrackerFragment"
             app:destination="@id/calorieTrackerFragment" />
 
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/MealtrackerTodays_Breakfast"
+        android:name="com.example.infits.MealtrackerTodays_Breakfast"
+        android:label="fragment_mealtracker_final_screen"
+        tools:layout="@layout/fragment_mealtracker_todays__breakfast">
 
     </fragment>
 

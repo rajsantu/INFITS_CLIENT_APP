@@ -1,6 +1,9 @@
 package com.example.infits;
 
 import static android.content.ContentValues.TAG;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,8 +13,10 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -33,6 +38,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import org.json.JSONArray;
@@ -41,6 +47,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -73,6 +80,9 @@ public class mealInfoWithPhoto extends Fragment {
     ArrayList<String> mealInfotransfer;
     JSONObject mainJSONobj;
     JSONArray mainJsonArray;
+
+    View bottomSheetN;
+
     String Meal_Type;
     NumberPicker numberPicker1, numberPicker2;
     RequestQueue requestQueue,requestQueue1,requestQueue2;
@@ -119,26 +129,55 @@ public class mealInfoWithPhoto extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_meal_info_with_photo, container, false);
         hooks(view);
-        getFavouriteFoodItems();
+
+        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(1520);
+        BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+
         Bundle args = getArguments();
         mainJSONobj=new JSONObject();
-        mealInfotransfer = args.getStringArrayList("mealInfotransfer");
+//        Toast.makeText(requireContext(), "Bundle", Toast.LENGTH_SHORT).show();
+        if(args != null) {
+            mealInfotransfer = args.getStringArrayList("mealInfotransfer");
+        }
+        else {
+            mealInfotransfer = new ArrayList<>(Arrays.asList("sheera", "Dinner", "190 kcal", "29.6", "1.9", "7.4", "2131230991", "1"));
+            Log.d(TAG, "onCreateView: NULL bundle");
+        }
+
+        getFavouriteFoodItems();
+
         //set TextView
         mainJsonArray=new JSONArray();
+//        Toast.makeText(getContext(), "JsonArray", Toast.LENGTH_SHORT).show();
         mealName.setText(mealInfotransfer.get(0));
         Meal_Type=mealInfotransfer.get(1);
-
         calorieValue.setText(mealInfotransfer.get(2));
         carbsValue.setText(mealInfotransfer.get(3));
-        proteinValue.setText(mealInfotransfer.get(4) + " g");
-        fatValue.setText(mealInfotransfer.get(5) + " g");
+        proteinValue.setText(mealInfotransfer.get(4));
+        fatValue.setText(mealInfotransfer.get(5));
+
+
+        //handling on backpressed
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                // Handle the back button event
+//                FragmentManager fm = getParentFragmentManager();
+//                if(fm.getBackStackEntryCount() > 1)   fm.popBackStack();
+//                requireActivity().onBackPressed();
+//            }
+//        };
+//
+//        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
 
         //delete shared preference
 
         DeleteSharedPreference();
-        //Add Recent Meal Data
+//        Add Recent Meal Data
         AddingDataForRecentMeal();
-        //numberPicker 1
+//        //numberPicker 1
         numberPicker1.setDisplayedValues(numberPicker1List);
         numberPicker1.setMaxValue(numberPicker1List.length - 1);
         numberPicker1.setValue(1);
@@ -181,7 +220,7 @@ public class mealInfoWithPhoto extends Fragment {
         TakeaPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), CameraForCalorieTracker.class);
+                Intent intent = new Intent(requireActivity(), CameraForMealTracker.class);
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("mealName", mealName.getText().toString());
@@ -193,6 +232,14 @@ public class mealInfoWithPhoto extends Fragment {
                     jsonObject.put("Quantity", numberPicker1List[numberPicker1.getValue()]);
                     jsonObject.put("Size", numberPicker2List[numberPicker2.getValue()]);
                     intent.putExtra("mealInfoForPhoto",jsonObject.toString());
+
+                    //Sharedpref
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("mealInfoForPhoto", jsonObject.toString());
+                    editor.apply();
+
+
                     startActivity(intent);
                 }catch (Exception e){
                     Log.d("Exception", e.toString());
@@ -208,6 +255,7 @@ public class mealInfoWithPhoto extends Fragment {
             public void onClick(View v) {
                 if (IsFavourite == false) {
                     AddFavourite();
+                    
                 } else {
                     RemoveFavourite();
                 }
@@ -228,7 +276,7 @@ public class mealInfoWithPhoto extends Fragment {
     private void AddingDataForRecentMeal(){
         try {
 
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("RecentMeal", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("RecentMeal", MODE_PRIVATE);
             if(sharedPreferences.contains("RecentMealInfo")) {
                 JSONObject jsonObject2 = new JSONObject(sharedPreferences.getString("RecentMealInfo", ""));
                 JSONArray jsonArray1 = jsonObject2.getJSONArray("RecentMealInfo");
@@ -278,8 +326,10 @@ public class mealInfoWithPhoto extends Fragment {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                String user = "test";
+//                if(!DataFromDatabase.clientuserID.isEmpty()) user = DataFromDatabase.clientuserID;
                 Map<String, String> params = new HashMap<>();
-                params.put("clientuserID", DataFromDatabase.clientuserID);
+                params.put("clientuserID", user);
                 params.put("FavouriteFoodName", mealName.getText().toString());
                 params.put("calorie", calorieValue.getText().toString());
                 params.put("protein", proteinValue.getText().toString());
@@ -312,8 +362,10 @@ public class mealInfoWithPhoto extends Fragment {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                String user = "test";
+//                if(!DataFromDatabase.clientuserID.isEmpty()) user = DataFromDatabase.clientuserID;
                 Map<String, String> params = new HashMap<>();
-                params.put("clientuserID", DataFromDatabase.clientuserID);
+                params.put("clientuserID", user);
                 params.put("FavouriteFoodName", mealName.getText().toString());
                 return params;
             }
@@ -331,6 +383,7 @@ public class mealInfoWithPhoto extends Fragment {
         proteinValue = view.findViewById(R.id.proteinValue);
         carbsValue = view.findViewById(R.id.carbsValue);
 
+        bottomSheetN = view.findViewById(R.id.bottomSheetN);
 
         numberPicker1 = view.findViewById(R.id.numberPicker1);
         numberPicker2 = view.findViewById(R.id.numberPicker2);
@@ -339,7 +392,6 @@ public class mealInfoWithPhoto extends Fragment {
 
 
         FavouriteMealButton = view.findViewById(R.id.favouriteMealButton);
-
 
         //calorieImgback
         calorieImgback = view.findViewById(R.id.calorieImgback);
@@ -374,11 +426,14 @@ public class mealInfoWithPhoto extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientuserID", DataFromDatabase.clientuserID);
+//                data.put("clientuserID", DataFromDatabase.clientuserID);
+                data.put("clientuserID", "test");
                 return data;
             }
         };
         requestQueue.add(stringRequest);
     }
+
+
 
 }

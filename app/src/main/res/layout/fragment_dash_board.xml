@@ -333,7 +333,11 @@
                             android:visibility="gone"/>
 
                         <androidx.cardview.widget.CardView
+<<<<<<< HEAD
                             android:id="@+id/consultation_gopro_btn"
+=======
+                            android:id="@+id/mealtracker"
+>>>>>>> 7c14b8a1343261f620999322c8a70f7d93e0095d
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

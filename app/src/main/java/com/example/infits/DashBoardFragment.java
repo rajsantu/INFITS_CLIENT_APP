@@ -303,9 +303,10 @@ public class DashBoardFragment extends Fragment {
 
         mealTrackerCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
-            Intent intent = new Intent(getActivity(),Meal_main.class);
-            requireActivity().finish();
-            startActivity(intent);
+            //Intent intent = new Intent(getActivity(),Meal_main.class);
+            //requireActivity().finish();
+            //startActivity(intent);
+                Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_mealTracker);
             }
             else {
                 showDialog();
