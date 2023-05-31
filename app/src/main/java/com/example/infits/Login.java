@@ -499,6 +499,4 @@ public class Login extends AppCompatActivity {
             facebookCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-
 }
