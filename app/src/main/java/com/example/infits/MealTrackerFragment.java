@@ -1,7 +1,11 @@
 package com.example.infits;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -9,12 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -100,50 +98,28 @@ public class MealTrackerFragment extends Fragment {
 
         Bundle bundle=new Bundle();
 
-        breakfast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String message = "Breakfast";
-                bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
-            }
+        breakfast.setOnClickListener(view1 -> {
+            String message = "Breakfast";
+            bundle.putString("fragment",message);
+            Navigation.findNavController(view1).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
         });
 
-        lunch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), MealtrackerAddMeal.class);
-//                String message = "Lunch";
-//                intent.putExtra("fragment", message);
-//                startActivity(intent);
-                String message = "Lunch";
-                bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
-            }
+        lunch.setOnClickListener(view12 -> {
+            String message = "Lunch";
+            bundle.putString("fragment",message);
+            Navigation.findNavController(view12).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
         });
-        snack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), MealtrackerAddMeal.class);
-//                String message = "Snack";
-//                intent.putExtra("fragment", message);
-//                startActivity(intent);
-                String message = "Snack";
-                bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
-            }
+
+        snack.setOnClickListener(view13 -> {
+            String message = "Snack";
+            bundle.putString("fragment",message);
+            Navigation.findNavController(view13).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
         });
-        dinner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), MealtrackerAddMeal.class);
-//                String message = "Dinner";
-//                intent.putExtra("fragment", message);
-//                startActivity(intent);
-                String message = "Dinner";
-                bundle.putString("fragment",message);
-                Navigation.findNavController(view).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
-            }
+
+        dinner.setOnClickListener(view14 -> {
+            String message = "Dinner";
+            bundle.putString("fragment",message);
+            Navigation.findNavController(view14).navigate(R.id.action_mealTracker_to_addmealFragment, bundle);
         });
 
         return view;
@@ -173,7 +149,7 @@ public class MealTrackerFragment extends Fragment {
         String formattedDate = formatter.format(today);
 //        System.out.println("Today's date is: " + formattedDate);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,url, response -> {
-            if(!response.toString().equals("0 results"))
+            //if(!response.equals("0 results"))
                 try {
 
                     JSONArray jsonArray = new JSONArray(response);
@@ -213,16 +189,14 @@ public class MealTrackerFragment extends Fragment {
                     //                }
 
                 } catch (Exception e) {
-                    Log.d("TAG", "setData: " + e.toString());
+                    Log.d("TAG", "setData: " + e);
                 }
-        },error -> {
-            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-        }){
+        },error -> Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show()){
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientID", "test");
+                data.put("clientID", DataFromDatabase.clientuserID);
                 data.put("date",formattedDate);
 //                data.put("date","25 apr 2023");
                 return data;

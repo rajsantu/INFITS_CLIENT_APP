@@ -405,7 +405,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     data.put("timeMeal", Meal_Type);
                     data.put("description","");
 //                    data.put("clientID", DataFromDatabase.clientuserID.toString());
-                    data.put("clientID", "test");
+                    data.put("clientID", DataFromDatabase.clientuserID);
                     data.put("position",String.valueOf(jsonArray.length()-1));
                     data.put("jsonArray", jsonArray.toString());
                     return data;

@@ -329,7 +329,7 @@ public class mealInfoWithPhoto extends Fragment {
                 String user = "test";
 //                if(!DataFromDatabase.clientuserID.isEmpty()) user = DataFromDatabase.clientuserID;
                 Map<String, String> params = new HashMap<>();
-                params.put("clientuserID", user);
+                params.put("clientuserID", DataFromDatabase.clientuserID);
                 params.put("FavouriteFoodName", mealName.getText().toString());
                 params.put("calorie", calorieValue.getText().toString());
                 params.put("protein", proteinValue.getText().toString());

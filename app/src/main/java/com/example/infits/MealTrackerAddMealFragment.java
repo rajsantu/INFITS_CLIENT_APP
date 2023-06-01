@@ -299,7 +299,7 @@ public class MealTrackerAddMealFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientuserID", "test");
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
