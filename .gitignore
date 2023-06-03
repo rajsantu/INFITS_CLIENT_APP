@@ -13,10 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
-<<<<<<< HEAD
 .idea/compiler.xml
 .idea/kotlinc.xml
 .idea/vcs.xml
-=======
-/.idea/
->>>>>>> 7c14b8a1343261f620999322c8a70f7d93e0095d
+.idea/deploymentTargetDropDown.xml

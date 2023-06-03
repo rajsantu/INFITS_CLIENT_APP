@@ -33,7 +33,7 @@ public class DataFromDatabase {
     public static Bitmap dtPhoto;
     public static String profilePhotoBase;
     public static String macAddress;
-    public static boolean proUser = true;
+    public static boolean proUser = false;
 
     public static String stepsStr = "0",stepsGoal= "0",waterStr= "0",waterGoal= "0",sleephrsStr= "0",sleepminsStr= "0",sleepGoal= "0",weightStr= "0",weightGoal= "0",bpm = "0",bpmUp = "0",bpmDown = "0";
 }

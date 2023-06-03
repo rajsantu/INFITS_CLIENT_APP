@@ -59,7 +59,7 @@ import java.util.Map;
 public class SleepFragment extends Fragment {
 
     RequestQueue queue;
-    String url = "http://192.168.9.1/infits/sleepFragment.php";
+    String url = "http://"+DataFromDatabase.ipConfig+"sleepFragment.php";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";

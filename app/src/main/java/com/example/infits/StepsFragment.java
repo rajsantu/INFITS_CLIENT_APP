@@ -1,7 +1,9 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -62,6 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class StepsFragment extends Fragment {
 
@@ -223,7 +226,8 @@ public class StepsFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.client_id);
+
+                        dataVol.put("clientID", getClientId());
                         return dataVol;
                     }
                 };
@@ -283,7 +287,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("clientID", DataFromDatabase.client_id);
+                    data.put("clientID", getClientId());
 
                     return data;
                 }
@@ -407,7 +411,7 @@ public class StepsFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.client_id);
+                        dataVol.put("clientID", getClientId());
                         dataVol.put("from", from);
                         dataVol.put("to", to);
                         return dataVol;
@@ -419,13 +423,18 @@ public class StepsFragment extends Fragment {
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                 dialog.dismiss();
-                });
-
-                cancel.setOnClickListener(view1 -> {
-                    dialog.dismiss();
-                });
-                dialog.show();
             });
+
+            cancel.setOnClickListener(view1 -> {
+                dialog.dismiss();
+            });
+            dialog.show();
+        });
         return view;
+    }
+    private String getClientId(){
+        SharedPreferences loginDetails = requireContext().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
+        return loginDetails.getString("client_id","fes");
+
     }
 }

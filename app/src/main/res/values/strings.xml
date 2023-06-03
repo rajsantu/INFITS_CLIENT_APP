@@ -28,6 +28,16 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="limit">Limit</string>
     <string name="No_data">No data available</string>
 
+    <!--Hints for signup xml-->
+    <string name="fullName_hint"><font size="12">Full Name</font></string>
+    <string name="userName_hint"><font size="12">Enter a Username</font></string>
+    <string name="email_hint"><font size="12">Email ID</font></string>
+    <string name="password_hint"><font size="12">Password</font></string>
+    <string name="phone_hint"><font size="12">Phone No.</font></string>
+    <string name="Age_hint"><font size="12">Age</font></string>
+    <string name="Height_hint"><font size="12">Height</font></string>
+    <string name="Weight_hint"><font size="12">Weight</font></string>
+
 
     <!--PLEASE PUT YOUR DEFAULT WEB CLIENT ID TO CONNECT TO FIREBASE OR GOOGLE PROJECT ONLINE -->
 
