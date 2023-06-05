@@ -9,8 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2aac381d-1e75-4f05-95d2-1f36e0826556" name="Changes" comment="bugfix_login_not_recognizing_prouser">
+    <list default="true" id="2aac381d-1e75-4f05-95d2-1f36e0826556" name="Changes" comment="MealtrackerTodays_Breakfast.java-modified">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealtrackerTodays_Breakfast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealtrackerTodays_Breakfast.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -248,11 +249,6 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Android App." />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -354,7 +350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685894312553</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="MealtrackerTodays_Breakfast.java-modified">
+      <created>1685896476231</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1685896476231</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -407,6 +410,7 @@
     <MESSAGE value="meal_tracker_working" />
     <MESSAGE value="conflict_master_solved" />
     <MESSAGE value="bugfix_login_not_recognizing_prouser" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix_login_not_recognizing_prouser" />
+    <MESSAGE value="MealtrackerTodays_Breakfast.java-modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="MealtrackerTodays_Breakfast.java-modified" />
   </component>
 </project>

@@ -87,7 +87,8 @@ public class MealtrackerTodays_Breakfast extends Fragment {
         todays_breakFast_infos.clear();
 
         View view = inflater.inflate(R.layout.fragment_mealtracker_todays__breakfast, container, false);
-        todayDate = new SimpleDateFormat("d MMM yyyy");
+        //must keep this format overwrite older!!
+        todayDate = new SimpleDateFormat("dd MMM yyyy");
 
         todayTime = new SimpleDateFormat("h.m.s a");
 

@@ -159,9 +159,10 @@ public class MealTrackerFragment extends Fragment {
                         String name=jsonObject1.getString("name");
                         String meal=jsonObject1.getString("meal");
                         String calorie=jsonObject1.getString("Calories")+"  kcal";
-                        String carb=jsonObject1.getString("carbs");
-                        String protein=jsonObject1.getString("protein");
-                        String fat=jsonObject1.getString("fat");
+                        //must accept these changes and overwrite older!!
+                        String carb=String.valueOf(jsonObject1.getInt("carbs"));
+                        String protein=String.valueOf(jsonObject1.getInt("protein"));
+                        String fat=String.valueOf(jsonObject1.getInt("fat"));
                         addmealInfo mealarr = new addmealInfo(R.drawable.donutimg_full,meal,name,calorie,carb,protein,fat);
 
                         String timeString = jsonObject1.getString("time");
