@@ -23,12 +23,15 @@ import java.util.Map;
 
 public class DataFromDatabase {
 
+<<<<<<< HEAD
     public static String ipConfig = "http://192.168.1.8/infits/";
+=======
+    public static String ipConfig = "http://192.168.223.213/infits/";
+>>>>>>> origin/alokkumar
 
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,height,dietitian_id,client_id;
-
 
     public static Bitmap profile;
     public static Bitmap dtPhoto;

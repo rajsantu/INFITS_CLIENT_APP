@@ -37,7 +37,7 @@ import javax.mail.internet.MimeMessage;
 
 public class ResetPassword extends AppCompatActivity {
 
-    private final String senderEmail = "teaminfits@gmail.com";
+    private final String senderEmail = "test@gmail.com";
     // password is the app password for the email-id
     private final String senderPassword = ""; // https://support.google.com/accounts/answer/185833?hl=en
 
@@ -97,38 +97,86 @@ public class ResetPassword extends AppCompatActivity {
         });
     }
 
+//    private void send(String email) {
+//        Properties props = new Properties();
+//        props.setProperty("mail.transport.protocol", "smtp");
+//        props.setProperty("mail.host", "smtp.gmail.com");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.port", "465");
+//        props.put("mail.debug", "true");
+//        props.put("mail.smtp.socketFactory.port", "465");
+//        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+//        props.put("mail.smtp.socketFactory.fallback", "false");
+//        Session session = Session.getDefaultInstance(props,
+//                new javax.mail.Authenticator() {
+//                    protected PasswordAuthentication getPasswordAuthentication() {
+//                        return new PasswordAuthentication(senderEmail,senderPassword);
+//                    }
+//                });
+//
+//        try {
+//            Transport transport = session.getTransport();
+//            InternetAddress addressFrom = new InternetAddress(senderEmail);
+//
+//            String otp = getOTP();
+//
+//            MimeMessage mm = new MimeMessage(session);
+//            mm.setSender(addressFrom);
+//            mm.setSubject("OTP");
+//            mm.setContent("Your OTP is: " + otp, "text/plain");
+//            mm.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+//
+//            Thread thread = new Thread(() -> {
+//                try {
+//                    Transport.send(mm);
+//
+//                    Intent intent = new Intent(ResetPassword.this, EnterOTP.class);
+//                    intent.putExtra("otp", otp);
+//                    intent.putExtra("email", email);
+//                    intent.putExtra("senderEmail", senderEmail);
+//                    intent.putExtra("senderPassword", senderPassword);
+//                    startActivity(intent);
+//                } catch (MessagingException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            thread.start();
+//            transport.close();
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
     private void send(String email) {
         Properties props = new Properties();
-        props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.host", "smtp.gmail.com");
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-        props.put("mail.debug", "true");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.socketFactory.fallback", "false");
-        Session session = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(senderEmail,senderPassword);
-                    }
-                });
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail,senderPassword);
+            }
+        });
 
         try {
-            Transport transport = session.getTransport();
             InternetAddress addressFrom = new InternetAddress(senderEmail);
 
             String otp = getOTP();
+            Log.d("otp", otp);
 
             MimeMessage mm = new MimeMessage(session);
-            mm.setSender(addressFrom);
+            mm.setFrom(addressFrom);
             mm.setSubject("OTP");
-            mm.setContent("Your OTP is: " + otp, "text/plain");
-            mm.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            mm.setText("Your OTP is: " + otp);
+            mm.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             Thread thread = new Thread(() -> {
                 try {
-                    Transport.send(mm);
+//                    Transport.send(mm);
 
                     Intent intent = new Intent(ResetPassword.this, EnterOTP.class);
                     intent.putExtra("otp", otp);
@@ -136,16 +184,17 @@ public class ResetPassword extends AppCompatActivity {
                     intent.putExtra("senderEmail", senderEmail);
                     intent.putExtra("senderPassword", senderPassword);
                     startActivity(intent);
-                } catch (MessagingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
             thread.start();
-            transport.close();
         } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
+
+
 
     private String getOTP() {
         Random random = new Random();
