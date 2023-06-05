@@ -56,6 +56,8 @@ import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,6 +76,7 @@ public class WaterTrackerFragment extends Fragment {
     TextView waterGoal;
     String liqType = "water", liqAmt;
     Button setgoal;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:M:S");
     float goalWater;
     static int goal = 1800;
 
@@ -91,7 +94,7 @@ public class WaterTrackerFragment extends Fragment {
     private String mParam2;
 
     private int progr = 0;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.getDefault());
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
     Date date = new Date();
 
@@ -148,9 +151,9 @@ public class WaterTrackerFragment extends Fragment {
         consumed = view.findViewById(R.id.water_consumed);
         waterGoal = view.findViewById(R.id.water_goal);
         reminder = view.findViewById(R.id.reminder);
-        getLatestWaterData();
+        //getLatestWaterData();
         //updateProgressBar();
-        if (DataFromDatabase.waterGoal.equals(null)) {
+        if (DataFromDatabase.waterGoal.equals(null) || DataFromDatabase.waterGoal.equalsIgnoreCase("null")) {
             waterGoal.setText("0 ml");
         } else {
             waterGoal.setText(DataFromDatabase.waterGoal + " ml");
@@ -163,7 +166,7 @@ public class WaterTrackerFragment extends Fragment {
             }
         }
 
-        if (DataFromDatabase.waterStr.equals(null) || DataFromDatabase.waterStr.equals("null")) {
+        if (DataFromDatabase.waterStr.equals(null) || DataFromDatabase.waterStr.equalsIgnoreCase("null")) {
             consumed.setText("0 ml");
         } else {
             consumed.setText(DataFromDatabase.waterStr + " ml");  // waterStr = waterConsumed
@@ -176,14 +179,13 @@ public class WaterTrackerFragment extends Fragment {
             }
         }
 
-       // getLatestWaterData();
+        getLatestWaterData();
 
         calendar = Calendar.getInstance();
         Log.d("water", "currHour: " + calendar.get(Calendar.HOUR_OF_DAY));
 
         createNotificationChannel();
-
-//        waterGoalPercent.setText(String.valueOf(calculateGoal()));
+        waterGoalPercent.setText(String.valueOf(calculateGoal()));
 
         RecyclerView rc = view.findViewById(R.id.past_activity);
 
@@ -250,7 +252,9 @@ public class WaterTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientID", DataFromDatabase.client_id);
+                data.put("client_id", DataFromDatabase.client_id);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+
                 return data;
             }
         };
@@ -289,15 +293,18 @@ public class WaterTrackerFragment extends Fragment {
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Map<String, String> data = new HashMap<>();
                                 Date date = new Date(); // gets the current date and time
-                                data.put("clientuserID", DataFromDatabase.clientuserID);
+                                data.put("userID", DataFromDatabase.clientuserID);
                                 data.put("date",curr_date);
                                 data.put("time",timeFormat.format(date));
-                                data.put("consumed", String.valueOf(consumedInDay));
+                                data.put("drrinkconsumed", String.valueOf(consumedInDay));
                                 data.put("goal", String.valueOf(goal));
                                 data.put("type", "water");
                                 data.put("amount", "0");
-                                data.put("clientID",DataFromDatabase.client_id);
-                                data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                                data.put("dietitian_id","dietitian_id");
+                                data.put("dietitianuserID","dietitianuserID");
+                                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                                LocalDateTime now = LocalDateTime.now();
+                                data.put("date",dtf.format(now));
                                 return data;
                             }
                         };
@@ -452,15 +459,15 @@ public class WaterTrackerFragment extends Fragment {
                         lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
                         int durationOfAnimationFromLottie = 6000;
                         int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
-                    lottieAnimationViewWater.playAnimation();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            lottieAnimationViewWater.pauseAnimation();
-                         }
-                        },durationOfWaterAnimation
-                    );
-                    consumed.setText(String.valueOf(consumedInDay));
+                        lottieAnimationViewWater.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                                                      @Override
+                                                      public void run() {
+                                                          lottieAnimationViewWater.pauseAnimation();
+                                                      }
+                                                  },durationOfWaterAnimation
+                        );
+                        consumed.setText(String.valueOf(consumedInDay));
 
                     }, error -> {
                         Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
@@ -474,14 +481,14 @@ public class WaterTrackerFragment extends Fragment {
                             int amt = (int) Float.parseFloat(choosed.getText().toString());
                             Map<String, String> data = new HashMap<>();
                             data.put("clientuserID", DataFromDatabase.clientuserID);
-                            data.put("date",curr_date);
-                            data.put("time",timeFormat.format(date));
-                            data.put("consumed", String.valueOf(consumedInDay));
+                            data.put("drinkconsumed", String.valueOf(consumedInDay));
                             data.put("goal", String.valueOf(goal));
                             data.put("type", liqType);
                             data.put("amount", String.valueOf(amt));
-                            data.put("clientID",DataFromDatabase.client_id);
                             data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                            data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+                            LocalDateTime now = LocalDateTime.now();
+                            data.put("dateandtime",dtf.format(now));
 
                             Log.d("update", "consumed: " + consumedInDay);
                             Log.d("update", "amount: " + amt);
@@ -494,7 +501,11 @@ public class WaterTrackerFragment extends Fragment {
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                     // waterGoalPercent
-                    waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                    if(goal != 0)
+                        waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                    else{
+                        waterGoalPercent.setText("0 %");
+                    }
                 });
 
                 dialog.show();
@@ -616,7 +627,8 @@ public class WaterTrackerFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
 
-                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("client_id", DataFromDatabase.client_id);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 data.put("type", type);
                 data.put("text", text);
                 data.put("date", String.valueOf(date));
@@ -674,8 +686,9 @@ public class WaterTrackerFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
                 Date date= new Date();
-                data.put("clientID", DataFromDatabase.client_id);
-                data.put("date",dateFormat.format(date));
+                data.put("client_id", DataFromDatabase.client_id);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
+                data.put("dateandtime",dateFormat.format(date));
                 return data;
             }
         };
@@ -686,10 +699,10 @@ public class WaterTrackerFragment extends Fragment {
     }
 
     private void updateLastRecord() {
-        String url = String.format("%sgetLatestWater.php", DataFromDatabase.ipConfig);
+        String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    Log.d("dashboardFrag", response);
+                    Log.d("water", response);
 
                     try {
                         JSONObject object = new JSONObject(response);
@@ -711,7 +724,7 @@ public class WaterTrackerFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
 
-                data.put("clientID", DataFromDatabase.client_id);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
 
                 return data;
             }
@@ -737,12 +750,15 @@ public class WaterTrackerFragment extends Fragment {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 sdf.format(date);
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", DataFromDatabase.clientuserID);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                data.put("client_id",DataFromDatabase.client_id);
                 data.put("dateandtime", String.valueOf(date));
                 data.put("consumed", String.valueOf(consumedInDay));
                 data.put("goal", "0");
                 data.put("type", liqType);
                 data.put("amount", "0");
+                data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
                 return data;
             }
         };

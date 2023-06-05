@@ -719,8 +719,8 @@ public class DashBoardFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
                 Date date= new Date();
-                data.put("clientID", DataFromDatabase.client_id);
-                data.put("date",dateFormat.format(date));
+                data.put("client_id", DataFromDatabase.client_id);
+                data.put("dateandtime",dateFormat.format(date));
                 return data;
             }
         };
