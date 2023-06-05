@@ -298,6 +298,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_activityTracker2);
+                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -324,9 +325,9 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        workout_card.setOnClickListener(v->{
-                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
-        });
+//        workout_card.setOnClickListener(v->{
+//                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
+//        });
 
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 

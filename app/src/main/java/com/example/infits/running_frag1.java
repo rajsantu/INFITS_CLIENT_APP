@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     int pre_step=0,current=0,flag_steps=0,current_steps;
     float distance,calories;
 
-    Button btn_pause,btn_start;
+    Button btn_pause,btn_start, btn_stop;
     TextView running_txt, cont_running_txt,distance_disp,calorie_disp,time_disp;
     public running_frag1() {
         // Required empty public constructor
@@ -60,11 +61,13 @@ public class running_frag1 extends Fragment implements SensorEventListener {
         //distance_show=view.findViewById(R.id.textView70);
         btn_pause=view.findViewById ( R.id.imageView86 );
         btn_start=view.findViewById ( R.id.imageView105 );
+//        btn_stop = view.findViewById(R.id.imageView89);
         running_txt=view.findViewById ( R.id.textView63 );
         cont_running_txt=view.findViewById ( R.id.textView89 );
         distance_disp=view.findViewById(R.id.textView70);
         calorie_disp=view.findViewById(R.id.textView72);
         time_disp=view.findViewById(R.id.textView73);
+
 
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         register();
@@ -86,6 +89,15 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                 register();
             }
         } );
+
+
+        //Activity Stopped
+//        btn_stop.setOnClickListener ( new View.OnClickListener () {
+//            @Override
+//            public void onClick ( View v ) {
+////                Navigation.findNavController(v).navigate(R.id.action_running_frag1_to_activitySecondFragment);
+//            }
+//        } );
 
 
         //Activity Start/Resume
