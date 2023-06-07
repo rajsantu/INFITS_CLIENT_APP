@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     boolean drawerState = false;
     String cardClicked;
     String hours, minutes, secs;
+    TextView drawerusername,draweruserplan;
 
 
 //    String url ="http://192.168.1.7/infits/recipiesDisplay.php";
@@ -53,6 +55,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
         permissions();
 
 
+
         nav = findViewById(R.id.navmenu);
         drawerLayout = findViewById(R.id.drawer);
 
@@ -64,6 +67,10 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                drawerusername = findViewById(R.id.drawer_username);
+                draweruserplan = findViewById(R.id.drawer_user_plan);
+                drawerusername.setText(DataFromDatabase.name);
+
                 drawerState = true;
             }
 
