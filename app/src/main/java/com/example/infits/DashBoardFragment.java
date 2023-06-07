@@ -1,7 +1,5 @@
 package com.example.infits;
-
 import static com.example.infits.StepTrackerFragment.goalVal;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,34 +23,35 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
+import java.util.concurrent.TimeUnit;
 public class DashBoardFragment extends Fragment {
 
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
 
 
     String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
@@ -346,11 +345,11 @@ public class DashBoardFragment extends Fragment {
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
                 System.out.println(response);
                 try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject object = jsonArray.getJSONObject(0);
+                    JSONObject object = new JSONObject(response);
+                    JSONObject array = object.getJSONObject("dietitiandetails");
                     DataFromDatabase.flag = true;
-                    DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
-                    byte[] qrimage = Base64.decode(object.getString("profilePhoto"), 0);
+                    DataFromDatabase.dietitianuserID = array.getString("dietitianuserID");
+                    byte[] qrimage = Base64.decode(array.getString("profilePhoto"), 0);
                     DataFromDatabase.dtPhoto = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
                 } catch (JSONException jsonException) {
                     jsonException.printStackTrace();
@@ -523,22 +522,22 @@ public class DashBoardFragment extends Fragment {
     private void getLatestCalorieData() {
         String calorieUrl = String.format("%sgetLatestCalorieData.php", DataFromDatabase.ipConfig);
 
-        StringRequest calorieRequest = new StringRequest(
-                Request.Method.POST,
-                calorieUrl,
+        StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
                 response -> {
                     Log.d("DashBoardFragment", response);
 
                     try {
                         JSONObject object = new JSONObject(response);
-                        JSONArray array = object.getJSONArray("food");
+                        JSONObject array = object.getJSONObject("food");
 
                         if(array.length() == 0) {
                             calorietv.setText("----------");
                             calorieGoaltv.setText("----------");
                         } else {
-                            String calorieGoalText = array.getJSONObject(0).getString("goal") + " kcal";
-                            String calorieValueText = array.getJSONObject(0).getString("calorie") + " kcal";
+                            String calorieGoalText = array.getString("goal") + " kcal";
+                            String calorieValueText = array.getString("calorie") + " kcal";
+
+
 
                             calorietv.setText(calorieValueText);
                             calorieGoaltv.setText(calorieGoalText);
@@ -553,7 +552,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-
+                Date date = new Date();
                 data.put("clientID", DataFromDatabase.clientuserID);
 
                 return data;
@@ -698,11 +697,15 @@ public class DashBoardFragment extends Fragment {
 
                     try {
                         JSONObject object = new JSONObject(response);
-                        JSONArray array = object.getJSONArray("water");
+                        JSONObject array = object.getJSONObject("water");
 
-                        if(array.length() != 0) {
-                            String waterGoalStr = array.getJSONObject(0).getString("goal");
-                            String waterConsumedStr = array.getJSONObject(0).getString("drinkConsumed");
+                        if(array.length() == 0) {
+                            glassestv.setText("----------");
+                            glassesGoaltv.setText("----------");
+                        }else{
+                            String waterGoalStr = array.getString("goal");
+                            String waterConsumedStr = array.getString("drinkConsumed");
+
                             waterGoal = Integer.parseInt(waterGoalStr) / 250;
                             waterConsumed = Integer.parseInt(waterConsumedStr) / 250;  // 250 ml = 1 glass
 
@@ -720,7 +723,7 @@ public class DashBoardFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
                 Date date= new Date();
-                data.put("client_id", DataFromDatabase.client_id);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 data.put("dateandtime",dateFormat.format(date));
                 return data;
             }

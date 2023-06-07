@@ -82,6 +82,8 @@ public class SplashScreen extends AppCompatActivity {
     private void setDataFromDatabase(SharedPreferences prefs) {
         DataFromDatabase.flag = prefs.getBoolean("flag", true);
         DataFromDatabase.clientuserID = prefs.getString("clientuserID", "");
+        DataFromDatabase.client_id = prefs.getString("client_id", "");
+        DataFromDatabase.dietitian_id = prefs.getString("dietitian_id","");
         DataFromDatabase.dietitianuserID = prefs.getString("dietitianuserID", "");
         DataFromDatabase.name = prefs.getString("name", "");
         DataFromDatabase.password = prefs.getString("password", "");
