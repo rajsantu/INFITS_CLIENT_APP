@@ -123,9 +123,9 @@ public class FragmentTodays_BreakFast extends Fragment {
 
         //set correct header title
         headerTitle = view.findViewById(R.id.header_title);
-        doneMeal = view.findViewById(R.id.done_meal);
+//        doneMeal = view.findViewById(R.id.done_meal);
         headerTitle.setText(getMeal());
-        doneMeal.setText(getMeal());
+//        doneMeal.setText(getMeal());
 
         //recycleview
         recyclerView_Todays_breakfast = view.findViewById(R.id.recyclerView_Todays_breakfast);

@@ -136,6 +136,7 @@ public class SleepTrackerFragment extends Fragment {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
+                Log.d("response123",response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("sleep");
                 for (int i = 0;i<jsonArray.length();i++){
@@ -350,7 +351,7 @@ public class SleepTrackerFragment extends Fragment {
                         String sleepTime = sh.getString("sleepTime", "");
 
                         Date date = new Date();
-                        String pat = "yyyy-MM-dd H:m:s";
+                        String pat = "dd-MM-yyyy H:m:s";
                         SimpleDateFormat sdf = new SimpleDateFormat(pat);
                         Map<String,String> data = new HashMap<>();
                         data.put("userID",DataFromDatabase.clientuserID);

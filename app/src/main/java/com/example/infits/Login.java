@@ -176,6 +176,12 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
+                            if (object.getString("verification").equals("0")){
+                                DataFromDatabase.proUser = false;
+                            }
+                            if (object.getString("verification").equals("1")){
+                                DataFromDatabase.proUser = true;
+                            }
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
 
@@ -200,13 +206,7 @@ public class Login extends AppCompatActivity {
                             System.out.println(DataFromDatabase.weight);
                             System.out.println(DataFromDatabase.height);
 
-                            if (object.getString("verification").equals("0")){
-                                DataFromDatabase.proUser = false;
-                            }
-                            if (object.getString("verification").equals("1")){
-                                DataFromDatabase.proUser = true;
-                            }
-                            System.out.println(DataFromDatabase.proUser+" Prouser");
+
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
