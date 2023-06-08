@@ -55,7 +55,7 @@
                 android:textColor="#000000"
                 android:maxLines="2"
 
-                android:textSize="35px"
+                android:textSize="35sp"
 
                 android:textStyle="bold"
 
@@ -147,7 +147,7 @@
                 app:layout_constraintVertical_bias="0.503" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
@@ -158,7 +158,7 @@
         </LinearLayout>
 
 
-            />
+            />-->
 
 
 
@@ -1037,7 +1037,8 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="8dp"
-                            android:src="@drawable/fats" />
+                            android:src="@drawable/fats"
+                            tools:ignore="contentDesription"/>
 
                         <TextView
                             android:layout_width="wrap_content"
