@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_mealTracker_to_addmealFragment"
             app:destination="@id/MealTrackerAddMeal"/>
+        <action
+            android:id="@+id/action_mealTracker_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph"/>
 
     </fragment>
     <fragment
@@ -344,14 +348,6 @@
             android:id="@+id/action_calorieConsumedFragment_to_calorieTrackerFragment"
             app:destination="@id/calorieTrackerFragment" />
 
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/MealtrackerTodays_Breakfast"
-        android:name="com.example.infits.MealtrackerTodays_Breakfast"
-        android:label="fragment_mealtracker_final_screen"
-        tools:layout="@layout/fragment_mealtracker_todays__breakfast">
 
     </fragment>
 
