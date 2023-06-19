@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,8 @@ public class DashBoardFragment extends Fragment {
 
     String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
+
+    SimpleDateFormat caloriedateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
 
 
     String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
@@ -112,7 +115,7 @@ public class DashBoardFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-          onMenuClicked = (OnMenuClicked) context;
+        onMenuClicked = (OnMenuClicked) context;
     }
 
     public static DashBoardFragment newInstance(String param1, String param2) {
@@ -200,7 +203,7 @@ public class DashBoardFragment extends Fragment {
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
 
-        name.setText(DataFromDatabase.name);
+        name.setText("Hi " + DataFromDatabase.name);
         date.setText(sf.format(dateToday));
 
         meal_date.setText(sf.format(dateToday));
@@ -314,17 +317,15 @@ public class DashBoardFragment extends Fragment {
 
         goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
-                //Intent intent = new Intent(getActivity(),Consultation.class);
-                //requireActivity().finish();
-                //startActivity(intent);
-                Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),Consultation.class);
+                requireActivity().finish();
+                startActivity(intent);
+                //Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
             }
             else {
                 showDialog();
             }
         });
-
-        //Already declared workout_tracker above
 
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 
@@ -525,7 +526,7 @@ public class DashBoardFragment extends Fragment {
                             calorieGoaltv.setText("----------");
                         } else {
                             String calorieGoalText = array.getString("goal") + " kcal";
-                            String calorieValueText = array.getString("calorie") + " kcal";
+                            String calorieValueText = array.getString("Calories") + " kcal";
 
 
 
@@ -544,6 +545,7 @@ public class DashBoardFragment extends Fragment {
                 Map<String, String> data = new HashMap<>();
                 Date date = new Date();
                 data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("dateandtime",caloriedateFormat.format(date));
 
                 return data;
             }
@@ -649,7 +651,7 @@ public class DashBoardFragment extends Fragment {
                     return data;
                 }
             };
-             Volley.newRequestQueue(getContext()).add(stringRequest);
+            Volley.newRequestQueue(getContext()).add(stringRequest);
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

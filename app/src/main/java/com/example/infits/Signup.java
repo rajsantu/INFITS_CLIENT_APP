@@ -125,6 +125,8 @@ public class Signup extends AppCompatActivity {
                         data.put("weight",heightStr);
                         data.put("height",weightStr);
                         data.put("verification","0");
+                        data.put("dietitian_id","-1");
+                        data.put("dietitianuserID","-1");
                         return data;
                     }
                 };

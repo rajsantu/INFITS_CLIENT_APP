@@ -155,9 +155,12 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                         data.put("calories", String.valueOf(calories));
                         data.put("runtime", String.valueOf(time));
                         data.put("goal", goal);
+                        data.put("duration","0");
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd H:MM:SS");
                         LocalDateTime now = LocalDateTime.now();
                         data.put("date",dtf.format(now));
+                        data.put("dateandtime",DTF.format(now));
                         return data;
                     }
                 };
