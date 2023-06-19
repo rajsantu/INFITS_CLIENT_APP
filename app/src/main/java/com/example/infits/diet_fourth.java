@@ -4,11 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -28,6 +31,8 @@ public class diet_fourth extends Fragment {
      RecyclerView recyclerView;
      List<Date> dateList;
     CalAdapter adapter;
+
+    ImageView back_btn,view_meal;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,6 +79,11 @@ public class diet_fourth extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate ( R.layout.fragment_diet_fourth , container , false );
+        hooks(view);
+
+        back_btn.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_diet_fourth2_to_fragment_diet_chart));
+
+        view_meal.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_diet_fourth2_to_fragment_diet_third_scrn));
 
         Date today = new Date();
         dateList = new ArrayList<>();
@@ -100,5 +110,10 @@ public class diet_fourth extends Fragment {
         snapHelper.attachToRecyclerView(recyclerView);
 
         return inflater.inflate(R.layout.fragment_diet_fourth, container, false);
+    }
+
+    private void hooks(View view) {
+        back_btn = view.findViewById(R.id.back_btn);
+        view_meal = view.findViewById(R.id.image);
     }
 }

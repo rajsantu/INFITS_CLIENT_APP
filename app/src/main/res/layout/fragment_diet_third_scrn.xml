@@ -9,82 +9,25 @@
 
 
     <ImageView
-        android:id="@+id/imageView17"
+        android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/rect_3rd_scrn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
+        android:background="@drawable/arrowleft"
+        android:layout_margin="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/left_scrn3rd"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView17"
-        app:layout_constraintEnd_toEndOf="@+id/imageView17"
-        app:layout_constraintStart_toStartOf="@+id/imageView17"
-        app:layout_constraintTop_toTopOf="@+id/imageView17" />
-
-    <ImageView
-        android:id="@+id/imageView39"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/rect_3rd_scrn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
-        app:layout_constraintStart_toEndOf="@+id/imageView17"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView42"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:src="@drawable/pointscrn_3rd"
-        android:layout_marginRight="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView39"
-        app:layout_constraintEnd_toStartOf="@+id/imageView46"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView39"
-        app:layout_constraintTop_toTopOf="@+id/imageView39" />
-
-    <ImageView
-        android:id="@+id/imageView46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pointscrn_3rd"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView39"
-        app:layout_constraintEnd_toEndOf="@+id/imageView39"
-        app:layout_constraintStart_toStartOf="@+id/imageView39"
-        app:layout_constraintTop_toTopOf="@+id/imageView39" />
-
-    <!--    <ImageView-->
-<!--        android:id="@+id/imageView59"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="-104dp"-->
-<!--        android:src="@drawable/white_bg_3rd_scn"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView47"-->
-<!--        tools:layout_editor_absoluteX="3dp" />-->
 
     <ImageView
         android:id="@+id/imageView47"
         android:layout_width="338dp"
         android:layout_height="210dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/cake_diet_scrn"
+        android:src="@drawable/pancake_diet_chart"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.397"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView39" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
@@ -118,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_scrn_3rd_nutr"
-                        android:drawableLeft="@drawable/fire"
+                        android:drawableLeft="@drawable/fire_diet_chart"
                         android:fontFamily="@font/nats_regular"
                         android:paddingLeft="12dp"
                         android:paddingRight="1dp"
@@ -156,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/bg_scrn_3rd_nutr"
-                        android:drawableLeft="@drawable/carbs"
+                        android:drawableLeft="@drawable/carbs_diet_chart"
                         android:fontFamily="@font/nats_regular"
                         android:paddingLeft="18dp"
                         android:paddingRight="18dp"

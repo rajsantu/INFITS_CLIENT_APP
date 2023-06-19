@@ -79,7 +79,7 @@ public class DashBoardFragment extends Fragment {
     static TextView stepsProgressPercent;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietCard,goProCard,mealTrackerCard,dietCardPro,workout_card;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,workout_card;
     Button btnsub, btnsub1;
     TextView name,date, workout_date, consul_date;
     ImageView profile;
@@ -324,22 +324,12 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        workout_card.setOnClickListener(v->{
-                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
-        });
+        //Already declared workout_tracker above
 
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 
-//        dietCard.setOnClickListener(v->{
-//            if (DataFromDatabase.proUser) {
-//                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
-//                requireActivity().finish();
-//                startActivity(intent);
-//            }
-//            else {
-//                showDialog();
-//            }
-//        });
+        //Include this!!
+        dietcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_fragment_diet_chart));
 
         if (DataFromDatabase.proUser){
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
@@ -622,12 +612,11 @@ public class DashBoardFragment extends Fragment {
         sleepcard = view.findViewById(R.id.sleepcard);
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
-       //dietcard = view.findViewById(R.id.dietcard);
+        dietcard = view.findViewById(R.id.dietcardPro);
 
 
         goProCard = view.findViewById(R.id.proCrad);
         mealTrackerCard = view.findViewById(R.id.meal_tracker);
-        dietCardPro = view.findViewById(R.id.dietcardPro);
         diet_date = view.findViewById(R.id.date_diet);
         workout_card = view.findViewById(R.id.workout_card);
         stepsProgressPercent = view.findViewById(R.id.steps_progress_percent);

@@ -384,11 +384,12 @@
             android:id="@+id/action_fragment_diet_chart_to_diet_second_frag"
             app:destination="@id/diet_second_frag" />
         <action
-            android:id="@+id/action_fragment_diet_chart_to_fragment_diet_third_scrn"
-            app:destination="@id/fragment_diet_third_scrn" />
-        <action
             android:id="@+id/action_fragment_diet_chart_to_diet_fourth2"
             app:destination="@id/diet_fourth2" />
+        <action
+            android:id="@+id/action_fragment_diet_chart_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph"/>
 
     </fragment>
     <fragment
@@ -400,11 +401,24 @@
         android:id="@+id/fragment_diet_third_scrn"
         android:name="com.example.infits.Fragment_diet_third_scrn"
         android:label="fragment_diet_third_scrn"
-        tools:layout="@layout/fragment_diet_third_scrn" />
+        tools:layout="@layout/fragment_diet_third_scrn" >
+        <action
+            android:id="@+id/action_fragment_diet_third_scrn_to_diet_fourth2"
+            app:destination="@id/diet_fourth2"
+            app:popUpTo="@id/diet_fourth2"/>
+    </fragment>
     <fragment
         android:id="@+id/diet_fourth2"
         android:name="com.example.infits.diet_fourth"
-        android:label="diet_fourth" />
+        android:label="diet_fourth"
+        tools:layout="@layout/fragment_diet_fourth">
+        <action
+            android:id="@+id/action_diet_fourth2_to_fragment_diet_chart"
+            app:destination="@id/fragment_diet_chart"/>
+        <action
+            android:id="@+id/action_diet_fourth2_to_fragment_diet_third_scrn"
+            app:destination="@id/fragment_diet_third_scrn" />
+    </fragment>
     <fragment
         android:id="@+id/activityTracker2"
         android:name="com.example.infits.activityTracker2"
