@@ -468,7 +468,11 @@
         android:id="@+id/running_frag1"
         android:name="com.example.infits.running_frag1"
         android:label="fragment_running_frag1"
-        tools:layout="@layout/fragment_running_frag1" />
+        tools:layout="@layout/fragment_running_frag1" >
+        <action
+            android:id="@+id/action_running_frag1_to_activitySecondFragment"
+            app:destination="@id/activitySecondFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cycling_frag2"
         android:name="com.example.infits.cycling_frag2"
