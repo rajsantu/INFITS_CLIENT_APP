@@ -259,6 +259,9 @@
         <action
             android:id="@+id/action_calorieBurntFragment_to_calorieTrackerFragment"
             app:destination="@id/calorieTrackerFragment" />
+        <action
+            android:id="@+id/action_calorieBurntFragment_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
         android:id="@+id/calorieAddBreakFastFragment"

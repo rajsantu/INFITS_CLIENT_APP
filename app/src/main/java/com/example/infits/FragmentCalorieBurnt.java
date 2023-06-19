@@ -3,12 +3,14 @@ package com.example.infits;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,12 +70,14 @@ public class FragmentCalorieBurnt extends Fragment {
 
     String url = String.format("%scalorieBurnt.php", DataFromDatabase.ipConfig);
     PieChart pieChart;
-    ImageView imgBack;
+    ImageView imgBack,calorieImageView;
     ArrayList<calorieInfo> calorieInfos;
     int[] colors={Color.parseColor("#FCFF72"),Color.parseColor("#FF6262"),Color.parseColor("#FFA361")};
     RecyclerView calorieRecycleview;
     Button day_btn_calorie,week_btn_calorie,year_btn_calorie;
     TextView totalCalorieValue,caloriedisplaydate;
+
+    ImageButton calorieButton;
     public FragmentCalorieBurnt() {
         // Required empty public constructor
     }
@@ -111,7 +116,7 @@ public class FragmentCalorieBurnt extends Fragment {
         calorieInfos=new ArrayList<>();
         hooks(view);
         pieChart(30L,40L,40L);
-        String date = getCurrentDate(),calorie="823";
+        String date = getCurrentDate(),calorie="---";
 
         setTodayData("day");
 
@@ -121,7 +126,7 @@ public class FragmentCalorieBurnt extends Fragment {
     }
 
     private void setTodayData(String purpose) {
-        String date = getCurrentDate(),calorie="823";
+        String date = getCurrentDate(),calorie="---";
 //        pastAcivity(date,calorie,"45","42","452");
 
         String clientID = DataFromDatabase.clientuserID; // as it will be in sharedpref using it temporarily
@@ -211,7 +216,7 @@ public class FragmentCalorieBurnt extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("clientID",clientID);
+                params.put("clientID",DataFromDatabase.clientuserID);
                 params.put("date",databaseDate());
                 params.put("for",purpose);
                 return params;
@@ -256,8 +261,27 @@ public class FragmentCalorieBurnt extends Fragment {
         week_btn_calorie=view.findViewById(R.id.week_btn_calorie);
         year_btn_calorie=view.findViewById(R.id.year_btn_calorie);
         caloriedisplaydate=view.findViewById(R.id.caloriedisplaydate);
+        Date dateToday = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+        caloriedisplaydate.setText(sf.format(dateToday));
         totalCalorieValue=view.findViewById(R.id.totalCalorieValue);
         imgBack=view.findViewById(R.id.calorieImgback);
+        calorieButton=view.findViewById(R.id.calorieButton);
+        calorieImageView=view.findViewById(R.id.calorieImageView);
+
+        calorieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_calorieBurntFragment_to_activityTracker2);
+            }
+        });
+
+        calorieImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_calorieBurntFragment_to_activityTracker2);
+            }
+        });
         day_btn_calorie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,7 +332,9 @@ public class FragmentCalorieBurnt extends Fragment {
     private void pastAcivity(String date,String calorie,String runningk,String walkingk,String cyclingk,String runtime,
                              String walktime,String cyclingtime,String runduration,String walkduration,String cycleduration){
         totalCalorieValue.setText(calorie);
-        caloriedisplaydate.setText(date);
+        Date dateToday = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+        caloriedisplaydate.setText(sf.format(dateToday));
         calorieInfos.clear();
         calorieInfos.add(new calorieInfo(R.drawable.baseline_directions_run_24,"Icon","Running",runningk+" kcal",runduration,runtime));
         calorieInfos.add(new calorieInfo(R.drawable.baseline_directions_walk_24,"Icon","Walking",walkingk+" kcal",walkduration,walktime));
@@ -323,6 +349,7 @@ public class FragmentCalorieBurnt extends Fragment {
         String formattedDate = dateFormat.format(currentDate);
         return formattedDate;
     }
+
 
     private void SetButtonBackground(View view){
         switch (view.getId()){

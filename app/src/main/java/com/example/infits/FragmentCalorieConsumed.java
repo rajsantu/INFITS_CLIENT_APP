@@ -4,10 +4,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -22,8 +29,16 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,8 +64,12 @@ public class FragmentCalorieConsumed extends Fragment {
     ArrayList<calorieconsumedInfo> Snacks;
     int[] colors={Color.parseColor("#FCFF72"),Color.parseColor("#ACAFFD"),Color.parseColor("#FF6262"),Color.parseColor("#FFA361")   };
     RecyclerView calorieRecycleview;
-    Button day_btn_calorie,week_btn_calorie,year_btn_calorie;
+    Button day_btn_calorie,week_btn_calorie,month_btn_calorie;
     TextView totalCalorieValue,caloriedisplaydate;
+    int    breakfastcalorieconsumed;
+
+    SimpleDateFormat caloriedateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
+
     public FragmentCalorieConsumed() {
         // Required empty public constructor
     }
@@ -102,10 +121,13 @@ public class FragmentCalorieConsumed extends Fragment {
         calorieRecycleview.setLayoutManager(new LinearLayoutManager(getContext()));
         day_btn_calorie=view.findViewById(R.id.day_btn_calorie);
         week_btn_calorie=view.findViewById(R.id.week_btn_calorie);
-        year_btn_calorie=view.findViewById(R.id.year_btn_calorie);
+        month_btn_calorie=view.findViewById(R.id.month_btn_calorie);
         caloriedisplaydate=view.findViewById(R.id.caloriedisplaydate);
         totalCalorieValue=view.findViewById(R.id.totalCalorieValue);
         imgBack=view.findViewById(R.id.calorieImgback);
+        Date dateToday = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+        caloriedisplaydate.setText(sf.format(dateToday));
         day_btn_calorie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,24 +141,106 @@ public class FragmentCalorieConsumed extends Fragment {
             public void onClick(View v) {
                 SetButtonBackground(v);
                 pieChart();
-                pastAcivity();
+                String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+
+                StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
+                        response -> {
+                            Log.d("CalorieConsumed Data Bro", response);
+
+                            try {
+                                JSONObject object = new JSONObject(response);
+                                JSONObject array = object.getJSONObject("value");
+                                JSONObject Lunch = object.getJSONObject("value");
+                                JSONObject Dinner = object.getJSONObject("value");
+                                JSONObject Snacks = object.getJSONObject("value");
+
+
+                                if(array.length() != 0) {
+                                    Log.d("CalorieConsumd Data Bro", "total_caloriesconsumed: ");
+                                    String totalcalorieValue = array.getString("total_caloriesconsumed");
+
+                                    totalCalorieValue.setText(totalcalorieValue);
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        error -> Log.e("CalorieConsumed Data Bro", error.toString())
+                ) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        Date date = new Date();
+                        data.put("clientID", DataFromDatabase.clientuserID);
+                        data.put("date",caloriedateFormat.format(date));
+                        data.put("for", "week");
+
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(requireContext()).add(calorieRequest);
+                calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             }
         });
-        year_btn_calorie.setOnClickListener(new View.OnClickListener() {
+        month_btn_calorie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SetButtonBackground(v);
                 pieChart();
-                pastAcivity();
+                String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+
+                StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
+                        response -> {
+                            Log.d("CalorieConsumed Data Bro", response);
+
+                            try {
+                                JSONObject object = new JSONObject(response);
+                                JSONObject array = object.getJSONObject("value");
+
+                                if(array.length() != 0) {
+                                    String totalcalorieValue = array.getString("total_caloriesconsumed");
+                                    JSONObject jsonObjectBreakfast = array.getJSONObject("BreakFast");
+                                    String breakfast_calorieconsumed = jsonObjectBreakfast.getString("MealType_caloriesconsumed");
+                                    breakfastcalorieconsumed=Integer.parseInt(breakfast_calorieconsumed);
+
+                                    totalCalorieValue.setText(totalcalorieValue);
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        error -> Log.e("CalorieConsumed Data Bro", error.toString())
+                ) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        Date date = new Date();
+                        data.put("clientID", DataFromDatabase.clientuserID);
+                        data.put("date",caloriedateFormat.format(date));
+                        data.put("for", "month");
+
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(requireContext()).add(calorieRequest);
+                calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             }
         });
     }
     private void pieChart(){
         List<PieEntry> entries=new ArrayList<>();
-        entries.add(new PieEntry(49f,"D"));
-        entries.add(new PieEntry(20f,"S"));
-        entries.add(new PieEntry(20f,"B"));
-        entries.add(new PieEntry(11f,"L"));
+        entries.add(new PieEntry(49,"D"));
+        entries.add(new PieEntry(breakfastcalorieconsumed,"B"));
+        entries.add(new PieEntry(20,"S"));
+        entries.add(new PieEntry(11,"L"));
 
 
         pieChart.getLegend().setEnabled(false);
@@ -163,8 +267,53 @@ public class FragmentCalorieConsumed extends Fragment {
         pieChart.setEntryLabelColor(Color.WHITE);
     }
     private void pastAcivity(){
-        totalCalorieValue.setText("825");
-        caloriedisplaydate.setText("23 January, 2023");
+        Date dateToday = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+        caloriedisplaydate.setText(sf.format(dateToday));
+
+        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+
+        StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
+                response -> {
+                    Log.d("CalorieConsumed Data Bro", response);
+
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONObject array = object.getJSONObject("value");
+
+                        if(array.length() != 0) {
+                            Log.d("CalorieConsumd Data Bro", "total_caloriesconsumed: ");
+                            String totalcalorieValue = array.getString("total_caloriesconsumed");
+
+                            totalCalorieValue.setText(totalcalorieValue);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("CalorieConsumed Data Bro", error.toString())
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                Date date = new Date();
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("date",caloriedateFormat.format(date));
+                data.put("for", "today");
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(calorieRequest);
+        calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
+
+
         calorieInfos.clear();
         BreakFast.clear();
         Lunch.clear();
@@ -206,27 +355,27 @@ public class FragmentCalorieConsumed extends Fragment {
             case R.id.day_btn_calorie:
                 day_btn_calorie.setTextColor(Color.WHITE);
                 week_btn_calorie.setTextColor(Color.BLACK);
-                year_btn_calorie.setTextColor(Color.BLACK);
+                month_btn_calorie.setTextColor(Color.BLACK);
                 day_btn_calorie.getBackground().setTint(Color.parseColor("#ED9B37"));
                 week_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
-                year_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
+                month_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
                 break;
             case R.id.week_btn_calorie:
                 week_btn_calorie.setTextColor(Color.WHITE);
                 day_btn_calorie.setTextColor(Color.BLACK);
-                year_btn_calorie.setTextColor(Color.BLACK);
+                month_btn_calorie.setTextColor(Color.BLACK);
 
                 day_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
                 week_btn_calorie.getBackground().setTint(Color.parseColor("#ED9B37"));
-                year_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
+                month_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
                 break;
-            case R.id.year_btn_calorie:
-                year_btn_calorie.setTextColor(Color.WHITE);
+            case R.id.month_btn_calorie:
+                month_btn_calorie.setTextColor(Color.WHITE);
                 week_btn_calorie.setTextColor(Color.BLACK);
                 day_btn_calorie.setTextColor(Color.BLACK);
                 day_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
                 week_btn_calorie.getBackground().setTint(Color.TRANSPARENT);
-                year_btn_calorie.getBackground().setTint(Color.parseColor("#ED9B37"));
+                month_btn_calorie.getBackground().setTint(Color.parseColor("#ED9B37"));
                 break;
             default:
                 break;

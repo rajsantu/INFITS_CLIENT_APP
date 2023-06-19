@@ -2,8 +2,8 @@
   <library name="Gradle: com.github.oooooldzhu:gaugeseekbar:1.3@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

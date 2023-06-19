@@ -1,17 +1,32 @@
 package com.example.infits;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.abhinav.progress_view.ProgressData;
 import com.abhinav.progress_view.ProgressView;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
 
@@ -22,6 +37,10 @@ public class CalorieTrackerFragment extends Fragment {
 
     View bottomSheetN;
     ImageView imgBack;
+
+    int calgoal;
+    int calConsumed;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -63,8 +82,73 @@ public class CalorieTrackerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calorie_tracker, container, false);
+
+        String url = String.format("%scalorieTracker.php", DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("calorieData Chusko Bro", response);
+
+                    try {
+                        JSONObject jsonArray = new JSONObject(response);
+                        JSONObject array = jsonArray.getJSONObject("Values");
+
+
+                        if(array.length() != 0) {
+                            String caloriesConsumed = array.getString("caloriesConsumed");
+                            calConsumed = Integer.parseInt(caloriesConsumed);
+                            String Goal = array.getString("goal");
+                            calgoal = Integer.parseInt(Goal);
+                            String calorieBurnt = array.getString("calorieBurnt");
+                            String carbs = array.getString("carbs");
+                            String fiber = array.getString("fiber");
+                            String protein = array.getString("protein");
+                            String fat = array.getString("fat");
+
+
+                           // goal = Integer.parseInt(waterGoalStr);
+                            // consumedInDay = Integer.parseInt(waterConsumedStr);
+
+                            //waterGoal.setText(goal + " ml");
+                            //waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                            //consumed.setText(consumedInDay + " ml");
+                            //lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
+                            //int durationOfAnimationFromLottie = 6000;
+                            //int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
+                            //lottieAnimationViewWater.playAnimation();
+                            //new Handler().postDelayed(new Runnable() {
+                              //                            @Override
+                                //                          public void run() {
+                                  //                            lottieAnimationViewWater.pauseAnimation();
+                                    //                      }
+                                      //                },durationOfWaterAnimation
+                            //);
+                            //consumed.setText(String.valueOf(consumedInDay));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }, error -> Log.e("dashboardFrag", error.toString())) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("today",dtf.format(now));
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         hooks(view);
         ProgressData progressData1 = new ProgressData("view1",60f,100f,R.color.progressGreenColor);
@@ -79,11 +163,14 @@ public class CalorieTrackerFragment extends Fragment {
         ProgressData progressData4 = new ProgressData("view1",60f,100f,R.color.progressBlueColor);
         progressView4.setData(progressData4);
 
-        circularProgressIndicatorCC.setProgress(4000,10000);
+        circularProgressIndicatorCC.setProgress(calConsumed,calgoal);
         circularProgressIndicatorCB.setProgress(7000,10000);
 
         BottomSheetBehavior.from(bottomSheetN).setPeekHeight(350);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        System.out.println(calConsumed);
+        System.out.println(calgoal);
 
         calorieConsumed.setOnClickListener(new View.OnClickListener() {
             @Override

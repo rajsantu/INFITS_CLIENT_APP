@@ -169,7 +169,7 @@
                 android:id="@+id/imageView73"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/cycle_bg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -204,9 +204,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/running_bg"
+                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView73"
-                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <ImageView
                 android:id="@+id/imageView80"
@@ -272,7 +273,7 @@
                 android:fontFamily="@font/nats_regular"
                 android:text="Activities"
                 android:textColor="#000000"
-                android:textSize="21sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -319,6 +320,7 @@
                 android:fontFamily="@font/nats_regular"
                 android:text="Running"
                 android:textColor="#000000"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView79"
                 app:layout_constraintEnd_toEndOf="@+id/imageView79"
@@ -334,6 +336,8 @@
                 android:fontFamily="@font/nats_regular"
                 android:text="Walking"
                 android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView82"
                 app:layout_constraintEnd_toEndOf="@+id/imageView82"
                 app:layout_constraintHorizontal_bias="0.177"
