@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,23 +33,29 @@ import java.util.Map;
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
 
 public class CalorieTrackerFragment extends Fragment {
+    TextView carbsTV,fiberTV,proteinTV,fatTV;
     ProgressView progressView1,progressView2,progressView3,progressView4;
+    ProgressView carbPB,fibrePB,proteinPB,fatPB;
 
     CircularProgressIndicator circularProgressIndicatorCC,circularProgressIndicatorCB;
 
     View bottomSheetN;
     ImageView imgBack;
 
-    int calgoal;
-    int calConsumed;
+    ////int calgoal;
+   // int calConsumed;
 
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
-    CardView calorieConsumed,calorieBurnt,addBreakfast,addLunch,addSnacks,addDinner;
+    CardView calorieConsumed,calorieBurnt,addBreakfast,addLunch,addSnacks,addDinner,setgoalmicro;
     private String mParam2;
+
+    private int calConsumed;
+    private int calgoal;
+
 
     public  CalorieTrackerFragment(){
         // Required Empty Constructor.
@@ -84,56 +92,56 @@ public class CalorieTrackerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calorie_tracker, container, false);
 
         String url = String.format("%scalorieTracker.php", DataFromDatabase.ipConfig);
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    Log.d("calorieData Chusko Bro", response);
+                    Log.d("CalTracker Data Bro", response);
 
                     try {
-                        JSONObject jsonArray = new JSONObject(response);
-                        JSONObject array = jsonArray.getJSONObject("Values");
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONObject dataObject = jsonObject.getJSONObject("Data");
+                        JSONObject goalsObject = dataObject.getJSONObject("Goals");
+                        String goal = goalsObject.getString("goal");
+                        JSONObject valuesObject = dataObject.getJSONObject("Values");
+                        String calories = valuesObject.getString("Calories");
+                        String carbs = valuesObject.getString("carbs");
+                        String fiber = valuesObject.getString("fiber");
+                        String protein = valuesObject.getString("protein");
+                        String fat = valuesObject.getString("fat");
+                        calConsumed = Integer.parseInt(calories);
+                        calgoal = Integer.parseInt(goal);
 
+                        circularProgressIndicatorCC.setProgress(calConsumed, calgoal);
+                        circularProgressIndicatorCB.setProgress(160,calgoal);
+                        ProgressData progressData1 = new ProgressData("view1", Float.parseFloat(carbs), 100f, R.color.progressGreenColor);
+                        int caval = (100-Integer.parseInt(carbs));
+                        carbsTV.setText(caval + "g ");
+                        carbPB.setData(progressData1);
+                        ProgressData progressData2 = new ProgressData("view1",Float.parseFloat(fiber),100f,R.color.progressRedColor);
+                        int fival = (100-Integer.parseInt(fiber));
+                        fiberTV.setText(fival + "g ");
+                        fibrePB.setData(progressData2);
 
-                        if(array.length() != 0) {
-                            String caloriesConsumed = array.getString("caloriesConsumed");
-                            calConsumed = Integer.parseInt(caloriesConsumed);
-                            String Goal = array.getString("goal");
-                            calgoal = Integer.parseInt(Goal);
-                            String calorieBurnt = array.getString("calorieBurnt");
-                            String carbs = array.getString("carbs");
-                            String fiber = array.getString("fiber");
-                            String protein = array.getString("protein");
-                            String fat = array.getString("fat");
+                        ProgressData progressData3 = new ProgressData("view1",Float.parseFloat(protein),100f,R.color.progressPurpleColor);
+                        int prval = (100-Integer.parseInt(protein));
+                        proteinTV.setText(prval + "g ");
+                        proteinPB.setData(progressData3);
 
+                        ProgressData progressData4 = new ProgressData("view1",Float.parseFloat(fat),100f,R.color.progressBlueColor);
+                        int faval = (100-Integer.parseInt(fat));
+                        fatTV.setText(faval + "g ");
+                        fatPB.setData(progressData4);
 
-                           // goal = Integer.parseInt(waterGoalStr);
-                            // consumedInDay = Integer.parseInt(waterConsumedStr);
-
-                            //waterGoal.setText(goal + " ml");
-                            //waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
-                            //consumed.setText(consumedInDay + " ml");
-                            //lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
-                            //int durationOfAnimationFromLottie = 6000;
-                            //int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
-                            //lottieAnimationViewWater.playAnimation();
-                            //new Handler().postDelayed(new Runnable() {
-                              //                            @Override
-                                //                          public void run() {
-                                  //                            lottieAnimationViewWater.pauseAnimation();
-                                    //                      }
-                                      //                },durationOfWaterAnimation
-                            //);
-                            //consumed.setText(String.valueOf(consumedInDay));
-                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                }, error -> Log.e("dashboardFrag", error.toString())) {
+                }, error -> Log.e("CalTracker Data Bro", error.toString())) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -151,20 +159,20 @@ public class CalorieTrackerFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         hooks(view);
-        ProgressData progressData1 = new ProgressData("view1",60f,100f,R.color.progressGreenColor);
-        progressView1.setData(progressData1);
+        //ProgressData progressData1 = new ProgressData("view1",60f,100f,R.color.progressGreenColor);
+       // progressView1.setData(progressData1);
 
-        ProgressData progressData2 = new ProgressData("view1",60f,100f,R.color.progressRedColor);
-        progressView2.setData(progressData2);
+        //ProgressData progressData2 = new ProgressData("view1",60f,100f,R.color.progressRedColor);
+       // progressView2.setData(progressData2);
 
-        ProgressData progressData3 = new ProgressData("view1",60f,100f,R.color.progressPurpleColor);
-        progressView3.setData(progressData3);
+       // ProgressData progressData3 = new ProgressData("view1",60f,100f,R.color.progressPurpleColor);
+        //progressView3.setData(progressData3);
 
-        ProgressData progressData4 = new ProgressData("view1",60f,100f,R.color.progressBlueColor);
-        progressView4.setData(progressData4);
+       // ProgressData progressData4 = new ProgressData("view1",60f,100f,R.color.progressBlueColor);
+       // progressView4.setData(progressData4);
 
-        circularProgressIndicatorCC.setProgress(calConsumed,calgoal);
-        circularProgressIndicatorCB.setProgress(7000,10000);
+        //circularProgressIndicatorCC.setProgress(calConsumed,calgoal);
+       // circularProgressIndicatorCB.setProgress(7000,10000);
 
         BottomSheetBehavior.from(bottomSheetN).setPeekHeight(350);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -206,10 +214,16 @@ public class CalorieTrackerFragment extends Fragment {
         addDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_calorieTrackerFragment_tocalorieAddDinnerFragment); // To be continued...
+                Navigation.findNavController(v).navigate(R.id.action_calorieTrackerFragment_tocalorieAddDinnerFragment);// To be continued...
             }
         });
 
+        setgoalmicro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_calorieTrackerFragment_to_caloriesetgoalFragment);
+            }
+        });
 
 //        dailyMeals = new ArrayList<>();
 //        goalValue = 0f;
@@ -237,14 +251,15 @@ public class CalorieTrackerFragment extends Fragment {
 //        kcalEatenTV = view.findViewById(R.id.kcalEaten);
 //        kcalLeftTV = view.findViewById(R.id.kcalLeft);
 //        kcalPB = view.findViewById(R.id.calorie_progress_bar);
-//        carbTV = view.findViewById(R.id.carbLeft);
-//        carbPB = view.findViewById(R.id.carbPB);
-//        fibreTV = view.findViewById(R.id.fibreLeft);
-//        fibrePB = view.findViewById(R.id.fibrePB);
-//        proteinTV = view.findViewById(R.id.proteinLeft);
-//        proteinPB = view.findViewById(R.id.proteinPB);
-//        fatTV = view.findViewById(R.id.fatLeft);
-//        fatPB = view.findViewById(R.id.fatPB);
+//
+        carbsTV = view.findViewById(R.id.carbsvallefttext);
+        fiberTV = view.findViewById(R.id.fibervallefttext);
+        proteinTV = view.findViewById(R.id.proteinvallefttext);
+        fatTV = view.findViewById(R.id.fatvallefttext);
+        carbPB = view.findViewById(R.id.progressView1);
+        fibrePB = view.findViewById(R.id.progressView2);
+        proteinPB = view.findViewById(R.id.progressView3);
+        fatPB = view.findViewById(R.id.progressView4);
         progressView1 = view.findViewById(R.id.progressView1);
         progressView2 = view.findViewById(R.id.progressView2);
         progressView3 = view.findViewById(R.id.progressView3);
@@ -258,6 +273,7 @@ public class CalorieTrackerFragment extends Fragment {
         addDinner = view.findViewById(R.id.add_dinner);
         calorieConsumed=view.findViewById(R.id.calorieConsumed);
         calorieBurnt=view.findViewById(R.id.calorieBurnt);
+        setgoalmicro = view.findViewById(R.id.setgoalformicro);
         imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
     }

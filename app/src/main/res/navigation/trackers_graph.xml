@@ -102,7 +102,10 @@
         <action
             android:id="@+id/action_calorieTrackerFragment_tocalorieAddSnacksFragment"
             app:destination="@id/calorieAddSnacksFragment" />
-<!--        <action-->
+        <action
+            android:id="@+id/action_calorieTrackerFragment_to_caloriesetgoalFragment"
+            app:destination="@id/caloriesetgoalFragment" />
+        <!--        <action-->
 <!--            android:id="@+id/action_calorieConsumedFragment_to_calorieAddBreakFastFragment"-->
 <!--            app:destination="@id/calorieAddBreakFastFragment" />-->
     </fragment>
@@ -431,4 +434,9 @@
         android:name="com.example.infits.walking_frag2"
         android:label="fragment_walking_frag2"
         tools:layout="@layout/fragment_walking_frag2" />
+    <fragment
+        android:id="@+id/caloriesetgoalFragment"
+        android:name="com.example.infits.caloriesetgoalFragment"
+        android:label="fragment_caloriesetgoal"
+        tools:layout="@layout/fragment_caloriesetgoal" />
 </navigation>

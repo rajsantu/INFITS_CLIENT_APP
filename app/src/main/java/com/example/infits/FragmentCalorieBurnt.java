@@ -126,8 +126,10 @@ public class FragmentCalorieBurnt extends Fragment {
     }
 
     private void setTodayData(String purpose) {
+        String url = DataFromDatabase.ipConfig + "calorieBurnt.php";
         String date = getCurrentDate(),calorie="---";
 //        pastAcivity(date,calorie,"45","42","452");
+
 
         String clientID = DataFromDatabase.clientuserID; // as it will be in sharedpref using it temporarily
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -137,6 +139,7 @@ public class FragmentCalorieBurnt extends Fragment {
                     public void onResponse(String response) {
 
                         try {
+
                             JSONObject jsonObject = new JSONObject(response);
                             if(!jsonObject.getBoolean("error")){
                                 String running="0",walking="0",cycling="0",runtime="0",walktime="0",cyclingtime="0",runduration="0",cycleduration="0",walkduration="0";
@@ -146,42 +149,38 @@ public class FragmentCalorieBurnt extends Fragment {
                                 String data = "0";
 
                                 try {
-                                    for(;;) {
+                                    JSONObject dataObject = jsonObject.getJSONObject("data");
 
-
-                                        JSONObject activityObj = jsonObject.getJSONObject(data);
-                                        data = Integer.toString(Integer.parseInt(data) + 1);
-
-                                        String activityName = activityObj.getString("activity_name");
-                                        String caloriesBurnt = activityObj.getString("calorie_burnt");
-                                        switch (activityName) {
-                                            case "running":
-                                                running = caloriesBurnt;
-                                                runcal += Long.parseLong(running);
-                                                runtime = activityObj.getString("time");
-                                                runduration = activityObj.getString("duration");
-                                                rduration += ConvertTimeToInt(runduration);
-                                                break;
-                                            case "walking":
-                                                walking = caloriesBurnt;
-                                                walkcal += Long.parseLong(walking);
-                                                walktime = activityObj.getString("time");
-                                                walkduration = activityObj.getString("duration");
-                                                wduration += ConvertTimeToInt(walkduration);
-                                                break;
-                                            case "cycling":
-                                                cycling = caloriesBurnt;
-                                                cyclingcal += Long.parseLong(cycling);
-                                                cyclingtime = activityObj.getString("time");
-                                                cycleduration = activityObj.getString("duration");
-                                                cduration += ConvertTimeToInt(cycleduration);
-                                                break;
-                                        }
-                                        Total += Integer.parseInt(caloriesBurnt);
-                                        String duration = activityObj.getString("duration");
-                                        String date = activityObj.getString("date");
-
+                                    String activityName = dataObject.getString("activity_name");
+                                    String caloriesBurnt = dataObject.getString("calorie_burnt");
+                                    String duration = dataObject.getString("duration");
+                                    String dateandtime = dataObject.getString("dateandtime");
+                                    switch (activityName) {
+                                        case "running":
+                                            running = caloriesBurnt;
+                                            runcal += Long.parseLong(running);
+                                            runtime = jsonObject.getString("time");
+                                            runduration = jsonObject.getString("duration");
+                                            rduration += ConvertTimeToInt(runduration);
+                                            break;
+                                        case "walking":
+                                            walking = caloriesBurnt;
+                                            walkcal += Long.parseLong(walking);
+                                            walktime = jsonObject.getString("time");
+                                            walkduration = jsonObject.getString("duration");
+                                            wduration += ConvertTimeToInt(walkduration);
+                                            break;
+                                        case "cycling":
+                                            cycling = caloriesBurnt;
+                                            cyclingcal += Long.parseLong(cycling);
+                                            cyclingtime = jsonObject.getString("time");
+                                            cycleduration = jsonObject.getString("duration");
+                                            cduration += ConvertTimeToInt(cycleduration);
+                                            break;
                                     }
+                                    Total += Integer.parseInt(caloriesBurnt);
+
+
                                 }
                                 catch (Exception e){
                                     if(!purpose.equals("day")){

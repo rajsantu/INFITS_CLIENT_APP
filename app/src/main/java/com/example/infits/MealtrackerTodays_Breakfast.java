@@ -212,7 +212,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     MealTrackerFragment mealTrackerFragment = new MealTrackerFragment();
                     fragmentTransaction.add(R.id.frameLayout, mealTrackerFragment).commit();
-                }, 2000);
+                }, 20000);
             },
 
                     error -> {

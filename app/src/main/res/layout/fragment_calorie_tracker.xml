@@ -57,7 +57,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="@dimen/_40sdp"
-        android:background="#00000000"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -298,6 +297,7 @@
                         android:layout_marginTop="@dimen/_2sdp">
 
                         <TextView
+                            android:id="@+id/carbsvallefttext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="150g "
@@ -360,6 +360,7 @@
                         android:layout_marginTop="@dimen/_2sdp">
 
                         <TextView
+                            android:id="@+id/fibervallefttext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="150g "
@@ -429,6 +430,7 @@
                         android:layout_marginTop="@dimen/_2sdp">
 
                         <TextView
+                            android:id="@+id/proteinvallefttext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -493,6 +495,7 @@
                         android:layout_marginTop="@dimen/_2sdp">
 
                         <TextView
+                            android:id="@+id/fatvallefttext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -515,6 +518,44 @@
 
         </LinearLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/setgoalformicro"
+            android:layout_width="@dimen/_260sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_9sdp"
+            app:cardBackgroundColor="#F3831B"
+            app:cardCornerRadius="@dimen/_20sdp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textsetgoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="Set Goals for Macronutrients"
+                    android:textColor="@color/white"
+                    android:textSize="22dp" />
+
+                <ImageView
+                    android:id="@+id/imgforward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="11dp"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:src="@drawable/imgforward"
+                    app:tint="@color/white" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -525,7 +566,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="0.5"
+        android:visibility="visible">
 
         <FrameLayout
             android:id="@+id/bottomSheetN"
