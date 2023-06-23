@@ -1,10 +1,12 @@
 package com.example.infits;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -47,6 +49,7 @@ public class MealTrackerFragment extends Fragment {
     View bottomSheetN;
     RequestQueue queue;
     String url=  String.format("%smealTrackerRecentShared.php",DataFromDatabase.ipConfig);
+    ImageView imageback;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,6 +104,16 @@ public class MealTrackerFragment extends Fragment {
 
         Bundle bundle=new Bundle();
 
+
+        imageback.setOnClickListener(v -> {
+            if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+                requireActivity().finish();
+            } else {
+                Navigation.findNavController(v).navigate(R.id.action_mealTracker_to_dashBoardFragment);
+            }
+        });
+
         breakfast.setOnClickListener(view1 -> {
             String message = "Breakfast";
             bundle.putString("fragment",message);
@@ -135,6 +148,7 @@ public class MealTrackerFragment extends Fragment {
         snack = v.findViewById(R.id.meal_op3);
         dinner = v.findViewById(R.id.meal_op4);
         rv = v.findViewById(R.id.recyclerview);
+        imageback = v.findViewById(R.id.imgback);
 
         bottomSheetN = v.findViewById(R.id.bottomSheetN);
 

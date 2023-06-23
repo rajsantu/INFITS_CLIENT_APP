@@ -17,7 +17,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\devab\.android\avd\Pixel_4_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-BE5TDEROPNWKS4WC-UpRj8x._adb-tls-connect._tcp]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -122,6 +122,9 @@
       <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\res\drawable" />
       <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\res\drawable-v24" />
       <recent name="E:\internship\INFITS_CLIENT_APP\app\src\main\res\drawable" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Shashank_branch\mealTracker\app\src\main\res\drawable" />
     </key>
     <key name="android.template.509291780">
       <recent name="com.example.infits" />
@@ -312,7 +315,42 @@
       <option name="project" value="LOCAL" />
       <updated>1685896476231</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="meal_tracker_navigation_fixes">
+      <created>1686235122361</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1686235122361</updated>
+    </task>
+    <task id="LOCAL-00016" summary="meal_tracker_navigation_fixes">
+      <created>1686235248497</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1686235248497</updated>
+    </task>
+    <task id="LOCAL-00017" summary="meal_tracker_navigation_fixes">
+      <created>1686235414817</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1686235414817</updated>
+    </task>
+    <task id="LOCAL-00018" summary="meal_tracker_navigation_fixes">
+      <created>1686235421460</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1686235421460</updated>
+    </task>
+    <task id="LOCAL-00019" summary="diet_chart_integrated">
+      <created>1686238171520</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1686238171520</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -329,6 +367,11 @@
     <option name="TAB_STATES">
       <map>
         <entry key="1846d798-5c54-4434-ae4e-d746f08318cd">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="83862196-7109-4732-9d9a-d51bdff3900f">
           <value>
             <State />
           </value>
@@ -366,6 +409,8 @@
     <MESSAGE value="conflict_master_solved" />
     <MESSAGE value="bugfix_login_not_recognizing_prouser" />
     <MESSAGE value="MealtrackerTodays_Breakfast.java-modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="MealtrackerTodays_Breakfast.java-modified" />
+    <MESSAGE value="meal_tracker_navigation_fixes" />
+    <MESSAGE value="diet_chart_integrated" />
+    <option name="LAST_COMMIT_MESSAGE" value="diet_chart_integrated" />
   </component>
 </project>
