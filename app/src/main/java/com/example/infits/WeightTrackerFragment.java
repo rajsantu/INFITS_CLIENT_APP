@@ -359,7 +359,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.client_id);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -433,14 +433,15 @@ public class WeightTrackerFragment extends Fragment {
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Date date = new Date();
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd Hh:mm:ss");
                                 Map<String,String> data = new HashMap<>();
-                                data.put("userID",DataFromDatabase.clientuserID);
-                                data.put("date",sdf.format(date));
+                                data.put("clientuserID",DataFromDatabase.clientuserID);
+                                data.put("dateandtime",sdf.format(date));
                                 data.put("weight", String.valueOf(cur_weight));
                                 data.put("height", String.valueOf(height));
                                 data.put("dietitian_id",String.valueOf(DataFromDatabase.dietitian_id));
-                                data.put("clientID",String.valueOf(DataFromDatabase.client_id));
+                                data.put("dietitianuserID",String.valueOf(DataFromDatabase.dietitianuserID));
+                                data.put("client_id",String.valueOf(DataFromDatabase.client_id));
                                 data.put("goal","70");
                                 data.put("bmi",String.format("%.2f",bmi));
 
@@ -641,7 +642,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.client_id);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -762,7 +763,7 @@ public class WeightTrackerFragment extends Fragment {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> data = new HashMap<>();
 //                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
-                    data.put("clientID", DataFromDatabase.client_id);
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
                     data.put("month",month);
                     return data;
                 }
@@ -801,8 +802,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientID", DataFromDatabase.client_id);
-                data.put("month",month);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 return data;
             }
         };

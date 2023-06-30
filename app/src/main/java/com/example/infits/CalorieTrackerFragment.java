@@ -55,6 +55,9 @@ public class CalorieTrackerFragment extends Fragment {
 
     private int calConsumed;
     private int calgoal;
+    private int CCGoal,CBGoal;
+
+    private float CARBGoal,FIBERGoal,PROTEINGoal,FATGoal;
 
 
     public  CalorieTrackerFragment(){
@@ -104,35 +107,47 @@ public class CalorieTrackerFragment extends Fragment {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         JSONObject dataObject = jsonObject.getJSONObject("Data");
+
                         JSONObject goalsObject = dataObject.getJSONObject("Goals");
-                        String goal = goalsObject.getString("goal");
+                        String calorieconsumegoal = goalsObject.getString("CalorieConsumeGoal");
+                        String calorieburngoal = goalsObject.getString("CalorieBurnGoal");
+                        String carbgoal = goalsObject.getString("CarbsGoal");
+                        String fibergoal = goalsObject.getString("FiberGoal");
+                        String proteingoal = goalsObject.getString("ProteinGoal");
+                        String fatgoal = goalsObject.getString("FatsGoal");
+
+                        String calorieBurnt = dataObject.getString("CalorieBurnt");
+
                         JSONObject valuesObject = dataObject.getJSONObject("Values");
                         String calories = valuesObject.getString("Calories");
                         String carbs = valuesObject.getString("carbs");
                         String fiber = valuesObject.getString("fiber");
                         String protein = valuesObject.getString("protein");
                         String fat = valuesObject.getString("fat");
-                        calConsumed = Integer.parseInt(calories);
-                        calgoal = Integer.parseInt(goal);
 
-                        circularProgressIndicatorCC.setProgress(calConsumed, calgoal);
-                        circularProgressIndicatorCB.setProgress(160,calgoal);
-                        ProgressData progressData1 = new ProgressData("view1", Float.parseFloat(carbs), 100f, R.color.progressGreenColor);
-                        int caval = (100-Integer.parseInt(carbs));
+                        //All prasing
+                        calConsumed = Integer.parseInt(calories);
+                        CCGoal = Integer.parseInt(calorieconsumegoal);
+                        CBGoal = Integer.parseInt(calorieburngoal);
+
+                        circularProgressIndicatorCC.setProgress(calConsumed, CCGoal);
+                        circularProgressIndicatorCB.setProgress(760,CBGoal);
+                        ProgressData progressData1 = new ProgressData("view1", Float.parseFloat(carbs), Float.parseFloat(carbgoal), R.color.progressGreenColor);
+                        int caval = (Integer.parseInt(carbgoal)-Integer.parseInt(carbs));
                         carbsTV.setText(caval + "g ");
                         carbPB.setData(progressData1);
-                        ProgressData progressData2 = new ProgressData("view1",Float.parseFloat(fiber),100f,R.color.progressRedColor);
-                        int fival = (100-Integer.parseInt(fiber));
+                        ProgressData progressData2 = new ProgressData("view1",Float.parseFloat(fiber),Float.parseFloat(fibergoal),R.color.progressRedColor);
+                        int fival = (Integer.parseInt(fibergoal)-Integer.parseInt(fiber));
                         fiberTV.setText(fival + "g ");
                         fibrePB.setData(progressData2);
 
-                        ProgressData progressData3 = new ProgressData("view1",Float.parseFloat(protein),100f,R.color.progressPurpleColor);
-                        int prval = (100-Integer.parseInt(protein));
+                        ProgressData progressData3 = new ProgressData("view1",Float.parseFloat(protein),Float.parseFloat(proteingoal),R.color.progressPurpleColor);
+                        int prval = (Integer.parseInt(proteingoal)-Integer.parseInt(protein));
                         proteinTV.setText(prval + "g ");
                         proteinPB.setData(progressData3);
 
-                        ProgressData progressData4 = new ProgressData("view1",Float.parseFloat(fat),100f,R.color.progressBlueColor);
-                        int faval = (100-Integer.parseInt(fat));
+                        ProgressData progressData4 = new ProgressData("view1",Float.parseFloat(fat),Float.parseFloat(fatgoal),R.color.progressBlueColor);
+                        int faval = (Integer.parseInt(fatgoal)-Integer.parseInt(fat));
                         fatTV.setText(faval + "g ");
                         fatPB.setData(progressData4);
 

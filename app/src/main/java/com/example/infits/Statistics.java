@@ -78,9 +78,9 @@ public class Statistics extends AppCompatActivity {
         sleep_btn = findViewById(R.id.sleep_btn);
         weight_btn = findViewById(R.id.weight_btn);
 
-        instagramShare = findViewById(R.id.imageView41);
-        fbShare = findViewById(R.id.imageView43);
-        twitterShare = findViewById(R.id.imageView44);
+        instagramShare = findViewById(R.id.statsInstagramBtn);
+        fbShare = findViewById(R.id.statsFacebookBtn);
+        twitterShare = findViewById(R.id.statsTwitterBtn);
         moreShare = findViewById(R.id.moreShare2);
 
 
@@ -293,6 +293,10 @@ public class Statistics extends AppCompatActivity {
     }
 
     private void sleepCount() {
+        weekly.setText("0");
+        daily.setText("0");
+        monthly.setText("0");
+        total.setText("0");
         String url = String.format("%ssleepFragment.php",DataFromDatabase.ipConfig);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
@@ -305,26 +309,30 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object1 = jsonArray.getJSONObject(1);
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
-                    String stepsWeek = object0.getString("SumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
+
+                    String sleepAvgWeek = object0.getString("AvgWeek");
+                    if (sleepAvgWeek.equals("null")){
+                        sleepAvgWeek ="0";
                     }
-                    weekly.setText(stepsWeek);
-                    String stepsMonth = object1.getString("SumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
+                    weekly.setText(sleepAvgWeek);
+
+                    String sleepAvgMonth = object1.getString("AvgMonth");
+                    if (sleepAvgMonth.equals("null")){
+                        sleepAvgMonth ="0";
                     }
-                    monthly.setText(stepsMonth);
-                    String stepsDaily = object2.getString("SumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
+                    monthly.setText(sleepAvgMonth);
+
+                    String sleepDaily = object2.getString("SumDaily");
+                    if (sleepDaily.equals("null")){
+                        sleepDaily ="0";
                     }
-                    daily.setText(stepsDaily);
-                    String stepsTotal = object3.getString("SumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
+                    daily.setText(sleepDaily);
+
+                    String sleepTotal = object3.getString("SumTotal");
+                    if (sleepTotal.equals("null")){
+                        sleepTotal ="0";
                     }
-                    total.setText(stepsTotal);
+                    total.setText(sleepTotal);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -349,6 +357,10 @@ public class Statistics extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
     private void weightCount() {
+        weekly.setText("0");
+        daily.setText("0");
+        monthly.setText("0");
+        total.setText("0");
         String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
@@ -404,6 +416,10 @@ public class Statistics extends AppCompatActivity {
     }
 
     private void waterCount() {
+        weekly.setText("0");
+        daily.setText("0");
+        monthly.setText("0");
+        total.setText("0");
         String url = String.format("%swaterFragment.php",DataFromDatabase.ipConfig);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
@@ -416,12 +432,75 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object1 = jsonArray.getJSONObject(1);
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
-                    String stepsWeek = object0.getString("SumWeek");
+
+                    String waterAvgWeek = object0.getString("AvgWeek");
+                    if (waterAvgWeek.equals("null")){
+                        waterAvgWeek ="0";
+                    }
+                    weekly.setText(waterAvgWeek);
+                    String waterAvgMonth = object1.getString("AvgMonth");
+                    if (waterAvgMonth.equals("null")){
+                        waterAvgMonth ="0";
+                    }
+                    monthly.setText(waterAvgMonth);
+                    String waterDaily = object2.getString("SumDaily");
+                    if (waterDaily.equals("null")){
+                        waterDaily ="0";
+                    }
+                    daily.setText(waterDaily);
+                    String waterTotal = object3.getString("SumTotal");
+                    if (waterTotal.equals("null")){
+                        waterTotal ="0";
+                    }
+                    total.setText(waterTotal);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (response.equals("failure")){
+                Log.d("waterFragment","failure");
+                Toast.makeText(getApplicationContext(), "waterFragment failed", Toast.LENGTH_SHORT).show();
+            }
+        },error -> {
+            Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+//                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+
+
+    private void stepsCount() {
+        weekly.setText("0");
+        daily.setText("0");
+        monthly.setText("0");
+        total.setText("0");
+        String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+            if (!response.equals("failure")){
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject object0 = jsonArray.getJSONObject(0);
+                    JSONObject object1 = jsonArray.getJSONObject(1);
+                    JSONObject object2 = jsonArray.getJSONObject(2);
+                    JSONObject object3 = jsonArray.getJSONObject(3);
+
+                    String stepsWeek = object0.getString("AvgWeek");
                     if (stepsWeek.equals("null")){
                         stepsWeek ="0";
                     }
                     weekly.setText(stepsWeek);
-                    String stepsMonth = object1.getString("SumMonth");
+                    String stepsMonth = object1.getString("AvgMonth");
                     if (stepsMonth.equals("null")){
                         stepsMonth ="0";
                     }
@@ -442,64 +521,8 @@ public class Statistics extends AppCompatActivity {
                 }
             }
             else if (response.equals("failure")){
-                Log.d("Fragment","failure");
-                Toast.makeText(getApplicationContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
-            }
-        },error -> {
-            Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-//                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                data.put("userID", DataFromDatabase.clientuserID);
-                return data;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
-    }
-
-
-    private void stepsCount() {
-        String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-            if (!response.equals("failure")){
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject object0 = jsonArray.getJSONObject(0);
-                    JSONObject object1 = jsonArray.getJSONObject(1);
-                    JSONObject object2 = jsonArray.getJSONObject(2);
-                    JSONObject object3 = jsonArray.getJSONObject(3);
-                    String stepsWeek = object0.getString("stepsSumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
-                    }
-                    weekly.setText(stepsWeek);
-                    String stepsMonth = object1.getString("stepsSumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
-                    }
-                    monthly.setText(stepsMonth);
-                    String stepsDaily = object2.getString("stepsSumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
-                    }
-                    daily.setText(stepsDaily);
-                    String stepsTotal = object3.getString("stepsSumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
-                    }
-                    total.setText(stepsTotal);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if (response.equals("failure")){
-                Log.d("HeartFragment","failure");
-                Toast.makeText(getApplicationContext(), "heartFragment failed", Toast.LENGTH_SHORT).show();
+                Log.d("stepsFragment","failure");
+                Toast.makeText(getApplicationContext(), "stepsFragment failed", Toast.LENGTH_SHORT).show();
             }
         },error -> {
 
@@ -509,7 +532,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", DataFromDatabase.clientuserID);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 return data;
             }
         };

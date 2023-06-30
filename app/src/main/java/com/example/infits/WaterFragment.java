@@ -211,7 +211,7 @@ public class WaterFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("userID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -265,7 +265,7 @@ public class WaterFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("userID", DataFromDatabase.clientuserID);
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
 
                     return data;
                 }

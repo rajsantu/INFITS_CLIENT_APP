@@ -191,6 +191,7 @@ public class StepsFragment extends Fragment {
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
                     ArrayList<String> mons = new ArrayList<>();
+                    Log.d("stepsGraph", response);
                     try {
                         jsonResponse = new JSONObject(response);
                         JSONArray cast = jsonResponse.getJSONArray("steps");
@@ -227,7 +228,7 @@ public class StepsFragment extends Fragment {
 
                         Map<String, String> dataVol = new HashMap<>();
 
-                        dataVol.put("clientID", getClientId());
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -250,6 +251,7 @@ public class StepsFragment extends Fragment {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 ArrayList<String> mons = new ArrayList<>();
+                Log.d("stepsMonthGraph", response);
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
@@ -287,7 +289,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("clientID", getClientId());
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
 
                     return data;
                 }

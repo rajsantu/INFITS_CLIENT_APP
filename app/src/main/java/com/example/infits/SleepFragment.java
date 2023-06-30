@@ -205,7 +205,7 @@ public class SleepFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String,String> dataVol  = new HashMap<>();
-                        dataVol.put("clientID" , DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID" , DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -259,7 +259,7 @@ public class SleepFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("clientuserID",DataFromDatabase.clientuserID);
 
                     return data;
                 }

@@ -71,6 +71,7 @@ public class Login extends AppCompatActivity {
     ImageView btnGoogle, btnFacebook, btnTwitter;
     String passwordStr,usernameStr;
     String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
+    //String url = "https://infits.in/androidApi/login_client.php";
     RequestQueue queue;
 
 

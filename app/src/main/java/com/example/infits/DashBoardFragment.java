@@ -335,6 +335,7 @@ public class DashBoardFragment extends Fragment {
         if (DataFromDatabase.proUser){
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
                 System.out.println(response);
+                Log.d("dietitiandetails",response);
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONObject array = object.getJSONObject("dietitiandetails");

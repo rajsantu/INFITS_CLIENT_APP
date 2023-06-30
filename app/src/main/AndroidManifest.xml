@@ -242,9 +242,6 @@
 
         </activity>
         <activity
-            android:name=".MealTracker"
-            android:exported="false" />
-        <activity
             android:name=".QuestionsAfterScan"
             android:exported="false" />
         <activity
