@@ -297,7 +297,8 @@ public class Statistics extends AppCompatActivity {
         daily.setText("0");
         monthly.setText("0");
         total.setText("0");
-        String url = String.format("%ssleepFragment.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%ssleepFragment.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/sleepFragment.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("Fragment","success");
@@ -420,7 +421,8 @@ public class Statistics extends AppCompatActivity {
         daily.setText("0");
         monthly.setText("0");
         total.setText("0");
-        String url = String.format("%swaterFragment.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%swaterFragment.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/waterFragment.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("Fragment","success");
@@ -485,7 +487,8 @@ public class Statistics extends AppCompatActivity {
         daily.setText("0");
         monthly.setText("0");
         total.setText("0");
-        String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/stepsFragment.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 try {

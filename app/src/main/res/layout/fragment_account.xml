@@ -200,6 +200,7 @@
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="Male"
+                                android:maxLength="12"
                                 android:elevation="4dp"
                                 android:layout_gravity="center"
                                 android:inputType="none"/>

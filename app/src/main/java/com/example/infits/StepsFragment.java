@@ -184,7 +184,8 @@ public class StepsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sstepsGraph.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%sstepsGraph.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/stepsGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -198,6 +199,9 @@ public class StepsFragment extends Fragment {
                         for (int i = 0; i < cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
                             String name = actor.getString("steps");
+                            if(name==null){
+                                name="0";
+                            }
                             String date = actor.getString("date");
                             System.out.println(name + "   " + date);
                             allNames.add(name);
@@ -244,7 +248,8 @@ public class StepsFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sstepsMonthGraph.php", DataFromDatabase.ipConfig);
+            //String url = String.format("%sstepsMonthGraph.php", DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/stepsMonthGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 System.out.println(DataFromDatabase.clientuserID);
                 System.out.println(response);

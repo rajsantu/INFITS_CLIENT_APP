@@ -32,8 +32,9 @@ public class Subscription1 extends AppCompatActivity {
         btndown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent idw = new Intent(Subscription1.this, Subscription2.class);
-                startActivity(idw);
+                Intent ac = new Intent(Subscription1.this, Subscription2.class);
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                startActivity(ac);
             }
         });
     }

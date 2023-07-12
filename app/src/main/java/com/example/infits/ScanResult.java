@@ -27,7 +27,8 @@ import java.net.URL;
 
 public class ScanResult extends AppCompatActivity {
 
-    TextView productName,quantity,fat,calories,carb,protein;
+    TextView productName,quantity,fat,calories,carb,protein,fiber;
+    TextView fat_per_serving,calories_per_serving,carb_per_serving,protein_per_serving,fiber_per_serving;
 
     ImageView image,notFound;
 
@@ -47,10 +48,16 @@ public class ScanResult extends AppCompatActivity {
         quantity = findViewById(R.id.quantity);
 
         productName = findViewById(R.id.product_name);
-
-//        fat = findViewById(R.id.fa);
-
+        carb = findViewById(R.id.per_100g_title_carb);
+        fat = findViewById(R.id.per_100g_title_fat);
+        protein = findViewById(R.id.per_100g_title_protein);
         calories = findViewById(R.id.per_100g_title_energy);
+        fiber = findViewById(R.id.per_100g_title_fiber);
+        calories_per_serving = findViewById(R.id.per_serving_energy);
+        fat_per_serving = findViewById(R.id.per_serving_fat);
+        carb_per_serving = findViewById(R.id.per_serving_carb);
+        protein_per_serving = findViewById(R.id.per_serving_protein);
+        fiber_per_serving = findViewById(R.id.per_serving_fiber);
 
 //energy-kcal_serving
 
@@ -67,11 +74,20 @@ public class ScanResult extends AppCompatActivity {
                     JSONObject product = jsonResponse.getJSONObject("product");
 
                     Toast.makeText(this, jsonResponse.getString("code"), Toast.LENGTH_SHORT).show();
-                    Glide.with(getApplicationContext()).load(product.getString("image_url")).into(image);
+                    Glide.with(getApplicationContext()).load(product.getString("image_small_url")).into(image);
                     productName.append(" "+product.getString("product_name"));
                     quantity.setText(product.getString("serving_size"));
                     JSONObject nutrients = product.getJSONObject("nutriments");
                     calories.setText(nutrients.getString("energy-kcal_100g"));
+                    carb.setText(nutrients.getString("carbohydrates_100g"));
+                    fat.setText(nutrients.getString("fat_100g"));
+                    protein.setText(nutrients.getString("proteins_100g"));
+                    fiber.setText(nutrients.getString("fiber_100g"));
+                    fat_per_serving.setText(nutrients.getString("fat_serving"));
+                    calories_per_serving.setText(nutrients.getString("energy-kcal_serving"));
+                    carb_per_serving.setText(nutrients.getString("carbohydrates_serving"));
+                    protein_per_serving.setText(nutrients.getString("proteins_serving"));
+                    fiber_per_serving.setText(nutrients.getString("fiber_serving"));
                 }
                 if (jsonResponse.getString("status").equals("0")){
                             notFound.setVisibility(View.VISIBLE);

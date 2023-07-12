@@ -125,7 +125,8 @@ public class running_frag1 extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View v) {
 
-                String url=String.format("%srunningTracker.php",DataFromDatabase.ipConfig);
+                //String url=String.format("%srunningTracker.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/runningTracker.php";
 
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                     if (response.equals("updated")){

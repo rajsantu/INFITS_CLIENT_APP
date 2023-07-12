@@ -69,7 +69,8 @@ import java.util.Objects;
  */
 public class WeightTrackerFragment extends Fragment {
 
-    String url = String.format("%sweighttracker.php",DataFromDatabase.ipConfig);
+    //String url = String.format("%sweighttracker.php",DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/weighttracker.php";
 
     float bmi = 0;
 
@@ -165,6 +166,7 @@ public class WeightTrackerFragment extends Fragment {
         }
         else{
             curWeight.setText(DataFromDatabase.weightStr);
+            textbmi.setText(DataFromDatabase.bmi);
         }
 
         date_click.setOnClickListener(v->{
@@ -249,7 +251,7 @@ public class WeightTrackerFragment extends Fragment {
                     StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                         System.out.println("weight " + response);
                         if (response.equals("updated")){
-//                            Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
+                            Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
                             dialog.dismiss();
                             updatePastActivity();
                         }
@@ -263,17 +265,18 @@ public class WeightTrackerFragment extends Fragment {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Date date = new Date();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd H:M:S");
                             sdf.format(mcv.getSelectedDate().getDate());
                             Map<String,String> data = new HashMap<>();
-                            data.put("userID",DataFromDatabase.clientuserID);
-                            data.put("date",sdf.format(mcv.getSelectedDate().getDate()));
+                            data.put("clientuserID",DataFromDatabase.clientuserID);
+                            data.put("dateandtime",sdf.format(date));
                             data.put("weight", String.valueOf(cur_weight));
                             data.put("height",String.valueOf(DataFromDatabase.height));
                             data.put("goal","70");
                             data.put("bmi",String.format("%.2f",bmi));
                             data.put("dietitian_id",String.valueOf(DataFromDatabase.dietitian_id));
-                            data.put("clientID",String.valueOf(DataFromDatabase.client_id));
+                            data.put("dietitianuserID",String.valueOf(DataFromDatabase.dietitianuserID));
+                            data.put("client_id",String.valueOf(DataFromDatabase.client_id));
 
                             return data;
                         }
@@ -330,7 +333,8 @@ public class WeightTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
+        //String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
+        String urlPast = "https://infits.in/androidApi/pastActivityWeight.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,urlPast, response -> {
             try {
@@ -433,7 +437,7 @@ public class WeightTrackerFragment extends Fragment {
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Date date = new Date();
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd Hh:mm:ss");
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd H:M:S");
                                 Map<String,String> data = new HashMap<>();
                                 data.put("clientuserID",DataFromDatabase.clientuserID);
                                 data.put("dateandtime",sdf.format(date));
@@ -507,7 +511,7 @@ public class WeightTrackerFragment extends Fragment {
                 tv_heightbmi.setText(DataFromDatabase.height);
                 tv_weightbmi.setText(DataFromDatabase.weight);
 
-            dialog.show();
+                dialog.show();
             }
         });
 
@@ -564,13 +568,15 @@ public class WeightTrackerFragment extends Fragment {
         return view;
     }
 
+
     private void updateInAppNotifications(int cur_weight) {
         SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", MODE_PRIVATE);
         SharedPreferences.Editor inAppEditor = inAppPrefs.edit();
         inAppEditor.putBoolean("newNotification", true);
         inAppEditor.apply();
 
-        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        //String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        String inAppUrl = "https://infits.in/androidApi/inAppNotifications.php";
 
         String type = "weight";
         String text = "You last measured weight was " + cur_weight + " kg.";
@@ -612,7 +618,8 @@ public class WeightTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
+        //String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
+        String urlPast = "https://infits.in/androidApi/pastActivityWeight.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,urlPast, response -> {
             Log.d("updatePA", response);
@@ -735,47 +742,49 @@ public class WeightTrackerFragment extends Fragment {
     }
 
     void markRed(String month){
-            String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
+        //String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
+        String urlUnMark = "https://infits.in/androidApi/unUpdated.php";
 
-            StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
-                try {
-                    System.out.println("markRed " + response);
-                    JSONObject object = new JSONObject(response);
-                    JSONArray weight = object.getJSONArray("dates");
-                    ArrayList<String> dates = new ArrayList<>();
-                    for (int i = 0;i<weight.length();i++){
+        StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
+            try {
+                System.out.println("markRed " + response);
+                JSONObject object = new JSONObject(response);
+                JSONArray weight = object.getJSONArray("dates");
+                ArrayList<String> dates = new ArrayList<>();
+                for (int i = 0;i<weight.length();i++){
 //                        JSONObject date = weight.getJSONObject(i);
-                        String dateStr = weight.getString(i);
-                        dates.add(dateStr);
-                        String[] array = dateStr.split("-");
-                        System.out.println(dateStr+"Red");
-                        setEvent(dates, pink);
-                        mcv.invalidateDecorators();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    String dateStr = weight.getString(i);
+                    dates.add(dateStr);
+                    String[] array = dateStr.split("-");
+                    System.out.println(dateStr+"Red");
+                    setEvent(dates, pink);
+                    mcv.invalidateDecorators();
                 }
-            },error -> {
-                Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> data = new HashMap<>();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },error -> {
+            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
 //                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
-                    data.put("clientuserID", DataFromDatabase.clientuserID);
-                    data.put("month",month);
-                    return data;
-                }
-            };
-            Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                data.put("month",month);
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
         stringRequestCalUn.setRetryPolicy(new DefaultRetryPolicy(50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     void markGreen(String month){
-        String urlMark = String.format("%sweightdate.php",DataFromDatabase.ipConfig);
+        //String urlMark = String.format("%sweightdate.php",DataFromDatabase.ipConfig);
+        String urlMark = "https://infits.in/androidApi/weightdate.php";
         StringRequest stringRequestCal = new StringRequest(Request.Method.POST,urlMark,response -> {
             try {
                 System.out.println("markGreen " + response);

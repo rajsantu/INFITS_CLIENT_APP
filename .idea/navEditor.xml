@@ -49,6 +49,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_consultationFragment_to_subscription1">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -1640,6 +1645,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="subscription1">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-840" />
+                            <option name="y" value="3410" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                 </map>
               </option>
             </LayoutPositions>
@@ -1695,6 +1712,49 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_landingPageTwo_to_landingPageThree">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
+        <entry key="live_graph.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="live">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="liveList">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_liveList_to_live2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -2107,6 +2167,52 @@
             </LayoutPositions>
           </value>
         </entry>
+        <entry key="subscription_graph.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="subscription1">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="subscription2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="subscription3">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
         <entry key="trackers_graph.xml">
           <value>
             <LayoutPositions>
@@ -2493,6 +2599,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_calorieTrackerFragment_to_caloriesetgoalFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_calorieTrackerFragment_to_dashBoardFragment">
                               <value>
                                 <LayoutPositions />
@@ -2533,8 +2644,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1236" />
-                            <option name="y" value="225" />
+                            <option name="x" value="888" />
+                            <option name="y" value="273" />
                           </Point>
                         </option>
                       </LayoutPositions>

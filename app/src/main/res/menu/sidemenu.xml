@@ -22,9 +22,9 @@
             android:title="Scan"
             android:icon="@drawable/scan"/>
 
-        <item android:id="@+id/recipes"
+        <!--<item android:id="@+id/recipes"
             android:title="Recipies"
-            android:icon="@drawable/recipes_icon"/>
+            android:icon="@drawable/recipes_icon"/>-->
 
         <!--<item android:id="@+id/message"
             android:icon="@drawable/mail_icon"

@@ -62,7 +62,8 @@ import java.util.Map;
 public class WaterFragment extends Fragment {
 
     RequestQueue queue;
-    String url = String.format("%s/waterFragment.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%s/waterFragment.php", DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/waterFragment.php";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -169,7 +170,8 @@ public class WaterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%swaterGraph.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%swaterGraph.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/waterGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -222,7 +224,8 @@ public class WaterFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%swaterMonthGraph.php", DataFromDatabase.ipConfig);
+            //String url = String.format("%swaterMonthGraph.php", DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/waterMonthGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 System.out.println(DataFromDatabase.clientuserID);
                 System.out.println(response);
