@@ -37,10 +37,8 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
                 boolean isLoggedIn = loginDetails.getBoolean("hasLoggedIn", false);
-
                 // Shared preferences for showing the OnBoarding Screen Starts.
                 SharedPreferences OnBoardingScreenSharedPreferences = getSharedPreferences("OnBoardingScreen",MODE_PRIVATE);
                 boolean isFirstTimeAppOpen = OnBoardingScreenSharedPreferences.getBoolean("isFirstTimeAppOpen",true);
@@ -51,7 +49,6 @@ public class SplashScreen extends AppCompatActivity {
                     setDataFromDatabase(loginDetails);
                     String cameFromNotification = getIntent().getStringExtra("notification");
                     intent.putExtra("notification", cameFromNotification);
-
                     if(cameFromNotification != null) {
                         if(cameFromNotification.equals("sleep")) {
                             intent.putExtra("hours", getIntent().getStringExtra("hours"));
