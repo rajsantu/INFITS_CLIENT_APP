@@ -477,6 +477,8 @@ public class ConsultationFragment extends Fragment {
                         }
 
                         SubmitQuesAns(arrayQues.toString(), arrayAns.toString());
+                        Intent intent = new Intent(getActivity(), Subscription1.class);
+                        startActivity(intent);
 
                     }
                 };
@@ -587,7 +589,8 @@ public class ConsultationFragment extends Fragment {
 
     public void SubmitQuesAns(String ques, String ans) {
 
-        String url=String.format("%sclientconsultation.php",DataFromDatabase.ipConfig);
+        //String url=String.format("%sclientconsultation.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/clientconsultation.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -609,8 +612,8 @@ public class ConsultationFragment extends Fragment {
 
                 params.put("question", ques);
                 params.put("answer", ans);
-                params.put("clientID",DataFromDatabase.clientuserID);
-
+                params.put("userID",DataFromDatabase.clientuserID);
+                params.put("name",DataFromDatabase.name);
                 return params;
             }
         };

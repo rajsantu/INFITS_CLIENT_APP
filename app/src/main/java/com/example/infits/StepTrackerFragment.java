@@ -245,7 +245,8 @@ public class StepTrackerFragment extends Fragment {
 //            }
 //        }
 
-        String url = String.format("%spastActivity.php", DataFromDatabase.ipConfig);
+        //String url = String.format("%spastActivity.php", DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/pastActivity.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             try {
@@ -359,7 +360,8 @@ public class StepTrackerFragment extends Fragment {
 
                         }
                     }
-                    String url = String.format("%supdatestepgoal.php", DataFromDatabase.ipConfig);
+                    //String url = String.format("%supdatestepgoal.php", DataFromDatabase.ipConfig);
+                    String url = "https://infits.in/androidApi/updatestepgoal.php";
                     final StringRequest requestGoal = new StringRequest(Request.Method.POST, url, response -> {
                         try {
                             Toast.makeText(requireContext(), response, Toast.LENGTH_LONG).show();
@@ -376,7 +378,6 @@ public class StepTrackerFragment extends Fragment {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> data = new HashMap<>();
-                            Log.e("clienttuserID",DataFromDatabase.clientuserID);
                             data.put("clientuserID",DataFromDatabase.clientuserID );
                             data.put("goal",String.valueOf(goalVal));
                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
@@ -474,7 +475,8 @@ public class StepTrackerFragment extends Fragment {
                     System.out.println("steps: " + 0.04f * steps);
                     System.out.println("steps/time: " + (steps / 1312.33595801f) / time);
 
-                    String url = String.format("%supdateStepFragmentDetails.php", DataFromDatabase.ipConfig);
+                    //String url = String.format("%supdateStepFragmentDetails.php", DataFromDatabase.ipConfig);
+                    String url = "https://infits.in/androidApi/updateStepFragmentDetail.php";
                     StringRequest stringRequest =  new StringRequest(Request.Method.POST,url,response -> {
                         Log.e("calorieUpdate","success");
                     },
@@ -500,7 +502,7 @@ public class StepTrackerFragment extends Fragment {
                     };
                     Volley.newRequestQueue(requireContext()).add(stringRequest);
                 }
-            }, 120000);
+            }, 5000);
 
 //            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 //            sharedPreferences.edit().putInt("steps",steps).apply();

@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mean_nutritions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/diet_chart_img"
+    tools:context=".fragment_diet_chart">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/arrowleft"
+                android:layout_margin="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/diet_chart_txt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/diet_chart_txt"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/diet_chart_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DIET CHART"
+                android:fontFamily="@font/nats_regular"
+                android:textColor="#ffffff"
+                android:textSize="38sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/meal_nutritions"
+        android:layout_width="173dp"
+        android:layout_height="43dp"
+        android:layout_margin="35dp"
+        android:text="Meal Nutritions"
+        android:textColor="#ffffffff"
+        android:fontFamily="@font/nats_regular"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parentLayout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/diet_btn_daily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/diet_butn_daily"
+        android:textAllCaps="false"
+        android:text="Daily"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:textColor="@color/white"
+        android:drawablePadding="20dp"
+        android:drawableEnd="@drawable/drop_down_arrow_heart"
+        android:fontFamily="@font/nats_regular"
+        android:minWidth="0dp"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/meal_nutritions"
+        app:layout_constraintTop_toBottomOf="@+id/parentLayout" />
+
+
+    <!--    <com.marcinmoskala.arcseekbar.ArcSeekBar-->
+<!--        android:id="@+id/seekArc"-->
+<!--        android:layout_width="166dp"-->
+<!--        android:layout_height="155dp"-->
+<!--        android:layout_marginStart="4dp"-->
+<!--        android:layout_marginTop="68dp"-->
+<!--        android:rotation="-34"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView17"-->
+<!--        app:progress="85"-->
+<!--        app:progressBackgroundColor="#99FFFFFF"-->
+<!--        app:progressBackgroundWidth="20dp"-->
+<!--        app:progressColor="#DBFF00"-->
+<!--        app:progressWidth="20dp"-->
+<!--        app:roundEdges="true"-->
+<!--        app:thumb="@color/white"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nunito"
+        android:shadowColor="@color/white"
+        android:text="Target Progress"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/textView18"
+        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintStart_toStartOf="@+id/meal_nutritions"
+        app:layout_constraintTop_toBottomOf="@+id/meal_nutritions"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nunito"
+        android:text="Nutrition Target"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/meal_nutritions"
+        app:layout_constraintTop_toBottomOf="@+id/diet_btn_daily" />
+
+    <com.tenclouds.gaugeseekbar.GaugeSeekBar
+        android:id="@+id/progressBar"
+        android:layout_width="176dp"
+        android:layout_height="165dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:rotation="-15"
+        android:visibility="visible"
+        app:interactive="false"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:progress="0.34"
+        app:progressGradient="@array/myGradientColors"
+        app:progressWidth="10dp"
+        app:showThumb="false"
+        app:startAngleDegrees="65"
+        app:trackGradient="@array/track"
+        app:trackWidth="8dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/fire_diet_chart"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_bias="0.24" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nats_regular"
+        android:text="Calorie"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+
+        android:layout_marginStart="-10dp"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1050"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-10dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kcal"
+        android:layout_marginTop="-5dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:drawableStart="@drawable/fire_diet_chart"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:fontFamily="@font/nats_regular"
+        android:background="@drawable/btn_bg_calorie"
+        android:textAlignment="textStart"
+        android:text="Calorie"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500   kcal"
+        android:fontFamily="@font/nats_regular"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.586" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button3"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/protien_bg"
+        android:drawableStart="@drawable/fish"
+        android:fontFamily="@font/nats_regular"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="Protien"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500  g"
+        android:fontFamily="@font/nats_regular"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.586" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button4"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/protien_bg"
+        android:drawableStart="@drawable/carbs_diet_chart"
+        android:fontFamily="@font/nats_regular"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="Calorie"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="800  g"
+        android:fontFamily="@font/nats_regular"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintTop_toTopOf="@+id/button4"
+        app:layout_constraintVertical_bias="0.586" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button5"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/protien_bg"
+        android:drawableStart="@drawable/fats"
+        android:fontFamily="@font/nats_regular"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="Fats"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="300  g"
+        android:fontFamily="@font/nats_regular"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button5"
+        app:layout_constraintEnd_toEndOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="@+id/button5"
+        app:layout_constraintTop_toTopOf="@+id/button5"
+        app:layout_constraintVertical_bias="0.586" />
+
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:background="@drawable/diet_chart_bg_png"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/button5">-->
+
+<!--       <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/view2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="58dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="Daily Meal Shedule"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:fontFamily="@font/nats_regular"-->
+<!--            android:textSize="22sp"-->
+<!--            android:paddingRight="18dp"-->
+<!--            android:paddingLeft="18dp"-->
+<!--            android:background="@drawable/check_bg"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.492"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/button6"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="34dp"-->
+<!--            android:fontFamily="@font/nats_regular"-->
+<!--            android:text="Check"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:background="@drawable/check_rect"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/view2"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/view2"-->
+<!--            app:layout_constraintHorizontal_bias="0.861"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/view2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/view2" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView8"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="28dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:fontFamily="@font/nats_regular"-->
+<!--            android:text="Today's Meals"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="22sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/view2" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/button8"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/rect_break_fast"-->
+<!--            android:drawableRight="@drawable/drop_down_arrow_heart"-->
+<!--            android:paddingLeft="8dp"-->
+<!--            android:paddingRight="18dp"-->
+<!--            android:text="Breakfast"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.755"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/textView8"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/button6" />-->
+
+
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardView4"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:elevation="25dp"-->
+<!--            app:cardCornerRadius="10dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView8"-->
+<!--            tools:layout_editor_absoluteX="10dp">-->
+
+<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:id="@+id/imgbreak"-->
+<!--                    android:layout_width="68dp"-->
+<!--                    android:layout_height="61dp"-->
+<!--                    android:layout_gravity="center|end"-->
+<!--                    android:src="@drawable/cake" />-->
+
+
+<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/time"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="5dp"-->
+<!--                        android:fontFamily="@font/baloo2"-->
+<!--                        android:text="Blueberry Pancake"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold" />-->
+
+
+<!--                    <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/amount"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:fontFamily="@font/baloo2"-->
+<!--                            android:text="Thursday |"-->
+<!--                            android:textColor="#969696"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/totalAmount"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:fontFamily="@font/baloo2"-->
+<!--                            android:text="9:00 am"-->
+<!--                            android:textColor="#969696"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:id="@+id/image"-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="41dp"-->
+<!--                    android:layout_gravity="center|end"-->
+<!--                    android:layout_marginStart="30dp"-->
+<!--                    android:src="@drawable/alarm_png" />-->
+
+<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:elevation="25dp"-->
+<!--            app:cardCornerRadius="10dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cardView4">-->
+
+<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:id="@+id/alooP"-->
+<!--                    android:layout_width="68dp"-->
+<!--                    android:layout_height="61dp"-->
+<!--                    android:layout_gravity="center|end"-->
+<!--                    android:src="@drawable/aloo_parathaa" />-->
+
+
+
+<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tim"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="5dp"-->
+<!--                        android:fontFamily="@font/baloo2"-->
+<!--                        android:text="Aloo Paratha"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold" />-->
+
+
+<!--                    <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/amoun"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:fontFamily="@font/baloo2"-->
+<!--                            android:text="Thursday |"-->
+<!--                            android:textColor="#969696"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/totalAmoun"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:fontFamily="@font/baloo2"-->
+<!--                            android:text="9:00 am"-->
+<!--                            android:textColor="#545454"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </androidx.appcompat.widget.LinearLayoutCompat>-->
+<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:id="@+id/bell"-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="41dp"-->
+<!--                    android:layout_gravity="center|end"-->
+<!--                    android:layout_marginStart="50dp"-->
+<!--                    android:src="@drawable/alarm_png" />-->
+<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="450dp"
+        android:layout_marginBottom="-10dp"
+        android:background="@drawable/white_bg_3rd_scn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:layout_marginTop="16dp"
+                android:text="Daily Meal Shedule"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="22sp"
+                android:paddingRight="18dp"
+                android:paddingLeft="18dp"
+                android:background="@drawable/check_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.492"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button6"
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:fontFamily="@font/nats_regular"
+                android:text="Check"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:background="@drawable/check_rect"
+                app:layout_constraintBottom_toBottomOf="@+id/view2"
+                app:layout_constraintEnd_toEndOf="@+id/view2"
+                app:layout_constraintHorizontal_bias="0.861"
+                app:layout_constraintStart_toStartOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nats_regular"
+                android:text="Today's Meals"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button8"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rect_break_fast"
+                android:drawableEnd="@drawable/drop_down_arrow_heart"
+                android:paddingStart="8dp"
+                android:paddingEnd="18dp"
+                android:text="Breakfast"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.755"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:backgroundTint="@color/white"
+                android:elevation="25dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:layout_editor_absoluteX="10dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgbreak"
+                        android:layout_width="68dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center|end"
+                        android:src="@drawable/cake" />
+
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/baloo2"
+                            android:text="Blueberry Pancake"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/baloo2"
+                                android:text="Thursday |"
+                                android:textColor="#969696"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/totalAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/baloo2"
+                                android:text="9:00 am"
+                                android:textColor="#969696"
+                                android:textSize="14sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/image"
+                        android:layout_width="48dp"
+                        android:layout_height="41dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginStart="30dp"
+                        android:src="@drawable/alarm_png" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:elevation="25dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/alooP"
+                        android:layout_width="68dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center|end"
+                        android:src="@drawable/aloo_parathaa" />
+
+
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/baloo2"
+                            android:text="Aloo Paratha"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/amoun"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/baloo2"
+                                android:text="Thursday |"
+                                android:textColor="#969696"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/totalAmoun"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/baloo2"
+                                android:text="9:00 am"
+                                android:textColor="#545454"
+                                android:textSize="14sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/bell"
+                        android:layout_width="48dp"
+                        android:layout_height="41dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginStart="60dp"
+                        android:src="@drawable/alarm_png" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@drawable/diet_chart_img"-->
+<!--    tools:context=".fragment_diet_chart">-->
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="15dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:src="@drawable/arrowleft"-->
+<!--        tools:layout_editor_absoluteX="33dp"-->
+<!--        tools:layout_editor_absoluteY="31dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Diet Chart"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="22sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.501"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView"-->
+<!--        tools:layout_editor_absoluteY="26dp" />-->
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".fragment_diet_chart">-->
+
+<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/hello_blank_fragment" />-->
+
+<!--</FrameLayout>-->

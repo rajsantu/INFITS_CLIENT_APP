@@ -274,6 +274,7 @@ public class WaterReminderFragment extends Fragment {
         NumberPicker timesPicker = dialog.findViewById(R.id.times);
         Button ok = dialog.findViewById(R.id.ok);
 
+
         timesPicker.setMinValue(0);
         timesPicker.setMaxValue(times.length - 1);
         timesPicker.setDisplayedValues(times);

@@ -89,9 +89,9 @@
                     android:background="@drawable/btn_background"
                     android:layout_height="match_parent"/>
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/year_btn_calorie"
+                    android:id="@+id/month_btn_calorie"
                     android:layout_width="0dp"
-                    android:text="Year"
+                    android:text="Month"
                     android:layout_weight="1"
                     android:outlineProvider="none"
                     android:textAllCaps="false"
@@ -149,16 +149,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nats_regular"
-                            android:text="825"
+                            android:text="----"
 
                             android:textFontWeight="400"
                             android:textColor="@color/black"
-                            android:textSize="45sp"
+                            android:textSize="40sp"
                             android:gravity="bottom|center"
                             android:textAlignment="gravity"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:fontFamily="@font/nats_regular"
                             android:text="kcal"
                             android:layout_marginBottom="20dp"

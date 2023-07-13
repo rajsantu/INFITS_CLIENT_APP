@@ -24,6 +24,9 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="snacks">S</string>
     <string name="go_pro">Go Pro!</string>
     <string name="workout_tracker">Workout Tracker</string>
+    <string name="consultation">Dietitian &#38; Plan</string>
+    <string name="meals_tracker">Share with dietitian</string>
+    <string name="diet_chart">All Meal Courses</string>
     <string name="goal">Goal</string>
     <string name="limit">Limit</string>
     <string name="No_data">No data available</string>

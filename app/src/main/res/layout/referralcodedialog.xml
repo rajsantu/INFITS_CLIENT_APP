@@ -13,7 +13,7 @@
         android:id="@+id/textView66"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter the Referral Code"
+        android:text="Enter the Dietitian Code"
         android:textColor="@color/black"
         android:fontFamily="@font/nats_regular"
         android:textSize="26sp"

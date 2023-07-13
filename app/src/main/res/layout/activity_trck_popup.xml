@@ -10,23 +10,23 @@
         android:id="@+id/imageView87"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.905"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textView83"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/x_img" />
 
     <TextView
         android:id="@+id/textView83"
-        android:layout_width="164dp"
-        android:layout_height="33dp"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/nats_regular"
         android:gravity="center"
         android:text="Set Running Goal"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/imageView87"
         app:layout_constraintHorizontal_bias="0.428"
@@ -35,8 +35,9 @@
 
     <ImageView
         android:id="@+id/imageView88"
-        android:layout_width="98dp"
-        android:layout_height="30dp"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,31 +54,33 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/imageView88"
         app:layout_constraintEnd_toEndOf="@+id/imageView88"
-        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="@+id/imageView88"
-        app:layout_constraintTop_toBottomOf="@+id/textView83" />
+        app:layout_constraintTop_toTopOf="@+id/imageView88"
+        app:layout_constraintVertical_bias="0.38" />
 
     <TextView
         android:id="@+id/textView89"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/nats_regular"
         android:text=" KM"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/imageView88"
         app:layout_constraintEnd_toEndOf="@+id/imageView88"
-        app:layout_constraintHorizontal_bias="0.679"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="@+id/imageView88"
-        app:layout_constraintTop_toBottomOf="@+id/textView83"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/imageView88"
+        app:layout_constraintVertical_bias="0.377" />
 
     <ImageView
         android:id="@+id/imageView89"
-        android:layout_width="112dp"
-        android:layout_height="24dp"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView88"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="@+id/imageView88"
         app:layout_constraintTop_toBottomOf="@+id/imageView88"
-        android:layout_marginBottom="8dp"
         app:srcCompat="@drawable/set_goal_act" />
 </androidx.constraintlayout.widget.ConstraintLayout>

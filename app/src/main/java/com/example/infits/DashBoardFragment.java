@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -42,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,14 +54,23 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 public class DashBoardFragment extends Fragment {
 
-    String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    //String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    String urlRefer = "https://infits.in/androidApi/verify.php";
+
+
+    String Entered;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
+
+    SimpleDateFormat caloriedateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
 
 
     String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
+    //String url = "https://infits.in/androidApi/dashboard.php";
+
 
     // String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
     String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
+    //String url1 = "https://infits.in/androidApi/getDietitianDetail.php";
 
     //No such file!
     // String url1 = String.format("%sprofilePicture.php", DataFromDatabase.ipConfig);
@@ -79,7 +92,7 @@ public class DashBoardFragment extends Fragment {
     static TextView stepsProgressPercent;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietCard,goProCard,mealTrackerCard,dietCardPro,workout_card;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,workout_card;
     Button btnsub, btnsub1;
     TextView name,date, workout_date, consul_date;
     ImageView profile;
@@ -94,6 +107,8 @@ public class DashBoardFragment extends Fragment {
     ImageView menuBtn, notificationBell, notificationBellUpdate;
     int waterGoal = 0, waterConsumed = 0;
 
+    String dietitianID,dietitianuserID,dietitianName;
+
     public interface OnMenuClicked {
         void menuClicked();
     }
@@ -103,7 +118,8 @@ public class DashBoardFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private final String urlDt = String.format("%sgetDietitianDetail.php",DataFromDatabase.ipConfig);
+    //private final String urlDt = String.format("%sgetDietitianDetail.php",DataFromDatabase.ipConfig);
+    private final String urlDt = "https://infits.in/androidApi/getDietitianDetail.php";
 
     public DashBoardFragment() {
 
@@ -112,7 +128,7 @@ public class DashBoardFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-          onMenuClicked = (OnMenuClicked) context;
+        onMenuClicked = (OnMenuClicked) context;
     }
 
     public static DashBoardFragment newInstance(String param1, String param2) {
@@ -200,7 +216,7 @@ public class DashBoardFragment extends Fragment {
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
 
-        name.setText(DataFromDatabase.name);
+        name.setText("Hi " + DataFromDatabase.name);
         date.setText(sf.format(dateToday));
 
         meal_date.setText(sf.format(dateToday));
@@ -278,30 +294,22 @@ public class DashBoardFragment extends Fragment {
         getLatestWaterData();
 
         weightcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_weightTrackerFragment));
+        getLatestWeightData();
 
         SharedPreferences weightPrefs = requireContext().getSharedPreferences("weightPrefs", Context.MODE_PRIVATE);
-        int weightGoalVal = weightPrefs.getInt("goal", 70);
-        int weightVal = weightPrefs.getInt("weight", 0);
-        String weightGoalText = weightGoalVal == 0 ? "----------" : weightGoalVal + " KG";
-        String weightText = weightVal == 0 ? "----------" : weightVal + " KiloGrams";
-
-        weightGoaltv.setText(weightGoalText);
-        weighttv.setText(weightText);
 
         caloriecard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_calorieTrackerFragment));
-
-
         getLatestCalorieData();
 
         workout_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_activityTracker2);
-                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
             }
         });
 
         mealTrackerCard.setOnClickListener(v->{
+            updateVerification();
             if (DataFromDatabase.proUser){
             //Intent intent = new Intent(getActivity(),Meal_main.class);
             //requireActivity().finish();
@@ -315,36 +323,39 @@ public class DashBoardFragment extends Fragment {
 
         goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
-                //Intent intent = new Intent(getActivity(),Consultation.class);
-                //requireActivity().finish();
-                //startActivity(intent);
-                Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
+                updateVerification();
+                Intent intent = new Intent(getActivity(),Consultation.class);
+                requireActivity().finish();
+                startActivity(intent);
+                //Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
             }
             else {
                 showDialog();
             }
         });
 
-//        workout_card.setOnClickListener(v->{
-//                Toast.makeText(getContext(),"Workout card clicked",Toast.LENGTH_SHORT).show();
-//        });
-
         heartcard.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate));
 
-//        dietCard.setOnClickListener(v->{
-//            if (DataFromDatabase.proUser) {
-//                Intent intent = new Intent(getActivity(), Diet_plan_main_screen.class);
-//                requireActivity().finish();
-//                startActivity(intent);
-//            }
-//            else {
-//                showDialog();
-//            }
-//        });
+        //Include this!!
+        //dietcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_fragment_diet_chart));
+
+        dietcard.setOnClickListener(v->{
+            if (DataFromDatabase.proUser){
+                updateVerification();
+                //Intent intent = new Intent(getActivity(),Meal_main.class);
+                //requireActivity().finish();
+                //startActivity(intent);
+                Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_fragment_diet_chart);
+            }
+            else {
+                showDialog();
+            }
+        });
 
         if (DataFromDatabase.proUser){
             StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
                 System.out.println(response);
+                Log.d("dietitiandetails",response);
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONObject array = object.getJSONObject("dietitiandetails");
@@ -520,8 +531,12 @@ public class DashBoardFragment extends Fragment {
         profile.setImageDrawable(drawable);
     }
 
+
     private void getLatestCalorieData() {
-        String calorieUrl = String.format("%sgetLatestCalorieData.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%sgetLatestCalorieData.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/getLatestCalorieData.php";
+        calorietv.setText("------");
+        calorieGoaltv.setText("2000 Kcal");
 
         StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
                 response -> {
@@ -531,14 +546,11 @@ public class DashBoardFragment extends Fragment {
                         JSONObject object = new JSONObject(response);
                         JSONObject array = object.getJSONObject("food");
 
-                        if(array.length() == 0) {
-                            calorietv.setText("----------");
-                            calorieGoaltv.setText("----------");
+                        if (array.isNull("Calories")) {
+                            calorietv.setText("0 kcal");
                         } else {
+                            String calorieValueText = array.getString("Calories") + " kcal";
                             String calorieGoalText = array.getString("goal") + " kcal";
-                            String calorieValueText = array.getString("calorie") + " kcal";
-
-
 
                             calorietv.setText(calorieValueText);
                             calorieGoaltv.setText(calorieGoalText);
@@ -554,6 +566,56 @@ public class DashBoardFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
                 Date date = new Date();
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("dateandtime",caloriedateFormat.format(date));
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(calorieRequest);
+        calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    private void getLatestWeightData(){
+        //String Url = String.format("%sgetLatestWeightData.php", DataFromDatabase.ipConfig);
+        String Url = "https://infits.in/androidApi/getLatestWeightData.php";
+        weighttv.setText("------");
+        weightGoaltv.setText("70 Kg");
+
+        StringRequest calorieRequest = new StringRequest( Request.Method.POST, Url,
+                response -> {
+                    Log.d("DashBoardFragment Weight", response);
+
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONObject array = object.getJSONObject("weight");
+
+                        if(array.length() == 0) {
+                            weighttv.setText("----------");
+                            weightGoaltv.setText("----------");
+                        }else{
+                            String weight = array.getString("weight");
+                            String Goal = array.getString("goal");
+                            String bmi = array.getString("bmi");
+
+                            weighttv.setText((weight) + " Kg");
+                            weightGoaltv.setText((Goal) + " Kg");
+                            DataFromDatabase.weightStr = weight;
+                            DataFromDatabase.weightGoal = Goal;
+                            DataFromDatabase.bmi = bmi;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("DashBoardFragment", error.toString())
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
                 data.put("clientID", DataFromDatabase.clientuserID);
 
                 return data;
@@ -623,12 +685,11 @@ public class DashBoardFragment extends Fragment {
         sleepcard = view.findViewById(R.id.sleepcard);
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
-       //dietcard = view.findViewById(R.id.dietcard);
+        dietcard = view.findViewById(R.id.dietcardPro);
 
 
         goProCard = view.findViewById(R.id.proCrad);
         mealTrackerCard = view.findViewById(R.id.meal_tracker);
-        dietCardPro = view.findViewById(R.id.dietcardPro);
         diet_date = view.findViewById(R.id.date_diet);
         workout_card = view.findViewById(R.id.workout_card);
         stepsProgressPercent = view.findViewById(R.id.steps_progress_percent);
@@ -643,7 +704,18 @@ public class DashBoardFragment extends Fragment {
         ImageView checkReferral = dialog.findViewById(R.id.checkReferral);
         checkReferral.setOnClickListener(vi->{
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,urlRefer,response->{
+            //String referralUrl = String.format("%sverify.php",DataFromDatabase.ipConfig);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,urlRefer,
+            response->{
+                Log.d("DietitianVerification", response);
+
+                if(response.equals("found")) {
+                    showSuccessDialog();
+                    System.out.println("Verified");
+                }else {
+                    System.out.println("Not verified");
+                    showFailureDialog();
+                }
 
             },error->{
 
@@ -654,20 +726,143 @@ public class DashBoardFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("clientID",DataFromDatabase.clientuserID);
-                    data.put("referal_code",referralCode.getText().toString());
+                    //data.put("clientID",DataFromDatabase.clientuserID);
+                    Entered = referralCode.getText().toString();
+                    data.put("dietitian_verify_code",Entered);
 
 
                     return data;
                 }
             };
-             Volley.newRequestQueue(getContext()).add(stringRequest);
+            Volley.newRequestQueue(getContext()).add(stringRequest);
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             dialog.dismiss();
         });
         dialog.show();
+    }
+
+    private void showFailureDialog() {
+        Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.wrong_referral_dialog);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        Button btn = dialog.findViewById(R.id.try_again);
+
+        btn.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void showSuccessDialog() {
+        getUpdatedDietitianData();
+        Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.referral_congratulation);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        ImageView btn = dialog.findViewById(R.id.btn);
+        consultation_gopro_btn.setVisibility(View.GONE);
+        meal_tracker_gopro_btn.setVisibility(View.GONE);
+        diet_chart_gopro_btn.setVisibility(View.GONE);
+
+        consul_date.setVisibility(View.VISIBLE);
+        meal_date.setVisibility(View.VISIBLE);
+        diet_date.setVisibility(View.VISIBLE);
+        consultation_text.setVisibility(View.VISIBLE);
+        meal_tracker_text.setVisibility(View.VISIBLE);
+        diet_chart_text.setVisibility(View.VISIBLE);
+
+        pro_identifier.setVisibility(View.VISIBLE);
+
+
+        btn.setOnClickListener(v -> {
+            dialog.dismiss();
+            updateVerification();
+
+        });
+
+        dialog.show();
+    }
+    private void getUpdatedDietitianData(){
+        final Dialog dialog = new Dialog(getActivity());
+        final EditText referralCode = dialog.findViewById(R.id.referralcode);
+        String Url = String.format("%sgetUpdatedDietitianData.php", DataFromDatabase.ipConfig);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,Url, response -> {
+            Log.d("updatedDietitianData", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.has("DietitianData")) {
+                    JSONObject dietitianData = jsonObject.getJSONObject("DietitianData");
+                    DataFromDatabase.dietitian_id = dietitianData.getString("dietitianID");
+                    DataFromDatabase.dietitianuserID = dietitianData.getString("dietitianuserID");
+                    System.out.println(DataFromDatabase.dietitian_id);
+                    System.out.println(DataFromDatabase.dietitianuserID);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },error -> {
+
+            Log.d("updatedDietitianData Err",error.toString());
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("verify_code",Entered);
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(7000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    private void updateVerification(){
+        final Dialog dialog = new Dialog(getActivity());
+        final EditText referralCode = dialog.findViewById(R.id.referralcode);
+
+        //String url = String.format("%sdietitianUpdated.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/dietitianUpdated.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
+                response->{
+                    Log.d("DietitianUpdated", response);
+
+                    if(response.equals("Updated")) {
+                        System.out.println("Updated");
+                        DataFromDatabase.proUser = true;
+
+                    }else {
+                        System.out.println("Not verified");
+                    }
+
+                },error->{
+
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> data = new HashMap<>();
+
+                data.put("clientuserID",DataFromDatabase.clientuserID);
+                data.put("referralCode",Entered);
+                data.put("dietitianID",DataFromDatabase.dietitian_id);
+                data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(7000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
     }
 
     public static void updateStepCard(Intent intent) {
@@ -691,7 +886,10 @@ public class DashBoardFragment extends Fragment {
     }
 
     public void getLatestWaterData() {
-        String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        //String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/getLatestWaterdt.php";
+        glassestv.setText("----------");
+        glassesGoaltv.setText("8 Glasses");
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("dashboardFrag", response);

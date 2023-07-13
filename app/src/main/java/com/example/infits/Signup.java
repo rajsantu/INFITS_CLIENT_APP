@@ -34,6 +34,7 @@ public class Signup extends AppCompatActivity {
     RadioButton agreeToCondition, maleRB, femaleRB;
 
     String url = String.format("%sregister_client.php",DataFromDatabase.ipConfig);
+    //String url = String.format("https://infits.in/androidApi/register_client.php");
     char gender = 'M';
 
     EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
@@ -124,7 +125,9 @@ public class Signup extends AppCompatActivity {
                         data.put("age",ageStr);
                         data.put("weight",heightStr);
                         data.put("height",weightStr);
-                        data.put("verification","0");
+                        data.put("verification","c5BH9DYATy");
+                        data.put("dietitian_id","-1");
+                        data.put("dietitianuserID","-1");
                         return data;
                     }
                 };

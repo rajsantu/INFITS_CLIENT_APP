@@ -132,7 +132,8 @@ public class SleepTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/pastActivitySleep.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
@@ -330,7 +331,8 @@ public class SleepTrackerFragment extends Fragment {
                     }
                 }
 
-                String url=String.format("%ssleepTracker.php",DataFromDatabase.ipConfig);
+                //String url=String.format("%ssleepTracker.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/sleepTracker.php";
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                     if (response.equals("updated")){
                         Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();
@@ -397,7 +399,8 @@ public class SleepTrackerFragment extends Fragment {
         inAppEditor.putBoolean("newNotification", true);
         inAppEditor.apply();
 
-        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        //String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        String inAppUrl = "https://infits.in/androidApi/inAppNotifications.php";
 
         String type = "sleep";
         String text = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
