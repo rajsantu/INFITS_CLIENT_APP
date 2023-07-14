@@ -59,7 +59,8 @@ import java.util.Map;
 public class SleepFragment extends Fragment {
 
     RequestQueue queue;
-    String url = "http://"+DataFromDatabase.ipConfig+"sleepFragment.php";
+    //String url = "http://"+DataFromDatabase.ipConfig+"sleepFragment.php";
+    String url = "https://infits.in/androidApi/sleepFragment.php";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -166,7 +167,8 @@ public class SleepFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%ssleepGraph.php",DataFromDatabase.ipConfig);
+                //String url = String.format("%ssleepGraph.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/sleepGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -205,7 +207,7 @@ public class SleepFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String,String> dataVol  = new HashMap<>();
-                        dataVol.put("clientID" , DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID" , DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -216,7 +218,8 @@ public class SleepFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%ssleepMonthGraph.php",DataFromDatabase.ipConfig);
+            //String url = String.format("%ssleepMonthGraph.php",DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/sleepMonthGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 System.out.println(DataFromDatabase.clientuserID);
                 System.out.println(response);
@@ -259,7 +262,7 @@ public class SleepFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("clientuserID",DataFromDatabase.clientuserID);
 
                     return data;
                 }

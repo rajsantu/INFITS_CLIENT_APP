@@ -184,19 +184,24 @@ public class StepsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sstepsGraph.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%sstepsGraph.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/stepsGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
                     ArrayList<String> mons = new ArrayList<>();
+                    Log.d("stepsGraph", response);
                     try {
                         jsonResponse = new JSONObject(response);
                         JSONArray cast = jsonResponse.getJSONArray("steps");
                         for (int i = 0; i < cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
                             String name = actor.getString("steps");
+                            if(name==null){
+                                name="0";
+                            }
                             String date = actor.getString("date");
                             System.out.println(name + "   " + date);
                             allNames.add(name);
@@ -227,7 +232,7 @@ public class StepsFragment extends Fragment {
 
                         Map<String, String> dataVol = new HashMap<>();
 
-                        dataVol.put("clientID", getClientId());
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -243,13 +248,15 @@ public class StepsFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sstepsMonthGraph.php", DataFromDatabase.ipConfig);
+            //String url = String.format("%sstepsMonthGraph.php", DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/stepsMonthGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 System.out.println(DataFromDatabase.clientuserID);
                 System.out.println(response);
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 ArrayList<String> mons = new ArrayList<>();
+                Log.d("stepsMonthGraph", response);
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
@@ -287,7 +294,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("clientID", getClientId());
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
 
                     return data;
                 }

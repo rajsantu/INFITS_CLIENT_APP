@@ -133,6 +133,13 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
 
+                //case R.id.recipes:
+                    //Intent h = new Intent(DashBoardMain.this, recipies.class);
+                    //startActivity(h);
+                    //drawerLayout.closeDrawer(GravityCompat.START);
+
+                    //break;
+
                     /*
                     case R.id.message:
                         Intent imt = new Intent(DashBoardMain.this, ChatArea.class);

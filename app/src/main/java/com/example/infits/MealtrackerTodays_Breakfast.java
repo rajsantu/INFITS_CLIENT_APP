@@ -30,11 +30,15 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class MealtrackerTodays_Breakfast extends Fragment {
@@ -56,9 +60,13 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
     SharedPreferences sharedPreferences;
     RecyclerView recyclerView_Todays_breakfast;
+
+    SimpleDateFormat sdf;
     SimpleDateFormat todayDate;
     SimpleDateFormat todayTime;
+    //String currentDay;
     Date date;
+   // DayOfWeek currentDay;
 
     public void FragmentTodays_BreakFast() {
         // Required empty public constructor
@@ -88,6 +96,20 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_mealtracker_todays__breakfast, container, false);
         //must keep this format overwrite older!!
+        sdf = new SimpleDateFormat("yyyy-MM-dd H:m:S", Locale.getDefault());
+
+        // Get the current date
+        //LocalDate currentDate = LocalDate.now();
+
+        // Get the day of the week
+        //DayOfWeek dayOfWeek= currentDate.getDayOfWeek();
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE");
+
+        // Convert the day to lowercase and capitalize the first letter
+        //String lowercaseDay = dayOfWeek.name().toLowerCase();
+
+        //currentDay = lowercaseDay.substring(0, 1).toUpperCase() + lowercaseDay.substring(1);
+
         todayDate = new SimpleDateFormat("dd MMM yyyy");
 
         todayTime = new SimpleDateFormat("h.m.s a");
@@ -190,7 +212,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     MealTrackerFragment mealTrackerFragment = new MealTrackerFragment();
                     fragmentTransaction.add(R.id.frameLayout, mealTrackerFragment).commit();
-                }, 2000);
+                }, 20000);
             },
 
                     error -> {
@@ -203,13 +225,30 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     Map<String, String> data = new HashMap<>();
                     String timeString = todayTime.format(date);
                     String dateString = todayDate.format(date);
+                    LocalDate currentDate = LocalDate.now();
+
+                    // Define the desired format
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE");
+
+                    // Format the current day as a string
+                    String formattedDay = currentDate.format(formatter);
+
                     data.put("name", mealName);
-//                    data.put("image", base64String);
+                    //data.put("image", base64String);
+                    data.put("currentDay",formattedDay);
+                    data.put("clientID", DataFromDatabase.clientuserID);
+                    Date date = new Date();
+                    LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm:ss");
+                    data.put("dateandtime",dtf.format(now));
                     data.put("date", dateString);
                     data.put("time", timeString);
                     //timeMeal is a Meal_Type
                     data.put("timeMeal", Meal_Type);
-                    data.put("description","");
+                    data.put("client_id",DataFromDatabase.client_id);
+                    data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                    data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+                    data.put("description","Nothing");
 //                    data.put("clientID", DataFromDatabase.clientuserID.toString());
                     data.put("clientID", DataFromDatabase.clientuserID);
                     data.put("position",String.valueOf(jsonArray.length()-1));

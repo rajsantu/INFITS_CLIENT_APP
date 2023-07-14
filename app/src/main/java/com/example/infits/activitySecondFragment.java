@@ -88,14 +88,17 @@ public class activitySecondFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String,String> data = new HashMap<>();
+                        LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
                         data.put("client_id",DataFromDatabase.client_id);
                         data.put("clientuserID",DataFromDatabase.clientuserID);
                         data.put("distance","0");
                         data.put("calories", "0");
                         data.put("runtime", "0");
+                        data.put("duration","0");
+                        data.put("dateandtime",DTF.format(now));
                         data.put("goal", goal);
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        LocalDateTime now = LocalDateTime.now();
                         data.put("date",dtf.format(now));
                         return data;
                     }

@@ -1,10 +1,12 @@
 package com.example.infits;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -24,7 +26,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +49,7 @@ public class MealTrackerFragment extends Fragment {
     View bottomSheetN;
     RequestQueue queue;
     String url=  String.format("%smealTrackerRecentShared.php",DataFromDatabase.ipConfig);
+    ImageView imageback;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,6 +104,16 @@ public class MealTrackerFragment extends Fragment {
 
         Bundle bundle=new Bundle();
 
+
+        imageback.setOnClickListener(v -> {
+            if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+                requireActivity().finish();
+            } else {
+                Navigation.findNavController(v).navigate(R.id.action_mealTracker_to_dashBoardFragment);
+            }
+        });
+
         breakfast.setOnClickListener(view1 -> {
             String message = "Breakfast";
             bundle.putString("fragment",message);
@@ -132,6 +148,7 @@ public class MealTrackerFragment extends Fragment {
         snack = v.findViewById(R.id.meal_op3);
         dinner = v.findViewById(R.id.meal_op4);
         rv = v.findViewById(R.id.recyclerview);
+        imageback = v.findViewById(R.id.imgback);
 
         bottomSheetN = v.findViewById(R.id.bottomSheetN);
 
@@ -149,6 +166,7 @@ public class MealTrackerFragment extends Fragment {
         String formattedDate = formatter.format(today);
 //        System.out.println("Today's date is: " + formattedDate);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,url, response -> {
+            Log.d("Recent meal Data Bro", response);
             //if(!response.equals("0 results"))
                 try {
 
@@ -165,14 +183,26 @@ public class MealTrackerFragment extends Fragment {
                         String fat=String.valueOf(jsonObject1.getInt("fat"));
                         addmealInfo mealarr = new addmealInfo(R.drawable.donutimg_full,meal,name,calorie,carb,protein,fat);
 
-                        String timeString = jsonObject1.getString("time");
-                        String[] parts = timeString.split("\\s+"); // split time and AM/PM
-                        String[] timeParts = parts[0].split("\\."); // split time into hours, minutes, and seconds
-                        String timeWithoutSeconds = timeParts[0] + "." + timeParts[1] + " " + parts[1]; // concatenate hours, minutes, and AM/PM
 
-                        System.out.println(timeWithoutSeconds); // output: 9.20 AM
+                        String dateandtimeString = jsonObject1.getString("dateandtime");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date dateTime = dateFormat.parse(dateandtimeString);
+                        // Format the time portion
+                        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                        String formattedTime = timeFormat.format(dateTime);
 
-                        mealarr.setTime(timeWithoutSeconds);
+                        //String timeString = jsonObject1.getString("time");
+                        //String[] parts = timeString.split("\\s+"); // split time and AM/PM
+                        //String[] parts = timeString.split("\\s+"); // split time and AM/PM
+                        //String[] timeParts = parts[0].split("\\."); // split time into hours, minutes, and seconds
+                        //String[] timeParts = parts[0].split("\\."); // split time into hours, minutes, and seconds
+                        //String timeWithoutSeconds = timeParts[0] + "." + timeParts[1] + " " + parts[1]; // concatenate hours, minutes, and AM/PM
+                        //String timeWithoutSeconds = timeParts[0] + "." + timeParts[1] + " " + parts[1]; // concatenate hours, minutes, and AM/PM
+
+                        //System.out.println(timeWithoutSeconds); // output: 9.20 AM
+
+                        //mealarr.setTime(timeWithoutSeconds);
+                        mealarr.setTime(formattedTime);
                         addmealInfos.add(mealarr);
                         //                    Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
                         // etc. - replace these with the column names you want to retrieve
@@ -197,8 +227,11 @@ public class MealTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("clientID", DataFromDatabase.clientuserID);
-                data.put("date",formattedDate);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm:ss");
+                data.put("dateandtime",dtf.format(now));
+                //data.put("date",formattedDate);
 //                data.put("date","25 apr 2023");
                 return data;
             }

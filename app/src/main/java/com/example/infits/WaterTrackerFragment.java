@@ -206,7 +206,8 @@ public class WaterTrackerFragment extends Fragment {
                         waterGoal.setText(goaltxt.getText().toString() + " ml");
                         waterGoalPercent.setText(String.valueOf(calculateGoal()));
                         consumedInDay = 0;
-                        String url = String.format("%supdatewatergoal.php",DataFromDatabase.ipConfig);
+                        //String url = String.format("%supdatewatergoal.php",DataFromDatabase.ipConfig);
+                        String url = "https://infits.in/androidApi/updatewatergoal.php";
                         StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                             Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
                             Log.d("rewsponse;;",response.toString());
@@ -374,7 +375,8 @@ public class WaterTrackerFragment extends Fragment {
 
 //                    updateLastRecord();
 
-                    String url = String.format("%supdatewatertracker.php", DataFromDatabase.ipConfig);
+                    //String url = String.format("%supdatewatertracker.php", DataFromDatabase.ipConfig);
+                    String url = "https://infits.in/androidApi/updateWatertracker.php";
                     StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
                         Log.d("water", "response: " + response);
                         Log.d("water", "consumed: " + consumedInDay);
@@ -528,7 +530,9 @@ public class WaterTrackerFragment extends Fragment {
         ArrayList<String> datas = new ArrayList<>(); // ArrayList for past Activity
         ArrayList<String> fetchedDateswater=new ArrayList<>();
         fetchedDateswater.clear();
-        String url = String.format("%spastActivitywater.php", DataFromDatabase.ipConfig);
+        //String url = String.format("%spastActivitywater.php", DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/pastActivitywater.php";
+
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             try {
@@ -644,7 +648,9 @@ public class WaterTrackerFragment extends Fragment {
     }
 
     private void getLatestWaterData() {
-        String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        //String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/getLatestWaterdt.php";
+
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("dashboardFrag", response);
@@ -700,7 +706,8 @@ public class WaterTrackerFragment extends Fragment {
     }
 
     private void updateLastRecord() {
-        String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        //String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/getLatestWaterdt.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("water", response);
@@ -737,7 +744,8 @@ public class WaterTrackerFragment extends Fragment {
     }
 
     private void createNewEntry() {
-        String url = String.format("%swatertracker.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%swatertracker.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/watertracker.php";
         StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
             consumed.setText(consumedInDay +" ml");
             waterGoalPercent.setText(String.valueOf(calculateGoal()));

@@ -61,6 +61,8 @@ public class Account extends Fragment {
     ImageButton yesLogout, noLogout;
     String client_gender, cleint_name, client_age, client_email,client_phoneno,client_userID;
 
+    String client_weight,client_height,client_about;
+
     private Bitmap bitmap = DataFromDatabase.profile;
     private File destination = null;
     private InputStream inputStreamImg;
@@ -134,6 +136,21 @@ public class Account extends Fragment {
         EditText email=view.findViewById(R.id.email_edt);
         email.setText(DataFromDatabase.email);
         EditText phone=view.findViewById(R.id.phone_edt);
+        EditText weight=view.findViewById(R.id.weight_edt);
+        weight.setText(DataFromDatabase.weight);
+        EditText height=view.findViewById(R.id.height_edt);
+        height.setText(DataFromDatabase.height);
+        EditText plan = view.findViewById(R.id.plan_edt);
+        plan.setText("Basic");
+        EditText gender = view.findViewById(R.id.gender_edt);
+        if (DataFromDatabase.gender==("M")) {
+            gender.setText("Male");
+        } else if (DataFromDatabase.gender==("F")){
+            gender.setText("Female");
+        } else {
+            gender.setText("None");
+        }
+        gender.setText(DataFromDatabase.gender);
         phone.setText(DataFromDatabase.mobile);
         profile_pic=view.findViewById(R.id.dp);
         logout=view.findViewById(R.id.button_logout);

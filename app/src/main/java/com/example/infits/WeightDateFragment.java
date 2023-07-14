@@ -338,7 +338,8 @@ public class WeightDateFragment extends DialogFragment {
     void markRed(){
 
         new Thread(() -> {
-            String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
+            //String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
+            String urlUnMark = "https://infits.in/androidApi/unUpdated.php";
 
             StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
                 try {
@@ -375,7 +376,8 @@ public class WeightDateFragment extends DialogFragment {
     }
 
     void markGreen(){
-        String urlMark = String.format("%sweightDate.php",DataFromDatabase.ipConfig);
+        //String urlMark = String.format("%sweightDate.php",DataFromDatabase.ipConfig);
+        String urlMark = "https://infits.in/androidApi/weightDate.php";
 
         StringRequest stringRequestCal = new StringRequest(Request.Method.POST,urlMark,response -> {
 

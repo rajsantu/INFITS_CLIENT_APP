@@ -235,20 +235,20 @@
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="bottom|center">
                 <ImageView
-                    android:id="@+id/imageView41"
+                    android:id="@+id/statsInstagramBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="30dp"
                     android:src="@drawable/insta"/>
                 <ImageView
-                    android:id="@+id/imageView43"
+                    android:id="@+id/statsFacebookBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="30dp"
                     android:src="@drawable/face"
                     />
                 <ImageView
-                    android:id="@+id/imageView44"
+                    android:id="@+id/statsTwitterBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="30dp"

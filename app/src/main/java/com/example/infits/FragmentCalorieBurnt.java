@@ -3,12 +3,14 @@ package com.example.infits;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,12 +70,14 @@ public class FragmentCalorieBurnt extends Fragment {
 
     String url = String.format("%scalorieBurnt.php", DataFromDatabase.ipConfig);
     PieChart pieChart;
-    ImageView imgBack;
+    ImageView imgBack,calorieImageView;
     ArrayList<calorieInfo> calorieInfos;
     int[] colors={Color.parseColor("#FCFF72"),Color.parseColor("#FF6262"),Color.parseColor("#FFA361")};
     RecyclerView calorieRecycleview;
     Button day_btn_calorie,week_btn_calorie,year_btn_calorie;
     TextView totalCalorieValue,caloriedisplaydate;
+
+    ImageButton calorieButton;
     public FragmentCalorieBurnt() {
         // Required empty public constructor
     }
@@ -111,7 +116,7 @@ public class FragmentCalorieBurnt extends Fragment {
         calorieInfos=new ArrayList<>();
         hooks(view);
         pieChart(30L,40L,40L);
-        String date = getCurrentDate(),calorie="823";
+        String date = getCurrentDate(),calorie="---";
 
         setTodayData("day");
 
@@ -121,8 +126,10 @@ public class FragmentCalorieBurnt extends Fragment {
     }
 
     private void setTodayData(String purpose) {
-        String date = getCurrentDate(),calorie="823";
+        String url = DataFromDatabase.ipConfig + "calorieBurnt.php";
+        String date = getCurrentDate(),calorie="---";
 //        pastAcivity(date,calorie,"45","42","452");
+
 
         String clientID = DataFromDatabase.clientuserID; // as it will be in sharedpref using it temporarily
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -132,6 +139,7 @@ public class FragmentCalorieBurnt extends Fragment {
                     public void onResponse(String response) {
 
                         try {
+
                             JSONObject jsonObject = new JSONObject(response);
                             if(!jsonObject.getBoolean("error")){
                                 String running="0",walking="0",cycling="0",runtime="0",walktime="0",cyclingtime="0",runduration="0",cycleduration="0",walkduration="0";
@@ -141,42 +149,38 @@ public class FragmentCalorieBurnt extends Fragment {
                                 String data = "0";
 
                                 try {
-                                    for(;;) {
+                                    JSONObject dataObject = jsonObject.getJSONObject("data");
 
-
-                                        JSONObject activityObj = jsonObject.getJSONObject(data);
-                                        data = Integer.toString(Integer.parseInt(data) + 1);
-
-                                        String activityName = activityObj.getString("activity_name");
-                                        String caloriesBurnt = activityObj.getString("calorie_burnt");
-                                        switch (activityName) {
-                                            case "running":
-                                                running = caloriesBurnt;
-                                                runcal += Long.parseLong(running);
-                                                runtime = activityObj.getString("time");
-                                                runduration = activityObj.getString("duration");
-                                                rduration += ConvertTimeToInt(runduration);
-                                                break;
-                                            case "walking":
-                                                walking = caloriesBurnt;
-                                                walkcal += Long.parseLong(walking);
-                                                walktime = activityObj.getString("time");
-                                                walkduration = activityObj.getString("duration");
-                                                wduration += ConvertTimeToInt(walkduration);
-                                                break;
-                                            case "cycling":
-                                                cycling = caloriesBurnt;
-                                                cyclingcal += Long.parseLong(cycling);
-                                                cyclingtime = activityObj.getString("time");
-                                                cycleduration = activityObj.getString("duration");
-                                                cduration += ConvertTimeToInt(cycleduration);
-                                                break;
-                                        }
-                                        Total += Integer.parseInt(caloriesBurnt);
-                                        String duration = activityObj.getString("duration");
-                                        String date = activityObj.getString("date");
-
+                                    String activityName = dataObject.getString("activity_name");
+                                    String caloriesBurnt = dataObject.getString("calorie_burnt");
+                                    String duration = dataObject.getString("duration");
+                                    String dateandtime = dataObject.getString("dateandtime");
+                                    switch (activityName) {
+                                        case "running":
+                                            running = caloriesBurnt;
+                                            runcal += Long.parseLong(running);
+                                            runtime = jsonObject.getString("time");
+                                            runduration = jsonObject.getString("duration");
+                                            rduration += ConvertTimeToInt(runduration);
+                                            break;
+                                        case "walking":
+                                            walking = caloriesBurnt;
+                                            walkcal += Long.parseLong(walking);
+                                            walktime = jsonObject.getString("time");
+                                            walkduration = jsonObject.getString("duration");
+                                            wduration += ConvertTimeToInt(walkduration);
+                                            break;
+                                        case "cycling":
+                                            cycling = caloriesBurnt;
+                                            cyclingcal += Long.parseLong(cycling);
+                                            cyclingtime = jsonObject.getString("time");
+                                            cycleduration = jsonObject.getString("duration");
+                                            cduration += ConvertTimeToInt(cycleduration);
+                                            break;
                                     }
+                                    Total += Integer.parseInt(caloriesBurnt);
+
+
                                 }
                                 catch (Exception e){
                                     if(!purpose.equals("day")){
@@ -211,7 +215,7 @@ public class FragmentCalorieBurnt extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("clientID",clientID);
+                params.put("clientID",DataFromDatabase.clientuserID);
                 params.put("date",databaseDate());
                 params.put("for",purpose);
                 return params;
@@ -256,8 +260,27 @@ public class FragmentCalorieBurnt extends Fragment {
         week_btn_calorie=view.findViewById(R.id.week_btn_calorie);
         year_btn_calorie=view.findViewById(R.id.year_btn_calorie);
         caloriedisplaydate=view.findViewById(R.id.caloriedisplaydate);
+        Date dateToday = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+        caloriedisplaydate.setText(sf.format(dateToday));
         totalCalorieValue=view.findViewById(R.id.totalCalorieValue);
         imgBack=view.findViewById(R.id.calorieImgback);
+        calorieButton=view.findViewById(R.id.calorieButton);
+        calorieImageView=view.findViewById(R.id.calorieImageView);
+
+        calorieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_calorieBurntFragment_to_activityTracker2);
+            }
+        });
+
+        calorieImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_calorieBurntFragment_to_activityTracker2);
+            }
+        });
         day_btn_calorie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,7 +331,9 @@ public class FragmentCalorieBurnt extends Fragment {
     private void pastAcivity(String date,String calorie,String runningk,String walkingk,String cyclingk,String runtime,
                              String walktime,String cyclingtime,String runduration,String walkduration,String cycleduration){
         totalCalorieValue.setText(calorie);
-        caloriedisplaydate.setText(date);
+        Date dateToday = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+        caloriedisplaydate.setText(sf.format(dateToday));
         calorieInfos.clear();
         calorieInfos.add(new calorieInfo(R.drawable.baseline_directions_run_24,"Icon","Running",runningk+" kcal",runduration,runtime));
         calorieInfos.add(new calorieInfo(R.drawable.baseline_directions_walk_24,"Icon","Walking",walkingk+" kcal",walkduration,walktime));
@@ -323,6 +348,7 @@ public class FragmentCalorieBurnt extends Fragment {
         String formattedDate = dateFormat.format(currentDate);
         return formattedDate;
     }
+
 
     private void SetButtonBackground(View view){
         switch (view.getId()){
