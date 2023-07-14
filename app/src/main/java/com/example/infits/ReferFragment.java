@@ -49,13 +49,10 @@ public class ReferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_refer, container, false);
-
         hooks(view);
         getReferralCode();
-
         copy.setOnClickListener(v -> {
             String textToCopy = referralCode;
-
             if(!textToCopy.isEmpty()) {
                 ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("label", textToCopy);
