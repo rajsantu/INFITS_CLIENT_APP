@@ -56,34 +56,28 @@
         android:id="@+id/meal_nutritions"
         android:layout_width="173dp"
         android:layout_height="43dp"
-        android:layout_margin="35dp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:fontFamily="@font/nats_regular"
         android:text="Meal Nutritions"
         android:textColor="#ffffffff"
-        android:fontFamily="@font/nats_regular"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/parentLayout" />
 
-    <androidx.appcompat.widget.AppCompatButton
+
+    <Spinner
         android:id="@+id/diet_btn_daily"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/diet_butn_daily"
-        android:textAllCaps="false"
-        android:text="Daily"
-        android:paddingLeft="18dp"
-        android:paddingRight="18dp"
-        android:textColor="@color/white"
-        android:drawablePadding="20dp"
-        android:drawableEnd="@drawable/drop_down_arrow_heart"
-        android:fontFamily="@font/nats_regular"
-        android:minWidth="0dp"
-        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@+id/meal_nutritions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/meal_nutritions"
-        app:layout_constraintTop_toBottomOf="@+id/parentLayout" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/parentLayout"
+        android:popupBackground="@drawable/diet_chart_spinner_bg"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/diet_chart_spinner_bg"
+        android:textAlignment="center" />
     <!--    <com.marcinmoskala.arcseekbar.ArcSeekBar-->
 <!--        android:id="@+id/seekArc"-->
 <!--        android:layout_width="166dp"-->
@@ -111,7 +105,8 @@
         android:shadowColor="@color/white"
         android:text="Target Progress"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/textView18"
+        app:layout_constraintBottom_toBottomOf="@+id/textView18"
+        app:layout_constraintEnd_toEndOf="@+id/meal_nutritions"
         app:layout_constraintHorizontal_bias="0.233"
         app:layout_constraintStart_toStartOf="@+id/meal_nutritions"
         app:layout_constraintTop_toBottomOf="@+id/meal_nutritions"
@@ -121,12 +116,12 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/nunito"
         android:text="Nutrition Target"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/meal_nutritions"
+        app:layout_constraintEnd_toEndOf="@+id/diet_btn_daily"
+        app:layout_constraintStart_toStartOf="@+id/diet_btn_daily"
         app:layout_constraintTop_toBottomOf="@+id/diet_btn_daily" />
 
     <com.tenclouds.gaugeseekbar.GaugeSeekBar
@@ -169,7 +164,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Calorie"
+        android:text="Calories"
         android:textColor="@color/white"
         android:textSize="19sp"
 
@@ -619,7 +614,7 @@
                 android:textSize="22sp"
                 android:paddingRight="18dp"
                 android:paddingLeft="18dp"
-                android:background="@drawable/check_bg"
+                android:background="@drawable/die_chart_button_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.492"
                 app:layout_constraintStart_toStartOf="parent"
@@ -655,22 +650,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Spinner
                 android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rect_break_fast"
-                android:drawableEnd="@drawable/drop_down_arrow_heart"
-                android:paddingStart="8dp"
-                android:paddingEnd="18dp"
-                android:text="Breakfast"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:popupBackground="@drawable/diet_chart_spinner_bg"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/diet_chart_spinner_bg"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.755"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                app:layout_constraintTop_toBottomOf="@+id/button6"
+                />
 
 
 
