@@ -64,10 +64,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/parentLayout" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/diet_btn_daily"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/diet_top_spinner"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
         android:background="@drawable/diet_butn_daily"
         android:textAllCaps="false"
         android:text="Daily"
@@ -78,29 +78,11 @@
         android:drawableEnd="@drawable/drop_down_arrow_heart"
         android:fontFamily="@font/nats_regular"
         android:minWidth="0dp"
+        android:spinnerMode="dropdown"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/meal_nutritions"
         app:layout_constraintTop_toBottomOf="@+id/parentLayout" />
-
-
-    <!--    <com.marcinmoskala.arcseekbar.ArcSeekBar-->
-<!--        android:id="@+id/seekArc"-->
-<!--        android:layout_width="166dp"-->
-<!--        android:layout_height="155dp"-->
-<!--        android:layout_marginStart="4dp"-->
-<!--        android:layout_marginTop="68dp"-->
-<!--        android:rotation="-34"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView17"-->
-<!--        app:progress="85"-->
-<!--        app:progressBackgroundColor="#99FFFFFF"-->
-<!--        app:progressBackgroundWidth="20dp"-->
-<!--        app:progressColor="#DBFF00"-->
-<!--        app:progressWidth="20dp"-->
-<!--        app:roundEdges="true"-->
-<!--        app:thumb="@color/white"-->
-<!--        tools:ignore="MissingConstraints" />-->
 
     <TextView
         android:id="@+id/textView17"
@@ -127,7 +109,7 @@
         android:text="Nutrition Target"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/meal_nutritions"
-        app:layout_constraintTop_toBottomOf="@+id/diet_btn_daily" />
+        app:layout_constraintTop_toBottomOf="@+id/diet_top_spinner" />
 
     <com.tenclouds.gaugeseekbar.GaugeSeekBar
         android:id="@+id/progressBar"

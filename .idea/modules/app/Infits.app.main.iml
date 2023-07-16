@@ -167,6 +167,7 @@
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-applinks:5.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-messenger:5.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-marketing:5.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.razorpay:checkout:1.6.7@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.5.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.10" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10" level="project" />

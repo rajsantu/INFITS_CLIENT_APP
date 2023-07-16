@@ -9,19 +9,26 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 
 import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
-public class fragment_diet_chart extends Fragment implements PopupMenu.OnMenuItemClickListener {
+import java.util.ArrayList;
+
+public class fragment_diet_chart extends Fragment implements  AdapterView.OnItemSelectedListener{
     GaugeSeekBar progressBar;
 
     ImageView back;
    Button btn_meal_check,btn_meal;
+    String spinnerItem;
 
-   Button diet_choose_top_btn;
+   Spinner customSpinner;
+
+    ArrayList<CustomItem> customList;
     public fragment_diet_chart () {
         // Required empty public constructor
     }
@@ -50,51 +57,65 @@ public class fragment_diet_chart extends Fragment implements PopupMenu.OnMenuIte
 
         btn_meal.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_fragment_diet_chart_to_diet_second_frag));
 
-        diet_choose_top_btn.setOnClickListener(new View.OnClickListener() {
+
+        customList = getCustomList();
+        CustomeAdapterSpinner adapter = new CustomeAdapterSpinner(getContext(), customList);
+
+        if (customSpinner != null) {
+            customSpinner.setAdapter(adapter);
+            customSpinner.setOnItemSelectedListener(this);
+        }
+
+        customSpinner.post(new Runnable() {
             @Override
-            public void onClick(View v) {
-                //diet_choose_top_btn.setText();
-                showPopup(v);
+            public void run() {
+                int width = customSpinner.getWidth();
+                customSpinner.setDropDownWidth(width);
+            }
+        });
+
+        customSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CustomItem selectedItem = (CustomItem) parent.getItemAtPosition(position);
+                spinnerItem = selectedItem.getSpinnerItem();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
         return view;
     }
 
-    public void showPopup(View v){
-        PopupMenu popup = new PopupMenu(getContext(),v);
-        popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.diet_popup_menu);
-        popup.show();
+    private ArrayList<CustomItem> getCustomList() {
+        customList = new ArrayList<>();
 
+        customList.add(new CustomItem("Dailt"));
+        customList.add(new CustomItem("Weekly"));
+        customList.add(new CustomItem("Monthly"));
+        customList.add(new CustomItem("Yearly"));
+
+        return customList;
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item1:
-                diet_choose_top_btn.setText("Daily");
-                return true;
-            case R.id.item2:
-                diet_choose_top_btn.setText("Weekly");
-                return true;
-            case R.id.item3:
-                diet_choose_top_btn.setText("Monthly");
-                return true;
-            case R.id.item4:
-                diet_choose_top_btn.setText("Yearly");
-                return true;
-            default:
-                diet_choose_top_btn.setText("Choose");
-                return false;
-        }
-    }
 
     private void hooks(View view) {
         btn_meal_check=view.findViewById (R.id.button6);
         back=view.findViewById(R.id.imageView8);
         progressBar = view.findViewById(R.id.progressBar);
         btn_meal=view.findViewById(R.id.button8);
-        diet_choose_top_btn=view.findViewById(R.id.diet_btn_daily);
+        customSpinner=view.findViewById(R.id.diet_top_spinner);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        CustomItem item = (CustomItem) parent.getSelectedItem();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

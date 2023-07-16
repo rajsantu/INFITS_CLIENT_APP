@@ -140,4 +140,7 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
 
+    //payment
+    implementation 'com.razorpay:checkout:1.6.7'
+
 }
