@@ -59,5 +59,18 @@ exercitation ullamco laboris nisi ut aliquip</string>
         <item>Dec</item>
     </array>
 
+    <string-array name="spinner_diet_daily">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+    <string-array name="spinner_diet_breakfast">
+        <item>Breakfast</item>
+        <item>Snacks</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
+
 
 </resources>

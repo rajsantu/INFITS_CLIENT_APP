@@ -128,8 +128,6 @@ public class Login extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
 
-
-
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

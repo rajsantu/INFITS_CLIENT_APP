@@ -42,5 +42,4 @@
         <item name="android:activityCloseExitAnimation">@anim/right_slide_out</item>
     </style>
 
-
 </resources>
