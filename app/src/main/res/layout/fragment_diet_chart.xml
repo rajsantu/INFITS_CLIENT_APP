@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/imageView8DietChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/arrowleft"
@@ -125,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@+id/diet_btn_daily" />
 
     <com.tenclouds.gaugeseekbar.GaugeSeekBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarDietChart"
         android:layout_width="176dp"
         android:layout_height="165dp"
         android:layout_centerInParent="true"
@@ -137,8 +137,72 @@
         app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
-        app:progress="0.34"
+        app:progress="0.40"
         app:progressGradient="@array/myGradientColors"
+        app:progressWidth="10dp"
+        app:showThumb="false"
+        app:startAngleDegrees="65"
+        app:trackGradient="@array/track"
+        app:trackWidth="8dp"
+        tools:ignore="MissingConstraints" />
+
+    <com.tenclouds.gaugeseekbar.GaugeSeekBar
+        android:id="@+id/progressBarProteinDietChart"
+        android:layout_width="176dp"
+        android:layout_height="165dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:rotation="-15"
+        android:visibility="gone"
+        app:interactive="false"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:progress="0.70"
+        app:progressGradient="@array/myGradientProteinColors"
+        app:progressWidth="10dp"
+        app:showThumb="false"
+        app:startAngleDegrees="65"
+        app:trackGradient="@array/track"
+        app:trackWidth="8dp"
+        tools:ignore="MissingConstraints" />
+    <com.tenclouds.gaugeseekbar.GaugeSeekBar
+        android:id="@+id/progressBarCarbsDietChart"
+        android:layout_width="176dp"
+        android:layout_height="165dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:rotation="-15"
+        android:visibility="gone"
+        app:interactive="false"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:progress="0.60"
+        app:progressGradient="@array/myGradientCarbsColors"
+        app:progressWidth="10dp"
+        app:showThumb="false"
+        app:startAngleDegrees="65"
+        app:trackGradient="@array/track"
+        app:trackWidth="8dp"
+        tools:ignore="MissingConstraints" />
+    <com.tenclouds.gaugeseekbar.GaugeSeekBar
+        android:id="@+id/progressBarFatsDietChart"
+        android:layout_width="176dp"
+        android:layout_height="165dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:rotation="-15"
+        android:visibility="gone"
+        app:interactive="false"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:progress="0.45"
+        app:progressGradient="@array/myGradientFatsColors"
         app:progressWidth="10dp"
         app:showThumb="false"
         app:startAngleDegrees="65"
@@ -152,53 +216,52 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:background="@drawable/fire_diet_chart"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBarDietChart"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarDietChart"
         app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBarDietChart"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         app:layout_constraintVertical_bias="0.24" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView4DietChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
         android:text="Calories"
         android:textColor="@color/white"
         android:textSize="19sp"
-
         android:layout_marginStart="-10dp"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarDietChart"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toEndOf="@+id/progressBarDietChart"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView5DietChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1050"
         android:textSize="22sp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="@+id/textView4DietChart"
         app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4DietChart"
         android:layout_marginStart="-10dp"
         android:layout_marginTop="-10dp"
 
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4DietChart" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView6DietChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kcal"
         android:layout_marginTop="-5dp"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toEndOf="@+id/textView5DietChart"
+        app:layout_constraintTop_toBottomOf="@+id/textView4DietChart" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
@@ -269,7 +332,7 @@
         app:layout_constraintVertical_bias="0.586" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button4"
+        android:id="@+id/button4DietChart"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -279,7 +342,7 @@
         android:layout_marginTop="10dp"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
-        android:text="Calorie"
+        android:text="Carbs"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -295,15 +358,15 @@
         android:fontFamily="@font/nats_regular"
         android:textStyle="bold"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="@+id/button4DietChart"
+        app:layout_constraintEnd_toEndOf="@+id/button4DietChart"
         app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="@+id/button4DietChart"
+        app:layout_constraintTop_toTopOf="@+id/button4DietChart"
         app:layout_constraintVertical_bias="0.586" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button5"
+        android:id="@+id/button5DietChart"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -319,7 +382,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/button4DietChart" />
 
     <TextView
         android:id="@+id/textView30"
@@ -329,11 +392,11 @@
         android:fontFamily="@font/nats_regular"
         android:textStyle="bold"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="@+id/button5DietChart"
+        app:layout_constraintEnd_toEndOf="@+id/button5DietChart"
         app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toTopOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="@+id/button5DietChart"
+        app:layout_constraintTop_toTopOf="@+id/button5DietChart"
         app:layout_constraintVertical_bias="0.586" />
 
 
@@ -596,7 +659,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5">
+        app:layout_constraintTop_toBottomOf="@+id/button5DietChart">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
