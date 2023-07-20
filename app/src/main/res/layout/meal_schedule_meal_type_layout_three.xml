@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_15sdp"
+    android:layout_marginRight="@dimen/_15sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat35"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="Calories"
+                    android:id="@+id/txtThreeCalories"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/imgThreeIcon"
+                    android:src="@drawable/fire" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="136dp"
+                    android:fontFamily="@font/nats_regular"
+                    android:id="@+id/txtThreeCaloriesTotal"
+                    android:text="320kCal"
+                    android:textColor="#7B6F72"
+                    android:textSize="18sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ProgressBar
+                android:id="@+id/progressBarThreeMeal"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="288dp"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:max="100"
+                android:paddingTop="2dp"
+                android:progress="50"
+                android:progressDrawable="@drawable/progress_bar_bg"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="812dp" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

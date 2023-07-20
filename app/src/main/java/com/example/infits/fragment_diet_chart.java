@@ -485,7 +485,7 @@ public class fragment_diet_chart extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private String getRecipeName(String n){
+    public static String getRecipeName(String n){
         switch (n){
             case "1": return "Spiced Jerusalem Artichokes";
             case "2": return "Crispy Hot Wings";
