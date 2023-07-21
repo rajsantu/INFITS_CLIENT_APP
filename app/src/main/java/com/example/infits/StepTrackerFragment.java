@@ -68,7 +68,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-public class StepTrackerFragment extends Fragment {
+public class StepTrackerFragment extends Fragment implements UpdateStepCard {
     Float goalPercent2;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
     Handler handler = new Handler();
@@ -110,11 +110,11 @@ public class StepTrackerFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        updateStepCard = (UpdateStepCard) context;
-    }
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//        updateStepCard = (UpdateStepCard) context;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -144,20 +144,17 @@ public class StepTrackerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_step_tracker, container, false);
-
         steps_label = view.findViewById(R.id.steps_label);
         setgoal = view.findViewById(R.id.setgoal);
         imgback = view.findViewById(R.id.imgback);
         goal_step_count = view.findViewById(R.id.goal_step_count);
         RecyclerView pastActivity = view.findViewById(R.id.past_activity);
-
         progressBar = view.findViewById(R.id.progressBar);
         speed = view.findViewById(R.id.speed);
         distance = view.findViewById(R.id.distance);
         calories = view.findViewById(R.id.calories);
         reminder = view.findViewById(R.id.reminder);
         Distance_unit = view.findViewById(R.id.distance_unit);
-
 
         getPermission_Body();
 
@@ -311,8 +308,6 @@ public class StepTrackerFragment extends Fragment {
 
 
                 if (true) {
-
-
                     Intent serviceIntent = new Intent(requireContext(), MyService.class);
                     requireActivity().stopService(serviceIntent);
                     mythread.interrupt();
@@ -458,10 +453,13 @@ public class StepTrackerFragment extends Fragment {
                     System.out.println("goalPercent: " + goalPercent);
                     progressBar.setProgress(goalPercent);
                     int stepText = (int) Math.min(steps, goalVal);
+
                     steps_label.setText(String.valueOf((int) stepText));
                     distance.setText(String.format("%.2f", (steps / 1312.33595801f)));
                     calories.setText(String.format("%.2f", (0.04f * steps)));
                     Date date = new Date();
+
+
 
                     SimpleDateFormat hour = new SimpleDateFormat("HH");
                     SimpleDateFormat mins = new SimpleDateFormat("mm");
@@ -476,7 +474,7 @@ public class StepTrackerFragment extends Fragment {
                     System.out.println("steps/time: " + (steps / 1312.33595801f) / time);
 
                     //String url = String.format("%supdateStepFragmentDetails.php", DataFromDatabase.ipConfig);
-                    String url = "https://infits.in/androidApi/updateStepFragmentDetail.php";
+                    String url = "https://infits.in/androidApi/updateStepFragmentDetails.php";
                     StringRequest stringRequest =  new StringRequest(Request.Method.POST,url,response -> {
                         Log.e("calorieUpdate","success");
                     },
@@ -551,8 +549,11 @@ public class StepTrackerFragment extends Fragment {
                 // Permission is denied, show an error message
                 Log.d("error in physical activity permission", "");
             }
-
-
         }
+    }
+
+    @Override
+    public void updateStepCardData(Intent intent) {
+        updateGUI(intent);
     }
 }
