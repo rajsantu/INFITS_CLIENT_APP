@@ -268,12 +268,11 @@ public class DashBoardFragment extends Fragment {
         stepcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_stepTrackerFragment));
 
         SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        float steps = stepPrefs.getFloat("steps", 0);
         float stepGoal = stepPrefs.getFloat("goal", 0f);
-        int stepPercent = stepGoal == 0 ? 0 : (int) ((steps * 100) / stepGoal);
+        int stepPercent = stepGoal == 0 ? 0 : (int) ((FetchTrackerInfos.currentSteps * 100) / stepGoal);
         String stepText = stepGoal == 0 ? "----------" : (int) stepGoal + " Steps";
         String stepPercentText = stepPercent + "%";
-        Log.d("frag", String.valueOf(steps));
+        Log.d("frag", String.valueOf(FetchTrackerInfos.currentSteps));
         Log.d("frag", String.valueOf(stepGoal));
         Log.d("frag", String.valueOf(stepPercent));
 
