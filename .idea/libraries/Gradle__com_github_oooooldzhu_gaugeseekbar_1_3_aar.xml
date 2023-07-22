@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4646d8b60c07eb8ea91f7a02d41b7894/transformed/jetified-gaugeseekbar-1.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c0908eca60e28b759db6eb7d71ebbf44/transformed/jetified-gaugeseekbar-1.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c0908eca60e28b759db6eb7d71ebbf44/transformed/jetified-gaugeseekbar-1.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c0908eca60e28b759db6eb7d71ebbf44/transformed/jetified-gaugeseekbar-1.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

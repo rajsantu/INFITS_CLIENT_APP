@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/edc21c39ad2c29481192412b42cefe84/transformed/viewpager-1.1.0-alpha01/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/edc21c39ad2c29481192412b42cefe84/transformed/viewpager-1.1.0-alpha01/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/edc21c39ad2c29481192412b42cefe84/transformed/viewpager-1.1.0-alpha01/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d074c62616b7a17c85f3a8895960b143/transformed/viewpager-1.1.0-alpha01/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d074c62616b7a17c85f3a8895960b143/transformed/viewpager-1.1.0-alpha01/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d074c62616b7a17c85f3a8895960b143/transformed/viewpager-1.1.0-alpha01/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

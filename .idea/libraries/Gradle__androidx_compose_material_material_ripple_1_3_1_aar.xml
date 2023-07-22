@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9e6af26c3e3d2a0fdae6685eb984ec74/transformed/jetified-material-ripple-1.3.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9e6af26c3e3d2a0fdae6685eb984ec74/transformed/jetified-material-ripple-1.3.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9e6af26c3e3d2a0fdae6685eb984ec74/transformed/jetified-material-ripple-1.3.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f2391bd68d1a2fa19b479eeea3271ff0/transformed/jetified-material-ripple-1.3.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f2391bd68d1a2fa19b479eeea3271ff0/transformed/jetified-material-ripple-1.3.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f2391bd68d1a2fa19b479eeea3271ff0/transformed/jetified-material-ripple-1.3.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

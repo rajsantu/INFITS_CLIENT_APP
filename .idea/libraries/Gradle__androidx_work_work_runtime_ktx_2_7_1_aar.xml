@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/165277da56f608439ecb782210eff540/transformed/work-runtime-ktx-2.7.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/165277da56f608439ecb782210eff540/transformed/work-runtime-ktx-2.7.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/165277da56f608439ecb782210eff540/transformed/work-runtime-ktx-2.7.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4084885b944b537be253bbc3fcc408a9/transformed/work-runtime-ktx-2.7.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4084885b944b537be253bbc3fcc408a9/transformed/work-runtime-ktx-2.7.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4084885b944b537be253bbc3fcc408a9/transformed/work-runtime-ktx-2.7.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

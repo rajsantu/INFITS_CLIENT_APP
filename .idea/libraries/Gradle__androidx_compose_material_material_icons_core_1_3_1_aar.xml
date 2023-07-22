@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a6392ed28689c3a2ebdda4df044e9381/transformed/jetified-material-icons-core-1.3.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a6392ed28689c3a2ebdda4df044e9381/transformed/jetified-material-icons-core-1.3.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a6392ed28689c3a2ebdda4df044e9381/transformed/jetified-material-icons-core-1.3.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2cb0c2811b550916c13fa8083f256435/transformed/jetified-material-icons-core-1.3.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2cb0c2811b550916c13fa8083f256435/transformed/jetified-material-icons-core-1.3.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2cb0c2811b550916c13fa8083f256435/transformed/jetified-material-icons-core-1.3.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -34,7 +34,7 @@ public class Signup extends AppCompatActivity {
     RadioButton agreeToCondition, maleRB, femaleRB;
 
     String url = String.format("%sregister_client.php",DataFromDatabase.ipConfig);
-    //String url = String.format("https://infits.in/androidApi/register_client.php");
+    //String url = String.format("http://192.168.1.8/infits/register_client.php");
     char gender = 'M';
 
     EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
@@ -107,7 +107,6 @@ public class Signup extends AppCompatActivity {
                     }
                     else{
 
-
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 },error -> {
@@ -125,7 +124,7 @@ public class Signup extends AppCompatActivity {
                         data.put("age",ageStr);
                         data.put("weight",heightStr);
                         data.put("height",weightStr);
-                        data.put("verification","c5BH9DYATy");
+                        data.put("verification","0");
                         data.put("dietitian_id","-1");
                         data.put("dietitianuserID","-1");
                         return data;
@@ -174,11 +173,9 @@ public class Signup extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-
                 data.put("clientID", userName.getText().toString());
                 data.put("referralCode", referralCode);
                 data.put("activeUsers", "none");
-
                 return data;
             }
         };
