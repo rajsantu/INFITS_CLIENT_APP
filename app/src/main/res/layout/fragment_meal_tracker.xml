@@ -89,12 +89,13 @@
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="339dp">
+                    android:layout_height="330dp">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="33dp">
+                        android:layout_marginStart="33dp"
+                        android:id="@+id/contant1">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/breakfast"
@@ -371,6 +372,19 @@
 
                         </androidx.cardview.widget.CardView>
 
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/dinner"
+    android:visibility="invisible">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_110sdp"
+        android:visibility="invisible">
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
                         <ImageView
                             android:layout_width="79dp"
                             android:layout_height="79dp"
@@ -406,6 +420,7 @@
 
 
                     </RelativeLayout>
+
                 </ScrollView>
 
             </LinearLayout>
@@ -428,7 +443,8 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
                 android:background="@drawable/rounded"
-                android:layout_marginTop="@dimen/_80sdp">
+                android:layout_marginTop="@dimen/_90sdp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
