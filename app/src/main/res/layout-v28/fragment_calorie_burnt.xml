@@ -91,7 +91,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/year_btn_calorie"
                 android:layout_width="0dp"
-                android:text="Year"
+                android:text="Month"
                 android:layout_weight="1"
                 android:outlineProvider="none"
                 android:textAllCaps="false"
@@ -149,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nats_regular"
-                        android:text="825"
+                        android:text="0"
 
                         android:textFontWeight="400"
                         android:textColor="@color/black"
@@ -298,6 +298,7 @@
             android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/calorierecycleView"
+                tools:listitem="@layout/pastacivitycalorie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
