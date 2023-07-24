@@ -271,24 +271,29 @@ public class SleepFragment extends Fragment {
         });
         year_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%ssleepYearGraph.php", DataFromDatabase.ipConfig);
+            //String url = String.format("%ssleepYearGraph.php", DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/sleepYearGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 System.out.println("In request");
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
+                ArrayList<String> mons = new ArrayList<>();
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("sleep");
                     for (int i = 0; i < cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("av");
+                        String month = actor.getString("month");
                         System.out.println(name);
                         allNames.add(name);
+                        mons.add(month);
                         NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
                         System.out.println("Points " + NoOfEmp.get(i));
                         dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                         dataSet[0].setValues(NoOfEmp);
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
 
                         dataSet[0].notifyDataSetChanged();
                         lineChart.getData().notifyDataChanged();
