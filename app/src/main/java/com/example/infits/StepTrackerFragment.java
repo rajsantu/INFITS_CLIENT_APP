@@ -29,6 +29,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import android.os.Handler;
 import android.os.PowerManager;
@@ -67,14 +72,18 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class StepTrackerFragment extends Fragment implements UpdateStepCard {
+    private static final String MY_PREFERENCE_NAME = "WORKERONE";
     Float goalPercent2;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
     Handler handler = new Handler();
     Thread mythread;
     Button setgoal;
     ImageButton imgback;
+    WorkRequest workRequest;
     TextView steps_label, goal_step_count, distance, calories, speed, Distance_unit;
     ImageView reminder;
     private static final int PERMISSION_REQUEST_BODY_SENSORS = 1;
@@ -110,11 +119,6 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
         return fragment;
     }
 
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        updateStepCard = (UpdateStepCard) context;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -209,6 +213,7 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
         });
 
         mythread.start();
+        updateDetails();
 
 
         ArrayList<String> dates = new ArrayList<>();
@@ -294,8 +299,6 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
         setgoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 FetchTrackerInfos.flag_steps=0;
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setCancelable(true);
@@ -305,6 +308,15 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
                 Button save = dialog.findViewById(R.id.save_btn_steps);
                 FetchTrackerInfos.currentSteps = 0;
                 FetchTrackerInfos.flag_steps = 0;
+                try {
+                    if (!loadTotalFromPrefString(requireActivity(),"Steps_db").equals("")){
+                        WorkManager.getInstance(getActivity()).cancelWorkById(UUID.fromString(loadTotalFromPrefString(requireActivity(),"Steps_db")));
+                        saveTotalInPref(requireActivity(),"","Steps_db");
+                        Toast.makeText(requireActivity(), "Cancel Work", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                }
 
 
                 if (true) {
@@ -325,8 +337,8 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
                         Toast.makeText(getActivity().getApplicationContext(), "fill goal", Toast.LENGTH_SHORT).show();
                     } else
                         goalVal = Integer.parseInt(goal.getText().toString());
-                    FetchTrackerInfos.stop_steps = (int) goalVal;
 
+                    FetchTrackerInfos.stop_steps = (int) goalVal;
                     SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
                     SharedPreferences.Editor editor = stepPrefs.edit();
                     editor.putFloat("goal", goalVal);
@@ -359,13 +371,32 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
                     String url = "https://infits.in/androidApi/updatestepgoal.php";
                     final StringRequest requestGoal = new StringRequest(Request.Method.POST, url, response -> {
                         try {
-                            Toast.makeText(requireContext(), response, Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(),"Updated Goal", Toast.LENGTH_LONG).show();
                             Log.e("goal","success");
+                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("stepsGoalInt",MODE_PRIVATE);
+                            SharedPreferences.Editor editor1 = sharedPreferences.edit();
+                            editor1.putInt("stepTrackerGoal", (int) goalVal);
+                            editor1.apply();
+                            if (loadTotalFromPrefString(requireActivity(),"Steps_db").equals("")){
+                                //Constraints
+                                Constraints constraints = new Constraints.Builder()
+                                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                                        .build();
+                                //for periodicWork
+                                workRequest = new PeriodicWorkRequest.Builder(
+                                        WorkerForUpdateStepDetailsInDb.class,
+                                        15,   //minimum 15 minute
+                                        TimeUnit.MINUTES
+                                ).addTag("WORKUPDATESTEP").setConstraints(constraints).build();
+                                saveTotalInPref(getActivity(),workRequest.getStringId(),"Steps_db");
+                                WorkManager.getInstance(requireActivity()).enqueue(workRequest);
+                                Toast.makeText(requireActivity(), "Worker Set", Toast.LENGTH_SHORT).show();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }, error -> {
-                        Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Updated Goal error", Toast.LENGTH_SHORT).show();
                         Log.d("Error", error.toString());
                         Log.e("goal","error");
                     }) {
@@ -381,6 +412,10 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
                             return data;
                         }
                     };
+                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                            30000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     Volley.newRequestQueue(requireContext()).add(requestGoal);
                     dialog.dismiss();
                 });
@@ -473,37 +508,9 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
                     System.out.println("steps: " + 0.04f * steps);
                     System.out.println("steps/time: " + (steps / 1312.33595801f) / time);
 
-                    //String url = String.format("%supdateStepFragmentDetails.php", DataFromDatabase.ipConfig);
-                    String url = "https://infits.in/androidApi/updateStepFragmentDetails.php";
-                    StringRequest stringRequest =  new StringRequest(Request.Method.POST,url,response -> {
-                        Log.e("calorieUpdate","success");
-                    },
-                            error -> {
-                                Log.e("calorieUpdate","fail");
-                                Log.e("calorieUpdate",error.toString());
-                            }){
-                        @SuppressLint("DefaultLocale")
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> data = new HashMap<>();
-                            data.put("clientuserID",DataFromDatabase.clientuserID);
-                            data.put("steps",String.valueOf(steps));
-                            data.put("distance",String.valueOf(steps / 1312.33595801f));
-                            data.put("calories",String.valueOf(0.04f * steps));
-                            data.put("avgspeed",String.format("%.2f", (steps / 1312.33595801f) / time));
-                            data.put("goal",goal_step_count.getText().toString());
-                            LocalDateTime now = LocalDateTime.now();
-                            data.put("dateandtime",dtf.format(now));
-                            return data;
-                        }
-                    };
-                    Volley.newRequestQueue(requireContext()).add(stringRequest);
                 }
             }, 5000);
 
-//            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
-//            sharedPreferences.edit().putInt("steps",steps).apply();
         }
     }
 
@@ -555,5 +562,52 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
     @Override
     public void updateStepCardData(Intent intent) {
         updateGUI(intent);
+    }
+
+    private void updateDetails(){
+        if (FetchTrackerInfos.currentSteps > 1) {
+
+            String url = "https://infits.in/androidApi/updateStepFragmentDetails.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                Log.e("calorieUpdate", "success");
+                Toast.makeText(requireActivity(), "Details Updated in DB", Toast.LENGTH_SHORT).show();
+            },
+                    error -> {
+                        Log.e("calorieUpdate", "fail");
+                        Log.e("calorieUpdate", error.toString());
+                        Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show();
+                    }) {
+                @SuppressLint("DefaultLocale")
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
+                    data.put("steps", FetchTrackerInfos.currentSteps + "");
+                    data.put("distance", String.format("%.3f", (FetchTrackerInfos.Distance)));
+                    data.put("calories", String.format("%.2f", (FetchTrackerInfos.Calories)));
+                    data.put("avgspeed", FetchTrackerInfos.Avg_speed.substring(0, 1));
+                    data.put("goal", goal_step_count.getText().toString());
+                    LocalDateTime now = LocalDateTime.now();
+                    data.put("dateandtime", dtf.format(now));
+                    return data;
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    30000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(requireContext()).add(stringRequest);
+        }
+    }
+    public static String loadTotalFromPrefString(Context context,final String key) {
+        SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return pref.getString(key, "");
+    }
+    public static void saveTotalInPref(Context context, String id,final String key) {
+        SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key,id);
+        editor.apply();
     }
 }

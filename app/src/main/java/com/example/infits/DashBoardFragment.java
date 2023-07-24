@@ -275,8 +275,9 @@ public class DashBoardFragment extends Fragment {
         Log.d("frag", String.valueOf(FetchTrackerInfos.currentSteps));
         Log.d("frag", String.valueOf(stepGoal));
         Log.d("frag", String.valueOf(stepPercent));
-
-        stepstv.setText(stepText);
+        if (FetchTrackerInfos.currentSteps > 1)
+        stepstv.setText(FetchTrackerInfos.currentSteps+" steps");
+        else stepstv.setText("--------");
         stepsProgressPercent.setText(stepPercentText);
         stepsProgressBar.setProgress(stepPercent);
 
