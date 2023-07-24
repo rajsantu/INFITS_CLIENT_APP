@@ -195,8 +195,8 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("dietitian_id","6");
-                data.put("client_id","1");
+                data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                data.put("client_id",DataFromDatabase.client_id);
                 data.put("type","1");
                 return data;
             }
@@ -272,8 +272,8 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("dietitian_id","6");
-                data.put("client_id","1");
+                data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                data.put("client_id",DataFromDatabase.client_id);
                 data.put("type","3");
                 data.put("recipe_id[]",key_data.toString().replace("[","").replace("]",""));
                 return data;
