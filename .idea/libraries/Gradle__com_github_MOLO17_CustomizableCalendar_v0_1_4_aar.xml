@@ -2,11 +2,15 @@
   <library name="Gradle: com.github.MOLO17:CustomizableCalendar:v0.1.4@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/19f0c020830a1066508120df4b5e4727/transformed/jetified-CustomizableCalendar-v0.1.4/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4dd378b0aca9a02c535e6008343f566f/transformed/jetified-CustomizableCalendar-v0.1.4/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/19f0c020830a1066508120df4b5e4727/transformed/jetified-CustomizableCalendar-v0.1.4/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/19f0c020830a1066508120df4b5e4727/transformed/jetified-CustomizableCalendar-v0.1.4/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/19f0c020830a1066508120df4b5e4727/transformed/jetified-CustomizableCalendar-v0.1.4/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4dd378b0aca9a02c535e6008343f566f/transformed/jetified-CustomizableCalendar-v0.1.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4dd378b0aca9a02c535e6008343f566f/transformed/jetified-CustomizableCalendar-v0.1.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4dd378b0aca9a02c535e6008343f566f/transformed/jetified-CustomizableCalendar-v0.1.4/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
