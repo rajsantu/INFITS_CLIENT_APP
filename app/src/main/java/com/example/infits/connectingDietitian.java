@@ -41,12 +41,19 @@ public class connectingDietitian extends AppCompatActivity {
         EditText verificationEditText = findViewById(R.id.verify);
         String verificationCode = verificationEditText.getText().toString().trim();
 
-        String url = "http://192.168.18.6/verify.php?verification_code=" + verificationCode;
+        String url = "http://192.168.18.6/verify.php";
+
+        JSONObject requestData = new JSONObject();
+        try {
+            requestData.put("verification_code", verificationCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null,
+                requestData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
