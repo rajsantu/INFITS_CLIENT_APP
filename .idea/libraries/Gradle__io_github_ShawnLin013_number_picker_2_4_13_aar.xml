@@ -2,15 +2,15 @@
   <library name="Gradle: io.github.ShawnLin013:number-picker:2.4.13@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4daffd6cf1ab4a8ad40cc74c6657d339/transformed/jetified-number-picker-2.4.13/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/457a9bfdaad96be324303a8fc44cf183/transformed/jetified-number-picker-2.4.13/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4d90341a64515ceeec737021cb3a2f2b/transformed/jetified-number-picker-2.4.13/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4daffd6cf1ab4a8ad40cc74c6657d339/transformed/jetified-number-picker-2.4.13/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4daffd6cf1ab4a8ad40cc74c6657d339/transformed/jetified-number-picker-2.4.13/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4daffd6cf1ab4a8ad40cc74c6657d339/transformed/jetified-number-picker-2.4.13/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/457a9bfdaad96be324303a8fc44cf183/transformed/jetified-number-picker-2.4.13/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/457a9bfdaad96be324303a8fc44cf183/transformed/jetified-number-picker-2.4.13/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/457a9bfdaad96be324303a8fc44cf183/transformed/jetified-number-picker-2.4.13/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4d90341a64515ceeec737021cb3a2f2b/transformed/jetified-number-picker-2.4.13/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4d90341a64515ceeec737021cb3a2f2b/transformed/jetified-number-picker-2.4.13/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4d90341a64515ceeec737021cb3a2f2b/transformed/jetified-number-picker-2.4.13/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.ShawnLin013/number-picker/2.4.13/d3b3759bb4586cff8ad7c4084f78b17b0821e32c/number-picker-2.4.13-javadoc.jar!/" />

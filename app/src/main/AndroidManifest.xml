@@ -81,13 +81,6 @@
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".connectingDietitian"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".EndedLiveScreen"
             android:exported="false">
             <meta-data

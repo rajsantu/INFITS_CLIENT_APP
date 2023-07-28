@@ -4,9 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/86776e4c38b5bc2aab4be9265b1d4bdb/transformed/jetified-RippleView-v1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/86776e4c38b5bc2aab4be9265b1d4bdb/transformed/jetified-RippleView-v1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/86776e4c38b5bc2aab4be9265b1d4bdb/transformed/jetified-RippleView-v1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ab7dedc4e001ee5a76aa0428d4db1415/transformed/jetified-RippleView-v1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ab7dedc4e001ee5a76aa0428d4db1415/transformed/jetified-RippleView-v1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ab7dedc4e001ee5a76aa0428d4db1415/transformed/jetified-RippleView-v1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1685072f33ee53824bd8b20d6af9d08c/transformed/jetified-RippleView-v1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1685072f33ee53824bd8b20d6af9d08c/transformed/jetified-RippleView-v1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1685072f33ee53824bd8b20d6af9d08c/transformed/jetified-RippleView-v1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -4,9 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/27f3bfb52068f0eb89e81137fe2c6594/transformed/jetified-ruler-picker-1.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/27f3bfb52068f0eb89e81137fe2c6594/transformed/jetified-ruler-picker-1.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/27f3bfb52068f0eb89e81137fe2c6594/transformed/jetified-ruler-picker-1.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1d0851e11b31259c840f5f7500a7b4a4/transformed/jetified-ruler-picker-1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1d0851e11b31259c840f5f7500a7b4a4/transformed/jetified-ruler-picker-1.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1d0851e11b31259c840f5f7500a7b4a4/transformed/jetified-ruler-picker-1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bfb521b218459e1a65394637bc972520/transformed/jetified-ruler-picker-1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bfb521b218459e1a65394637bc972520/transformed/jetified-ruler-picker-1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bfb521b218459e1a65394637bc972520/transformed/jetified-ruler-picker-1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
