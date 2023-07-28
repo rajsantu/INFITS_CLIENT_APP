@@ -216,7 +216,7 @@ public class WeightFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("userID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -279,7 +279,7 @@ public class WeightFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("clientuserID",DataFromDatabase.clientuserID);
 
                     return data;
                 }
@@ -293,26 +293,32 @@ public class WeightFragment extends Fragment {
                     System.out.println("In request");
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
+                    ArrayList<String> mons = new ArrayList<>();
                     try {
                         jsonResponse = new JSONObject(response);
                         JSONArray cast = jsonResponse.getJSONArray("weight");
-                        for (int i = 0; i < cast.length(); i++) {
+                        for (int i=0; i<cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
-                            String name = actor.getString("av");
-                            System.out.println(name);
+                            String name = actor.getString("weight");
+                            String date = actor.getString("date");
+                            System.out.println(name+"   "+date);
                             allNames.add(name);
-                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
-                            System.out.println("Points " + NoOfEmp.get(i));
+                            mons.add(date);
+                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                            System.out.println("Points "+NoOfEmp.get(i));
                             dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                             dataSet[0].setValues(NoOfEmp);
 
+
                             dataSet[0].notifyDataSetChanged();
-                            lineChart.getData().notifyDataChanged();
-                            lineChart.notifyDataSetChanged();
-                            lineChart.invalidate();
                         }
-                    } catch (JSONException e) {
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
+                    }catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }, error -> {
@@ -324,7 +330,7 @@ public class WeightFragment extends Fragment {
 
                         Map<String, String> data = new HashMap<>();
 
-                        data.put("userID", DataFromDatabase.clientuserID);
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
 
                         return data;
                     }
@@ -352,7 +358,7 @@ public class WeightFragment extends Fragment {
 
             done.setOnClickListener(vi -> {
                 List<Date> dates = calendarPickerView.getSelectedDates();
-                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+                SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                 String from = sf.format(dates.get(0));
                 String to = sf.format(dates.get(dates.size() - 1));
                 String url = String.format("%scustomweight.php", DataFromDatabase.ipConfig);
@@ -365,18 +371,19 @@ public class WeightFragment extends Fragment {
                     try {
                         jsonResponse = new JSONObject(response);
                         JSONArray cast = jsonResponse.getJSONArray("weight");
-                        for (int i = 0; i < cast.length(); i++) {
+                        for (int i=0; i<cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
                             String name = actor.getString("weight");
                             String date = actor.getString("date");
-                            System.out.println(name + "   " + date);
+                            System.out.println(name+"   "+date);
                             allNames.add(name);
                             mons.add(date);
-                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
-                            System.out.println("Points " + NoOfEmp.get(i));
+                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                            System.out.println("Points "+NoOfEmp.get(i));
                             dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                             dataSet[0].setValues(NoOfEmp);
+
 
                             dataSet[0].notifyDataSetChanged();
                         }
@@ -385,7 +392,7 @@ public class WeightFragment extends Fragment {
                         lineChart.getData().notifyDataChanged();
                         lineChart.notifyDataSetChanged();
                         lineChart.invalidate();
-                    } catch (JSONException e) {
+                    }catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }, error -> {
@@ -396,7 +403,7 @@ public class WeightFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         dataVol.put("from", from);
                         dataVol.put("to", to);
                         return dataVol;
