@@ -252,23 +252,20 @@ public class FragmentCalorieBurnt extends Fragment {
     private String timeToString(long durationInSeconds){
 //        long durationInSeconds = 1800; // 30 minutes
         int hours = (int) durationInSeconds / 3600;
-        int minutes = (int) (durationInSeconds % 3600) / 60;
+        int minutes = (int) (durationInSeconds % 3600)/60;
         int seconds = (int) durationInSeconds % 60;
-
         String durationString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-
         return durationString;
     }
 
-    private String databaseDate() {
+    private String databaseDate()
+    {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = dateFormat.format(currentDate);
         // Add this log statement
         return formattedDate;
     }
-
-
     private void hooks(View view){
         pieChart=view.findViewById(R.id.piechart);
         calorieRecycleview=view.findViewById(R.id.calorierecycleView);
@@ -347,7 +344,7 @@ public class FragmentCalorieBurnt extends Fragment {
     }
     private void pastAcivity(String date,String calorie,String runningk,String walkingk,String cyclingk,String runtime,
                              String walktime,String cyclingtime,String runduration,String walkduration,String cycleduration){
-     
+
         totalCalorieValue.setText(calorie);
 
         Date dateToday = new Date();

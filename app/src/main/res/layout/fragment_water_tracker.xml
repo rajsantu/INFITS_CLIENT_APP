@@ -86,7 +86,8 @@
                 android:layout_height="20dp"
                 android:layout_gravity="top"
                 android:layout_marginStart="15dp"
-                app:srcCompat="@drawable/water_add" />
+                app:srcCompat="@drawable/water_add"
+                />
 
             <TextView
                 android:id="@+id/water_goal"
