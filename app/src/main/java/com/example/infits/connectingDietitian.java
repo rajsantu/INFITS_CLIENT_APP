@@ -143,7 +143,7 @@ public class connectingDietitian extends AppCompatActivity {
                 Map<String,String> data = new HashMap<>();
                 data.put("clientuserID",DataFromDatabase.clientuserID);
                 data.put("verification","1");
-                data.put("type","client");
+                data.put("type","2");
                 return data;
             }
         };
