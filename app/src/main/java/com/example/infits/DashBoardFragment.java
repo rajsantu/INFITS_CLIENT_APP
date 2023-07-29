@@ -54,8 +54,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 public class DashBoardFragment extends Fragment {
 
-    //String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
-    String urlRefer = "https://infits.in/androidApi/verify.php";
+    String urlRefer = String.format("%sverify_1.php",DataFromDatabase.ipConfig);
+//    String urlRefer = "https://infits.in/androidApi/verify.php";
 
 
     String Entered;
@@ -323,10 +323,15 @@ public class DashBoardFragment extends Fragment {
 
         goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
-                updateVerification();
-                Intent intent = new Intent(getActivity(),Consultation.class);
-                requireActivity().finish();
-                startActivity(intent);
+                if (DataFromDatabase.verification.equals("0")){
+                    startActivity(new Intent(getActivity(), connectingDietitian.class));
+                }else {
+                    updateVerification();
+                    Intent intent = new Intent(getActivity(),Consultation.class);
+                    requireActivity().finish();
+                    startActivity(intent);
+                }
+
                 //Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
             }
             else {
@@ -729,6 +734,7 @@ public class DashBoardFragment extends Fragment {
                     //data.put("clientID",DataFromDatabase.clientuserID);
                     Entered = referralCode.getText().toString();
                     data.put("dietitian_verify_code",Entered);
+                    data.put("type","1");
 
 
                     return data;
@@ -825,8 +831,8 @@ public class DashBoardFragment extends Fragment {
         final Dialog dialog = new Dialog(getActivity());
         final EditText referralCode = dialog.findViewById(R.id.referralcode);
 
-        //String url = String.format("%sdietitianUpdated.php",DataFromDatabase.ipConfig);
-        String url = "https://infits.in/androidApi/dietitianUpdated.php";
+        String url = String.format("%sdietitianUpdated_1.php",DataFromDatabase.ipConfig);
+//        String url = "https://infits.in/androidApi/dietitianUpdated.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
                 response->{
@@ -853,6 +859,8 @@ public class DashBoardFragment extends Fragment {
                 data.put("referralCode",Entered);
                 data.put("dietitianID",DataFromDatabase.dietitian_id);
                 data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+                data.put("type","1");
+                data.put("verification","0");
 
 
                 return data;

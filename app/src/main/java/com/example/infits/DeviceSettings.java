@@ -219,6 +219,8 @@ public class DeviceSettings extends AppCompatActivity {
                                 deviceNames.add(name);
                                 deviceAddresses.add(address);
                             }
+                        }else {
+                            Log.e("DeviceSettingsCheck", scanResult.getBleDevice().toString());
                         }
                     }
 
