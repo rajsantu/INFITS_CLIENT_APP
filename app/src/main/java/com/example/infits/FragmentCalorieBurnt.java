@@ -126,70 +126,77 @@ public class FragmentCalorieBurnt extends Fragment {
     }
 
     private void setTodayData(String purpose) {
+
         String url = DataFromDatabase.ipConfig + "calorieBurnt.php";
         String date = getCurrentDate(),calorie="---";
 //        pastAcivity(date,calorie,"45","42","452");
 
+        String clientID = DataFromDatabase.clientuserID;
+       // as it will be in sharedpref using it temporarily
 
-        String clientID = DataFromDatabase.clientuserID; // as it will be in sharedpref using it temporarily
+         //String dateAndTime;
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
+
                 url,
                 new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
 
                         try {
 
                             JSONObject jsonObject = new JSONObject(response);
+
                             if(!jsonObject.getBoolean("error")){
-                                String running="0",walking="0",cycling="0",runtime="0",walktime="0",cyclingtime="0",runduration="0",cycleduration="0",walkduration="0";
-
+                                String running="0",rsec="0",walking="0",cycling="0",runtime="0",walktime="0",cyclingtime="0",runduration="0",cycleduration="0",walkduration="0";
                                 long Total = 0,rduration=0,cduration=0,wduration=0,runcal=0,walkcal=0,cyclingcal=0;
-
-                                String data = "0";
-
                                 try {
-                                    JSONObject dataObject = jsonObject.getJSONObject("data");
 
-                                    String activityName = dataObject.getString("activity_name");
-                                    String caloriesBurnt = dataObject.getString("calorie_burnt");
-                                    String duration = dataObject.getString("duration");
-                                    String dateandtime = dataObject.getString("dateandtime");
-                                    switch (activityName) {
-                                        case "running":
-                                            running = caloriesBurnt;
-                                            runcal += Long.parseLong(running);
-                                            runtime = jsonObject.getString("time");
-                                            runduration = jsonObject.getString("duration");
+                                    JSONArray dataArray = jsonObject.getJSONArray("data");
+
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        JSONObject dataObject = dataArray.getJSONObject(i);
+                                        String activityName = dataObject.getString("activity_name");
+                                        String caloriesBurnt = dataObject.getString("calorie_burnt");
+                                        String dateandtime = dataObject.getString("dateandtime");
+
+                                        // Check for each activity and add to respective variables
+                                        if (activityName.equals("running")) {
+                                            runcal += Long.parseLong(caloriesBurnt);
+                                            runtime = dataObject.getString("duration");
+                                            runduration = dataObject.getString("duration");
                                             rduration += ConvertTimeToInt(runduration);
-                                            break;
-                                        case "walking":
-                                            walking = caloriesBurnt;
-                                            walkcal += Long.parseLong(walking);
-                                            walktime = jsonObject.getString("time");
-                                            walkduration = jsonObject.getString("duration");
+                                            rsec=timeToString(rduration);
+                                        } else if (activityName.equals("walking")) {
+                                            walkcal += Long.parseLong(caloriesBurnt);
+                                            walktime = dataObject.getString("duration");
+                                            walkduration = dataObject.getString("duration");
                                             wduration += ConvertTimeToInt(walkduration);
-                                            break;
-                                        case "cycling":
-                                            cycling = caloriesBurnt;
-                                            cyclingcal += Long.parseLong(cycling);
-                                            cyclingtime = jsonObject.getString("time");
-                                            cycleduration = jsonObject.getString("duration");
+                                        } else if (activityName.equals("cycling")) {
+                                            cyclingcal += Long.parseLong(caloriesBurnt);
+                                            cyclingtime = dataObject.getString("duration");
+                                            cycleduration = dataObject.getString("duration");
                                             cduration += ConvertTimeToInt(cycleduration);
-                                            break;
+                                        }
                                     }
-                                    Total += Integer.parseInt(caloriesBurnt);
+                                    // Calculate total calorie value
+                                    Total = runcal + walkcal + cyclingcal;
 
+                                    // Update totalCalorieValue TextView
+                                    totalCalorieValue.setText(String.valueOf(Total));
+                                    if(!purpose.equals("day")){
+
+                                        pastAcivity(date,Long.toString(Total),Long.toString(runcal),Long.toString(walkcal),Long.toString(cyclingcal),runtime,walktime,cyclingtime, timeToString(rduration),timeToString(wduration),timeToString(cduration));
+                                    }
+                                    else {
+                                        pastAcivity(date,Long.toString(Total),Long.toString(runcal),Long.toString(walkcal),Long.toString(cyclingcal),runtime,walktime,cyclingtime, timeToString(rduration),timeToString(wduration),timeToString(cduration));
+
+                                    }
+                                    pieChart(walkcal,runcal,cyclingcal);
 
                                 }
                                 catch (Exception e){
-                                    if(!purpose.equals("day")){
-                                        pastAcivity(date,Long.toString(Total),Long.toString(runcal),Long.toString(walkcal),Long.toString(cyclingcal),runtime,walktime,cyclingtime, timeToString(rduration),timeToString(wduration),timeToString(cduration));
-                                    }
-                                    else
-                                        pastAcivity(date,Long.toString(Total),running,walking,cycling,runtime,walktime,cyclingtime,runduration,walkduration,cycleduration);
 
-                                    pieChart(walkcal,runcal,cyclingcal);
                                 }
 
                             }
@@ -200,14 +207,19 @@ public class FragmentCalorieBurnt extends Fragment {
 //                            e.printStackTrace();
                             Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
                             Log.d(TAG, "onResponse: "+e.getMessage());
+
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(requireActivity(),error.getMessage(),Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "onErrorResponse: "+error.getMessage());
+                        String errorMessage = error.getMessage();
+                        if (errorMessage == null) {
+                            errorMessage = "Unknown error occurred.";
+                        }
+                        Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "onErrorResponse: " + errorMessage);
                     }
                 }
         ){
@@ -215,9 +227,12 @@ public class FragmentCalorieBurnt extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("clientID",DataFromDatabase.clientuserID);
-                params.put("date",databaseDate());
+                params.put("clientuserID",DataFromDatabase.clientuserID);
+
+                params.put("dateandtime",databaseDate());
+
                 params.put("for",purpose);
+
                 return params;
             }
         };
@@ -241,13 +256,15 @@ public class FragmentCalorieBurnt extends Fragment {
         int seconds = (int) durationInSeconds % 60;
 
         String durationString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+
         return durationString;
     }
 
-    private String databaseDate(){
+    private String databaseDate() {
         Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = dateFormat.format(currentDate);
+        // Add this log statement
         return formattedDate;
     }
 
@@ -301,7 +318,7 @@ public class FragmentCalorieBurnt extends Fragment {
             @Override
             public void onClick(View v) {
                 SetButtonBackground(v);
-                setTodayData("year");
+                setTodayData("month");
             }
         });
 
@@ -330,7 +347,9 @@ public class FragmentCalorieBurnt extends Fragment {
     }
     private void pastAcivity(String date,String calorie,String runningk,String walkingk,String cyclingk,String runtime,
                              String walktime,String cyclingtime,String runduration,String walkduration,String cycleduration){
+     
         totalCalorieValue.setText(calorie);
+
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
         caloriedisplaydate.setText(sf.format(dateToday));
@@ -344,9 +363,8 @@ public class FragmentCalorieBurnt extends Fragment {
 
     private String getCurrentDate(){
         Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
-        String formattedDate = dateFormat.format(currentDate);
-        return formattedDate;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(currentDate);
     }
 
 

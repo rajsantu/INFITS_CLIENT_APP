@@ -71,7 +71,8 @@ public class Login extends AppCompatActivity {
     ImageView btnGoogle, btnFacebook, btnTwitter;
     String passwordStr,usernameStr;
     //String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
-    String url = "https://infits.in/androidApi/login_client.php";
+//    String url = "https://infits.in/androidApi/login_client.php";
+    String url = "http://192.168.1.10/infits//login_client_1.php";
     RequestQueue queue;
 
 
@@ -128,8 +129,6 @@ public class Login extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
 
-
-
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,12 +176,8 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
-                            if (object.getString("verification").equals("0")){
-                                DataFromDatabase.proUser = false;
-                            }
-                            if (object.getString("verification").equals("1")){
-                                DataFromDatabase.proUser = true;
-                            }
+                            DataFromDatabase.proUser = !object.getString("verification_code").equals("null") && !object.getString("verification_code").equals("");
+
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
 
@@ -202,6 +197,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.gender  = object.getString("gender");
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
+                            DataFromDatabase.verification  = object.getString("verification");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
 
                             System.out.println(DataFromDatabase.weight);
@@ -230,6 +226,7 @@ public class Login extends AppCompatActivity {
                             editor.putString("height",object.getString("height"));
                             editor.putString("profilePhotoBase",object.getString("profilePhoto"));
                             editor.putBoolean("proUser",DataFromDatabase.proUser);
+                            editor.putString("verification",object.getString("verification"));
                             editor.apply();
 
                             finish();

@@ -51,7 +51,6 @@ public class MealtrackerTodays_Breakfast extends Fragment {
 
     MealtrackerFinalAdapter mealtrackerFinalAdapter;
 
-
     ArrayList<Todays_BreakFast_info> todays_breakFast_infos;
     private static final String ARG_PARAM2 = "param2";
 
@@ -158,7 +157,6 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 }
             }
         });
-
         //delete shared preference
 
 //        DeleteSharedPreference();
@@ -189,10 +187,6 @@ public class MealtrackerTodays_Breakfast extends Fragment {
             SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
             Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto",""));
             String base64String= sharedPreferences1.getString("ClickedPhoto","");
-
-
-
-
 
 
             RequestQueue queue= Volley.newRequestQueue(requireContext());
@@ -249,20 +243,14 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     data.put("dietitian_id",DataFromDatabase.dietitian_id);
                     data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
                     data.put("description","Nothing");
-//                    data.put("clientID", DataFromDatabase.clientuserID.toString());
+                    //data.put("clientID", DataFromDatabase.clientuserID.toString());
                     data.put("clientID", DataFromDatabase.clientuserID);
                     data.put("position",String.valueOf(jsonArray.length()-1));
                     data.put("jsonArray", jsonArray.toString());
                     return data;
                 }
-
-
-
             };
-
             queue.add(stringRequest);
-
-
         } catch (Exception e) {
             Log.d("Exception", e.toString());
         }
@@ -295,7 +283,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
             JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
             JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
             for (int i = 0; i < jsonArray.length(); i++) {
-
+                MealtrackerFinalAdapter adapter=new MealtrackerFinalAdapter(getContext(),todays_breakFast_infos);
                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 todays_breakFast_infos.add(new Todays_BreakFast_info(getContext().getDrawable(R.drawable.pizza_img),
 //                        todays_breakFast_infos.add(new Todays_BreakFast_info(decodedBitmap,
@@ -324,5 +312,4 @@ public class MealtrackerTodays_Breakfast extends Fragment {
         editor.clear();
         editor.apply();
     }
-
 }
