@@ -279,7 +279,6 @@ public class WaterFragment extends Fragment {
             NoOfEmp.removeAll(NoOfEmp);
             System.out.println("In btn");
             //String urlWater = String.format("%swaterYearGraph.php", DataFromDatabase.ipConfig);
-//            String urlWater = "http://192.168.219.91/infits/waterYearGraph.php";
             String urlWater = "https://infits.in/androidApi/waterYearGraph.php";
             StringRequest stringRequestWater = new StringRequest(Request.Method.POST, urlWater, response -> {
                 System.out.println("In request");

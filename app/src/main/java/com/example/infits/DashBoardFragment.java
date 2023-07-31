@@ -54,8 +54,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 public class DashBoardFragment extends Fragment {
 
-    String urlRefer = String.format("%sverify_1.php",DataFromDatabase.ipConfig);
-//    String urlRefer = "https://infits.in/androidApi/verify.php";
+    //String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    String urlRefer = "https://infits.in/androidApi/verify.php";
 
 
     String Entered;
@@ -831,8 +831,8 @@ public class DashBoardFragment extends Fragment {
         final Dialog dialog = new Dialog(getActivity());
         final EditText referralCode = dialog.findViewById(R.id.referralcode);
 
-        String url = String.format("%sdietitianUpdated_1.php",DataFromDatabase.ipConfig);
-//        String url = "https://infits.in/androidApi/dietitianUpdated.php";
+        //String url = String.format("%sdietitianUpdated.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/dietitianUpdated.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
                 response->{

@@ -277,6 +277,9 @@
             android:name=".LiveListAct"
             android:exported="false" />
         <activity
+            android:name=".Overview"
+            android:exported="false" />
+        <activity
             android:name=".LiveAct"
             android:exported="false" />
         <activity
@@ -365,6 +368,10 @@
             android:name=".DashBoardMain"
             android:exported="true"
             android:noHistory="false"></activity>
+        <activity
+            android:name=".ChatAreaTwo"
+            android:exported="true"
+            android:noHistory="false"/>
         <activity
             android:name=".Diet_plan_main_screen"
             android:exported="false" />

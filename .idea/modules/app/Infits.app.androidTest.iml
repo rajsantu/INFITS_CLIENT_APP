@@ -217,5 +217,4 @@
     <orderEntry type="library" scope="TEST" name="Gradle: E (1)" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: E (2)" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="Infits.app.main" />
 </module>
