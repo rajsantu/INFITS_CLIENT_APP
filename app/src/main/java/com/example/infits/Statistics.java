@@ -362,7 +362,8 @@ public class Statistics extends AppCompatActivity {
         daily.setText("0");
         monthly.setText("0");
         total.setText("0");
-        String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/weightFragment.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("Fragment","success");

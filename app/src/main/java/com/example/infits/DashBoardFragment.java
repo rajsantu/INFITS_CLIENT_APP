@@ -65,6 +65,7 @@ public class DashBoardFragment extends Fragment {
 
 
     String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
+    
     //String url = "https://infits.in/androidApi/dashboard.php";
 
 

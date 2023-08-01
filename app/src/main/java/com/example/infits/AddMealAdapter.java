@@ -66,12 +66,14 @@ public class AddMealAdapter extends RecyclerView.Adapter<AddMealAdapter.ViewHold
                 String carbs=addmealInfos.get(position).carb;
                 String protin=addmealInfos.get(position).protein;
                 String fat=addmealInfos.get(position).fat;
+                String fiber=addmealInfos.get(position).fiber;
                 mealInfotransfer.add(Meal_Name);
                 mealInfotransfer.add(Meal_type);
                 mealInfotransfer.add(calorie);
                 mealInfotransfer.add(carbs);
                 mealInfotransfer.add(protin);
                 mealInfotransfer.add(fat);
+                mealInfotransfer.add(fiber);
                 mealInfotransfer.add(String.valueOf(icon));
                 Log.d("mealInfotransfer",mealInfotransfer.toString());
 

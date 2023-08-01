@@ -70,8 +70,8 @@ public class Login extends AppCompatActivity {
     Button loginbtn;
     ImageView btnGoogle, btnFacebook, btnTwitter;
     String passwordStr,usernameStr;
-    //String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
-    String url = "https://infits.in/androidApi/login_client.php";
+    String url = String.format("%stemp.php",DataFromDatabase.ipConfig);
+    //String url = "https://infits.in/androidApi/login_client.php";
     RequestQueue queue;
 
 
@@ -197,6 +197,12 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.profilePhoto = object.getString("profilePhoto");
                             DataFromDatabase.location = object.getString("location");
                             DataFromDatabase.age = object.getString("age");
+                            String plan = object.getString("plan");
+                            if (plan.equals("null")){
+                                DataFromDatabase.plan = "none";
+                            }else {
+                                DataFromDatabase.plan = plan;
+                            }
                             DataFromDatabase.gender  = object.getString("gender");
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
@@ -204,6 +210,8 @@ public class Login extends AppCompatActivity {
 
                             System.out.println(DataFromDatabase.weight);
                             System.out.println(DataFromDatabase.height);
+
+
 
 
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);

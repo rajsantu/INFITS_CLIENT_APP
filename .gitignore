@@ -18,3 +18,7 @@ local.properties
 .idea/vcs.xml
 .idea/deploymentTargetDropDown.xml
 .idea/workspace.xml
+.fastRequest/
+.idea/JetClient/
+.idea/dbnavigator.xml
+.idea/fastRequest/

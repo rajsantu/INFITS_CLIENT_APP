@@ -41,8 +41,11 @@ import java.util.Map;
  */
 public class MealTrackerAddMealFragment extends Fragment {
 
-    String url = String.format("%sgetFoodItems.php",DataFromDatabase.ipConfig);
-    String url1 = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%sgetFoodItems.php",DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/getFoodItems.php";
+    //String url1 = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    String url1 = "https://infits.in/androidApi/getFavouriteFoodItems.php";
+
     String heading;
 
     private TextView title,recentTextView,FavouritesTextview,frequentTextView;;

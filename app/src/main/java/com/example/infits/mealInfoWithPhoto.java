@@ -70,9 +70,12 @@ public class mealInfoWithPhoto extends Fragment {
     private String mParam1;
     private String mParam2;
     TextView mealName, calorieValue, carbsValue, fatValue, proteinValue;
-    String url = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
-    String url1 = String.format("%saddFavouriteFoodItems.php", DataFromDatabase.ipConfig);
-    String url2 = String.format("%sdeleteFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/getFavouriteFoodItems.php";
+    //String url1 = String.format("%saddFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    String url1 = "https://infits.in/androidApi/addFavouriteFoodItems.php";
+    //String url2 = String.format("%sdeleteFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    String url2 = "https://infits.in/androidApi/deleteFavouriteFoodItems.php";
 
     ImageView calorieImgback;
     boolean IsFavourite = false;
