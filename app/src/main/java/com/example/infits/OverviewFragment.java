@@ -5,10 +5,13 @@ import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +19,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class OverviewFragment extends Fragment {
+
+    TextView weight,height,fat;
+    Button message;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +31,7 @@ public class OverviewFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -68,7 +75,30 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview, container, false);
+        View view = inflater.inflate(R.layout.fragment_overview, container, false);
+        hooks(view);
+        update();
+
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ChatAreaTwo.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        return view;
+    }
+    public void update(){
+        weight.setText(DataFromDatabase.weight);
+        height.setText(DataFromDatabase.height);
+        weight.setText("18");
+    }
+
+    private void hooks(View view) {
+        weight = view.findViewById(R.id.overview_weight);
+        height = view.findViewById(R.id.overview_height);
+        fat = view.findViewById(R.id.overview_fat);
+        message = view.findViewById(R.id.overview_message);
     }
 }

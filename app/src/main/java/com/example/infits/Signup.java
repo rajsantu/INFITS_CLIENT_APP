@@ -146,7 +146,8 @@ public class Signup extends AppCompatActivity {
             },error -> {
                 signbtn.setClickable(true);
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
+                Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+            {
                 @Nullable
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {

@@ -46,8 +46,10 @@ public class FragmentAddBreakFast extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    String url = String.format("%sgetFoodItems.php",DataFromDatabase.ipConfig);
-    String url1 = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%sgetFoodItems.php",DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/getFoodItems.php";
+    //String url1 = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+    String url1 = "https://infits.in/androidApi/getFavouriteFoodItems.php";
 
     private static final String ARG_PARAM2 = "param2";
     String mealType="BreakFast";

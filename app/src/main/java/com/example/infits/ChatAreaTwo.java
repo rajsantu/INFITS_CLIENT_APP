@@ -45,6 +45,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,6 +64,8 @@ public class ChatAreaTwo extends AppCompatActivity {
     final String TAG = "MessageApp";
     String encoded;
     String type = "text";
+
+
 
     ActivityResultLauncher<String> file = registerForActivityResult(
             new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
@@ -127,10 +131,13 @@ public class ChatAreaTwo extends AppCompatActivity {
                                         @Override
                                         protected Map<String, String> getParams() throws AuthFailureError {
                                             Map<String, String> data = new HashMap<>();
-                                            data.put("dieticianID", DataFromDatabase.dietitianuserID);
-                                            data.put("clientID", DataFromDatabase.clientuserID);
+                                            LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                                            data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
+                                            data.put("clientuserID", DataFromDatabase.clientuserID);
                                             data.put("message", encoded);
                                             data.put("type",type);
+                                            data.put("time",dtf.format(now));
                                             data.put("sentBy","client");
                                             return data;
                                         }
@@ -182,7 +189,7 @@ public class ChatAreaTwo extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://192.168.1.6:8080");
+            mSocket = IO.socket("http://192.168.87.29:8080");
         } catch (URISyntaxException e) {}
     }
 
@@ -303,10 +310,13 @@ public class ChatAreaTwo extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("dieticianID", DataFromDatabase.dietitianuserID);
-                data.put("clientID", DataFromDatabase.clientuserID);
+                LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 data.put("message", typed_message);
                 data.put("type",type);
+                data.put("time",dtf.format(now));
                 data.put("sentBy","client");
                 return data;
             }

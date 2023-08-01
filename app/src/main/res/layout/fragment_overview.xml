@@ -314,7 +314,11 @@
 
 
                 <TextView
+<<<<<<< HEAD
                     android:id="@+id/overview_weight"
+=======
+                    android:id="@+id/overview_height"
+>>>>>>> origin/devabrath
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/baloo2"
@@ -346,7 +350,11 @@
                     app:layout_constraintVertical_bias="0.219" />
 
                 <TextView
+<<<<<<< HEAD
                     android:id="@+id/overview_height"
+=======
+                    android:id="@+id/overview_weight"
+>>>>>>> origin/devabrath
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/baloo2"
@@ -480,7 +488,7 @@
                     app:srcCompat="@mipmap/nextbtn" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/overview_message"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:backgroundTint="#1D8BF1"

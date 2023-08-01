@@ -1,0 +1,1309 @@
+Index: .idea/navEditor.xml
+===================================================================
+diff --git a/.idea/navEditor.xml b/.idea/navEditor.xml
+deleted file mode 100644
+--- a/.idea/navEditor.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ /dev/null	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
+@@ -1,981 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="navEditor-manualLayoutAlgorithm2">
+-    <option name="myPositions">
+-      <map>
+-        <entry key="trackers_graph.xml">
+-          <value>
+-            <LayoutPositions>
+-              <option name="myPositions">
+-                <map>
+-                  <entry key="MealTrackerAddMeal">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="764" />
+-                            <option name="y" value="3567" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_addMeal_to_mealinfowithphotoFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="MealTrackerTodayMeal">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="2187" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_TodayMeal_to_mealtrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="activitySecondFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1740" />
+-                            <option name="y" value="2338" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_activitySecondFragment_to_running_frag1">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="activityTracker2">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1496" />
+-                            <option name="y" value="2046" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_activityTracker2_to_activitySecondFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_activityTracker2_to_activityfourthfragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_activityTracker2_to_activitythirdfragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="activityfourthfragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1740" />
+-                            <option name="y" value="2694" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_activityfourthfragment_self">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_activityfourthfragment_to_walking_frag2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="activitythirdfragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1740" />
+-                            <option name="y" value="1982" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_activitythirdfragment_to_cycling_frag2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="addLiquidFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="758" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_addLiquidFragment_to_waterTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="bmiFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="1114" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_bmiFragment_to_weightTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieAddBreakFastFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1252" />
+-                            <option name="y" value="4222" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieAddBreakFastFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieAddBreakfastFragment_to_mealInfoWithPhoto">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieAddDinnerFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1252" />
+-                            <option name="y" value="3510" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieAddDinnerFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieAddDinnerFragment_to_mealInfoWithPhoto">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieAddLunchFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1740" />
+-                            <option name="y" value="4730" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieAddLunchFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieAddLunchFragment_to_mealInfoWithPhoto">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieAddSnacksFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1740" />
+-                            <option name="y" value="4374" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieAddSnacksFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieAddSnacksFragment_to_mealInfoWithPhoto">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieBurntFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1252" />
+-                            <option name="y" value="2542" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieBurntFragment_to_activityTracker2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieBurntFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieConsumedFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1252" />
+-                            <option name="y" value="3866" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieConsumedFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieReminderFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1252" />
+-                            <option name="y" value="2186" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieReminderFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="calorieTrackerFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1496" />
+-                            <option name="y" value="3136" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_calorieTrackerFragment_to_calorieBurntFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_to_calorieConsumedFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_to_calorieReminderFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_to_caloriesetgoalFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_to_foodDetailsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_tocalorieAddBreakFastFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_tocalorieAddDinnerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_tocalorieAddLunchFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_calorieTrackerFragment_tocalorieAddSnacksFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="caloriesetgoalFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1740" />
+-                            <option name="y" value="3050" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="cycling_frag2">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1984" />
+-                            <option name="y" value="1982" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="dashBoardFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="1831" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_dashBoardFragment_to_activityTracker2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_fragment_diet_chart">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_heartRate">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_mealTracker">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_sleepTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_stepTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_waterTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_dashBoardFragment_to_weightTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="diet_fourth2">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="46" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_diet_fourth2_to_fragment_diet_chart">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_diet_fourth2_to_fragment_diet_third_scrn">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="diet_second_frag">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="1470" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="foodDetailsFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1252" />
+-                            <option name="y" value="3153" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_foodDetailsFragment_to_calorieTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="fragment_diet_chart">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="12" />
+-                            <option name="y" value="1488" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_fragment_diet_chart_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_fragment_diet_chart_to_diet_fourth2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_fragment_diet_chart_to_diet_second_frag">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_fragment_diet_chart_to_stepReminderFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="fragment_diet_third_scrn">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="12" />
+-                            <option name="y" value="12" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_fragment_diet_third_scrn_to_diet_fourth2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="heartRate">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="520" />
+-                            <option name="y" value="3923" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_heartRate_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="mealInfoWithPhoto">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1008" />
+-                            <option name="y" value="3567" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_mealInfoWithPhoto_to_calorieAddBreakfastFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_mealInfoWithPhoto_to_calorieAddDinnerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_mealInfoWithPhoto_to_calorieAddLunchFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_mealInfoWithPhoto_to_calorieAddSnacksFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="mealTracker">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="520" />
+-                            <option name="y" value="3567" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_mealTracker_to_addmealFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_mealTracker_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="running_frag1">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1984" />
+-                            <option name="y" value="2338" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_running_frag1_to_activitySecondFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="sleepReminderFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="764" />
+-                            <option name="y" value="1826" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_sleepReminderFragment_to_sleepTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="sleepTrackerFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="520" />
+-                            <option name="y" value="1826" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_sleepTrackerFragment_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_sleepTrackerFragment_to_sleepReminderFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="stepReminderFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="4347" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_stepReminderFragment_to_stepTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="stepTrackerFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="520" />
+-                            <option name="y" value="4279" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_stepTrackerFragment_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_stepTrackerFragment_to_stepReminderFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="walking_frag2">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1984" />
+-                            <option name="y" value="2737" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="waterReminderFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="402" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_waterReminderFragment_to_waterTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="waterTrackerFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="520" />
+-                            <option name="y" value="733" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_waterTrackerFragment_to_addLiquidFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_waterTrackerFragment_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_waterTrackerFragment_to_waterReminderFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="weightDateFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="764" />
+-                            <option name="y" value="1470" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_weightDateFragment_to_weightTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="weightReminderFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="764" />
+-                            <option name="y" value="1114" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_weightReminderFragment_to_weightTrackerFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="weightTrackerFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="520" />
+-                            <option name="y" value="1148" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_weightTrackerFragment_to_bmiFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_weightTrackerFragment_to_dashBoardFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_weightTrackerFragment_to_weightDateFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_weightTrackerFragment_to_weightReminderFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </LayoutPositions>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/assetWizardSettings.xml
+===================================================================
+diff --git a/.idea/assetWizardSettings.xml b/.idea/assetWizardSettings.xml
+deleted file mode 100644
+--- a/.idea/assetWizardSettings.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ /dev/null	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
+@@ -1,46 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="WizardSettings">
+-    <option name="children">
+-      <map>
+-        <entry key="vectorWizard">
+-          <value>
+-            <PersistentState>
+-              <option name="children">
+-                <map>
+-                  <entry key="vectorAssetStep">
+-                    <value>
+-                      <PersistentState>
+-                        <option name="children">
+-                          <map>
+-                            <entry key="clipartAsset">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="values">
+-                                    <map>
+-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/keyboard_arrow_right/baseline_keyboard_arrow_right_24.xml" />
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                        <option name="values">
+-                          <map>
+-                            <entry key="outputName" value="meal_schedule_arrow_right_24" />
+-                            <entry key="sourceFile" value="D:\Internship\infits_project" />
+-                          </map>
+-                        </option>
+-                      </PersistentState>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </PersistentState>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/kotlinc.xml
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+deleted file mode 100644
+--- a/.idea/kotlinc.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ /dev/null	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="KotlinJpsPluginSettings">
+-    <option name="version" value="1.8.20-release" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"Embedded JDK\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ b/.idea/gradle.xml	(date 1690214975607)
+@@ -1,13 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="Embedded JDK" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AndroidLayouts\">\r\n    <shared>\r\n      <config />\r\n    </shared>\r\n  </component>\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"NONE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"10ae4fd9-0d47-4c63-a5f9-3e60e8edd197\" name=\"Changes\" comment=\"in dashboard section fixed the progress bar in step tracker\">\r\n      <change afterPath=\"$PROJECT_DIR$/app/src/main/java/com/example/infits/WorkerForUpdateStepDetailsInDb.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/compiler.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/compiler.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/app/build.gradle\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app/build.gradle\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/app/src/main/java/com/example/infits/DashBoardFragment.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app/src/main/java/com/example/infits/DashBoardFragment.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/app/src/main/java/com/example/infits/StepTrackerFragment.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app/src/main/java/com/example/infits/StepTrackerFragment.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExecutionTargetManager\" SELECTED_TARGET=\"device_and_snapshot_combo_box_target[99bd81d3]\" />\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"valueResourceFile\" />\r\n        <option value=\"resourceFile\" />\r\n        <option value=\"layoutResourceFile\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SZdxqVpDNjD8yULKFzrqaMJSUE\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;PROJECT_TRUSTED_KEY&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,\r\n    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,\r\n    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\Internship\\infits_project\\app\\src\\main\\res\\layout\" />\r\n      <recent name=\"D:\\Internship\\infits_project\\app\\src\\main\\res\\drawable\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"app\" type=\"AndroidRunConfigurationType\" factoryName=\"Android App\">\r\n      <module name=\"Infits.app.main\" />\r\n      <option name=\"DEPLOY\" value=\"true\" />\r\n      <option name=\"DEPLOY_APK_FROM_BUNDLE\" value=\"false\" />\r\n      <option name=\"DEPLOY_AS_INSTANT\" value=\"false\" />\r\n      <option name=\"ARTIFACT_NAME\" value=\"\" />\r\n      <option name=\"PM_INSTALL_OPTIONS\" value=\"\" />\r\n      <option name=\"ALL_USERS\" value=\"false\" />\r\n      <option name=\"ALWAYS_INSTALL_WITH_PM\" value=\"false\" />\r\n      <option name=\"CLEAR_APP_STORAGE\" value=\"false\" />\r\n      <option name=\"DYNAMIC_FEATURES_DISABLED_LIST\" value=\"\" />\r\n      <option name=\"ACTIVITY_EXTRA_FLAGS\" value=\"\" />\r\n      <option name=\"MODE\" value=\"default_activity\" />\r\n      <option name=\"CLEAR_LOGCAT\" value=\"false\" />\r\n      <option name=\"SHOW_LOGCAT_AUTOMATICALLY\" value=\"false\" />\r\n      <option name=\"INSPECTION_WITHOUT_ACTIVITY_RESTART\" value=\"false\" />\r\n      <option name=\"TARGET_SELECTION_MODE\" value=\"DEVICE_AND_SNAPSHOT_COMBO_BOX\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_CONFIGURATION_ID\" value=\"-1\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_PROJECT_ID\" value=\"\" />\r\n      <option name=\"DEBUGGER_TYPE\" value=\"Java\" />\r\n      <Auto>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Auto>\r\n      <Hybrid>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Hybrid>\r\n      <Java />\r\n      <Native>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Native>\r\n      <Profilers>\r\n        <option name=\"ADVANCED_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_CONFIGURATION_NAME\" value=\"Java/Kotlin Method Sample (legacy)\" />\r\n        <option name=\"STARTUP_NATIVE_MEMORY_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"NATIVE_MEMORY_SAMPLE_RATE_BYTES\" value=\"2048\" />\r\n      </Profilers>\r\n      <option name=\"DEEP_LINK\" value=\"\" />\r\n      <option name=\"ACTIVITY_CLASS\" value=\"\" />\r\n      <option name=\"SEARCH_ACTIVITY_IN_GLOBAL_SCOPE\" value=\"false\" />\r\n      <option name=\"SKIP_ACTIVITY_VALIDATION\" value=\"false\" />\r\n      <method v=\"2\">\r\n        <option name=\"Android.Gradle.BeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"10ae4fd9-0d47-4c63-a5f9-3e60e8edd197\" name=\"Changes\" comment=\"\" />\r\n      <created>1689358288903</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1689358288903</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"fixed ui spinner in diet chart\">\r\n      <created>1689451494833</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689451494833</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"add on click on calorie , proteins , carbs and fat in diet chart ui\">\r\n      <created>1689592746602</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689592746602</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"today meal's part in diet chart is complete\">\r\n      <created>1689799185579</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689799185579</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Meal Schedule Date click complete and add recyclerview with multiple view\">\r\n      <created>1689876190604</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689876190604</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"fixed steps update in ui\">\r\n      <created>1689967170933</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689967170933</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"in dashboard section fixed the progress bar in step tracker\">\r\n      <created>1690010949181</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1690010949181</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"fixed ui spinner in diet chart\" />\r\n    <MESSAGE value=\"add on click on calorie , proteins , carbs and fat in diet chart ui\" />\r\n    <MESSAGE value=\"today meal's part in diet chart is complete\" />\r\n    <MESSAGE value=\"Meal Schedule Date click complete and add recyclerview with multiple view\" />\r\n    <MESSAGE value=\"fixed steps update in ui\" />\r\n    <MESSAGE value=\"in dashboard section fixed the progress bar in step tracker\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"in dashboard section fixed the progress bar in step tracker\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ b/.idea/workspace.xml	(date 1690214975617)
+@@ -1,22 +1,17 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="AndroidLayouts">
+-    <shared>
+-      <config />
+-    </shared>
+-  </component>
+   <component name="AutoImportSettings">
+     <option name="autoReloadType" value="NONE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="10ae4fd9-0d47-4c63-a5f9-3e60e8edd197" name="Changes" comment="in dashboard section fixed the progress bar in step tracker">
+-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WorkerForUpdateStepDetailsInDb.java" afterDir="false" />
++    <list default="true" id="5eea4cf1-619f-4547-8e66-946a44a2bfef" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/DashBoardFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/DashBoardFragment.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/StepTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/StepTrackerFragment.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -28,52 +23,26 @@
+     <projectState path="$PROJECT_DIR$">
+       <ProjectState />
+     </projectState>
+-  </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="valueResourceFile" />
+-        <option value="resourceFile" />
+-        <option value="layoutResourceFile" />
+-        <option value="Interface" />
+-        <option value="Class" />
+-      </list>
+-    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="MarkdownSettingsMigration">
+-    <option name="stateVersion" value="1" />
+-  </component>
+-  <component name="ProblemsViewState">
+-    <option name="selectedTabId" value="CurrentFile" />
+-  </component>
+-  <component name="ProjectId" id="2SZdxqVpDNjD8yULKFzrqaMJSUE" />
++  <component name="ProjectId" id="2T1dKD32T6RzFcUcryZmLePTl1m" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;PROJECT_TRUSTED_KEY&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+-  }
+-}</component>
+-  <component name="RecentsManager">
+-    <key name="CopyFile.RECENT_KEYS">
+-      <recent name="D:\Internship\infits_project\app\src\main\res\layout" />
+-      <recent name="D:\Internship\infits_project\app\src\main\res\drawable" />
+-    </key>
+-  </component>
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Git.Branch.Popup.ShowAllRemotes": "true",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.cidr.known.project.marker": "true",
++    "cidr.known.project.marker": "true",
++    "dart.analysis.tool.window.visible": "false",
++    "show.migrate.to.gradle.popup": "false"
++  }
++}]]></component>
+   <component name="RunManager">
+     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+       <module name="Infits.app.main" />
+@@ -94,7 +63,7 @@
+       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+-      <option name="DEBUGGER_TYPE" value="Java" />
++      <option name="DEBUGGER_TYPE" value="Auto" />
+       <Auto>
+         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+         <option name="SHOW_STATIC_VARS" value="true" />
+@@ -137,55 +106,12 @@
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="10ae4fd9-0d47-4c63-a5f9-3e60e8edd197" name="Changes" comment="" />
+-      <created>1689358288903</created>
++      <changelist id="5eea4cf1-619f-4547-8e66-946a44a2bfef" name="Changes" comment="" />
++      <created>1690214458309</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1689358288903</updated>
+-    </task>
+-    <task id="LOCAL-00001" summary="fixed ui spinner in diet chart">
+-      <created>1689451494833</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1689451494833</updated>
+-    </task>
+-    <task id="LOCAL-00002" summary="add on click on calorie , proteins , carbs and fat in diet chart ui">
+-      <created>1689592746602</created>
+-      <option name="number" value="00002" />
+-      <option name="presentableId" value="LOCAL-00002" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1689592746602</updated>
+-    </task>
+-    <task id="LOCAL-00003" summary="today meal's part in diet chart is complete">
+-      <created>1689799185579</created>
+-      <option name="number" value="00003" />
+-      <option name="presentableId" value="LOCAL-00003" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1689799185579</updated>
++      <updated>1690214458309</updated>
+     </task>
+-    <task id="LOCAL-00004" summary="Meal Schedule Date click complete and add recyclerview with multiple view">
+-      <created>1689876190604</created>
+-      <option name="number" value="00004" />
+-      <option name="presentableId" value="LOCAL-00004" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1689876190604</updated>
+-    </task>
+-    <task id="LOCAL-00005" summary="fixed steps update in ui">
+-      <created>1689967170933</created>
+-      <option name="number" value="00005" />
+-      <option name="presentableId" value="LOCAL-00005" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1689967170933</updated>
+-    </task>
+-    <task id="LOCAL-00006" summary="in dashboard section fixed the progress bar in step tracker">
+-      <created>1690010949181</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1690010949181</updated>
+-    </task>
+-    <option name="localTasksCounter" value="7" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -199,13 +125,4 @@
+       </map>
+     </option>
+   </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="fixed ui spinner in diet chart" />
+-    <MESSAGE value="add on click on calorie , proteins , carbs and fat in diet chart ui" />
+-    <MESSAGE value="today meal's part in diet chart is complete" />
+-    <MESSAGE value="Meal Schedule Date click complete and add recyclerview with multiple view" />
+-    <MESSAGE value="fixed steps update in ui" />
+-    <MESSAGE value="in dashboard section fixed the progress bar in step tracker" />
+-    <option name="LAST_COMMIT_MESSAGE" value="in dashboard section fixed the progress bar in step tracker" />
+-  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"jbr-17\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ b/.idea/misc.xml	(date 1690214975668)
+@@ -1,4 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/build/classes" />
++  </component>
++  <component name="ProjectType">
++    <option name="id" value="Android" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <bytecodeTargetLevel target=\"11\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 4a736d814679f1323b874af45cee38a82a0b7c3f)
++++ b/.idea/compiler.xml	(date 1690214975725)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="11" />
++    <bytecodeTargetLevel target="17" />
+   </component>
+ </project>
+\ No newline at end of file

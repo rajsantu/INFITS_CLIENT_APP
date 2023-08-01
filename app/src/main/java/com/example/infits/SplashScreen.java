@@ -96,5 +96,6 @@ public class SplashScreen extends AppCompatActivity {
         DataFromDatabase.proUser = prefs.getBoolean("proUser", false);
         byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
         DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
+        DataFromDatabase.verification = prefs.getString("verification","");
     }
 }

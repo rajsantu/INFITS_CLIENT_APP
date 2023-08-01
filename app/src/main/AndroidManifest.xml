@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -14,8 +14,10 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30"/>
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -25,9 +27,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- The Agora SDK requires Bluetooth permissions in case users are using Bluetooth devices. -->
-    <!--<uses-permission android:name="android.permission.BLUETOOTH" />-->
-    <!-- For Android 12 and above devices, the following permission is also required. -->
+
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
 
@@ -36,15 +36,14 @@
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true" />
-    <uses-feature android:name="android.hardware.bluetooth" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <!--<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
+
 
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
@@ -86,10 +85,17 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Infits"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".connectingDietitian"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".EndedLiveScreen"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -104,50 +110,55 @@
 
         <activity
             android:name=".LiveScreen"
-            android:exported="false" >
-            <!-- android:exported="true" >
+            android:exported="false">
+
+            <!--
+            android:exported="true" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
 
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!--<activity
+        <!--
+<activity
             android:name=".MealtrackerAddMeal"
-            android:exported="false" />-->
+            android:exported="false" />
+        -->
         <activity
             android:name=".feedback"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".LiveSession"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".KnowAboutnNutrionists"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".KnowAboutDietiton"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -157,35 +168,35 @@
             android:exported="false" />
         <activity
             android:name=".Appointment_Booking2_Now_Warning"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Appointment_Booking2_Now"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Appointment_Booking2"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Appointment_booking"
-            android:exported="true" >
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".EditProfile"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -196,42 +207,42 @@
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".Fitbit"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".GoogleFit"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".OTPVerified"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ChangePassword"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".EnterOTP"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".InAppNotification"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -246,7 +257,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".QuestionsAfterScan"
@@ -265,6 +275,9 @@
             android:exported="false" />
         <activity
             android:name=".LiveListAct"
+            android:exported="false" />
+        <activity
+            android:name=".Overview"
             android:exported="false" />
         <activity
             android:name=".LiveAct"
@@ -325,8 +338,7 @@
             android:exported="true" />
         <activity
             android:name=".Signup"
-            android:exported="true" >
-
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -355,8 +367,11 @@
         <activity
             android:name=".DashBoardMain"
             android:exported="true"
-            android:noHistory="false" >
-        </activity>
+            android:noHistory="false"></activity>
+        <activity
+            android:name=".ChatAreaTwo"
+            android:exported="true"
+            android:noHistory="false"/>
         <activity
             android:name=".Diet_plan_main_screen"
             android:exported="false" />
@@ -370,7 +385,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-            <!--    <category android:name="android.intent.category.LAUNCHER" />  -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
 
@@ -385,7 +400,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.infits.Statistics.provider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/paths" />
@@ -395,7 +410,7 @@
             android:name=".HealthConnect"
             android:enabled="true"
             android:exported="true"
-            android:theme="@style/Theme.Infits" >
+            android:theme="@style/Theme.Infits">
             <meta-data
                 android:name="health_permissions"
                 android:resource="@array/health_permissions"
@@ -405,8 +420,8 @@
                 <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity_Todays_Breakfast"
-            />
+        <activity android:name=".Activity_Todays_Breakfast" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

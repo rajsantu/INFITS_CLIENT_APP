@@ -83,7 +83,6 @@ public class MealtrackerFinalAdapter extends RecyclerView.Adapter<MealtrackerFin
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return todays_breakFast_infos.size();
