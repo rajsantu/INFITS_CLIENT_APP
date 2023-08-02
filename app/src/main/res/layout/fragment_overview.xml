@@ -314,7 +314,7 @@
 
 
                 <TextView
-                    android:id="@+id/section2t6"
+                    android:id="@+id/overview_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/baloo2"
@@ -330,7 +330,7 @@
                     app:layout_constraintVertical_bias="0.219" />
 
                 <TextView
-                    android:id="@+id/section2t5"
+                    android:id="@+id/overview_fat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/baloo2"
@@ -346,7 +346,7 @@
                     app:layout_constraintVertical_bias="0.219" />
 
                 <TextView
-                    android:id="@+id/section2t3"
+                    android:id="@+id/overview_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/baloo2"
@@ -480,7 +480,7 @@
                     app:srcCompat="@mipmap/nextbtn" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/overview_message"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:backgroundTint="#1D8BF1"

@@ -477,7 +477,7 @@ public class ConsultationFragment extends Fragment {
                         }
 
                         SubmitQuesAns(arrayQues.toString(), arrayAns.toString());
-                        Intent intent = new Intent(getActivity(), Subscription1.class);
+                        Intent intent = new Intent(getActivity(), Overview.class);
                         startActivity(intent);
 
                     }

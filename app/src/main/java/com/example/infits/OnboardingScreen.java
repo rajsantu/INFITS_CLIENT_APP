@@ -32,7 +32,6 @@ public class OnboardingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_screen);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         viewPager = findViewById(R.id.pageView);
         skipButton = findViewById(R.id.skipButton);

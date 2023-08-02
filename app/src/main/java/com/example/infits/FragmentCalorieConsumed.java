@@ -218,7 +218,8 @@ public class FragmentCalorieConsumed extends Fragment {
         caloriedisplaydate.setText(sf.format(dateToday));
         calorieInfos.clear();
 
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
 
         StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
                 response -> {
@@ -476,7 +477,8 @@ public class FragmentCalorieConsumed extends Fragment {
 
     private void BreakFastInfo(){
         String mealType="BreakFast";
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
 
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {
@@ -540,7 +542,8 @@ public class FragmentCalorieConsumed extends Fragment {
     }
     private void LunchInfo(){
         String mealType="Lunch";
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
 
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {

@@ -48,7 +48,8 @@ public class MealTrackerFragment extends Fragment {
     List<addmealInfo> addmealInfos;
     View bottomSheetN;
     RequestQueue queue;
-    String url=  String.format("%smealTrackerRecentShared.php",DataFromDatabase.ipConfig);
+    //String url=  String.format("%smealTrackerRecentShared.php",DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/mealTrackerRecentShared.php";
     ImageView imageback;
 
     // TODO: Rename parameter arguments, choose names that match

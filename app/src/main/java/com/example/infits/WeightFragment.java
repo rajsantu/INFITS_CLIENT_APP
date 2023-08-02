@@ -174,7 +174,8 @@ public class WeightFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sweightGraph.php",DataFromDatabase.ipConfig);
+                //String url = String.format("%sweightGraph.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/weightGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -216,7 +217,7 @@ public class WeightFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("userID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -227,7 +228,9 @@ public class WeightFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sweightMonthGraph.php",DataFromDatabase.ipConfig);
+            //String url = String.format("%sweightMonthGraph.php",DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/weightMonthGraph.php";
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
@@ -279,7 +282,7 @@ public class WeightFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("clientuserID",DataFromDatabase.clientuserID);
 
                     return data;
                 }
@@ -288,7 +291,8 @@ public class WeightFragment extends Fragment {
         });
         year_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sweightYearGraph.php",DataFromDatabase.ipConfig);
+            //String url = String.format("%sweightYearGraph.php",DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/weightYearGraph.php";
                 StringRequest stringRequestWater = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println("In request");
                     List<String> allNames = new ArrayList<>();
@@ -324,7 +328,7 @@ public class WeightFragment extends Fragment {
 
                         Map<String, String> data = new HashMap<>();
 
-                        data.put("userID", DataFromDatabase.clientuserID);
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
 
                         return data;
                     }
@@ -355,7 +359,8 @@ public class WeightFragment extends Fragment {
                 SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
                 String from = sf.format(dates.get(0));
                 String to = sf.format(dates.get(dates.size() - 1));
-                String url = String.format("%scustomweight.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%scustomweight.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/customweight.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -396,7 +401,7 @@ public class WeightFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         dataVol.put("from", from);
                         dataVol.put("to", to);
                         return dataVol;

@@ -268,16 +268,16 @@ public class DashBoardFragment extends Fragment {
         stepcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_stepTrackerFragment));
 
         SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        float steps = stepPrefs.getFloat("steps", 0);
         float stepGoal = stepPrefs.getFloat("goal", 0f);
-        int stepPercent = stepGoal == 0 ? 0 : (int) ((steps * 100) / stepGoal);
+        int stepPercent = stepGoal == 0 ? 0 : (int) ((FetchTrackerInfos.currentSteps * 100) / stepGoal);
         String stepText = stepGoal == 0 ? "----------" : (int) stepGoal + " Steps";
         String stepPercentText = stepPercent + "%";
-        Log.d("frag", String.valueOf(steps));
+        Log.d("frag", String.valueOf(FetchTrackerInfos.currentSteps));
         Log.d("frag", String.valueOf(stepGoal));
         Log.d("frag", String.valueOf(stepPercent));
-
-        stepstv.setText(stepText);
+        if (FetchTrackerInfos.currentSteps > 1)
+        stepstv.setText(FetchTrackerInfos.currentSteps+" steps");
+        else stepstv.setText("--------");
         stepsProgressPercent.setText(stepPercentText);
         stepsProgressBar.setProgress(stepPercent);
 
@@ -323,10 +323,15 @@ public class DashBoardFragment extends Fragment {
 
         goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
-                updateVerification();
-                Intent intent = new Intent(getActivity(),Consultation.class);
-                requireActivity().finish();
-                startActivity(intent);
+                if (DataFromDatabase.verification.equals("0")){
+                    startActivity(new Intent(getActivity(), connectingDietitian.class));
+                }else {
+                    updateVerification();
+                    Intent intent = new Intent(getActivity(),Consultation.class);
+                    requireActivity().finish();
+                    startActivity(intent);
+                }
+
                 //Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
             }
             else {
@@ -729,6 +734,7 @@ public class DashBoardFragment extends Fragment {
                     //data.put("clientID",DataFromDatabase.clientuserID);
                     Entered = referralCode.getText().toString();
                     data.put("dietitian_verify_code",Entered);
+                    data.put("type","1");
 
 
                     return data;
@@ -853,6 +859,8 @@ public class DashBoardFragment extends Fragment {
                 data.put("referralCode",Entered);
                 data.put("dietitianID",DataFromDatabase.dietitian_id);
                 data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+                data.put("type","1");
+                data.put("verification","0");
 
 
                 return data;

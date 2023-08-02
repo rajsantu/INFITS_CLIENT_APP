@@ -68,7 +68,8 @@ public class FragmentCalorieBurnt extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    String url = String.format("%scalorieBurnt.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%scalorieBurnt.php", DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/calorieBurnt.php";
     PieChart pieChart;
     ImageView imgBack,calorieImageView;
     ArrayList<calorieInfo> calorieInfos;
@@ -127,7 +128,7 @@ public class FragmentCalorieBurnt extends Fragment {
 
     private void setTodayData(String purpose) {
 
-        String url = DataFromDatabase.ipConfig + "calorieBurnt.php";
+        //String url = DataFromDatabase.ipConfig + "calorieBurnt.php";
         String date = getCurrentDate(),calorie="---";
 //        pastAcivity(date,calorie,"45","42","452");
 
