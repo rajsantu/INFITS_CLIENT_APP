@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class caloriesetgoalFragment extends Fragment {
 
     Integer CCcurrentProgress,CBcurrentProgress,fibercurrentProgress,carbcurrentProgress,fatcurrentProgress,proteincurrentProgress;
 
-    ImageView confirmed;
+    ImageView confirmed,backbutton;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -91,7 +92,12 @@ public class caloriesetgoalFragment extends Fragment {
 
         hooks(view);
 
-
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_caloriesetgoalFragment_to_calorieTrackerFragment);
+            }
+        });
         calorieconsume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -201,12 +207,13 @@ public class caloriesetgoalFragment extends Fragment {
                 setgoal.setVisibility(View.GONE);
 
                 if (CCcurrentProgress==0 && CBcurrentProgress==0 &&
-                    carbcurrentProgress==0 && fibercurrentProgress==0 &&
-                    proteincurrentProgress==0 && fatcurrentProgress==0){
+                        carbcurrentProgress==0 && fibercurrentProgress==0 &&
+                        proteincurrentProgress==0 && fatcurrentProgress==0){
                     Toast.makeText(getContext(), "Progess shoudnt be 0", Toast.LENGTH_SHORT).show();
                 }
 
-                String url = String.format("%sClient_GoalsCalorie.php", DataFromDatabase.ipConfig);
+//                String url = String.format("%sClient_GoalsCalorie.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/Client_GoalsCalorie.php";
                 StringRequest request = new StringRequest(Request.Method.POST, url,
                         response -> {
                             Log.d("Calorie set Goal Bro", response);
@@ -353,6 +360,7 @@ public class caloriesetgoalFragment extends Fragment {
 
         setgoal = view.findViewById(R.id.caloriesetgoal);
         confirmed = view.findViewById(R.id.calsetgoalconfirmed);
+        backbutton = view.findViewById(R.id.setgoalimgback);
 
     }
 }

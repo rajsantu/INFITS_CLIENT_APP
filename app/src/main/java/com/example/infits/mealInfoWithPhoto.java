@@ -258,7 +258,7 @@ public class mealInfoWithPhoto extends Fragment {
             public void onClick(View v) {
                 if (IsFavourite == false) {
                     AddFavourite();
-                    
+
                 } else {
                     RemoveFavourite();
                 }

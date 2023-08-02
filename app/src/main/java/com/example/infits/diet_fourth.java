@@ -45,8 +45,8 @@ import java.util.*;
  * create an instance of this fragment.
  */
 public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDateSelectedListener {
-     RecyclerView recyclerView,recyclerView2;
-     private List<Date> dateList;
+    RecyclerView recyclerView,recyclerView2;
+    private List<Date> dateList;
     CalMealScheduleAdapter adapter;
 
     ImageView back_btn;
@@ -146,7 +146,8 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
     private void req(String day){
         progressBar.setVisibility(View.VISIBLE);
         RequestQueue requestQueue= Volley.newRequestQueue(requireActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, String.format("%sgetDietChart.php",DataFromDatabase.ipConfig) ,
+        String urlDt = "https://infits.in/androidApi/getDietChart.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlDt,
                 new Response.Listener<String>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
@@ -177,8 +178,8 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
                             //layout 3
                             itemClasses.add(new MealScheduleItemClass(MealScheduleItemClass.LayoutThree,R.drawable.fats,"Fats","210 g",""));
 
-                             mealScheduleAdapter = new MealScheduleAdapter(itemClasses);
-                             recyclerView2.setAdapter(mealScheduleAdapter);
+                            mealScheduleAdapter = new MealScheduleAdapter(itemClasses);
+                            recyclerView2.setAdapter(mealScheduleAdapter);
 
 
                         } catch (Exception e) {
@@ -207,8 +208,8 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
-        //for dinner and breakfast
-        private void addDetails(JSONObject day_name,String key1,String key2,String key3,String time1,String time2){
+    //for dinner and breakfast
+    private void addDetails(JSONObject day_name,String key1,String key2,String key3,String time1,String time2){
         try {
             JSONObject key1_data = new JSONObject(day_name.getString(key1));
             JSONArray key2_data = new JSONArray(key1_data.getString(key2));
@@ -226,10 +227,10 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
         }catch (Exception e){
             Toast.makeText(requireActivity(),"addBreakFast " + e.toString(), Toast.LENGTH_SHORT).show();
         }
-}
+    }
 
-        //for snacks lunch
-        private void addDetails(JSONObject day_name,String meal_name,String key,String time){
+    //for snacks lunch
+    private void addDetails(JSONObject day_name,String meal_name,String key,String time){
         try {
             JSONObject meal_name_data = new JSONObject(day_name.getString(meal_name));
             JSONArray key_data = new JSONArray(meal_name_data.getString(key));
@@ -253,8 +254,8 @@ public class diet_fourth extends Fragment implements CalMealScheduleAdapter.OnDa
                         try {
                             JSONArray jsonArrayData = new JSONArray(response);
                             for (int i = 0 ; i<jsonArrayData.length();i++){
-                                    JSONObject jsonObject = new JSONObject(jsonArrayData.getString(i));
-                                    JSONObject jsonObject1 = new JSONObject(jsonObject.getString("drecipe_nutritional_information"));
+                                JSONObject jsonObject = new JSONObject(jsonArrayData.getString(i));
+                                JSONObject jsonObject1 = new JSONObject(jsonObject.getString("drecipe_nutritional_information"));
 //                                    calories_count = calories_count+Integer.parseInt(jsonObject1.getString("Calories"));
                             }
 

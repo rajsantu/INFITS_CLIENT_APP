@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class activityTracker2 extends Fragment {
     List<Date> dateList;
     CalAdapter_at adapter;
     ImageView running_img,walking_img,cycling_img;
+    ImageButton backbutton;
 
     public activityTracker2 () {
         // Required empty public constructor
@@ -74,6 +76,7 @@ public class activityTracker2 extends Fragment {
         running_img=view.findViewById ( R.id.imageView79 );
         cycling_img=view.findViewById ( R.id.imageView73 );
         walking_img=view.findViewById ( R.id.imageView82 );
+        backbutton=view.findViewById(R.id.activitytrackerimgback);
 
         running_img.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activitySecondFragment);
@@ -85,6 +88,18 @@ public class activityTracker2 extends Fragment {
         walking_img.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityfourthfragment);
         });
+
+        backbutton.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_dashBoardFragment);
+        });
+
+
+      //  backbutton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_dashBoardFragment);
+       //     }
+       // });
 
 //        return inflater.inflate(R.layout.fragment_diet_fourth, container, false);
         return  view;

@@ -439,6 +439,9 @@
         <action
             android:id="@+id/action_activityTracker2_to_activitySecondFragment"
             app:destination="@id/activitySecondFragment" />
+        <action
+            android:id="@+id/action_activityTracker2_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/activityfourthfragment"
@@ -451,6 +454,9 @@
         <action
             android:id="@+id/action_activityfourthfragment_to_walking_frag2"
             app:destination="@id/walking_frag2" />
+        <action
+            android:id="@+id/action_activityfourthfragment_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
         android:id="@+id/activitythirdfragment"
@@ -460,6 +466,9 @@
         <action
             android:id="@+id/action_activitythirdfragment_to_cycling_frag2"
             app:destination="@id/cycling_frag2" />
+        <action
+            android:id="@+id/action_activitythirdfragment_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
         android:id="@+id/activitySecondFragment"
@@ -469,6 +478,9 @@
         <action
             android:id="@+id/action_activitySecondFragment_to_running_frag1"
             app:destination="@id/running_frag1" />
+        <action
+            android:id="@+id/action_activitySecondFragment_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
         android:id="@+id/running_frag1"
@@ -493,5 +505,9 @@
         android:id="@+id/caloriesetgoalFragment"
         android:name="com.example.infits.caloriesetgoalFragment"
         android:label="fragment_caloriesetgoal"
-        tools:layout="@layout/fragment_caloriesetgoal" />
+        tools:layout="@layout/fragment_caloriesetgoal" >
+        <action
+            android:id="@+id/action_caloriesetgoalFragment_to_calorieTrackerFragment"
+            app:destination="@id/calorieTrackerFragment" />
+    </fragment>
 </navigation>

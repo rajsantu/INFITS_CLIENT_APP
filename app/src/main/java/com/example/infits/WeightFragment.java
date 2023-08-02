@@ -59,7 +59,7 @@ import java.util.Map;
 
 public class WeightFragment extends Fragment {
 
-//    TextView daily,monthly,weekly,total;
+    //    TextView daily,monthly,weekly,total;
     RequestQueue queue;
     String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
@@ -293,47 +293,51 @@ public class WeightFragment extends Fragment {
             NoOfEmp.removeAll(NoOfEmp);
             //String url = String.format("%sweightYearGraph.php",DataFromDatabase.ipConfig);
             String url = "https://infits.in/androidApi/weightYearGraph.php";
-                StringRequest stringRequestWater = new StringRequest(Request.Method.POST, url, response -> {
-                    System.out.println("In request");
-                    List<String> allNames = new ArrayList<>();
-                    JSONObject jsonResponse = null;
-                    try {
-                        jsonResponse = new JSONObject(response);
-                        JSONArray cast = jsonResponse.getJSONArray("weight");
-                        for (int i = 0; i < cast.length(); i++) {
-                            JSONObject actor = cast.getJSONObject(i);
-                            String name = actor.getString("av");
-                            System.out.println(name);
-                            allNames.add(name);
-                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
-                            System.out.println("Points " + NoOfEmp.get(i));
-                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+            StringRequest stringRequestWater = new StringRequest(Request.Method.POST, url, response -> {
+                System.out.println("In request");
+                List<String> allNames = new ArrayList<>();
+                JSONObject jsonResponse = null;
+                ArrayList<String> mons = new ArrayList<>();
+                try {
+                    jsonResponse = new JSONObject(response);
+                    JSONArray cast = jsonResponse.getJSONArray("weight");
+                    for (int i = 0; i < cast.length(); i++) {
+                        JSONObject actor = cast.getJSONObject(i);
+                        String name = actor.getString("av");
+                        String month = actor.getString("month");
+                        System.out.println(name);
+                        allNames.add(name);
+                        mons.add(month);
+                        NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
+                        System.out.println("Points " + NoOfEmp.get(i));
+                        dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
-                            dataSet[0].setValues(NoOfEmp);
+                        dataSet[0].setValues(NoOfEmp);
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
 
-                            dataSet[0].notifyDataSetChanged();
-                            lineChart.getData().notifyDataChanged();
-                            lineChart.notifyDataSetChanged();
-                            lineChart.invalidate();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        dataSet[0].notifyDataSetChanged();
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
                     }
-                }, error -> {
-                    Log.d("Data", error.toString().trim());
-                }) {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> {
+                Log.d("Data", error.toString().trim());
+            }) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
 
-                        Map<String, String> data = new HashMap<>();
+                    Map<String, String> data = new HashMap<>();
 
-                        data.put("clientuserID", DataFromDatabase.clientuserID);
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
 
-                        return data;
-                    }
-                };
-                Volley.newRequestQueue(getActivity()).add(stringRequestWater);
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(getActivity()).add(stringRequestWater);
         });
         custom_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
