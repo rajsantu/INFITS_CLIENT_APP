@@ -7,58 +7,89 @@
     android:background="@drawable/gradientback2"
     tools:context=".Subscription3">
 
-        <androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/gradientback2"
             tools:context=".Subscription3">
 
-                <TextView
-                    android:id="@+id/textView41"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="• Monitoring System with 24/7 Coach"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:src="@drawable/ecllipse_sub"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.346"
+                    app:layout_constraintHorizontal_bias="0.05"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.639" />
 
                 <TextView
+                    android:id="@+id/textView41"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Monitoring System with 24/7 Coach"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.397"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.66" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ecllipse_sub"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.576"/>
+
+                <TextView
                     android:id="@+id/textView40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="• 1 Follow-Up Calls per Week"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="1 Follow-Up Calls per Week"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.192"
+                    app:layout_constraintHorizontal_bias="0.301"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.576" />
+                    app:layout_constraintVertical_bias="0.58" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ecllipse_sub"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.335"/>
 
                 <TextView
                     android:id="@+id/textView39"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="• 2 Months Program"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="2 Months Program"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.115"
+                    app:layout_constraintHorizontal_bias="0.203"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.335" />
+                    app:layout_constraintVertical_bias="0.334" />
 
                 <ImageButton
                     android:id="@+id/btnup"
@@ -92,10 +123,10 @@
                     android:id="@+id/textView38"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/nats_regular"
                     android:text="Swipe For More Plans"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="26sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,14 +134,14 @@
                     app:layout_constraintVertical_bias="0.848" />
 
                 <Button
-                    android:id="@+id/logbtn2"
+                    android:id="@+id/buy_10000"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="Buy Now • ₹10,000"
                     android:textColor="#855ECC"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:cornerRadius="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -119,20 +150,31 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.765" />
 
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="335dp"
-                    android:layout_height="57dp"
-                    android:text="• 30 Minutes 1 to 1 Call with Certified Nutritionist"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ecllipse_sub"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.394"
+                    app:layout_constraintHorizontal_bias="0.05"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.422" />
+                    app:layout_constraintVertical_bias="0.412"/>
+
+                <TextView
+                    android:id="@+id/textView37"
+                    android:layout_width="230dp"
+                    android:layout_height="57dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="30 Minutes 1 to 1 Call with Certified Nutritionist"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.255"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.427" />
 
                 <TextView
                     android:id="@+id/textView35"
@@ -179,17 +221,28 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.205" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ecllipse_sub"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.512"/>
+
                 <TextView
                     android:id="@+id/textView36"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="• Customized Diet Plan"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Customized Diet Plan"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.144"
+                    app:layout_constraintHorizontal_bias="0.23"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.515" />

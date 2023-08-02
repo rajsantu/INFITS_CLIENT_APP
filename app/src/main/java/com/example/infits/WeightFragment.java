@@ -59,7 +59,7 @@ import java.util.Map;
 
 public class WeightFragment extends Fragment {
 
-//    TextView daily,monthly,weekly,total;
+    //    TextView daily,monthly,weekly,total;
     RequestQueue queue;
     String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
@@ -174,7 +174,8 @@ public class WeightFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sweightGraph.php",DataFromDatabase.ipConfig);
+                //String url = String.format("%sweightGraph.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/weightGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -216,7 +217,7 @@ public class WeightFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("userID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -227,7 +228,9 @@ public class WeightFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sweightMonthGraph.php",DataFromDatabase.ipConfig);
+            //String url = String.format("%sweightMonthGraph.php",DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/weightMonthGraph.php";
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
@@ -279,7 +282,7 @@ public class WeightFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("clientuserID",DataFromDatabase.clientuserID);
 
                     return data;
                 }
@@ -288,48 +291,53 @@ public class WeightFragment extends Fragment {
         });
         year_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sweightYearGraph.php",DataFromDatabase.ipConfig);
-                StringRequest stringRequestWater = new StringRequest(Request.Method.POST, url, response -> {
-                    System.out.println("In request");
-                    List<String> allNames = new ArrayList<>();
-                    JSONObject jsonResponse = null;
-                    try {
-                        jsonResponse = new JSONObject(response);
-                        JSONArray cast = jsonResponse.getJSONArray("weight");
-                        for (int i = 0; i < cast.length(); i++) {
-                            JSONObject actor = cast.getJSONObject(i);
-                            String name = actor.getString("av");
-                            System.out.println(name);
-                            allNames.add(name);
-                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
-                            System.out.println("Points " + NoOfEmp.get(i));
-                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+            //String url = String.format("%sweightYearGraph.php",DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/weightYearGraph.php";
+            StringRequest stringRequestWater = new StringRequest(Request.Method.POST, url, response -> {
+                System.out.println("In request");
+                List<String> allNames = new ArrayList<>();
+                JSONObject jsonResponse = null;
+                ArrayList<String> mons = new ArrayList<>();
+                try {
+                    jsonResponse = new JSONObject(response);
+                    JSONArray cast = jsonResponse.getJSONArray("weight");
+                    for (int i = 0; i < cast.length(); i++) {
+                        JSONObject actor = cast.getJSONObject(i);
+                        String name = actor.getString("av");
+                        String month = actor.getString("month");
+                        System.out.println(name);
+                        allNames.add(name);
+                        mons.add(month);
+                        NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
+                        System.out.println("Points " + NoOfEmp.get(i));
+                        dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
-                            dataSet[0].setValues(NoOfEmp);
+                        dataSet[0].setValues(NoOfEmp);
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
 
-                            dataSet[0].notifyDataSetChanged();
-                            lineChart.getData().notifyDataChanged();
-                            lineChart.notifyDataSetChanged();
-                            lineChart.invalidate();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        dataSet[0].notifyDataSetChanged();
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
                     }
-                }, error -> {
-                    Log.d("Data", error.toString().trim());
-                }) {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> {
+                Log.d("Data", error.toString().trim());
+            }) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
 
-                        Map<String, String> data = new HashMap<>();
+                    Map<String, String> data = new HashMap<>();
 
-                        data.put("userID", DataFromDatabase.clientuserID);
+                    data.put("clientuserID", DataFromDatabase.clientuserID);
 
-                        return data;
-                    }
-                };
-                Volley.newRequestQueue(getActivity()).add(stringRequestWater);
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(getActivity()).add(stringRequestWater);
         });
         custom_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
@@ -355,7 +363,8 @@ public class WeightFragment extends Fragment {
                 SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
                 String from = sf.format(dates.get(0));
                 String to = sf.format(dates.get(dates.size() - 1));
-                String url = String.format("%scustomweight.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%scustomweight.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/customweight.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -396,7 +405,7 @@ public class WeightFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
                         dataVol.put("from", from);
                         dataVol.put("to", to);
                         return dataVol;

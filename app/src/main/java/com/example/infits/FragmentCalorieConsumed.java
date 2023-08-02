@@ -132,9 +132,11 @@ public class FragmentCalorieConsumed extends Fragment {
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
         caloriedisplaydate.setText(sf.format(dateToday));
-        day_btn_calorie.setOnClickListener(new View.OnClickListener() {
+        day_btn_calorie.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 ButtonID = day_btn_calorie;
                 SetButtonBackground(v);
                 calorieInfos.clear();
@@ -146,10 +148,12 @@ public class FragmentCalorieConsumed extends Fragment {
 
             }
         });
-        week_btn_calorie.setOnClickListener(new View.OnClickListener() {
+        week_btn_calorie.setOnClickListener(new View.OnClickListener()
+        {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 ButtonID = week_btn_calorie;
                 SetButtonBackground(v);
                 calorieInfos.clear();
@@ -214,7 +218,8 @@ public class FragmentCalorieConsumed extends Fragment {
         caloriedisplaydate.setText(sf.format(dateToday));
         calorieInfos.clear();
 
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
 
         StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
                 response -> {
@@ -469,9 +474,11 @@ public class FragmentCalorieConsumed extends Fragment {
         //calorieRecycleview.setAdapter(calorieInfoAdapter);
 
     }
+
     private void BreakFastInfo(){
         String mealType="BreakFast";
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
 
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {
@@ -497,6 +504,8 @@ public class FragmentCalorieConsumed extends Fragment {
                             BreakFast.add(new calorieconsumedInfo(R.drawable.istockphoto_860224944_612x612_removebg_preview_1, mealType,
                                     breakfastName, breakfastCalories, "1", "Small", Time));
                         }
+                        String totalCaloriesConsumed = valueObject.getString("total_caloriesconsumed");
+                        totalCalorieValue.setText(totalCaloriesConsumed);
                     } catch (JSONException | ParseException e) {
                         e.printStackTrace();
                     }
@@ -521,16 +530,20 @@ public class FragmentCalorieConsumed extends Fragment {
                 }
                 return data;
             }
+
         };
+
         Volley.newRequestQueue(requireContext()).add(calorieRequest);
         calorieRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
+
     }
     private void LunchInfo(){
         String mealType="Lunch";
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
 
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {

@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
 public class activitythirdfragment extends Fragment {
 
     Button btn_setgoal, btn_start_trd;
+    ImageView back_button;
 
     public activitythirdfragment() {
         // Required empty public constructor
@@ -48,6 +51,7 @@ public class activitythirdfragment extends Fragment {
         dialog.setContentView ( R.layout.activity_trck_popup );
         btn_start_trd=view.findViewById ( R.id.imageView86_trd);
         btn_setgoal=view.findViewById ( R.id.imageView74 );
+        back_button=view.findViewById( R.id.imageView73);
         btn_setgoal.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
@@ -59,6 +63,13 @@ public class activitythirdfragment extends Fragment {
             @Override
             public void onClick ( View v ) {
                 Navigation.findNavController(v).navigate(R.id.action_activitythirdfragment_to_cycling_frag2);
+            }
+        } );
+
+        back_button.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                Navigation.findNavController(v).navigate(R.id.action_activitythirdfragment_to_activityTracker2);
             }
         } );
 
