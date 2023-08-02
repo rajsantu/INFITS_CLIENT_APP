@@ -127,11 +127,11 @@ public class ChatAreaTwo extends AppCompatActivity {
                                         @Override
                                         protected Map<String, String> getParams() throws AuthFailureError {
                                             Map<String, String> data = new HashMap<>();
-                                            data.put("dieticianID", DataFromDatabase.dietitianuserID);
-                                            data.put("clientID", DataFromDatabase.clientuserID);
+                                            data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
+                                            data.put("clientuserID", DataFromDatabase.clientuserID);
                                             data.put("message", encoded);
-                                            data.put("type",type);
-                                            data.put("sentBy","client");
+                                            data.put("time",type);
+                                            data.put("messageBy","client");
                                             return data;
                                         }
                                     };
