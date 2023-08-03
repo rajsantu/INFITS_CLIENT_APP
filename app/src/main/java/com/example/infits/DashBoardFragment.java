@@ -43,6 +43,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.bumptech.glide.Glide;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -69,7 +70,8 @@ public class DashBoardFragment extends Fragment {
 
 
     // String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
-    String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
+    //String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
+    String url1 = "https://infits.in/androidApi/getDietitianDetail.php";
     //String url1 = "https://infits.in/androidApi/getDietitianDetail.php";
 
     //No such file!
@@ -179,7 +181,10 @@ public class DashBoardFragment extends Fragment {
         SharedPreferences prefs = requireContext().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         String clientuserID = prefs.getString("clientuserID", DataFromDatabase.clientuserID);
 
+        // Dashboard Profile pic from server
         ImageView profileImageView = view.findViewById(R.id.profile1);
+        String DashboardprofilePic = "https://infits.in/androidApi/upload/default.jpg";
+        Glide.with(this).load(DashboardprofilePic).fitCenter().into(profileImageView);
 
         // Execute the query using a Volley StringRequest
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, response -> {
@@ -276,7 +281,7 @@ public class DashBoardFragment extends Fragment {
         Log.d("frag", String.valueOf(stepGoal));
         Log.d("frag", String.valueOf(stepPercent));
         if (FetchTrackerInfos.currentSteps > 1)
-        stepstv.setText(FetchTrackerInfos.currentSteps+" steps");
+            stepstv.setText(FetchTrackerInfos.currentSteps+" steps");
         else stepstv.setText("--------");
         stepsProgressPercent.setText(stepPercentText);
         stepsProgressBar.setProgress(stepPercent);
@@ -311,9 +316,9 @@ public class DashBoardFragment extends Fragment {
         mealTrackerCard.setOnClickListener(v->{
             updateVerification();
             if (DataFromDatabase.proUser){
-            //Intent intent = new Intent(getActivity(),Meal_main.class);
-            //requireActivity().finish();
-            //startActivity(intent);
+                //Intent intent = new Intent(getActivity(),Meal_main.class);
+                //requireActivity().finish();
+                //startActivity(intent);
                 Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_mealTracker);
             }
             else {
@@ -553,6 +558,8 @@ public class DashBoardFragment extends Fragment {
 
                         if (array.isNull("Calories")) {
                             calorietv.setText("0 kcal");
+                            String calorieGoalText = array.getString("goal") + " kcal";
+                            calorieGoaltv.setText(calorieGoalText);
                         } else {
                             String calorieValueText = array.getString("Calories") + " kcal";
                             String calorieGoalText = array.getString("goal") + " kcal";
@@ -711,18 +718,18 @@ public class DashBoardFragment extends Fragment {
 
             //String referralUrl = String.format("%sverify.php",DataFromDatabase.ipConfig);
             StringRequest stringRequest = new StringRequest(Request.Method.POST,urlRefer,
-            response->{
-                Log.d("DietitianVerification", response);
+                    response->{
+                        Log.d("DietitianVerification", response);
 
-                if(response.equals("found")) {
-                    showSuccessDialog();
-                    System.out.println("Verified");
-                }else {
-                    System.out.println("Not verified");
-                    showFailureDialog();
-                }
+                        if(response.equals("found")) {
+                            showSuccessDialog();
+                            System.out.println("Verified");
+                        }else {
+                            System.out.println("Not verified");
+                            showFailureDialog();
+                        }
 
-            },error->{
+                    },error->{
 
             }){
                 @Nullable

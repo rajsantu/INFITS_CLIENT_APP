@@ -92,23 +92,23 @@ public class Signup extends AppCompatActivity {
 
     private void generateReferral() {
         Random random = new Random();
-            //if username length equals to 3
-            if (userName.getText().toString().trim().length() == 3 && !userName.getText().toString().trim().contains(" ")){
-                StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 3).toUpperCase());
-                for(int i = 0; i < 5; i++) {
-                    referralCode.append(random.nextInt(10));
-                }
-                signUpWithReferral(referralCode.toString());
-            }else if (userName.getText().toString().trim().length() >= 4 && !userName.getText().toString().trim().contains(" ")){
-                StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 4).toUpperCase());
-                for(int i = 0; i < 4; i++) {
-                    referralCode.append(random.nextInt(10));
-                }
-                signUpWithReferral(referralCode.toString());
-            }else {
-                signbtn.setClickable(true);
-                Toast.makeText(Signup.this,"Username must be greater than 3 letter",Toast.LENGTH_SHORT).show();
+        //if username length equals to 3
+        if (userName.getText().toString().trim().length() == 3 && !userName.getText().toString().trim().contains(" ")){
+            StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 3).toUpperCase());
+            for(int i = 0; i < 5; i++) {
+                referralCode.append(random.nextInt(10));
             }
+            signUpWithReferral(referralCode.toString());
+        }else if (userName.getText().toString().trim().length() >= 4 && !userName.getText().toString().trim().contains(" ")){
+            StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 4).toUpperCase());
+            for(int i = 0; i < 4; i++) {
+                referralCode.append(random.nextInt(10));
+            }
+            signUpWithReferral(referralCode.toString());
+        }else {
+            signbtn.setClickable(true);
+            Toast.makeText(Signup.this,"Username must be greater than 3 letter",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signUpWithReferral(String referralCode){
@@ -125,7 +125,9 @@ public class Signup extends AppCompatActivity {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
         }
         else {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sregister_client_with_referral.php",DataFromDatabase.ipConfig), response -> {
+            String url = "https://infits.in/androidApi/register_client_with_referral.php";
+            //StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sregister_client_with_referral.php",DataFromDatabase.ipConfig), response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
                 if (response != null && !response.contains("Duplicate entry")){
                     progressBar.setVisibility(View.INVISIBLE);
                     signbtn.setClickable(true);

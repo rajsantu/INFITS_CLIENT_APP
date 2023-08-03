@@ -43,7 +43,7 @@ public class CalorieTrackerFragment extends Fragment {
     ImageView imgBack;
 
     ////int calgoal;
-   // int calConsumed;
+    // int calConsumed;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -99,7 +99,8 @@ public class CalorieTrackerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calorie_tracker, container, false);
 
-        String url = String.format("%scalorieTracker.php", DataFromDatabase.ipConfig);
+        //String url = String.format("%scalorieTracker.php", DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/calorieTracker.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("CalTracker Data Bro", response);
@@ -175,19 +176,19 @@ public class CalorieTrackerFragment extends Fragment {
 
         hooks(view);
         //ProgressData progressData1 = new ProgressData("view1",60f,100f,R.color.progressGreenColor);
-       // progressView1.setData(progressData1);
+        // progressView1.setData(progressData1);
 
         //ProgressData progressData2 = new ProgressData("view1",60f,100f,R.color.progressRedColor);
-       // progressView2.setData(progressData2);
+        // progressView2.setData(progressData2);
 
-       // ProgressData progressData3 = new ProgressData("view1",60f,100f,R.color.progressPurpleColor);
+        // ProgressData progressData3 = new ProgressData("view1",60f,100f,R.color.progressPurpleColor);
         //progressView3.setData(progressData3);
 
-       // ProgressData progressData4 = new ProgressData("view1",60f,100f,R.color.progressBlueColor);
-       // progressView4.setData(progressData4);
+        // ProgressData progressData4 = new ProgressData("view1",60f,100f,R.color.progressBlueColor);
+        // progressView4.setData(progressData4);
 
         //circularProgressIndicatorCC.setProgress(calConsumed,calgoal);
-       // circularProgressIndicatorCB.setProgress(7000,10000);
+        // circularProgressIndicatorCB.setProgress(7000,10000);
 
         BottomSheetBehavior.from(bottomSheetN).setPeekHeight(350);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);

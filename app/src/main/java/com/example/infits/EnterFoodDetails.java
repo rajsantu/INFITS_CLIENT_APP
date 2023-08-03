@@ -37,7 +37,8 @@ public class EnterFoodDetails extends AppCompatActivity {
 
     Button saveMeal;
 
-    String url = String.format("%ssaveMeal.php",DataFromDatabase.ipConfig);
+    //String url = String.format("%ssaveMeal.php",DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/saveMeal.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +103,8 @@ public class EnterFoodDetails extends AppCompatActivity {
 
                     Map<String,String> data = new HashMap<>();
 
-                        String timeString = todayTime.format(date);
-                        String dateString = todayDate.format(date);
+                    String timeString = todayTime.format(date);
+                    String dateString = todayDate.format(date);
 
                     data.put("meal",mealString);
                     data.put("image",base64String);

@@ -343,7 +343,8 @@ public class SleepFragment extends Fragment {
                 SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
                 String from = sf.format(dates.get(0));
                 String to = sf.format(dates.get(dates.size() - 1));
-                String url = String.format("%scustomsleep.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%scustomsleep.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/customsleep.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);

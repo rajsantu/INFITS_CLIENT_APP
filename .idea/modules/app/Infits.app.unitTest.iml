@@ -18,4 +18,12 @@
       </configuration>
     </facet>
   </component>
+<<<<<<< HEAD
+=======
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../../../app/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/src/test/java" isTestSource="true" />
+    </content>
+  </component>
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
 </module>

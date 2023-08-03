@@ -75,7 +75,8 @@ public class Login extends AppCompatActivity {
     RequestQueue queue;
 
 
-    String google_social_signin_url = String.format("%ssocial_login/loginClientGoogle.php",DataFromDatabase.ipConfig);
+    //String google_social_signin_url = String.format("%ssocial_login/loginClientGoogle.php",DataFromDatabase.ipConfig);
+    String google_social_signin_url = "https://infits.in/androidApi/social_login/loginClientGoogle.php";
     //needs email & token ( google token );
     //email = "vinod.patil.pro@gmail.com"
     //token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI3NDA1MmEyYjY0NDg3NDU3NjRlNzJjMzU5MDk3MWQ5MGNmYjU4NWEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI1MDMyNDgzMzcwMDkta2FzYnM2ZmVzMjlnYjBhcm4wNjNhaWRpazljajU5ODIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI1MDMyNDgzMzcwMDktcnBqMWswZGNiZHMwam1xbjVoOW5wbGRnZGpjZTZwbnEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDk0NzkxNDA3NDQ5MTk0MDgxNjkiLCJlbWFpbCI6InZpbm9kLnBhdGlsLnByb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlZpbm9kIFBhdGlsIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FFZEZUcDYwU2JwWTJuaFpBTkVHVWR3VzVWOFROOGdLV1dsSHZqaHNwVFljPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlZpbm9kIiwiZmFtaWx5X25hbWUiOiJQYXRpbCIsImxvY2FsZSI6ImVuLUdCIiwiaWF0IjoxNjc1MzE4MjAzLCJleHAiOjE2NzUzMjE4MDN9.jO7OopE2iv8uU3w0oLLisNkU3fFRfWCb93SGKW5bTpAxsKO6zGmZFVxiSV0m3sEohHnKSjLbOARs1minBoJJ4091ZcPdoNFIy7HIyGzSo7dn71feRMThmaqJKuzcpwb3ZiAWAy6O6DvsYg0RpJUHuW1kFly7FVMQp3prhSI7HUkxGdJtHtQZAVkYn_JJtRcJGngh4aDCB-vdeRChG-86vFMHOqpX9H-6kFasUKFaYy07y48dDHkco7sSSii2Nj34wS-D-ssJg8U7B23jM2T6GRZEGY4GnDIBunManTAHImteiOAuWphnQeKL26mKasaPh9tg68GuRokGsP_yR77TeQ";
@@ -106,7 +107,8 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-    String facebook_social_signin_url = String.format("%ssocial_login/loginClientFacebook.php",DataFromDatabase.ipConfig);
+    //String facebook_social_signin_url = String.format("%ssocial_login/loginClientFacebook.php",DataFromDatabase.ipConfig);
+    String facebook_social_signin_url = "https://infits.in/androidApi/social_login/loginClientFacebook.php";
     //needs email & token ( google token );
     //email = "vinod.patil.pro@gmail.com"
     //token = "token"

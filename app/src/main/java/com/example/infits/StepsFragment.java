@@ -307,23 +307,28 @@ public class StepsFragment extends Fragment {
         });
         year_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%sstepsYearGraph.php", DataFromDatabase.ipConfig);
+            //String url = String.format("%sstepsYearGraph.php", DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/stepsYearGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
+                ArrayList<String> mons = new ArrayList<>();
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
                     for (int i = 0; i < cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("av");
+                        String month = actor.getString("month");
                         System.out.println(name);
                         allNames.add(name);
+                        mons.add(month);
                         NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
                         System.out.println("Points " + NoOfEmp.get(i));
                         dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                         dataSet[0].setValues(NoOfEmp);
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
 
                         dataSet[0].notifyDataSetChanged();
                         lineChart.getData().notifyDataChanged();
@@ -342,7 +347,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("userID", DataFromDatabase.client_id);
+                    data.put("clientID", DataFromDatabase.client_id);
 
                     return data;
                 }
@@ -377,7 +382,8 @@ public class StepsFragment extends Fragment {
                 SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
                 String from = sf.format(dates.get(0));
                 String to = sf.format(dates.get(dates.size() - 1));
-                String url = String.format("%scustom.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%scustom.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/customStep.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);

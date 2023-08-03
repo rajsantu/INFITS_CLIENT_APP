@@ -162,11 +162,19 @@ public class WaterTrackerFragment extends Fragment {
             waterGoal.setText(DataFromDatabase.waterGoal + " ml");
             try {
                 goal = Integer.parseInt(DataFromDatabase.waterGoal);
+<<<<<<< HEAD
                // Log.d("Goal",String.valueOf(goal));
             } catch (NumberFormatException ex) {
                 goal = 1800;
                 waterGoal.setText(1800 + " ml");
                // Log.d("Goal",String.valueOf(goal));
+=======
+                // Log.d("Goal",String.valueOf(goal));
+            } catch (NumberFormatException ex) {
+                goal = 1800;
+                waterGoal.setText(1800 + " ml");
+                // Log.d("Goal",String.valueOf(goal));
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
                 System.out.println(ex);
             }
         }
@@ -207,18 +215,28 @@ public class WaterTrackerFragment extends Fragment {
                 setGoalBtn.setOnClickListener(v -> {
                     if (!goaltxt.getText().toString().equals("")) {
                         goal = Integer.parseInt(goaltxt.getText().toString());
+<<<<<<< HEAD
                        // Log.d("Goal",String.valueOf(goal));
+=======
+                        // Log.d("Goal",String.valueOf(goal));
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
                         waterGoal.setText(goaltxt.getText().toString() + " ml");
                         waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
                         consumedInDay = 0;
                         //String url = String.format("%supdatewatergoal.php",DataFromDatabase.ipConfig);
+<<<<<<< HEAD
                         String url =  DataFromDatabase.ipConfig +"updatewatergoal.php";
+=======
+                        //String url =  DataFromDatabase.ipConfig +"updatewatergoal.php";
+                        String url = "https://infits.in/androidApi/updatewatergoal.php";
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
                         StringRequest stringRequest=new StringRequest(Request.Method.POST,
                                 url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
 
+<<<<<<< HEAD
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
                                     String message = jsonObject.getString("message");
@@ -245,6 +263,34 @@ public class WaterTrackerFragment extends Fragment {
                                 Log.d("response1;;","error");
                             }
                         }
+=======
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            String message = jsonObject.getString("message");
+
+                                            int newGoal = jsonObject.getInt("goal");
+
+
+                                            // Update the UI with the new goal value if the operation was successful
+                                            if (goal!=newGoal) {
+                                                goaltxt.setText(String.valueOf(newGoal));
+                                                waterGoalPercent.setText(String.valueOf(calculateGoal(newGoal)));
+                                                getLatestWaterData();
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Log.d("response;;", "JSON parsing error.");
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.d("response1;;","error");
+                                    }
+                                }
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
                         ){
                             @Nullable
                             @Override
@@ -408,7 +454,12 @@ public class WaterTrackerFragment extends Fragment {
 //                    updateLastRecord();
 
                     //String url = String.format("%supdatewatertracker.php", DataFromDatabase.ipConfig);
+<<<<<<< HEAD
                     String url = DataFromDatabase.ipConfig+"updateWatertracker.php";
+=======
+                    //String url = DataFromDatabase.ipConfig+"updateWatertracker.php";
+                    String url = "https://infits.in/androidApi/updatewatergoal.php";
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
 
                     StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
                         try {
@@ -430,7 +481,11 @@ public class WaterTrackerFragment extends Fragment {
                                                           }
                                                       },durationOfWaterAnimation
                             );
+<<<<<<< HEAD
                            // consumed.setText(String.valueOf(consumedInDay));
+=======
+                            // consumed.setText(String.valueOf(consumedInDay));
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
                             pastActivity();
                         } catch (JSONException e) {
                             Log.d("response","error");
@@ -457,8 +512,13 @@ public class WaterTrackerFragment extends Fragment {
                             data.put("dietitian_id",DataFromDatabase.dietitian_id);
                             data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
 
+<<<<<<< HEAD
                           //  Log.d("update", "consumed: " + consumedInDay);
                            // Log.d("update", "amount: " + amt);
+=======
+                            //  Log.d("update", "consumed: " + consumedInDay);
+                            // Log.d("update", "amount: " + amt);
+>>>>>>> bfd15b2b9398e67a134027655549449eb96948ed
                             return data;
                         }
                     };
