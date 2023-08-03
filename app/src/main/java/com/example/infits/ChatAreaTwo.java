@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -71,7 +73,7 @@ public class ChatAreaTwo extends AppCompatActivity {
             new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
-
+                Log.d("response ChatArea32",result.toString());
                     if (result != null) {
                                 try {
                                     System.out.println(result);
@@ -119,7 +121,7 @@ public class ChatAreaTwo extends AppCompatActivity {
                                         System.out.println(response);
                                         if (response.equals("success")) {
                                             Log.d("ChatArea3", "success");
-                                            Log.d("response ChatArea3", response);
+                                            Log.d("response ChatArea32", response);
                                         } else if (response.equals("failure")) {
                                             Log.d("ChatArea3", "failure");
                                             Toast.makeText(getApplicationContext(), "unable to send message!! try again", Toast.LENGTH_SHORT).show();
@@ -131,20 +133,22 @@ public class ChatAreaTwo extends AppCompatActivity {
                                         @Override
                                         protected Map<String, String> getParams() throws AuthFailureError {
                                             Map<String, String> data = new HashMap<>();
-                                            data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
+                                           /* data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
                                             data.put("clientuserID", DataFromDatabase.clientuserID);
                                             data.put("message", encoded);
-                                            data.put("time",type);
-                                            data.put("messageBy","client");
+                                            data.put("time",dtf.format(now));
+                                            data.put("messageBy","client");*/
 
                                             LocalDateTime now = LocalDateTime.now();// gets the current date and time
                                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
                                             data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
                                             data.put("clientuserID", DataFromDatabase.clientuserID);
                                             data.put("message", encoded);
+                                            Log.d("response ChatArea32",encoded);
                                             data.put("type",type);
                                             data.put("time",dtf.format(now));
-                                            data.put("sentBy","client");
+                                            Log.d("response ChatArea32",dtf.format(now));
+                                            data.put("messageBy","client");
                                             return data;
                                         }
                                     };
@@ -250,10 +254,10 @@ public class ChatAreaTwo extends AppCompatActivity {
         mSocket.emit("new-user",DataFromDatabase.clientuserID);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-            System.out.println(response);
+             Log.d("ChatArea1",response);
             if (!response.equals("failure")) {
                 Log.d("ChatArea", "success");
-                Log.d("response ChatArea", response);
+                Log.d("ChatArea1", response);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     String messageby = null;
@@ -264,7 +268,7 @@ public class ChatAreaTwo extends AppCompatActivity {
                             messageby = jsonObject.getString("messageBy");
                             String time = jsonObject.getString("time").substring(11,16);
                             String readUnread = "r";
-                            String type = jsonObject.getString("type");
+                            //String type = jsonObject.getString("type");
                             ChatMessage obj = new ChatMessage(DataFromDatabase.dietitianuserID, DataFromDatabase.clientuserID, message, time, messageby, readUnread,type);
                             msg.add(obj);
                         }
@@ -289,8 +293,8 @@ public class ChatAreaTwo extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("duserID", DataFromDatabase.dietitianuserID);
-                data.put("cuserID", DataFromDatabase.clientuserID);
+                data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -321,9 +325,10 @@ public class ChatAreaTwo extends AppCompatActivity {
                 data.put("dietitianuserID", DataFromDatabase.dietitianuserID);
                 data.put("clientuserID", DataFromDatabase.clientuserID);
                 data.put("message", typed_message);
+                Log.d("response ChatArea3",typed_message);
                 data.put("type",type);
                 data.put("time",dtf.format(now));
-                data.put("sentBy","client");
+                data.put("messageBy","client");
                 return data;
             }
         };
