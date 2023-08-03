@@ -13,9 +13,8 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$/../../../app/src/test">
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/src/test/java" isTestSource="true" />
-    </content>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
