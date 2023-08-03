@@ -5,23 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +28,8 @@ public class Signup extends AppCompatActivity {
     TextView term, memlog;
     Button signbtn;
     RadioButton agreeToCondition, maleRB, femaleRB;
+    ProgressBar progressBar;
 
-    String url = String.format("%sregister_client.php",DataFromDatabase.ipConfig);
-    //String url = String.format("http://192.168.1.8/infits/register_client.php");
     char gender = 'M';
 
     EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
@@ -43,7 +38,6 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
         agreeToCondition = findViewById(R.id.agree);
         term = (TextView) findViewById(R.id.term);
         memlog = (TextView) findViewById(R.id.memlog);
@@ -58,6 +52,7 @@ public class Signup extends AppCompatActivity {
         weight = findViewById(R.id.new_weight);
         maleRB = findViewById(R.id.male_rb);
         femaleRB = findViewById(R.id.female_rb);
+        progressBar = findViewById(R.id.signUpProgress);
 
         term.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,63 +76,9 @@ public class Signup extends AppCompatActivity {
 
         maleRB.setOnClickListener(v -> gender = 'M');
         femaleRB.setOnClickListener(v -> gender = 'F');
-
         signbtn.setOnClickListener(v -> {
-            System.out.println(gender);
-
-            String userID = userName.getText().toString();
-            String passwordStr = password.getText().toString();
-            String emailStr = emailID.getText().toString();
-            String phoneStr = phoneNo.getText().toString();
-            String fullNameStr = fullName.getText().toString();
-            String ageStr = age.getText().toString();
-            String heightStr = height.getText().toString();
-            String weightStr = weight.getText().toString();
-
-            if(!checkIfFieldsAreFilled(userID, passwordStr, emailStr, phoneStr, fullNameStr, ageStr, heightStr, weightStr)) {
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
-            } else {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-                    System.out.println(response);
-//                        Log.i(response, "onCreate: ");
-                    if (response != null && response.equals("success")){
-                        Toast.makeText(getApplicationContext(), "Registration completed", Toast.LENGTH_SHORT).show();
-                        Intent id = new Intent(getApplicationContext(), Login.class);
-                        startActivity(id);
-                    }
-                    else{
-
-                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-                    }
-                },error -> {
-                    Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> data = new HashMap<>();
-                        data.put("userID",userID);
-                        data.put("password",passwordStr);
-                        data.put("email",emailStr);
-                        data.put("name",fullNameStr);
-                        data.put("phone",phoneStr);
-                        data.put("gender",String.valueOf(gender));
-                        data.put("age",ageStr);
-                        data.put("weight",heightStr);
-                        data.put("height",weightStr);
-                        data.put("verification","0");
-                        data.put("dietitian_id","-1");
-                        data.put("dietitianuserID","-1");
-                        return data;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                requestQueue.add(stringRequest);
-
-
-
-
-                generateReferral();
-            }
+            signbtn.setClickable(false);
+            generateReferral();
         });
     }
 
@@ -151,34 +92,90 @@ public class Signup extends AppCompatActivity {
 
     private void generateReferral() {
         Random random = new Random();
-        StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 3));
-
-        for(int i = 0; i < 5; i++) {
-            int num = random.nextInt(10);
-            referralCode.append(num);
+        //if username length equals to 3
+        if (userName.getText().toString().trim().length() == 3 && !userName.getText().toString().trim().contains(" ")){
+            StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 3).toUpperCase());
+            for(int i = 0; i < 5; i++) {
+                referralCode.append(random.nextInt(10));
+            }
+            signUpWithReferral(referralCode.toString());
+        }else if (userName.getText().toString().trim().length() >= 4 && !userName.getText().toString().trim().contains(" ")){
+            StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 4).toUpperCase());
+            for(int i = 0; i < 4; i++) {
+                referralCode.append(random.nextInt(10));
+            }
+            signUpWithReferral(referralCode.toString());
+        }else {
+            signbtn.setClickable(true);
+            Toast.makeText(Signup.this,"Username must be greater than 3 letter",Toast.LENGTH_SHORT).show();
         }
-
-        addToReferralTable(String.valueOf(referralCode));
     }
 
-    private void addToReferralTable(String referralCode) {
-        String referralUrl = String.format("%supdateReferralTable.php",DataFromDatabase.ipConfig);
-
-        StringRequest referralRequest = new StringRequest(
-                Request.Method.POST, referralUrl,
-                response -> Log.d("Signup", "addToReferralTable: " + response),
-                error -> Log.e("Signup", "addToReferralTable: " + error.toString())
-        ) {
-            @NotNull
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                data.put("clientID", userName.getText().toString());
-                data.put("referralCode", referralCode);
-                data.put("activeUsers", "none");
-                return data;
-            }
-        };
-        Volley.newRequestQueue(this).add(referralRequest);
+    private void signUpWithReferral(String referralCode){
+        progressBar.setVisibility(View.VISIBLE);
+        String userID = userName.getText().toString();
+        String passwordStr = password.getText().toString();
+        String emailStr = emailID.getText().toString();
+        String phoneStr = phoneNo.getText().toString();
+        String fullNameStr = fullName.getText().toString();
+        String ageStr = age.getText().toString();
+        String heightStr = height.getText().toString();
+        String weightStr = weight.getText().toString();
+        if(!checkIfFieldsAreFilled(userID, passwordStr, emailStr, phoneStr, fullNameStr, ageStr, heightStr, weightStr)) {
+            Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
+        }
+        else {
+            String url = "https://infits.in/androidApi/register_client_with_referral.php";
+            //StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sregister_client_with_referral.php",DataFromDatabase.ipConfig), response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+                if (response != null && !response.contains("Duplicate entry")){
+                    progressBar.setVisibility(View.INVISIBLE);
+                    signbtn.setClickable(true);
+                    Toast.makeText(getApplicationContext(), "Registration completed", Toast.LENGTH_SHORT).show();
+                    Intent id = new Intent(getApplicationContext(), Login.class);
+                    startActivity(id);
+                    finish();
+                }
+                else{
+                    if (response != null && response.contains("client.PRIMARY")){
+                        progressBar.setVisibility(View.INVISIBLE);
+                        signbtn.setClickable(true);
+                        Toast.makeText(getApplicationContext(),"Username already exits",Toast.LENGTH_SHORT).show();
+                    }else {
+                        if (response != null && response.contains("Duplicate entry")) generateReferral();
+                    }
+                }
+            },error -> {
+                signbtn.setClickable(true);
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+            {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> data = new HashMap<>();
+                    data.put("userID",userID);
+                    data.put("password",passwordStr);
+                    data.put("email",emailStr);
+                    data.put("name",fullNameStr);
+                    data.put("phone",phoneStr);
+                    data.put("gender",String.valueOf(gender));
+                    data.put("age",ageStr);
+                    data.put("weight",heightStr);
+                    data.put("height",weightStr);
+                    data.put("verification","0");
+                    data.put("dietitian_id","-1");
+                    data.put("dietitianuserID","-1");
+                    data.put("referralCode",referralCode);
+                    data.put("activeUsers","none");
+                    return data;
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    20000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(this).add(stringRequest);
+        }
     }
 }

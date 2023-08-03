@@ -278,25 +278,29 @@ public class WaterFragment extends Fragment {
         year_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
             System.out.println("In btn");
-            String urlWater = String.format("%swaterYearGraph.php", DataFromDatabase.ipConfig);
-//            String urlWater = "http://192.168.219.91/infits/waterYearGraph.php";
+            //String urlWater = String.format("%swaterYearGraph.php", DataFromDatabase.ipConfig);
+            String urlWater = "https://infits.in/androidApi/waterYearGraph.php";
             StringRequest stringRequestWater = new StringRequest(Request.Method.POST, urlWater, response -> {
                 System.out.println("In request");
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
+                ArrayList<String> mons = new ArrayList<>();
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("water");
                     for (int i = 0; i < cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("av");
+                        String month = actor.getString("month");
                         System.out.println(name);
                         allNames.add(name);
+                        mons.add(month);
                         NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
                         System.out.println("Points " + NoOfEmp.get(i));
                         dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                         dataSet[0].setValues(NoOfEmp);
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
 
                         dataSet[0].notifyDataSetChanged();
                         lineChart.getData().notifyDataChanged();
@@ -326,87 +330,88 @@ public class WaterFragment extends Fragment {
             System.out.println("after call");
         });
         custom_radioButton.setOnClickListener(v -> {
-        NoOfEmp.removeAll(NoOfEmp);
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.calender_dialog);
-        final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 10);
+            NoOfEmp.removeAll(NoOfEmp);
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.calender_dialog);
+            final Calendar nextYear = Calendar.getInstance();
+            nextYear.add(Calendar.YEAR, 10);
 
-        final Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, -10);
+            final Calendar lastYear = Calendar.getInstance();
+            lastYear.add(Calendar.YEAR, -10);
 
-        CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
-        calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
+            CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
+            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
 
-        Button done = dialog.findViewById(R.id.done);
-        Button cancel = dialog.findViewById(R.id.cancel);
+            Button done = dialog.findViewById(R.id.done);
+            Button cancel = dialog.findViewById(R.id.cancel);
 
-        done.setBackgroundColor(Color.parseColor("#76A5FF"));
+            done.setBackgroundColor(Color.parseColor("#76A5FF"));
 
-        done.setOnClickListener(vi -> {
-            List<Date> dates = calendarPickerView.getSelectedDates();
-            SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
-            String from = sf.format(dates.get(0));
-            String to = sf.format(dates.get(dates.size() - 1));
-            String url = String.format("%scustomwater.php", DataFromDatabase.ipConfig);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-                System.out.println(DataFromDatabase.clientuserID);
-                System.out.println(response);
-                List<String> allNames = new ArrayList<>();
-                JSONObject jsonResponse = null;
-                ArrayList<String> mons = new ArrayList<>();
-                try {
-                    jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("water");
-                    for (int i = 0; i < cast.length(); i++) {
-                        JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("drink");
-                        String date = actor.getString("date");
-                        System.out.println(name + "   " + date);
-                        allNames.add(name);
-                        mons.add(date);
-                        NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
-                        System.out.println("Points " + NoOfEmp.get(i));
-                        dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+            done.setOnClickListener(vi -> {
+                List<Date> dates = calendarPickerView.getSelectedDates();
+                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+                String from = sf.format(dates.get(0));
+                String to = sf.format(dates.get(dates.size() - 1));
+                //String url = String.format("%scustomwater.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/customwater.php";
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    System.out.println(DataFromDatabase.clientuserID);
+                    System.out.println(response);
+                    List<String> allNames = new ArrayList<>();
+                    JSONObject jsonResponse = null;
+                    ArrayList<String> mons = new ArrayList<>();
+                    try {
+                        jsonResponse = new JSONObject(response);
+                        JSONArray cast = jsonResponse.getJSONArray("water");
+                        for (int i = 0; i < cast.length(); i++) {
+                            JSONObject actor = cast.getJSONObject(i);
+                            String name = actor.getString("drink");
+                            String date = actor.getString("date");
+                            System.out.println(name + "   " + date);
+                            allNames.add(name);
+                            mons.add(date);
+                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
+                            System.out.println("Points " + NoOfEmp.get(i));
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
-                        dataSet[0].setValues(NoOfEmp);
+                            dataSet[0].setValues(NoOfEmp);
 
-                        dataSet[0].notifyDataSetChanged();
+                            dataSet[0].notifyDataSetChanged();
+                        }
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+                }, error -> {
+                    Log.d("Data", error.toString().trim());
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
 
-                    lineChart.getData().notifyDataChanged();
-                    lineChart.notifyDataSetChanged();
-                    lineChart.invalidate();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }, error -> {
-                Log.d("Data", error.toString().trim());
-            }) {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> dataVol = new HashMap<>();
+                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("from", from);
+                        dataVol.put("to", to);
+                        Log.d("water", "from:" + from);
+                        Log.d("water", "to:" + to);
+                        return dataVol;
+                    }
+                };
+                Volley.newRequestQueue(getActivity()).add(stringRequest);
+                dialog.dismiss();
+            });
 
-                    Map<String, String> dataVol = new HashMap<>();
-                    dataVol.put("clientID", DataFromDatabase.clientuserID);
-                    dataVol.put("from", from);
-                    dataVol.put("to", to);
-                    Log.d("water", "from:" + from);
-                    Log.d("water", "to:" + to);
-                    return dataVol;
-                }
-            };
-            Volley.newRequestQueue(getActivity()).add(stringRequest);
-            dialog.dismiss();
+            cancel.setOnClickListener(view1 -> {
+                dialog.dismiss();
+            });
+            dialog.show();
         });
-
-        cancel.setOnClickListener(view1 -> {
-            dialog.dismiss();
-        });
-        dialog.show();
-    });
         return view;
-}
+    }
 }

@@ -167,7 +167,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 takeScreenshot("com.twitter.android");
+                takeScreenshot("com.twitter.android");
             }
         });
 
@@ -362,7 +362,8 @@ public class Statistics extends AppCompatActivity {
         daily.setText("0");
         monthly.setText("0");
         total.setText("0");
-        String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
+        //String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/weightFragment.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("Fragment","success");
@@ -423,7 +424,7 @@ public class Statistics extends AppCompatActivity {
         total.setText("0");
         //String url = String.format("%swaterFragment.php",DataFromDatabase.ipConfig);
         String url = "https://infits.in/androidApi/waterFragment.php";
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("Fragment","success");
                 Log.d("Fragment response",response);

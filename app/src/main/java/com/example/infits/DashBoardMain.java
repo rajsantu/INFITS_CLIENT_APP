@@ -1,6 +1,7 @@
 package com.example.infits;
-
 import android.Manifest;
+import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,19 +10,36 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.navigation.Navigation;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.fido.fido2.api.common.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashBoardMain extends AppCompatActivity implements DashBoardFragment.OnMenuClicked, UpdateStepCard {
 
@@ -34,9 +52,12 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     String cardClicked;
     String hours, minutes, secs;
     TextView drawerusername,draweruserplan;
+    CircleImageView profilePicNav;
+    String Entered;
 
 
-//    String url ="http://192.168.1.7/infits/recipiesDisplay.php";
+    String profilePicimg = "https://infits.in/androidApi/upload/default.jpg";
+    //String url ="http://192.168.29.222/infits/recipiesDisplay.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +79,12 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
 
         nav = findViewById(R.id.navmenu);
         drawerLayout = findViewById(R.id.drawer);
+        profilePicNav = findViewById(R.id.drawer_profile_pic);
 
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_open,R.string.navigation_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
 
         drawerLayout.addDrawerListener(new ActionBarDrawerToggle(this, drawerLayout, 0, 0) {
             @Override
@@ -70,7 +93,6 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                 drawerusername = findViewById(R.id.drawer_username);
                 draweruserplan = findViewById(R.id.drawer_user_plan);
                 drawerusername.setText(DataFromDatabase.name);
-
                 drawerState = true;
             }
 
@@ -80,6 +102,9 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                 drawerState = false;
             }
         });
+
+//        Navigation profile pic
+        Glide.with(DashBoardMain.this).load(profilePicimg).fitCenter().into(profilePicNav);
 
         /*
         if (!DataFromDatabase.proUser){
@@ -116,17 +141,32 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
 
-                    case R.id.live:
+                case R.id.live:
+                    if (DataFromDatabase.proUser){
                         Intent icL = new Intent(DashBoardMain.this, LiveListAct.class);
                         startActivity(icL);
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                    }
+                    else {
+                        //showDialog();
+                        Toast toast = Toast.makeText(this,"Required pro account",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
 
-                    case R.id.consul:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+
+                case R.id.consul:
+                    if (DataFromDatabase.proUser){
                         Intent icl = new Intent(DashBoardMain.this, Consultation.class);
                         startActivity(icl);
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                    }
+                    else {
+                        // showDialog();
+                        Toast toast = Toast.makeText(this,"Required pro account",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
 
                 case R.id.setting:
                     Intent ist = new Intent(DashBoardMain.this, Settings.class);
@@ -135,11 +175,11 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                     break;
 
                 //case R.id.recipes:
-                    //Intent h = new Intent(DashBoardMain.this, recipies.class);
-                    //startActivity(h);
-                    //drawerLayout.closeDrawer(GravityCompat.START);
+                //Intent h = new Intent(DashBoardMain.this, recipies.class);
+                //startActivity(h);
+                //drawerLayout.closeDrawer(GravityCompat.START);
 
-                    //break;
+                //break;
 
                     /*
                     case R.id.message:
@@ -148,11 +188,11 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;*/
 
-                    case R.id.scan:
-                        Intent iscan = new Intent(DashBoardMain.this,ScanActivity.class);
-                        startActivity(iscan);
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.scan:
+                    Intent iscan = new Intent(DashBoardMain.this,ScanActivity.class);
+                    startActivity(iscan);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
             }
             return true;
         });
@@ -245,4 +285,80 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
         Log.wtf("mainFrag", "entered");
         DashBoardFragment.updateStepCard(intent);
     }
+
+    //  private void showDialog() {
+    //  final Dialog dialog = new Dialog(this);dialog.setCancelable(true);
+    //  dialog.setContentView(R.layout.referralcodedialog);
+    //  final EditText referralCode = dialog.findViewById(R.id.referralcode);
+    //  ImageView checkReferral = dialog.findViewById(R.id.checkReferral);
+    //  checkReferral.setOnClickListener(vi->{
+
+    //     //String referralUrl = String.format("%sverify.php",DataFromDatabase.ipConfig);
+    //     String urlRefer = "https://infits.in/androidApi/verify.php";
+    //       StringRequest stringRequest = new StringRequest(Request.Method.POST,urlRefer,
+    //             response->{
+    //                 Log.d("DietitianVerification", response);
+    ///
+    //                if(response.equals("found")) {
+    //                   showSuccessDialog();
+    //                   System.out.println("Verified");
+    //               }else {
+    //                   System.out.println("Not verified");
+    //                   showFailureDialog();
+    //               }
+
+    //           },error->{
+
+    //   }){
+    //      @Nullable
+    //      @Override
+    //      protected Map<String, String> getParams() throws AuthFailureError {
+    //
+    //          Map<String,String> data = new HashMap<>();
+    //
+    //          //data.put("clientID",DataFromDatabase.clientuserID);
+    //          Entered = referralCode.getText().toString();
+    //          data.put("dietitian_verify_code",Entered);
+    //          data.put("type","1");
+
+
+    //         return data;
+    //      }
+    //   };
+    //    Volley.newRequestQueue(this).add(stringRequest);
+    //     stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+    //             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+    //             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    //     dialog.dismiss();
+    //  });
+    //  dialog.show();
+    //  }
+
+    // private void showSuccessDialog() {
+    //   Dialog dialog = new Dialog(this);
+    //  dialog.setContentView(R.layout.referral_congratulation);
+    // dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+    //  ImageView btn = dialog.findViewById(R.id.btn);
+
+
+    //   btn.setOnClickListener(v -> {
+    //      dialog.dismiss();
+
+    //   });
+
+    //  dialog.show();
+    //  }
+
+    // private void showFailureDialog() {
+    //  Dialog dialog = new Dialog(this);
+    // dialog.setContentView(R.layout.wrong_referral_dialog);
+    //  dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+    // Button btn = dialog.findViewById(R.id.try_again);
+
+    // btn.setOnClickListener(v -> dialog.dismiss());
+
+    //  dialog.show();
+    // }
 }

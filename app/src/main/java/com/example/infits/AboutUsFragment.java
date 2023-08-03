@@ -70,6 +70,7 @@ public class AboutUsFragment extends Fragment {
 //        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
 
+
     }
 
     @Override

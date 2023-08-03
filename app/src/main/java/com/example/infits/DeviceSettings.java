@@ -2,8 +2,12 @@ package com.example.infits;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
@@ -51,19 +56,29 @@ public class DeviceSettings extends AppCompatActivity {
     private TextView selectedTitle;
     private Button connectButton;
     private GetMacInterface getMacInterface;
+    String[] permissions12 = {"android.permission.BLUETOOTH_ADVERTISE", "android.permission.BLUETOOTH_CONNECT", "android.permission.BLUETOOTH_SCAN"};
+    String[] permissions11 = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
+    BluetoothAdapter mBluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_settings);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            Toast.makeText(this, "yes", Toast.LENGTH_LONG).show();
+        if (Build.VERSION.SDK_INT >= 31) {
+            requestPermissions(permissions12, 12);
         } else {
-            Toast.makeText(this, "no", Toast.LENGTH_LONG).show();
+            requestPermissions(permissions11, 11);
+            statusCheck();
         }
 
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if (Build.VERSION.SDK_INT >= 31) {
+            BluetoothManager bluetoothManager = (BluetoothManager) this.getSystemService(Context.BLUETOOTH_SERVICE);
+            mBluetoothAdapter = bluetoothManager.getAdapter();
+        } else {
+            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
         bluetoothSwitch = findViewById(R.id.bluetoothSwitch);
         scanForDevice = findViewById(R.id.scan_for_device);
         bluetoothList = findViewById(R.id.bluetooth_list);
@@ -75,23 +90,34 @@ public class DeviceSettings extends AppCompatActivity {
         mRipplePulseLayout = findViewById(R.id.layout_ripplepulse);
 
         if (mBluetoothAdapter.isEnabled()) {
-            Toast.makeText(getApplicationContext(), "Bluetooth is ON", Toast.LENGTH_LONG).show();
             bluetoothSwitch.setChecked(true);
         }
 
         bluetoothSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @RequiresApi(api = Build.VERSION_CODES.S)
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    Log.d("DS", "checked");
-                    if (ActivityCompat.checkSelfPermission(DeviceSettings.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("DS", "no permission");
-                        checkPermission(Manifest.permission.BLUETOOTH_CONNECT, 1);
-                        return;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        if (ActivityCompat.checkSelfPermission(DeviceSettings.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                            Log.d("DeviceSettingsCheck", "no permission");
+                            requestPermissions(permissions12, 12);
+                        } else {
+                            Log.d("DeviceSettingsCheck", "startActivityForResult call 12");
+                            startActivityForResult(enableBtIntent, 12);
+                        }
+                    } else {
+                        if (ActivityCompat.checkSelfPermission(DeviceSettings.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            statusCheck();
+                            Log.d("DeviceSettingsCheck", "no permission");
+                        } else {
+                            Log.d("DeviceSettingsCheck", "startActivityForResult 11 enable intent call");
+                            startActivityForResult(enableBtIntent, 11);
+                        }
+
                     }
-                    startActivityForResult(enableBtIntent, 1);
+
                 } else {
                     mBluetoothAdapter.disable();
                 }
@@ -128,7 +154,9 @@ public class DeviceSettings extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.d("DeviceSettingsCheck", "scanDivCall");
                 if (scanSubscription != null) {
+                    Log.d("DeviceSettingsCheck", "scanSubscription.dispose() call");
                     scanSubscription.dispose();
                 }
                 scanForDevice.setVisibility(View.VISIBLE);
@@ -157,40 +185,95 @@ public class DeviceSettings extends AppCompatActivity {
                         .build()
         ).subscribe(
                 scanResult -> {
-                    if (ActivityCompat.checkSelfPermission(DeviceSettings.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    if (scanResult.getBleDevice().getBluetoothDevice().getName() != null) {
-                        String name = scanResult.getBleDevice().getBluetoothDevice().getName();
-                        String address = scanResult.getBleDevice().getMacAddress();
-                        if (!deviceNames.contains(name)) {
-                            deviceNames.add(name);
-                            deviceAddresses.add(address);
+                    if (Build.VERSION.SDK_INT >= 31) {
+
+                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        if (scanResult.getBleDevice().getBluetoothDevice().getName() != null) {
+                            String name = scanResult.getBleDevice().getBluetoothDevice().getName();
+                            String address = scanResult.getBleDevice().getMacAddress();
+                            Log.e("DeviceSettingsCheck", "12 else call" + name);
+                            if (!deviceNames.contains(name)) {
+                                deviceNames.add(name);
+                                deviceAddresses.add(address);
+                            }
+                        }else {
+                            Log.e("DeviceSettingsCheck", scanResult.getBleDevice().toString());
+                        }
+
+                    }else {
+                        if (scanResult.getBleDevice().getBluetoothDevice().getName() != null) {
+                            String name = scanResult.getBleDevice().getBluetoothDevice().getName();
+                            String address = scanResult.getBleDevice().getMacAddress();
+                            Log.e("DeviceSettingsCheck", "Scan Result for 11 "+name);
+                            Log.e("DeviceSettingsCheck", scanResult.getBleDevice().toString());
+                            if (!deviceNames.contains(name)) {
+                                deviceNames.add(name);
+                                deviceAddresses.add(address);
+                            }
+                        }else {
+                            Log.e("DeviceSettingsCheck", scanResult.getBleDevice().toString());
                         }
                     }
+
+
                 },
                 throwable -> {
-                    Log.e("Scan Error", throwable.toString());
+                    Log.e("DeviceSettingsCheck", throwable.toString());
                 }
         );
     }
 
-    public void checkPermission(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(DeviceSettings.this, permission) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(DeviceSettings.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, requestCode);
-        } else {
-            Toast.makeText(DeviceSettings.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
         }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
+        if (requestCode == 11) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(DeviceSettings.this, "Bluetooth Permission Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DeviceSettings.this, "Location 11 Permission Granted", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(DeviceSettings.this, "Bluetooth Permission Denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DeviceSettings.this, "Location 11 Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (requestCode == 12) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(DeviceSettings.this, "Bluetooth 12 Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(DeviceSettings.this, "Bluetooth 12 Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
     }

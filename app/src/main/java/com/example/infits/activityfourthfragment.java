@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class activityfourthfragment extends Fragment {
@@ -17,6 +18,7 @@ public class activityfourthfragment extends Fragment {
 
 
     Button btn_setgoal,btn_start;
+    ImageView backbutton;
 
     public activityfourthfragment() {
         // Required empty public constructor
@@ -47,6 +49,7 @@ public class activityfourthfragment extends Fragment {
         dialog.setContentView ( R.layout.activity_trck_popup );
         btn_setgoal=view.findViewById ( R.id.imageView74 );
         btn_start=view.findViewById ( R.id.imageView86_walk_start);
+        backbutton=view.findViewById(R.id.imageView73);
         btn_setgoal.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick ( View v ) {
@@ -62,6 +65,12 @@ public class activityfourthfragment extends Fragment {
             }
         } );
 
+        backbutton.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick ( View v ) {
+                Navigation.findNavController(v).navigate(R.id. action_activityfourthfragment_to_activityTracker2);
+            }
+        } );
 
 
         return view;
