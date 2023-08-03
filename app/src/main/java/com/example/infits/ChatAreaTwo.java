@@ -430,7 +430,7 @@ public class ChatAreaTwo extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("CHAT",String.valueOf(requestCode));
         if (requestCode == PICK_IMAGE_GALLERY) {
             try {
                 if (data.getData() != null) {
