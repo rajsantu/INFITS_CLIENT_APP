@@ -2,9 +2,11 @@ package com.example.infits;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +41,7 @@ public class Section5Q13 extends Fragment {
     Button nextbtn;
     TextView backbtn, textView80;
     EditText eTextHeight;
+    int position = 1;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +95,59 @@ public class Section5Q13 extends Fragment {
         eTextHeight = view.findViewById(R.id.eTextHeight);
 
         textView80 = view.findViewById(R.id.textView80);
+        final String[] storeAnswer = new String[1];
+        String url = "http://192.168.1.100/myproject/infits/section5Q13red.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            Log.e("Checking", "Checking1");
+            System.out.println(DataFromDatabase.clientuserID);
+            System.out.println(response);
+
+            JSONObject jsonResponse = null;
+
+            try {
+                jsonResponse = new JSONObject(response);
+                JSONArray cast = jsonResponse.getJSONArray("answer");
+                JSONObject actor = cast.getJSONObject(0);
+                String answer = actor.getString("answer");
+                storeAnswer[0] = answer;
+
+                eTextHeight.setText(answer);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            Log.d("Data", error.toString().trim());
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> dataVol = new HashMap<>();
+                Log.e("Checking", "Checking");
+                dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                return dataVol;
+            }
+        };
+        stringRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +166,45 @@ public class Section5Q13 extends Fragment {
                     ConsultationFragment.psection5 += 1;
 
                     Navigation.findNavController(v).navigate(R.id.action_section5Q13_to_consultationFragment);
+                    String url = "http://192.168.1.100/myproject/infits/section5Q13up.php";
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                        Log.e("Checking", "Checking1");
+
+                    }, error -> {
+                        Log.d("Data", error.toString().trim());
+                    }) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+
+                            Map<String, String> dataVol = new HashMap<>();
+                            Log.e("Checking", "Checking");
+                            dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                            dataVol.put("newAnswer", eTextHeight.getText().toString());
+
+
+                            return dataVol;
+                        }
+                    };
+                    stringRequest.setRetryPolicy(new RetryPolicy() {
+                        @Override
+                        public int getCurrentTimeout() {
+                            return 50000;
+                        }
+
+                        @Override
+                        public int getCurrentRetryCount() {
+                            return 50000;
+                        }
+
+                        @Override
+                        public void retry(VolleyError error) throws VolleyError {
+
+                        }
+                    });
+                    Volley.newRequestQueue(getActivity()).add(stringRequest);
+
                 }
 
 

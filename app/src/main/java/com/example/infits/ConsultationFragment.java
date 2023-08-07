@@ -590,7 +590,7 @@ public class ConsultationFragment extends Fragment {
     public void SubmitQuesAns(String ques, String ans) {
 
         //String url=String.format("%sclientconsultation.php",DataFromDatabase.ipConfig);
-        String url = "https://infits.in/androidApi/clientconsultation.php";
+        String url = "http://192.168.1.102/myproject/infits/datatest.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

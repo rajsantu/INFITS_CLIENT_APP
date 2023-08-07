@@ -3,9 +3,11 @@ package com.example.infits;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,19 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,6 +102,7 @@ public class Section5Q9 extends Fragment {
         oth = view.findViewById(R.id.oth);
 
         textView77 = view.findViewById(R.id.textView77);
+        final String[] storeAnswer = new String[1];
 
 
         home.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +230,63 @@ public class Section5Q9 extends Fragment {
                 daily_food=oth.getText().toString();;
             }
         });
+        String url = "http://192.168.1.100/myproject/infits/section5Q9red.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            Log.e("Checking", "Checking1");
+            System.out.println(DataFromDatabase.clientuserID);
+            System.out.println(response);
+
+
+            try {
+                JSONObject jsonResponse = new JSONObject(response);
+                String answer = jsonResponse.getString("answer");
+                storeAnswer[0] = answer;
+                if(answer.equals("Vegetarian")) home.performClick();
+                else if(answer.equals("Non-Vegetarain")) hotel.performClick();
+                else if(answer.equals("Ovo-Vegetarain")) onehome.performClick();
+                else if(answer.equals("Vegan")) hostel.performClick();
+                else if(answer.equals("Gluten")) twohome.performClick();
+                else if(answer.equals("Other--")) oth.performClick();
+
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            Log.d("Data", error.toString().trim());
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> dataVol = new HashMap<>();
+                Log.e("Checking", "Checking");
+                dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                return dataVol;
+            }
+        };
+        stringRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +303,44 @@ public class Section5Q9 extends Fragment {
                     ConsultationFragment.psection5 += 1;
 
                     Navigation.findNavController(v).navigate(R.id.action_section5Q9_to_section5Q10);
+                    String url = "http://192.168.1.100/myproject/infits/section5Q9up.php";
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                        Log.e("Checking", "Checking1");
+                    }, error -> {
+                        Log.d("Data", error.toString().trim());
+                    }) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+
+                            Map<String, String> dataVol = new HashMap<>();
+                            Log.e("Checking", "Checking");
+                            dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                            dataVol.put("newAnswer", daily_food);
+
+
+                            return dataVol;
+                        }
+                    };
+                    stringRequest.setRetryPolicy(new RetryPolicy() {
+                        @Override
+                        public int getCurrentTimeout() {
+                            return 50000;
+                        }
+
+                        @Override
+                        public int getCurrentRetryCount() {
+                            return 50000;
+                        }
+
+                        @Override
+                        public void retry(VolleyError error) throws VolleyError {
+
+                        }
+                    });
+                    Volley.newRequestQueue(getActivity()).add(stringRequest);
+
                 }
 
             }
