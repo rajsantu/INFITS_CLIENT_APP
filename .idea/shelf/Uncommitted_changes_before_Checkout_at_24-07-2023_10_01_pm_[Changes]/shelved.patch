@@ -1,0 +1,52 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -9,17 +9,7 @@
+     <option name="autoReloadType" value="NONE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="5eea4cf1-619f-4547-8e66-946a44a2bfef" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/diet_fourth.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/diet_fourth.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/fragment_diet_chart.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/fragment_diet_chart.java" afterDir="false" />
+-    </list>
++    <list default="true" id="5eea4cf1-619f-4547-8e66-946a44a2bfef" name="Changes" comment="successfully merged branch of chetna,gagantiwari and vishesh in testbranchfix." />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -125,6 +115,14 @@
+       <option name="presentableId" value="Default" />
+       <updated>1690214458309</updated>
+     </task>
++    <task id="LOCAL-00001" summary="successfully merged branch of chetna,gagantiwari and vishesh in testbranchfix.">
++      <created>1690216005916</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1690216005916</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -138,4 +136,8 @@
+       </map>
+     </option>
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="successfully merged branch of chetna,gagantiwari and vishesh in testbranchfix." />
++    <option name="LAST_COMMIT_MESSAGE" value="successfully merged branch of chetna,gagantiwari and vishesh in testbranchfix." />
++  </component>
+ </project>
+\ No newline at end of file

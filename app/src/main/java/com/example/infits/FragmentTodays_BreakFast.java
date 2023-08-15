@@ -69,7 +69,8 @@ public class FragmentTodays_BreakFast extends Fragment {
     private String mParam1;
     private String mParam2;
     TextView DoneButtonView,headerTitle,doneMeal;
-    String url = String.format("%ssaveMeal.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%ssaveMeal.php", DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/saveMeal.php";
 
     SharedPreferences sharedPreferences;
     RecyclerView recyclerView_Todays_breakfast;
@@ -207,18 +208,18 @@ public class FragmentTodays_BreakFast extends Fragment {
                 @Nullable
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> data = new HashMap<>();
-                        String timeString = todayTime.format(date);
-                        String dateString = todayDate.format(date);
-                        data.put("name", mealName.toString());
-                        data.put("image", base64String);
-                        data.put("date", dateString);
-                        data.put("time", timeString);
-                        //timeMeal is a Meal_Type
-                        data.put("timeMeal", Meal_Type);
-                        data.put("description","");
-                        data.put("clientID", DataFromDatabase.clientuserID.toString());
-                        data.put("position",String.valueOf(jsonArray.length()-1));
+                    Map<String, String> data = new HashMap<>();
+                    String timeString = todayTime.format(date);
+                    String dateString = todayDate.format(date);
+                    data.put("name", mealName.toString());
+                    data.put("image", base64String);
+                    data.put("date", dateString);
+                    data.put("time", timeString);
+                    //timeMeal is a Meal_Type
+                    data.put("timeMeal", Meal_Type);
+                    data.put("description","");
+                    data.put("clientID", DataFromDatabase.clientuserID.toString());
+                    data.put("position",String.valueOf(jsonArray.length()-1));
                     return data;
 
                 }

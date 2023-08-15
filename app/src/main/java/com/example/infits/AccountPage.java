@@ -11,4 +11,5 @@ public class AccountPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_page);
     }
+
 }

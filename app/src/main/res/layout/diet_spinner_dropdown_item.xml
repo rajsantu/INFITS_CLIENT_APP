@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_110sdp"
+    android:background="@drawable/diet_chart_spinner_bg"
+    android:textColor="@color/white"
+    android:fontFamily="@font/nats_regular"
+    android:textAlignment="center"
+    android:textSize="20sp"
+    android:drawableEnd="@drawable/diet_spinner_down_arrow"
+    android:layout_height="@dimen/_35sdp">
+</TextView>

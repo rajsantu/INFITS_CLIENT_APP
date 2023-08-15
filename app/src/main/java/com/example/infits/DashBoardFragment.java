@@ -43,6 +43,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.bumptech.glide.Glide;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -69,7 +70,8 @@ public class DashBoardFragment extends Fragment {
 
 
     // String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
-    String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
+    //String url1 = String.format("%sgetDietitianDetail.php", DataFromDatabase.ipConfig);
+    String url1 = "https://infits.in/androidApi/getDietitianDetail.php";
     //String url1 = "https://infits.in/androidApi/getDietitianDetail.php";
 
     //No such file!
@@ -179,7 +181,10 @@ public class DashBoardFragment extends Fragment {
         SharedPreferences prefs = requireContext().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         String clientuserID = prefs.getString("clientuserID", DataFromDatabase.clientuserID);
 
+        // Dashboard Profile pic from server
         ImageView profileImageView = view.findViewById(R.id.profile1);
+        String DashboardprofilePic = "https://infits.in/androidApi/upload/default.jpg";
+        Glide.with(this).load(DashboardprofilePic).fitCenter().into(profileImageView);
 
         // Execute the query using a Volley StringRequest
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url1, response -> {
@@ -268,16 +273,16 @@ public class DashBoardFragment extends Fragment {
         stepcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_stepTrackerFragment));
 
         SharedPreferences stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        float steps = stepPrefs.getFloat("steps", 0);
         float stepGoal = stepPrefs.getFloat("goal", 0f);
-        int stepPercent = stepGoal == 0 ? 0 : (int) ((steps * 100) / stepGoal);
+        int stepPercent = stepGoal == 0 ? 0 : (int) ((FetchTrackerInfos.currentSteps * 100) / stepGoal);
         String stepText = stepGoal == 0 ? "----------" : (int) stepGoal + " Steps";
         String stepPercentText = stepPercent + "%";
-        Log.d("frag", String.valueOf(steps));
+        Log.d("frag", String.valueOf(FetchTrackerInfos.currentSteps));
         Log.d("frag", String.valueOf(stepGoal));
         Log.d("frag", String.valueOf(stepPercent));
-
-        stepstv.setText(stepText);
+        if (FetchTrackerInfos.currentSteps > 1)
+            stepstv.setText(FetchTrackerInfos.currentSteps+" steps");
+        else stepstv.setText("--------");
         stepsProgressPercent.setText(stepPercentText);
         stepsProgressBar.setProgress(stepPercent);
 
@@ -311,9 +316,9 @@ public class DashBoardFragment extends Fragment {
         mealTrackerCard.setOnClickListener(v->{
             updateVerification();
             if (DataFromDatabase.proUser){
-            //Intent intent = new Intent(getActivity(),Meal_main.class);
-            //requireActivity().finish();
-            //startActivity(intent);
+                //Intent intent = new Intent(getActivity(),Meal_main.class);
+                //requireActivity().finish();
+                //startActivity(intent);
                 Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_mealTracker);
             }
             else {
@@ -323,10 +328,15 @@ public class DashBoardFragment extends Fragment {
 
         goProCard.setOnClickListener(v->{
             if (DataFromDatabase.proUser){
-                updateVerification();
-                Intent intent = new Intent(getActivity(),Consultation.class);
-                requireActivity().finish();
-                startActivity(intent);
+                if (DataFromDatabase.verification.equals("0")){
+                    startActivity(new Intent(getActivity(), connectingDietitian.class));
+                }else {
+                    updateVerification();
+                    Intent intent = new Intent(getActivity(),Consultation.class);
+                    requireActivity().finish();
+                    startActivity(intent);
+                }
+
                 //Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
             }
             else {
@@ -548,6 +558,8 @@ public class DashBoardFragment extends Fragment {
 
                         if (array.isNull("Calories")) {
                             calorietv.setText("0 kcal");
+                            String calorieGoalText = array.getString("goal") + " kcal";
+                            calorieGoaltv.setText(calorieGoalText);
                         } else {
                             String calorieValueText = array.getString("Calories") + " kcal";
                             String calorieGoalText = array.getString("goal") + " kcal";
@@ -706,18 +718,18 @@ public class DashBoardFragment extends Fragment {
 
             //String referralUrl = String.format("%sverify.php",DataFromDatabase.ipConfig);
             StringRequest stringRequest = new StringRequest(Request.Method.POST,urlRefer,
-            response->{
-                Log.d("DietitianVerification", response);
+                    response->{
+                        Log.d("DietitianVerification", response);
 
-                if(response.equals("found")) {
-                    showSuccessDialog();
-                    System.out.println("Verified");
-                }else {
-                    System.out.println("Not verified");
-                    showFailureDialog();
-                }
+                        if(response.equals("found")) {
+                            showSuccessDialog();
+                            System.out.println("Verified");
+                        }else {
+                            System.out.println("Not verified");
+                            showFailureDialog();
+                        }
 
-            },error->{
+                    },error->{
 
             }){
                 @Nullable
@@ -729,6 +741,7 @@ public class DashBoardFragment extends Fragment {
                     //data.put("clientID",DataFromDatabase.clientuserID);
                     Entered = referralCode.getText().toString();
                     data.put("dietitian_verify_code",Entered);
+                    data.put("type","1");
 
 
                     return data;
@@ -853,6 +866,8 @@ public class DashBoardFragment extends Fragment {
                 data.put("referralCode",Entered);
                 data.put("dietitianID",DataFromDatabase.dietitian_id);
                 data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+                data.put("type","1");
+                data.put("verification","0");
 
 
                 return data;

@@ -13,6 +13,7 @@ public class addmealInfo {
         this.fat=fat;
         this.protein=protein;
         this.carb=carb;
+        this.fiber=fiber;
     }
 
     public void setTime(String time) {

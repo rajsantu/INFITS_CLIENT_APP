@@ -6,4 +6,10 @@ public class FetchTrackerInfos {
     public static String Avg_speed="0000";
     public static char avgs;
     public static float Distance,speed=0,Calories   ;
+    public static int pre_step
+            ;
+    public static int current_steps
+            ;
+    public static int current
+            ;
 }
