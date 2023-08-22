@@ -1,74 +1,106 @@
-   package com.example.infits;
+package com.example.infits;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
-   /**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_diet_third_scrn#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Fragment_diet_third_scrn extends Fragment {
 
-    ImageView back;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Fragment_diet_third_scrn () {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_diet_third_scrn.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_diet_third_scrn newInstance ( String param1 , String param2 ) {
-        Fragment_diet_third_scrn fragment = new Fragment_diet_third_scrn ();
-        Bundle args = new Bundle ();
-        args.putString ( ARG_PARAM1 , param1 );
-        args.putString ( ARG_PARAM2 , param2 );
-        fragment.setArguments ( args );
-        return fragment;
-    }
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter adapter;
+    private List<DataModel> dataList;
 
     @Override
-    public void onCreate ( Bundle savedInstanceState ) {
-        super.onCreate ( savedInstanceState );
-        if (getArguments () != null) {
-            mParam1 = getArguments ().getString ( ARG_PARAM1 );
-            mParam2 = getArguments ().getString ( ARG_PARAM2 );
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        dataList = new ArrayList<>();
+        fetchDataFromApi();
+    }
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_diet_third_scrn, container, false);
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new RecyclerViewAdapter(dataList);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                DataModel selectedData = dataList.get(position);
+                // Handle item click, e.g., show details for the selectedData
+            }
+        });
+
+        return rootView;
+    }
+
+    private void fetchDataFromApi() {
+        String apiUrl = "http://www.db4free.net/path/to/d_recipe_data.php";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                apiUrl,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        parseApiResponse(response);
+                        adapter.notifyDataSetChanged(); // Update the RecyclerView
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                    }
+                }
+        );
+
+        // Add the request to the RequestQueue
+        Volley.newRequestQueue(requireContext()).add(jsonArrayRequest);
+    }
+
+    private void parseApiResponse(JSONArray jsonArray) {
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String dietitianId = jsonObject.getString("dietitian_id");
+                String recipeName = jsonObject.getString("recipe_name");
+                String ingredients = jsonObject.getString("drecipe_ingredients");
+                String recipeInstructions = jsonObject.getString("recipe_recipe");
+                String nutritionalInfo = jsonObject.getString("recipe_nutritional_information");
+                String recipeImage = jsonObject.getString("drecipe_img");
+                String recipeCategory = jsonObject.getString("recipe_category");
+
+                dataList.add(new DataModel(
+                        dietitianId, recipeName, ingredients,
+                        recipeInstructions, nutritionalInfo,
+                        recipeImage, recipeCategory
+                ));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public View onCreateView ( LayoutInflater inflater , ViewGroup container ,
-                               Bundle savedInstanceState ) {
-        View view = inflater.inflate ( R.layout.fragment_diet_third_scrn , container , false );
-
-        back = view.findViewById(R.id.back_button);
-
-        back.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_fragment_diet_third_scrn_to_diet_fourth2));
-
-        return view;
-
     }
 }

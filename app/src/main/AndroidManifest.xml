@@ -80,6 +80,7 @@
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity
+<<<<<<< HEAD
             android:name=".PastActivity"
             android:exported="false" />
         <activity
@@ -90,6 +91,8 @@
                 android:value="" />
         </activity>
         <activity
+=======
+>>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
             android:name=".EndedLiveScreen"
             android:exported="false">
             <meta-data
