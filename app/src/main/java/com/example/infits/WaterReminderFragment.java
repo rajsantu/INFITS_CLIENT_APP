@@ -8,25 +8,46 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WaterReminderFragment extends Fragment {
 
@@ -49,12 +70,12 @@ public class WaterReminderFragment extends Fragment {
     public WaterReminderFragment() {
         // Required empty public constructor
     }
+    private boolean isAppActive = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_water_reminder, container, false);
-
         hooks(view);
         setFields();
 
@@ -130,18 +151,66 @@ public class WaterReminderFragment extends Fragment {
         remindOnceAmPm.setOnClickListener(v -> showTimePickerOnce());
 
         set.setOnClickListener(v -> {
-            if(pickedFromTime == 0L || pickedToTime == 0L) {
+            if(remindOnceRB.isChecked()) {setOnceAlarm();
+
+            //showInAppNotification();
+                }
+           else if(pickedFromTime == 0L || pickedToTime == 0L) {
+
                 Toast.makeText(requireActivity(), "Please select a time slot.", Toast.LENGTH_LONG).show();
             } else {
+
                 setAlarm();
             }
 
-            if(remindOnceRB.isChecked()) setOnceAlarm();
         });
 
         dismiss.setOnClickListener(v -> cancelAlarm());
 
         return view;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        isAppActive = true;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        isAppActive = false;
+    }
+
+
+
+    private void showInAppNotification() {
+        if (isAppActive) {
+            // Inflate your custom in-app notification layout
+            View notificationView = LayoutInflater.from(requireContext()).inflate(R.layout.water_in_app_notification, null);
+
+            // Customize the UI elements of the notification view
+            // For example:
+            TextView name=notificationView.findViewById(R.id.name);
+            name.setText("Hey "+DataFromDatabase.name+"!");
+            TextView notificationText = notificationView.findViewById(R.id.in_app_item_text);
+            notificationText.setText("It's time to drink water!");
+
+
+            // Add the notification view to the root view of your fragment
+            ViewGroup rootView = requireActivity().findViewById(android.R.id.content);
+
+            // Create LayoutParams for positioning the notification at the center of the screen
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
+            );
+            layoutParams.gravity = Gravity.CENTER;
+
+            // Set LayoutParams and add the notification view to the root view
+            notificationView.setLayoutParams(layoutParams);
+            rootView.addView(notificationView);
+
+            // Optional: Set a timer to remove the notification view after a certain delay
+            new Handler().postDelayed(() -> rootView.removeView(notificationView), 10000); // Remove after  5 seconds
+        }
     }
 
     private void setOnceAlarm() {
@@ -149,14 +218,34 @@ public class WaterReminderFragment extends Fragment {
 
         alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-        Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        Intent waterReceiverIntent = new Intent(requireActivity(), WaterNotificationReceiver.class);
         waterReceiverIntent.putExtra("tracker", "water");
         PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+                requireActivity(), 410, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
         );
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, remindOnceTimeMillis, waterReceiverPendingIntent);
-        Log.d("setAlarm", "alarm set");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // Calculate the difference in milliseconds
+        long currentTimeMillis = System.currentTimeMillis();
+        long midnightMillis = calendar.getTimeInMillis();
+        long millisecondsPassed = currentTimeMillis - midnightMillis;
+        long delayMillis = remindOnceTimeMillis - millisecondsPassed;
+
+        // If the delay is positive, schedule the notification after the delay
+
+        if (delayMillis > 0) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, remindOnceTimeMillis, waterReceiverPendingIntent);
+            new Handler().postDelayed(() -> {
+                    // App is not active, show push notification
+                    scheduleNotification(remindOnceTimeMillis);
+
+            }, delayMillis);
+        }
     }
 
     private void setFields() {
@@ -179,26 +268,168 @@ public class WaterReminderFragment extends Fragment {
     private void setAlarm() {
         long alarmInterval = defaultInterval;
 
-        if(remindEveryRB.isChecked()) alarmInterval = intervalTime;
-        else if(remindTimesRB.isChecked()) alarmInterval = timesTime;
+        if(remindEveryRB.isChecked()){ alarmInterval = intervalTime;
+        }
+
+        else if(remindTimesRB.isChecked()) {alarmInterval = timesTime;
+        }
 
         // set alarm
         createNotificationChannel();
 
         alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
-        Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        Intent waterReceiverIntent = new Intent(requireActivity(), WaterNotificationReceiver.class);
         waterReceiverIntent.putExtra("tracker", "water");
 
-        waterReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, pickedFromTime, alarmInterval, waterReceiverPendingIntent);
-        Toast.makeText(requireActivity(), "Reminder Set", Toast.LENGTH_LONG).show();
+        // Calculate the difference in milliseconds
+        long currentTimeMillis = System.currentTimeMillis();
+        long midnightMillis = calendar.getTimeInMillis();
+        long millisecondsPassed = currentTimeMillis - midnightMillis;
+
+        if (remindTimesRB.isChecked())
+        {
+            for (long i = 0; i < Long.parseLong(remindTimes.getText().toString()); i++)
+            {
+
+                long alarmTimeMillis = millisecondsPassed + (i * alarmInterval);
+                int requestCode = getNextNotificationId(requireContext());
+                waterReceiverPendingIntent = PendingIntent.getBroadcast(
+                        requireActivity(), requestCode, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+                );
+
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTimeMillis, waterReceiverPendingIntent);
+                long delayMillis = (i+1) * alarmInterval; // Calculate the delay in milliseconds
+
+                new Handler().postDelayed(() -> scheduleNotification(alarmTimeMillis), delayMillis);
+
+               // Log.d("setAlarm", "Alarm set for: " + new Date(alarmTimeMillis));
+            }
+        } else {
+            // For remindEveryRB
+            long fromTimeMillis = pickedFromTime;
+            long toTimeMillis = pickedToTime;
+
+            long nextAlarmTimeMillis = fromTimeMillis;
+            nextAlarmTimeMillis += alarmInterval;
+
+            int notificationId = 0;
+            int i=0;
+            while (nextAlarmTimeMillis <= toTimeMillis ) {
+                waterReceiverPendingIntent = PendingIntent.getBroadcast(
+                        requireActivity(), notificationId, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+                );
+                long delayMillis=(i+1)*alarmInterval;
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmTimeMillis, waterReceiverPendingIntent);
+                long finalNextAlarmTimeMillis = nextAlarmTimeMillis;
+                new Handler().postDelayed(() -> scheduleNotification(finalNextAlarmTimeMillis), delayMillis);
+                i++;
+
+
+               // Log.d("setAlarm", "Alarm sets for: " + new Date(nextAlarmTimeMillis));
+
+
+                nextAlarmTimeMillis += alarmInterval;
+
+                if (nextAlarmTimeMillis > toTimeMillis) {
+                    break; // Terminate the loop when the nextAlarmTimeMillis exceeds toTimeMillis
+                }
+                notificationId++;
+                // Increment the requestCode for unique PendingIntents
+            }
+        }
+
 
         setCancelAlarm();
     }
+    private static final String PREFS_NAME = "MyPrefsFile";
+    private static final String NOTIFICATION_COUNTER_KEY = "notification_counter";
+
+    private int getNextNotificationId(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int notificationIdCounter = prefs.getInt(NOTIFICATION_COUNTER_KEY, 0);
+        int nextNotificationId = notificationIdCounter++;
+
+        // Increment the counter and save it back to SharedPreferences
+        prefs.edit().putInt(NOTIFICATION_COUNTER_KEY, notificationIdCounter).apply();
+
+        return nextNotificationId;
+    }
+
+    private void scheduleNotification(long notificationTime) {
+
+            createNotificationChannel();
+
+            Intent waterReceiverIntent = new Intent(requireActivity(), WaterNotificationReceiver.class);
+            waterReceiverIntent.putExtra("tracker", "water");
+
+            PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(
+                    requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+            );
+
+            AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, notificationTime, waterReceiverPendingIntent);
+
+            Log.d("setAlarm", "alarm set for: " + new Date(notificationTime));
+
+            // Create and schedule notification
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(requireActivity(), "WaterChannelId")
+                    .setContentTitle("Hey " + DataFromDatabase.name)
+                    .setContentText("It's time to drink water!")
+                    .setSmallIcon(R.mipmap.logo)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(waterReceiverPendingIntent)
+                    .setAutoCancel(true);
+
+            int notificationId = getNextNotificationId(requireContext());
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(requireActivity());
+            managerCompat.notify(notificationId, builder.build());
+
+        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+
+        String type = "water";
+        String text = "It's time to drink water!";
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        sdf.format(date);
+
+        StringRequest inAppRequest = new StringRequest(
+
+                Request.Method.POST,
+                inAppUrl,
+                response -> {
+
+                    if (response.equals("inserted")) Log.d("WaterFragment", "success");
+                    else Log.d("WaterFragment", "failure");
+                },
+                error -> Log.e("WaterFragment",error.toString())
+        ) {
+            @NotNull
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                data.put("type", type);
+                data.put("text", text);
+                data.put("date", String.valueOf(date));
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(inAppRequest);
+        inAppRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+    }
+
 
     private void setCancelAlarm() {
         if(alarmManager == null) {
@@ -208,6 +439,7 @@ public class WaterReminderFragment extends Fragment {
         alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, waterReceiverPendingIntent);
         Toast.makeText(requireActivity(), "Reminder Dismissed", Toast.LENGTH_LONG).show();
     }
+
 
     private void cancelAlarm() {
         if(alarmManager == null) {
@@ -335,11 +567,13 @@ public class WaterReminderFragment extends Fragment {
                 remindEveryTime.setText(hours[intervalPicker.getValue()]);
                 editor.putString("remindEveryTime", hours[intervalPicker.getValue()]);
                 intervalTime = Integer.parseInt(hours[intervalPicker.getValue()]) * millisInHour;
+
             }
             else {
                 remindEveryTime.setText(minutes[intervalPicker.getValue()]);
                 editor.putString("remindEveryTime", minutes[intervalPicker.getValue()]);
                 intervalTime = Integer.parseInt(minutes[intervalPicker.getValue()]) * millisInMinute;
+
             }
             System.out.println("interval: " + intervalTime);
             dialog.dismiss();

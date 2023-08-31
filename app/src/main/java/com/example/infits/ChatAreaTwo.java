@@ -70,10 +70,11 @@ public class ChatAreaTwo extends AppCompatActivity {
 
 
     ActivityResultLauncher<String> file = registerForActivityResult(
-            new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
-                Log.d("response ChatArea32",result.toString());
+
                     if (result != null) {
                                 try {
                                     System.out.println(result);
@@ -123,7 +124,7 @@ public class ChatAreaTwo extends AppCompatActivity {
                                             Log.d("ChatArea3", "success");
                                             Log.d("response ChatArea32", response);
                                         } else if (response.equals("failure")) {
-                                            Log.d("ChatArea3", "failure");
+                                            Log.d("response ChatArea32", "failure");
                                             Toast.makeText(getApplicationContext(), "unable to send message!! try again", Toast.LENGTH_SHORT).show();
                                         }
                                     }, error -> {
@@ -146,6 +147,7 @@ public class ChatAreaTwo extends AppCompatActivity {
                                             data.put("message", encoded);
                                             Log.d("response ChatArea32",encoded);
                                             data.put("type",type);
+                                            Log.d("response ChatArea32", type);
                                             data.put("time",dtf.format(now));
                                             Log.d("response ChatArea32",dtf.format(now));
                                             data.put("messageBy","client");
@@ -235,8 +237,9 @@ public class ChatAreaTwo extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            if(type.equals("text")) {
                 sendMessage();
-//                attemptSend(v);
+            }
             }
         });
         ImageView i12 = findViewById(R.id.attach_file);
@@ -245,6 +248,7 @@ public class ChatAreaTwo extends AppCompatActivity {
             public void onClick(View v) {
 //                selectImage();
                 file.launch("*/*");
+               // sendMessage();
             }
         });
 
