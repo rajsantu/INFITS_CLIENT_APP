@@ -264,62 +264,6 @@ public class Section6Q3 extends Fragment {
                 milk="Monthly";
             }
         });
-        String url = "http://192.168.1.100/myproject/infits/section6Q3red.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-            Log.e("Checking", "Checking1");
-            System.out.println(DataFromDatabase.clientuserID);
-            System.out.println(response);
-
-
-            try {
-                JSONObject jsonResponse = new JSONObject(response);
-                String answer = jsonResponse.getString("answer");
-                storeAnswer[0] = answer;
-                if(answer.equals("No")) daily.performClick();
-                else if(answer.equals("daily")) never.performClick();
-                else if(answer.equals("Once in a week")) oneWeek.performClick();
-                else if(answer.equals("Twice in a week")) twWeek.performClick();
-                else if(answer.equals("3-4 time in a week ")) thrWeek.performClick();
-                else if(answer.equals("3-4 time in a week ")) fifteen.performClick();
-
-                else if(answer.equals("Monthly")) monthly.performClick();
-
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            Log.d("Data", error.toString().trim());
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> dataVol = new HashMap<>();
-                Log.e("Checking", "Checking");
-                dataVol.put("clientuserID", DataFromDatabase.clientuserID);
-                return dataVol;
-            }
-        };
-        stringRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -336,44 +280,7 @@ public class Section6Q3 extends Fragment {
 
                     Navigation.findNavController(v).navigate(R.id.action_section6Q3_to_section6Q4);
 
-                    String url = "http://192.168.1.100/myproject/infits/section6Q3up.php";
-
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-                        Log.e("Checking", "Checking1");
-                    }, error -> {
-                        Log.d("Data", error.toString().trim());
-                    }) {
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-
-                            Map<String, String> dataVol = new HashMap<>();
-                            Log.e("Checking", "Checking");
-                            dataVol.put("clientuserID", DataFromDatabase.clientuserID);
-                            dataVol.put("newAnswer", milk);
-
-
-                            return dataVol;
-                        }
-                    };
-                    stringRequest.setRetryPolicy(new RetryPolicy() {
-                        @Override
-                        public int getCurrentTimeout() {
-                            return 50000;
-                        }
-
-                        @Override
-                        public int getCurrentRetryCount() {
-                            return 50000;
-                        }
-
-                        @Override
-                        public void retry(VolleyError error) throws VolleyError {
-
-                        }
-                    });
-                    Volley.newRequestQueue(getActivity()).add(stringRequest);
-                }
+                  }
             }
         });
 

@@ -100,59 +100,7 @@ public class Section4Q7 extends Fragment {
         eTextHeight = view.findViewById(R.id.eTextHeight);
         final String[] storeAnswer = new String[1];
         textView80 = view.findViewById(R.id.textView80);
-        String url = "http://192.168.1.100/myproject/infits/section4Q7red.php";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-            Log.e("Checking", "Checking1");
-            System.out.println(DataFromDatabase.clientuserID);
-            System.out.println(response);
-
-            JSONObject jsonResponse = null;
-
-            try {
-                jsonResponse = new JSONObject(response);
-                JSONArray cast = jsonResponse.getJSONArray("answer");
-                JSONObject actor = cast.getJSONObject(0);
-                String answer = actor.getString("answer");
-                storeAnswer[0] = answer;
-
-                eTextHeight.setText(answer);
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            Log.d("Data", error.toString().trim());
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> dataVol = new HashMap<>();
-                Log.e("Checking", "Checking");
-                dataVol.put("clientuserID", DataFromDatabase.clientuserID);
-                return dataVol;
-            }
-        };
-        stringRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
 
 
@@ -173,45 +121,6 @@ public class Section4Q7 extends Fragment {
                     ConsultationFragment.psection4 += 1;
 
                     Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_consultationFragment);
-                    String url = "http://192.168.1.100/myproject/infits/section4Q7up.php";
-
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-                        Log.e("Checking", "Checking1");
-
-                    }, error -> {
-                        Log.d("Data", error.toString().trim());
-                    }) {
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-
-                            Map<String, String> dataVol = new HashMap<>();
-                            Log.e("Checking", "Checking");
-                            dataVol.put("clientuserID", DataFromDatabase.clientuserID);
-                            dataVol.put("newAnswer", eTextHeight.getText().toString());
-
-
-                            return dataVol;
-                        }
-                    };
-                    stringRequest.setRetryPolicy(new RetryPolicy() {
-                        @Override
-                        public int getCurrentTimeout() {
-                            return 50000;
-                        }
-
-                        @Override
-                        public int getCurrentRetryCount() {
-                            return 50000;
-                        }
-
-                        @Override
-                        public void retry(VolleyError error) throws VolleyError {
-
-                        }
-                    });
-                    Volley.newRequestQueue(getActivity()).add(stringRequest);
-
 
 
 
