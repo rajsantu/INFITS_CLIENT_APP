@@ -71,7 +71,8 @@ public class Login extends AppCompatActivity {
     ImageView btnGoogle, btnFacebook, btnTwitter;
     String passwordStr,usernameStr;
     //String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
-    String url = "https://infits.in/androidApi/login_client.php";
+    //String url = "https://infits.in/androidApi/login_client.php";
+    String url="http://192.168.1.9/infits/login_client.php";
     RequestQueue queue;
 
 
@@ -95,7 +96,7 @@ public class Login extends AppCompatActivity {
                         if(acc!=null){
                             String userEmail = acc.getEmail();
                             String userToken = acc.getIdToken();
-                            //perform server operation for login with google authenticated email and token
+                        //    //perform server operation for login with google authenticated email and token
                             socialLoginForGoogleAuthUserWithToken(userEmail,userToken);
                         }else{
                             Toast.makeText(getApplicationContext(),"something went wrong. User token not generated.",Toast.LENGTH_LONG).show();
@@ -199,6 +200,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
                             DataFromDatabase.verification  = object.getString("verification");
+                            DataFromDatabase.verification_code  = object.getString("verification_code");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
 
                             System.out.println(DataFromDatabase.weight);
@@ -228,6 +230,7 @@ public class Login extends AppCompatActivity {
                             editor.putString("profilePhotoBase",object.getString("profilePhoto"));
                             editor.putBoolean("proUser",DataFromDatabase.proUser);
                             editor.putString("verification",object.getString("verification"));
+                            editor.putString("verification_code",object.getString("verification_code"));
                             editor.apply();
 
                             finish();
