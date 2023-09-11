@@ -5,20 +5,142 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+ Updated upstream
+    <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
+
+ Stashed changes
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
+ dipu
     <list default="true" id="2aac381d-1e75-4f05-95d2-1f36e0826556" name="Changes" comment="Statistics.java corrected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ResetPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ResetPassword.java" afterDir="false" />
+
+    <list default="true" id="2aac381d-1e75-4f05-95d2-1f36e0826556" name="Changes" comment="MealtrackerTodays_Breakfast.java-modified">
+ paras
+ HEAD
+
+ chetna
+
+ test-branch
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+ test-branch
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Infits.app.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Infits.app.androidTest.iml" afterDir="false" />
+ paras
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Infits.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Infits.app.main.iml" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Infits.app.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Infits.app.unitTest.iml" afterDir="false" />
+ chetna
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ChatAreaTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ChatAreaTwo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterTrackerFragment.java" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
+ test-branch
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24-07-2023_10_01_pm__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24-07-2023_10_01_pm__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+ paras
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/CalAdapter_at.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/CalAdapter_at.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/activityTracker2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/activityTracker2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_activity_tracker2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_activity_tracker2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+
+ Updated upstream
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24-07-2023_10_01_pm__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24-07-2023_10_01_pm__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Fragment_diet_third_scrn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Fragment_diet_third_scrn.java" afterDir="false" />
+ Stashed changes
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ConsultationFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ConsultationFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/EditProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/EditProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q4.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q10.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q11.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q12.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q13.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q13.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q4.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q8.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q9.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q9.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q10.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q11.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q12.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q13.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q13.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q14.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q14.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q4.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q8.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q9.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q9.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/SectionOneQEight.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/SectionOneQEight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterReminderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterReminderFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterTrackerFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+ test-branch
+ test-branch
+ test-branch
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+ dipu
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\dipus\.android\avd\Pixel_6_Pro_API_31.avd]" />
+ HEAD
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+ paras
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+
+ Updated upstream
+
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+ Stashed changes
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Paras Kaushik\.android\avd\My_Phone.avd]" />
+
+ chetna
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[ZD222BWP2V]" />
+
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[ZD22239RDS]" />
+ test-branch
+ test-branch
+ test-branch
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -65,11 +187,32 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+ dipu
+
+ HEAD
+        <option value="resourceFile" />
+        <option value="navigationResourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+        <option value="Interface" />
+
+ Updated upstream
+ test-branch
         <option value="valueResourceFile" />
         <option value="Class" />
         <option value="layoutResourceFile" />
         <option value="navigationResourceFile" />
         <option value="resourceFile" />
+ dipu
+
+
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="navigationResourceFile" />
+        <option value="Class" />
+ Stashed changes
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+ test-branch
       </list>
     </option>
   </component>
@@ -81,20 +224,62 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.volley/volley/1.2.1/2ca7daee038e365519360962a6c94f5486179f4a/volley-1.2.1-sources.jar!/com/android/volley/Response.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-33/android/content/ContextWrapper.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-33/java/lang/Runnable.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-33/java/lang/String.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
+ dipu
   </component>
   <component name="ProjectId" id="2Nuf8kOFIGEvQVDUdhJHAqNb5B0" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+
+ paras
+ Updated upstream
+
+ test-branch
+  </component>
+ HEAD
+  <component name="ProjectId" id="2SZdxqVpDNjD8yULKFzrqaMJSUE" />
+ paras
+
+  <component name="ProjectId" id="2Nuf8kOFIGEvQVDUdhJHAqNb5B0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+
+ Stashed changes
+  </component>
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+ test-branch
+ test-branch
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+ paras
+ HEAD
+
+ chetna
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+
+ test-branch
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
@@ -103,26 +288,82 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;ScreenshotViewer.SavePath&quot;: &quot;E:/INFITS PROJECTS/Screenshots&quot;,
+    &quot;android-custom-viewC:/Users/Paras Kaushik/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.2.1/f0f93e67af3f7417bdd560d5142f6dec4fe629c3/recyclerview-1.2.1-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED&quot;: &quot;RecyclerView&quot;,
     &quot;android-custom-viewC:/Users/devab/.gradle/caches/modules-2/files-2.1/androidx.fragment/fragment/1.5.4/5404b0f8aeccb2fe882bee99ef8843711c01c156/fragment-1.5.4-sources.jar!/androidx/fragment/app/FragmentContainerView.kt_SELECTED&quot;: &quot;FragmentContainerView&quot;,
+ dipu
+
+    &quot;android-custom-viewC:/Users/kshama tiwari/AppData/Local/Android/Sdk/sources/android-33/android/view/View.java_SELECTED&quot;: &quot;View&quot;,
+    &quot;android-custom-viewC:/Users/kshama tiwari/AppData/Local/Android/Sdk/sources/android-33/android/widget/RadioGroup.java_SELECTED&quot;: &quot;RadioGroup&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+ test-branch
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;last_directory_selection&quot;: &quot;E:/internship/INFITS_CLIENT_APP/app/src/main/res/drawable&quot;,
+ dipu
     &quot;last_opened_file_path&quot;: &quot;D:/Learning/AndroidDevelopment/INFITS_CLIENT_APP&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+
+ paras
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Paras Kaushik/AndroidStudioProjects/App/INFITS_CLIENT_APP/app/src/main/res/layout&quot;,
+
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kshama tiwari/OneDrive/Desktop/loading3.0/INFITS_CLIENT_APP&quot;,
+ test-branch
+    &quot;project.structure.last.edited&quot;: &quot;Suggestions&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+ test-branch
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;
+    ]
   }
 }</component>
+ paras
+
+  <component name="PropertiesComponent">
+ Updated upstream
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+ Stashed changes
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+
+ test-branch
+ test-branch
   <component name="PsdUISettings">
     <option name="MODULE_TAB" value="Properties" />
     <option name="LAST_EDITED_SIGNING_CONFIG" value="debug" />
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.infits" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+ dipu
       <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\res\drawable" />
       <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\res\drawable-v24" />
       <recent name="E:\internship\INFITS_CLIENT_APP\app\src\main\res\drawable" />
@@ -134,6 +375,33 @@
       <recent name="com.example.infits" />
     </key>
     <key name="android.template.144872403">
+
+ HEAD
+      <recent name="C:\Users\Paras Kaushik\AndroidStudioProjects\App\INFITS_CLIENT_APP\app\src\main\res\layout" />
+      <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\java\com\example\infits" />
+      <recent name="D:\Internship\infits_project\app\src\main\res\layout" />
+      <recent name="D:\Internship\infits_project\app\src\main\res\drawable" />
+
+      <recent name="C:\Users\Paras Kaushik\AndroidStudioProjects\INFITS_CLIENT_APP\app\src\main\res\layout" />
+      <recent name="C:\Users\Paras Kaushik\AndroidStudioProjects\INFITS_CLIENT_APP\app\src\main\res\drawable" />
+      <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\res\drawable" />
+      <recent name="E:\INFITS PROJECTS\INFITS_CLIENT_APP\app\src\main\res\drawable-v24" />
+      <recent name="E:\internship\INFITS_CLIENT_APP\app\src\main\res\drawable" />
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+    </key>
+    <key name="android.template.-2047694405">
+      <recent name="com.example.infits" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.infits" />
+    </key>
+ HEAD
+
+    <key name="android.template.-253743311">
+      <recent name="com.example.infits" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+ test-branch
       <recent name="com.example.infits" />
     </key>
   </component>
@@ -143,10 +411,21 @@
         <option value="AndroidRunConfigurationType" />
       </set>
     </option>
+ dipu
   </component>
+
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+  </component>
+ paras
+ test-branch
   <component name="RunManager">
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="Infits.app.main" />
+
+  <component name="RunManager" selected="Android App.app">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app.Infits.app.main" />
+ test-branch
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -180,6 +459,9 @@
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
       </Hybrid>
       <Java />
+ dipu
+
+ chetna
       <Native>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
         <option name="SHOW_STATIC_VARS" value="true" />
@@ -194,6 +476,128 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
         <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app.androidTest" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="Infits.app.androidTest" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="do_nothing" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+ test-branch
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app.unitTest" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="Infits.app.unitTest" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="do_nothing" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+
+ test-branch
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -279,6 +683,7 @@
       <option name="project" value="LOCAL" />
       <updated>1685647332781</updated>
     </task>
+ dipu
     <task id="LOCAL-00010" summary="meal_tracker_working">
       <created>1685649141613</created>
       <option name="number" value="00010" />
@@ -357,6 +762,16 @@
       <updated>1690548429206</updated>
     </task>
     <option name="localTasksCounter" value="21" />
+
+    <task id="LOCAL-00001" summary="MealtrackerTodays_Breakfast.java-modified">
+      <created>1691420529595</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1691420529595</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+ test-branch
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -403,6 +818,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+ dipu
     <MESSAGE value="Updated step tracker" />
     <MESSAGE value="calorie tracker UI changes" />
     <MESSAGE value="Feedback page added" />
@@ -419,5 +835,9 @@
     <MESSAGE value="diet_chart_integrated" />
     <MESSAGE value="Statistics.java corrected" />
     <option name="LAST_COMMIT_MESSAGE" value="Statistics.java corrected" />
+
+    <MESSAGE value="MealtrackerTodays_Breakfast.java-modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="MealtrackerTodays_Breakfast.java-modified" />
+ test-branch
   </component>
 </project>

@@ -1,4 +1,13 @@
 <project version="4">
+ dipu
+
+ HEAD
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+ paras
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+
+ Updated upstream
+ test-branch
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
@@ -305,6 +314,17 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+ dipu
+
+
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+ Stashed changes
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+ test-branch
+ test-branch
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

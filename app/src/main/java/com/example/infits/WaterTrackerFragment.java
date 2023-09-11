@@ -162,11 +162,13 @@ public class WaterTrackerFragment extends Fragment {
             waterGoal.setText(DataFromDatabase.waterGoal + " ml");
             try {
                 goal = Integer.parseInt(DataFromDatabase.waterGoal);
+
                 // Log.d("Goal",String.valueOf(goal));
             } catch (NumberFormatException ex) {
                 goal = 1800;
                 waterGoal.setText(1800 + " ml");
                 // Log.d("Goal",String.valueOf(goal));
+
                 System.out.println(ex);
             }
         }
@@ -207,18 +209,23 @@ public class WaterTrackerFragment extends Fragment {
                 setGoalBtn.setOnClickListener(v -> {
                     if (!goaltxt.getText().toString().equals("")) {
                         goal = Integer.parseInt(goaltxt.getText().toString());
+
                         // Log.d("Goal",String.valueOf(goal));
+
                         waterGoal.setText(goaltxt.getText().toString() + " ml");
                         waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
                         consumedInDay = 0;
                         //String url = String.format("%supdatewatergoal.php",DataFromDatabase.ipConfig);
-                        //String url =  DataFromDatabase.ipConfig +"updatewatergoal.php";
-                        String url = "https://infits.in/androidApi/updatewatergoal.php";
+
+                        String url =  DataFromDatabase.ipConfig +"updatewatergoal.php";
+
+
                         StringRequest stringRequest=new StringRequest(Request.Method.POST,
                                 url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
+
 
                                         try {
                                             JSONObject jsonObject = new JSONObject(response);
@@ -246,6 +253,8 @@ public class WaterTrackerFragment extends Fragment {
                                         Log.d("response1;;","error");
                                     }
                                 }
+
+
                         ){
                             @Nullable
                             @Override
@@ -409,12 +418,14 @@ public class WaterTrackerFragment extends Fragment {
 //                    updateLastRecord();
 
                     //String url = String.format("%supdatewatertracker.php", DataFromDatabase.ipConfig);
-                    //String url = DataFromDatabase.ipConfig+"updateWatertracker.php";
-                    String url = "https://infits.in/androidApi/updatewatergoal.php";
+
+                    String url = DataFromDatabase.ipConfig+"updateWatertracker.php";
 
                     StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
                         try {
+                            Log.d("Water",response);
                             JSONObject jsonObject=new JSONObject(response);
+                            Log.d("Water",String.valueOf(response));
                             String amount=jsonObject.getString("total");
                             consumedInDay= Integer.parseInt(amount);
                             //String total=jsonObject.getString("total");
@@ -432,7 +443,9 @@ public class WaterTrackerFragment extends Fragment {
                                                           }
                                                       },durationOfWaterAnimation
                             );
+
                             // consumed.setText(String.valueOf(consumedInDay));
+
                             pastActivity();
                         } catch (JSONException e) {
                             Log.d("response","error");
@@ -461,6 +474,7 @@ public class WaterTrackerFragment extends Fragment {
 
                             //  Log.d("update", "consumed: " + consumedInDay);
                             // Log.d("update", "amount: " + amt);
+
                             return data;
                         }
                     };
@@ -574,7 +588,7 @@ public class WaterTrackerFragment extends Fragment {
         ArrayList<String> fetchedDateswater=new ArrayList<>();
         fetchedDateswater.clear();
         //String url = String.format("%spastActivitywater.php", DataFromDatabase.ipConfig);
-        String url = "https://infits.in/androidApi/pastActivitywater.php";
+        String url = "http://192.168.1.9/infits/pastActivitywater.php";
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
@@ -692,7 +706,7 @@ public class WaterTrackerFragment extends Fragment {
 
     private void getLatestWaterData() {
         //String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
-        String url = "https://infits.in/androidApi/getLatestWaterdt.php";
+        String url = "http://192.168.1.9/infits/getLatestWaterdt.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
@@ -750,7 +764,7 @@ public class WaterTrackerFragment extends Fragment {
 
     private void updateLastRecord() {
         //String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
-        String url = "https://infits.in/androidApi/getLatestWaterdt.php";
+        String url = "http://192.168.1.9/infits/getLatestWaterdt.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("water", response);
@@ -788,7 +802,7 @@ public class WaterTrackerFragment extends Fragment {
 
     private void createNewEntry() {
         //String url = String.format("%swatertracker.php",DataFromDatabase.ipConfig);
-        String url = "https://infits.in/androidApi/watertracker.php";
+        String url = "http://192.168.1.9/infits/watertracker.php";
         StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
             consumed.setText(consumedInDay +" ml");
             waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));

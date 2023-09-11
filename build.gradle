@@ -6,18 +6,28 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        jcenter() // Add JCenter repository for older dependencies (if needed)
         maven {
             url "https://jitpack.io"
-            }
+        }
     }
     dependencies {
+    dipu
         classpath 'com.android.tools.build:gradle:8.0.2'
+
+ paras
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        // Use the latest stable AGP version (7.5.0)
+
+        classpath 'com.android.tools.build:gradle:8.0.2'
+ test-branch
+ test-branch
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21'
-        classpath 'com.google.gms:google-services:4.3.15'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.google.gms:google-services:4.3.10' // Update to the latest version (if available)
     }
+
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
