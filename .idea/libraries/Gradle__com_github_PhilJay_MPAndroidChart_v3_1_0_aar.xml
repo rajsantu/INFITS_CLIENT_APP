@@ -3,14 +3,20 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/353150d6ea4c20fc3e46b58095f513b5/transformed/jetified-MPAndroidChart-v3.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/353150d6ea4c20fc3e46b58095f513b5/transformed/jetified-MPAndroidChart-v3.1.0/AndroidManifest.xml" />
+ dipu
+
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2373155e3f16ee1569226ee05972d294/transformed/jetified-MPAndroidChart-v3.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2373155e3f16ee1569226ee05972d294/transformed/jetified-MPAndroidChart-v3.1.0/AndroidManifest.xml" />
+ test-branch
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0/2cb6d9556dd436cc6af2434d861903323fab2e3c/MPAndroidChart-v3.1.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+ dipu
+
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0/a93f278fa885a682f8d89d82ffd259d5a9635f7b/MPAndroidChart-v3.1.0-sources.jar!/" />
+ test-branch
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0/45d3ce505f744a595313d5eb84efd3ca3c8d2d04/MPAndroidChart-v3.1.0-sources.jar!/" />
     </SOURCES>
   </library>

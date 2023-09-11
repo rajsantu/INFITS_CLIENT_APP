@@ -70,9 +70,14 @@ public class Login extends AppCompatActivity {
     Button loginbtn;
     ImageView btnGoogle, btnFacebook, btnTwitter;
     String passwordStr,usernameStr;
+ 
+    String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
+    //String url = "https://infits.in/androidApi/login_client.php";
+
     //String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     //String url = "https://infits.in/androidApi/login_client.php";
     String url="http://192.168.1.9/infits/login_client.php";
+
     RequestQueue queue;
 
 
@@ -193,7 +198,6 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.password = object.getString("password");
                             DataFromDatabase.email = object.getString("email");
                             DataFromDatabase.mobile = object.getString("mobile");
-                            DataFromDatabase.profilePhoto = object.getString("profilePhoto");
                             DataFromDatabase.location = object.getString("location");
                             DataFromDatabase.age = object.getString("age");
                             DataFromDatabase.gender  = object.getString("gender");
@@ -201,13 +205,17 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.height  = object.getString("height");
                             DataFromDatabase.verification  = object.getString("verification");
                             DataFromDatabase.verification_code  = object.getString("verification_code");
+
+                            DataFromDatabase.profilePhotoBase = object.getString("profilePhoto");
+
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
+
 
                             System.out.println(DataFromDatabase.weight);
                             System.out.println(DataFromDatabase.height);
 
 
-                            byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
+                            byte[] qrimage = Base64.decode(DataFromDatabase.profilePhotoBase,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
 

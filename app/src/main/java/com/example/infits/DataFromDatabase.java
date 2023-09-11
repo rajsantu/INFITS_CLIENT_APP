@@ -23,8 +23,12 @@ import java.util.Map;
 
 public class DataFromDatabase {
 
-    public static String ipConfig = "https://192.168.1.9/infits/";
 
+    public static String ipConfig = "http://192.168.29.187/infits/";
+    //public static String ipConfig = "https://infits.in/androidApi/";
+
+    public static String ipConfig = "https://192.168.1.9/infits/";
+ 
 
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
@@ -37,7 +41,7 @@ public class DataFromDatabase {
 
 
 
-    public static boolean proUser = false;
+    public static boolean proUser ;
 
     public static String stepsStr = "0",stepsGoal= "0",waterStr= "0",waterGoal= "0",sleephrsStr= "0",
             sleepminsStr= "0",sleepGoal= "0",weightStr= "0",weightGoal= "0",bmi = "0",bpm = "0",bpmUp = "0",bpmDown = "0";
