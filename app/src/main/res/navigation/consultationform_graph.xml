@@ -28,6 +28,12 @@
         <action
             android:id="@+id/action_consultationFragment_to_section6Q1"
             app:destination="@id/section6Q1" />
+        <action
+            android:id="@+id/action_consultationFragment_to_subscription1"
+            app:destination="@id/subscription1" />
+        <action
+            android:id="@+id/action_consultationFragment_to_overview"
+            app:destination="@id/overview" />
     </fragment>
     <fragment
         android:id="@+id/sectionOneQOne"
@@ -894,4 +900,14 @@
             app:popUpTo="@id/consultationFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <activity
+        android:id="@+id/subscription1"
+        android:name="com.example.infits.Subscription1"
+        android:label="activity_subscription1"
+        tools:layout="@layout/activity_subscription1" />
+    <activity
+        android:id="@+id/overview"
+        android:name="com.example.infits.Overview"
+        android:label="activity_overview"
+        tools:layout="@layout/activity_overview" />
 </navigation>

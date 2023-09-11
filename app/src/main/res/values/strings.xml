@@ -18,12 +18,31 @@ exercitation ullamco laboris nisi ut aliquip</string>
     <string name="feature_1">Feature 1</string>
     <string name="feature_2">Feature 2</string>
     <string name="feature_3">Feature 3</string>
-
     <string name="breakfast">B</string>
     <string name="lunch">L</string>
     <string name="dinner">D</string>
     <string name="snacks">S</string>
+    <string name="go_pro">Go Pro!</string>
+    <string name="workout_tracker">Workout Tracker</string>
+    <string name="consultation">Dietitian &#38; Plan</string>
+    <string name="meals_tracker">Share with dietitian</string>
+    <string name="diet_chart">All Meal Courses</string>
+    <string name="goal">Goal</string>
+    <string name="limit">Limit</string>
+    <string name="No_data">No data available</string>
 
+    <!--Hints for signup xml-->
+    <string name="fullName_hint"><font size="12">Full Name</font></string>
+    <string name="userName_hint"><font size="12">Enter a Username</font></string>
+    <string name="email_hint"><font size="12">Email ID</font></string>
+    <string name="password_hint"><font size="12">Password</font></string>
+    <string name="phone_hint"><font size="12">Phone No.</font></string>
+    <string name="Age_hint"><font size="12">Age</font></string>
+    <string name="Height_hint"><font size="12">Height</font></string>
+    <string name="Weight_hint"><font size="12">Weight</font></string>
+
+
+    <!--PLEASE PUT YOUR DEFAULT WEB CLIENT ID TO CONNECT TO FIREBASE OR GOOGLE PROJECT ONLINE -->
 
     <array name="month">
         <item>Jan</item>
@@ -39,6 +58,19 @@ exercitation ullamco laboris nisi ut aliquip</string>
         <item>Nov</item>
         <item>Dec</item>
     </array>
+
+    <string-array name="spinner_diet_daily">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+    <string-array name="spinner_diet_breakfast">
+        <item>Breakfast</item>
+        <item>Snacks</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
 
 
 </resources>

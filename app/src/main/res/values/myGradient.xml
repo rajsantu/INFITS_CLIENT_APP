@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="myGradientColors">
+        <item>#24F2F28F</item>
+        <item>#FFEB3B</item>
+        <item>#CDB903</item>
+    </array>
+    <array name="myGradientProteinColors">
+        <item>#e1eaed</item>
+        <item>#82dbfe</item>
+        <item>#0b85e0</item>
+    </array>
+    <array name="myGradientCarbsColors">
+        <item>#f5f0ea</item>
+        <item>#eed0a4</item>
+        <item>#e3ac5e</item>
+    </array>
+    <array name="myGradientFatsColors">
+        <item>#eceadf</item>
+        <item>#fcefaa</item>
+        <item>#fae56b</item>
+    </array>
+</resources>

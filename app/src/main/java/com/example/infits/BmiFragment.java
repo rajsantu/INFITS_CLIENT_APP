@@ -43,6 +43,7 @@ import java.util.Map;
 public class BmiFragment extends DialogFragment {
 
     String url = String.format("%sweighttracker.php",DataFromDatabase.ipConfig);
+    //String url = "https://infits.in/androidApi/weighttracker.php";
 
     RecyclerView rv;
     PickerAdapter adapter;

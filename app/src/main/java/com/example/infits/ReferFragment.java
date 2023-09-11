@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -49,13 +50,10 @@ public class ReferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_refer, container, false);
-
         hooks(view);
         getReferralCode();
-
         copy.setOnClickListener(v -> {
             String textToCopy = referralCode;
-
             if(!textToCopy.isEmpty()) {
                 ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("label", textToCopy);
@@ -104,19 +102,30 @@ public class ReferFragment extends Fragment {
     }
 
     private void checkReferralTable(String referralCode) {
-        String referralUrl = String.format("%scheckReferralTable.php",DataFromDatabase.ipConfig);
+        //String referralUrl = String.format("%scheckReferralTable.php",DataFromDatabase.ipConfig);
+        String referralUrl = "https://infits.in/androidApi/checkReferralTable.php";
 
         StringRequest referralRequest = new StringRequest(
                 Request.Method.POST, referralUrl,
                 response -> {
                     Log.d("ReferralFragment", "checkReferralTable: " + response);
 
-                    if(response.equals("found")) {
-                        updateReferralTable(referralCode);
-                        showSuccessDialog();
+                    if (response.equals("found")) {
+                        Toast.makeText(requireContext(), "Waiting To response", Toast.LENGTH_LONG).show();
+                        String referralText = referralTV.getText().toString(); // Get the text from the TextView
+                        // the uppar part is to check the print what is coming
+                        System.out.println(referralText+"gagan");
+                        // Using inner conditional statment To check self user Can`t user own referrCode
+                        if (referralCode.toString().equals(referralText)) { // Compare the text with the response
+                            Toast.makeText(requireContext(), "Try With other Refferral", Toast.LENGTH_LONG).show();
+                        } else {
+                            updateReferralTable(referralCode);
+                            showSuccessDialog();
+                        }
                     } else {
                         showFailureDialog();
                     }
+
                 },
                 error -> Log.e("ReferralFragment", "checkReferralTable: " + error.toString())
         ) {
@@ -131,6 +140,9 @@ public class ReferFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(referralRequest);
+        referralRequest.setRetryPolicy(new DefaultRetryPolicy(6000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void showFailureDialog() {
@@ -158,7 +170,8 @@ public class ReferFragment extends Fragment {
     }
 
     private void updateReferralTable(String referralCode) {
-        String referralUrl = String.format("%supdateReferralTable.php",DataFromDatabase.ipConfig);
+        //String referralUrl = String.format("%supdateReferralTable.php",DataFromDatabase.ipConfig);
+        String referralUrl = "https://infits.in/androidApi/updateReferralTable.php";
 
         StringRequest referralRequest = new StringRequest(
                 Request.Method.POST, referralUrl,
@@ -181,11 +194,15 @@ public class ReferFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(referralRequest);
+        referralRequest.setRetryPolicy(new DefaultRetryPolicy(6000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void getReferralCode() {
         // fetch referral from database
-        String referralUrl = String.format("%sgetReferralCode.php",DataFromDatabase.ipConfig);
+        //String referralUrl = String.format("%sgetReferralCode.php",DataFromDatabase.ipConfig);
+        String referralUrl = "https://infits.in/androidApi/getReferralCode.php";
 
         StringRequest referralRequest = new StringRequest(
                 Request.Method.POST, referralUrl,
@@ -193,6 +210,7 @@ public class ReferFragment extends Fragment {
                     Log.d("ReferralFragment", "getReferralCode: " + response);
                     referralCode = response;
                     referralTV.setText(response);
+
 
                 },
                 error -> Log.e("ReferralFragment", "getReferralCode: " + error.toString())
@@ -208,6 +226,9 @@ public class ReferFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(referralRequest);
+        referralRequest.setRetryPolicy(new DefaultRetryPolicy(6000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void hooks(View view) {

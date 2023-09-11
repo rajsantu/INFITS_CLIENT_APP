@@ -16,4 +16,5 @@ public class Todays_BreakFast_info {
         this.quantityValue=quantityValue;
         this.sizeValue=sizeValue;
     }
+
 }

@@ -1,4 +1,3 @@
-
 package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -53,8 +52,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -131,50 +131,24 @@ public class SleepTrackerFragment extends Fragment {
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
-        ArrayList<String> fetchedDatesSleep=new ArrayList<>();
-        fetchedDatesSleep.clear();
-        int noOfDays=10;
-        String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        //String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/pastActivitySleep.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
-
                 Log.d("response123",response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("sleep");
-                Log.d("arraylength",String.valueOf(jsonArray.length()));
-
-                for (int i=0;i<jsonArray.length();i++){
-                    fetchedDatesSleep.add(jsonArray.getJSONObject(i).getString("date"));
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String data = object.getString("hrsSlept");
+                    String date = object.getString("date");
+                    dates.add(date);
+                    datas.add(data);
+                    System.out.println(datas.get(i));
+                    System.out.println(dates.get(i));
                 }
-                for (int i=0;i<noOfDays;i++){
-                    Calendar cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, -i);
-                    Log.d("featched",fetchedDatesSleep.toString());
-                    Log.d("currentInstance",dateFormat.format(cal.getTime()).toString());
-                    if(fetchedDatesSleep.contains(dateFormat.format(cal.getTime()).toString())==true){
-                        int index=fetchedDatesSleep.indexOf(dateFormat.format(cal.getTime()));
-                        Log.d("index",String.valueOf(index));
-                        JSONObject object=jsonArray.getJSONObject(index);
-                        dates.add(dateFormat.format(cal.getTime()));
-                        String data=object.getString("hrsSlept").toString();
-                        datas.add(data);
-                    }
-                    else {
-                        dates.add(dateFormat.format(cal.getTime()));
-                        datas.add("0");
-                    }
-                }
-//                for (int i = 0;i<jsonArray.length();i++){
-//                    JSONObject object = jsonArray.getJSONObject(i);
-//                    String data = object.getString("hrsSlept");
-//                    String date = object.getString("date");
-//                    dates.add(date);
-//                    datas.add(data);
-//                    System.out.println(datas.get(i));
-//                    System.out.println(dates.get(i));
-//                }
                 AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#9C74F5"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
@@ -189,7 +163,7 @@ public class SleepTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("clientuserID",DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -275,7 +249,7 @@ public class SleepTrackerFragment extends Fragment {
                 Date date = new Date();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
-                SimpleDateFormat sleepTime = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+                SimpleDateFormat sleepTime = new SimpleDateFormat("yyyy-MM-dd H:m:s");
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
@@ -357,7 +331,8 @@ public class SleepTrackerFragment extends Fragment {
                     }
                 }
 
-                String url=String.format("%ssleepTracker.php",DataFromDatabase.ipConfig);
+                //String url=String.format("%ssleepTracker.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/sleepTracker.php";
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                     if (response.equals("updated")){
                         Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();
@@ -378,7 +353,7 @@ public class SleepTrackerFragment extends Fragment {
                         String sleepTime = sh.getString("sleepTime", "");
 
                         Date date = new Date();
-                        String pat = "dd-MM-yyyy hh:mm:ss";
+                        String pat = "dd-MM-yyyy H:m:s";
                         SimpleDateFormat sdf = new SimpleDateFormat(pat);
                         Map<String,String> data = new HashMap<>();
                         data.put("userID",DataFromDatabase.clientuserID);
@@ -389,6 +364,9 @@ public class SleepTrackerFragment extends Fragment {
                         data.put("goal", "8");
                         data.put("hrsslept", hours);
                         data.put("minsslept", minutes);
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                        LocalDateTime now = LocalDateTime.now();
+                        data.put("date",dtf.format(now));
                         Log.d("sleep", "userId: " + DataFromDatabase.clientuserID);
                         Log.d("sleep", "sleepTime: " + sleepTime);
                         Log.d("sleep", "wakeTime: " + sdf.format(date));
@@ -396,6 +374,7 @@ public class SleepTrackerFragment extends Fragment {
                         Log.d("sleep", "goal: " + 8);
                         Log.d("sleep", "hrsSlept: " + hours);
                         Log.d("sleep", "minSlept: " + minutes);
+                        Log.d("sleep",dtf.format(now));
                         return data;
                     }
                 };
@@ -420,7 +399,8 @@ public class SleepTrackerFragment extends Fragment {
         inAppEditor.putBoolean("newNotification", true);
         inAppEditor.apply();
 
-        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        //String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        String inAppUrl = "https://infits.in/androidApi/inAppNotifications.php";
 
         String type = "sleep";
         String text = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";

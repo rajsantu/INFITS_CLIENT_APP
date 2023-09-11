@@ -86,6 +86,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
         timingList.add("AM");
 
         imgBack = findViewById(R.id.imgBackAppointment);
+        // confirmBtn = findViewById(R.id.confirm_btn1);
         confirmBtn = findViewById(R.id.confirm_btn);
 
         intent = getIntent();
@@ -228,6 +229,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
         allSlots.add(findViewById(R.id.morningSlot3));
         allSlots.add(findViewById(R.id.morningSlot4));
         allSlots.add(findViewById(R.id.morningSlot5));
+        allSlots.add(findViewById(R.id.morningSlot6));
         allSlots.add(findViewById(R.id.eveningSlot1));
         allSlots.add(findViewById(R.id.eveningSlot2));
         allSlots.add(findViewById(R.id.eveningSlot3));
@@ -235,17 +237,18 @@ public class Appointment_Booking2 extends AppCompatActivity {
         allSlots.add(findViewById(R.id.eveningSlot5));
 
         // TextView
-        TextView[] slotTexts = new TextView[10];
+        TextView[] slotTexts = new TextView[11];
         slotTexts[0] = findViewById(R.id.slotText1);
         slotTexts[1] = findViewById(R.id.slotText2);
         slotTexts[2] = findViewById(R.id.slotText3);
         slotTexts[3] = findViewById(R.id.slotText4);
         slotTexts[4] = findViewById(R.id.slotText5);
-        slotTexts[5] = findViewById(R.id.slotText7);
-        slotTexts[6] = findViewById(R.id.slotText8);
-        slotTexts[7] = findViewById(R.id.slotText9);
-        slotTexts[8] = findViewById(R.id.slotText10);
-        slotTexts[9] = findViewById(R.id.slotText11);
+        slotTexts[5] = findViewById(R.id.slotText6);
+        slotTexts[6] = findViewById(R.id.slotText7);
+        slotTexts[7] = findViewById(R.id.slotText8);
+        slotTexts[8] = findViewById(R.id.slotText9);
+        slotTexts[9] = findViewById(R.id.slotText10);
+        slotTexts[10] = findViewById(R.id.slotText11);
 
         // Set the onClickListener for all the morning and evening slot FrameLayouts
         for (FrameLayout slot : allSlots) {
@@ -283,6 +286,9 @@ public class Appointment_Booking2 extends AppCompatActivity {
                         case R.id.morningSlot5:
                             selectedSlotText = findViewById(R.id.slotText5);
                             break;
+                        case R.id.morningSlot6:
+                            selectedSlotText = findViewById(R.id.slotText6);
+                            break;
                         case R.id.eveningSlot1:
                             selectedSlotText = findViewById(R.id.slotText7);
                             break;
@@ -298,6 +304,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                         case R.id.eveningSlot5:
                             selectedSlotText = findViewById(R.id.slotText11);
                             break;
+
                         default:
                             selectedSlotText = null;
                             break;
@@ -305,10 +312,13 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
                     if (selectedSlotText != null) {
                         selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                        customBtnAfterEvening.setBackgroundResource(R.drawable.selector_rounded_background_grey);
                     }
 
                     selectedSlotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     timingSlotText = selectedSlotText.getText().toString();
+
+                    Log.i(timingSlotText, "timingSlotText : ");
                 }
             });
         }
@@ -346,21 +356,21 @@ public class Appointment_Booking2 extends AppCompatActivity {
         snapHelper.attachToRecyclerView(recyclerView);
 
         // Custom Time section
-        customBtnMorningSlot = findViewById(R.id.customBtn_morningSlot);
+//        customBtnMorningSlot = findViewById(R.id.customBtn_morningSlot);
         customBtnEveningSlot = findViewById(R.id.customBtn_EveningSlot);
 
-        customBtnAfterMorning = findViewById(R.id.customBtn_afterSelected);
-        customBtnAfterMorning.setVisibility(View.GONE);
+//        customBtnAfterMorning = findViewById(R.id.customBtn_afterSelected);
+//        customBtnAfterMorning.setVisibility(View.GONE);
 
-        customBtnAfterEvening = findViewById(R.id.customBtnEve_afterSelected);
+        customBtnAfterEvening = findViewById(R.id.eveningSlot6);
         customBtnAfterEvening.setVisibility(View.GONE);
 
 //        customBtnAfterMorning.setVisibility(View.GONE);
-        customSlot = findViewById(R.id.slotTextCustom);
-        imgCustom = findViewById(R.id.custom_timeSelect);
-        customSlotEve = findViewById(R.id.slotTextEveCustom);
+//        customSlot = findViewById(R.id.slotTextCustom);
+//        imgCustom = findViewById(R.id.custom_timeSelect);
+        customSlotEve = findViewById(R.id.slotText12);
 
-        customBtnMorningSlot.setOnClickListener(new View.OnClickListener() {
+        /*customBtnMorningSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 customTimeDialog(customSlot);
@@ -376,12 +386,23 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 customBtnAfterMorning.setVisibility(View.VISIBLE);
                 customTimeDialog(customSlot);
             }
-        });
+        });*/
 
         customBtnEveningSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Reset the selection of the switch case
+                for (FrameLayout slot : allSlots) {
+                    slot.setSelected(false);
+                    slot.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background_grey));
+                }
+                for (TextView slotText : slotTexts) {
+                    slotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                }
+
                 customTimeDialog(customSlotEve);
+                customBtnAfterEvening.setBackgroundResource(R.drawable.selector_rounded_background_blue_border);
                 customBtnEveningSlot.setVisibility(View.GONE);
                 customBtnAfterEvening.setVisibility(View.VISIBLE);
             }
@@ -390,6 +411,16 @@ public class Appointment_Booking2 extends AppCompatActivity {
         customBtnAfterEvening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                for (FrameLayout slot : allSlots) {
+                    slot.setSelected(false);
+                    slot.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_background_grey));
+                }
+                for (TextView slotText : slotTexts) {
+                    slotText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                }
+
+                customBtnAfterEvening.setBackgroundResource(R.drawable.selector_rounded_background_blue_border);
                 customBtnEveningSlot.setVisibility(View.GONE);
                 customBtnAfterEvening.setVisibility(View.VISIBLE);
                 customTimeDialog(customSlotEve);
@@ -484,17 +515,20 @@ public class Appointment_Booking2 extends AppCompatActivity {
 
                 // Get selected hours and minutes
 //                String selectedHours = hoursAdapter.get().toString();
-                String selectedHours = getSelectedValue(hoursRV);
-                String selectedMinutes = getSelectedValue(minutesRV);
+                selectedHours = getSelectedValue(hoursRV);
+                selectedMinutes = getSelectedValue(minutesRV);
 //
 //                // Get selected AM or PM
                 int selectedTimingPosition = ((LinearLayoutManager) timingRecyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                String selectedTiming = timingList.get(selectedTimingPosition);
-//
+                selectedAmPm = timingList.get(selectedTimingPosition);
 //                // Combine the selected values into a time string
-                selectedTime = selectedHours + ":" + selectedMinutes + " " + selectedTiming;
+                selectedTime = selectedHours + ":" + selectedMinutes + " " + selectedAmPm;
+
+                timingSlotText = selectedTime;
+
+                Log.i(timingSlotText, "timingSlotText Confirm : ");
+
 //                Toast.makeText(Appointment_Booking2.this, selectedTime, Toast.LENGTH_SHORT).show();
-//
 //                // Do something with the selected time, e.g. show in a TextView or pass to another function
                 setTime(slot, selectedTime);
 //                Log.d("Selected Time", selectedTime);
@@ -543,25 +577,39 @@ public class Appointment_Booking2 extends AppCompatActivity {
                 timingSlotsString = timingSlotText;
                 appointmentType = appointmentTypeText;
 
+//                Intent intent = new Intent(getApplicationContext(), Appointment_Booking2_Now_Warning.class);
+//                intent.putExtra("warningTime", selectSchedule);
+//                startActivity(intent);
+
                 if (!checkIfFieldsAreFilled(eventName, addDietition, appointmentTimeString, description, attachment, selectSchedule, timingSlotsString, appointmentType)) {
                     Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
                 } else {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                         try {
                             JSONObject responseJson = new JSONObject(response);
-                            if (responseJson.getString("status").equals("success")) {
-                                View confirmationView = LayoutInflater.from(Appointment_Booking2.this).inflate(R.layout.appointment_book, null);
-                                Dialog dialog = new Dialog(Appointment_Booking2.this, android.R.style.Theme_Translucent_NoTitleBar);
-                                dialog.setContentView(confirmationView);
-                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                CardView confirmCard = confirmDialog.findViewById(R.id.appointment_booked);
-                                dialog.setCancelable(true);
-                                dialog.show();
-                                confirmDialog.dismiss();
-                                Toast.makeText(Appointment_Booking2.this, "Appointment Booked!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                System.out.println("Response error " + response);
-                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+
+                            if(responseJson.getString("status").equals("failure")){
+                                Intent intent = new Intent(getApplicationContext(), Appointment_Booking2_Now_Warning.class);
+                                intent.putExtra("warningTime", selectSchedule);
+                                startActivity(intent);
+                            }
+                            else if(responseJson.getString("status").equals("failure1")){
+                                Toast.makeText(Appointment_Booking2.this, "Failed to upload file", Toast.LENGTH_SHORT).show();
+                            }
+                            else if (responseJson.getString("status").equals("success")){
+                                    View confirmationView = LayoutInflater.from(Appointment_Booking2.this).inflate(R.layout.appointment_book, null);
+                                    Dialog dialog = new Dialog(Appointment_Booking2.this, android.R.style.Theme_Translucent_NoTitleBar);
+                                    dialog.setContentView(confirmationView);
+                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    CardView confirmCard = confirmDialog.findViewById(R.id.appointment_booked);
+                                    dialog.setCancelable(true);
+                                    dialog.show();
+                                    confirmDialog.dismiss();
+                                    Toast.makeText(Appointment_Booking2.this, "Appointment Booked!", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                    System.out.println("Response error " + response);
+                                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -583,6 +631,7 @@ public class Appointment_Booking2 extends AppCompatActivity {
                             data.put("timing_slots", timingSlotsString);
                             data.put("appointment_type", appointmentType);
                             data.put("file_type", fileType);
+                            System.out.println(fileType + "Log 2");
                             data.put("file_name", fileName);
                             return data;
                         }
@@ -600,5 +649,4 @@ public class Appointment_Booking2 extends AppCompatActivity {
             }
         });
     }
-
 }

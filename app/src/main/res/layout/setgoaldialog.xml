@@ -27,11 +27,13 @@
 
         <EditText
             android:id="@+id/goal"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nats_regular"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
             android:inputType="number"
-            android:textSize="14sp"
-            android:fontFamily="@font/nats_regular"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/save_btn_steps"

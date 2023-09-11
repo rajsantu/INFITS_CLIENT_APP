@@ -129,6 +129,7 @@
 
                             <ImageView
                                 android:layout_width="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_baseline_person_24"
                                 />
@@ -180,6 +181,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/gender_icon"
                                 />
 
@@ -200,6 +202,7 @@
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="Male"
+                                android:maxLength="12"
                                 android:elevation="4dp"
                                 android:layout_gravity="center"
                                 android:inputType="none"/>
@@ -224,6 +227,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/age_icon"
                                 />
 
@@ -268,6 +272,8 @@
                                 <ImageView
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
+
+                                    android:layout_marginLeft="@dimen/_7sdp"
                                     android:src="@drawable/ic_baseline_email_24"
                                     />
 
@@ -312,6 +318,7 @@
                                 <ImageView
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
+                                    android:layout_marginLeft="@dimen/_7sdp"
                                     android:src="@drawable/ic_baseline_local_phone_24"
                                     />
 
@@ -356,6 +363,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/ic_baseline_location_on_24"
                                 />
 
@@ -400,6 +408,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/plan_icon"
                                 />
 
@@ -444,6 +453,7 @@
                             <ImageView
                                 android:layout_width="9dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/height_icon" />
 
                             <TextView
@@ -487,6 +497,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/weight_icon"
                                 />
 
@@ -531,6 +542,7 @@
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
+                                android:layout_marginLeft="@dimen/_7sdp"
                                 android:src="@drawable/about_icon"
                                 />
 
@@ -547,6 +559,7 @@
                                 android:id="@+id/about_edt"
                                 style="@style/account_edt_views"
                                 android:textSize="14sp"
+                                android:gravity="top"
                                 android:layout_height="122dp"
                                 android:layout_marginTop="8dp"
                                 android:cursorVisible="false"
@@ -572,6 +585,7 @@
                             android:layout_width="140dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center_horizontal|bottom"
+                            android:layout_marginLeft="10dp"
                             android:backgroundTint="#4B9AFB"
                             android:fontFamily="@font/nats_regular"
                             android:text="Edit Profile"
@@ -579,7 +593,7 @@
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             app:cornerRadius="10dp"
-                            android:layout_marginLeft="10dp"/>
+                            tools:ignore="TouchTargetSizeCheck" />
 
                         <Button
                             android:id="@+id/button_logout"

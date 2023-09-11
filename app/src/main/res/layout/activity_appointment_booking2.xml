@@ -479,17 +479,17 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:id="@+id/customBtnEve_afterSelected"
+                    android:id="@+id/eveningSlot6"
                     android:layout_width="95dp"
                     android:layout_height="35dp"
                     android:background="@drawable/selector_rounded_background_grey"
                     >
 
                     <TextView
-                        android:id="@+id/slotTextEveCustom"
+                        android:id="@+id/slotText12"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="10:00 AM"
+                        android:text="12:00 PM"
                         android:layout_marginStart="-12dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/nats_regular"

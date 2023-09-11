@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -44,13 +45,14 @@ public class ReferralActiveUsersFragment extends Fragment {
     }
 
     private void fetchActiveUsers() {
-        String referralUrl = String.format("%sgetReferralActiveUsers.php",DataFromDatabase.ipConfig);
+        //String referralUrl = String.format("%sgetReferralActiveUsers.php",DataFromDatabase.ipConfig);
+        String referralUrl = "https://infits.in/androidApi/getReferralActiveUsers.php";
+
 
         StringRequest referralRequest = new StringRequest(
                 Request.Method.POST, referralUrl,
                 response -> {
                     Log.d("ReferralActiveUsersFrag", "fetchActiveUsers: " + response);
-
                     String[] activeUsers = response.split(", ");
                     getProfiles(activeUsers);
                 },
@@ -67,11 +69,15 @@ public class ReferralActiveUsersFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(requireContext()).add(referralRequest);
+        referralRequest.setRetryPolicy(new DefaultRetryPolicy(6000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void getProfiles(String[] activeUsers) {
         ArrayList<String> profiles = new ArrayList<>();
-        String profileUrl = String.format("%sgetProfileOfUsers.php",DataFromDatabase.ipConfig);
+        //String profileUrl = String.format("%sgetProfileOfUsers.php",DataFromDatabase.ipConfig);
+        String profileUrl = "https://infits.in/androidApi/getProfileOfUsers.php";
 
         AtomicInteger cnt = new AtomicInteger();
 
@@ -79,7 +85,7 @@ public class ReferralActiveUsersFragment extends Fragment {
             StringRequest profileRequest = new StringRequest(
                     Request.Method.POST, profileUrl,
                     response -> {
-                        Log.d("ReferralActiveUsersFrag", "getProfiles: " + response);
+                        Log.d("ReferralProfileFrag", "getProfiles: " + response);
 
                         profiles.add(response);
                         cnt.getAndIncrement();
@@ -89,7 +95,7 @@ public class ReferralActiveUsersFragment extends Fragment {
                         }
 
                     },
-                    error -> Log.e("ReferralActiveUsersFrag", "getProfiles: " + error.toString())
+                    error -> Log.e("ReferralProfileFrag", "getProfiles: " + error.toString())
             ) {
                 @NotNull
                 @Override
@@ -102,6 +108,9 @@ public class ReferralActiveUsersFragment extends Fragment {
                 }
             };
             Volley.newRequestQueue(requireContext()).add(profileRequest);
+            profileRequest.setRetryPolicy(new DefaultRetryPolicy(6000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         }
     }
 

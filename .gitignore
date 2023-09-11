@@ -5,7 +5,6 @@
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
-/.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
@@ -13,3 +12,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/compiler.xml
+.idea/kotlinc.xml
+.idea/vcs.xml
+.idea/deploymentTargetDropDown.xml
+.idea/workspace.xml
+.fastRequest/
+.idea/JetClient/
+.idea/dbnavigator.xml
+.idea/fastRequest/

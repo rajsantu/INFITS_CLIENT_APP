@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                app:cardCornerRadius="20dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
+                        android:layout_margin="15dp"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:id="@+id/mealImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/pizza_img" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@id/mealName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="start|center"
+                                android:layout_weight="6"
+                                android:text="Pizza"
+                                android:textAlignment="viewStart"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="25sp" />
+
+                            <ImageView
+                                android:id="@+id/deleteButton"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_weight="3"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/calorie_delete"
+                                />
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="-8dp"
+                            android:layout_weight="1.6"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/calorieValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="20dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="center|start"
+                                android:text="50 kcal"
+                                android:textAlignment="gravity"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/fatValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginStart="-70dp"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="center|start"
+                                android:text="5.2g Fat"
+                                android:textAlignment="gravity"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1.6"
+                            android:layout_marginTop="-8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/protinValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="20dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="center|start"
+                                android:text="6.3g Protein"
+                                android:textAlignment="gravity"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/carbsValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="-70dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="center|start"
+                                android:text="54 Carbs"
+                                android:textAlignment="gravity"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="-5dp"
+                            android:layout_weight="1.3"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/quantityValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="10dp"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="center|start"
+                                android:text="1"
+                                android:textAlignment="gravity"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="7dp"
+                                android:src="@drawable/baseline_circle_24" />
+
+                            <TextView
+                                android:id="@+id/sizeValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/nats_regular"
+                                android:gravity="center|start"
+                                android:text="Regular"
+                                android:textAlignment="gravity"
+                                android:textColor="#000000"
+                                android:textFontWeight="400"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

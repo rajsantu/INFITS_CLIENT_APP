@@ -91,7 +91,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/year_btn_calorie"
                 android:layout_width="0dp"
-                android:text="Year"
+                android:text="Month"
                 android:layout_weight="1"
                 android:outlineProvider="none"
                 android:textAllCaps="false"
@@ -149,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nats_regular"
-                        android:text="825"
+                        android:text="0"
 
                         android:textFontWeight="400"
                         android:textColor="@color/black"
@@ -240,11 +240,13 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.8"
                         android:layout_height="match_parent">
+
                         <ImageView
+                            android:id="@+id/calorieImageView"
                             android:layout_width="match_parent"
-                            android:src="@drawable/image_1"
+                            android:layout_height="match_parent"
                             android:scaleType="fitXY"
-                            android:layout_height="match_parent"/>
+                            android:src="@drawable/image_1" />
 <!--                        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--                            android:layout_width="40dp"-->
 <!--                            android:layout_marginStart="50dp"-->
@@ -254,13 +256,15 @@
 <!--                            android:src="@drawable/ic_baseline_arrow_forward_24"-->
 <!--                            android:layout_height="40dp"/>-->
                         <ImageButton
+
+                            android:id="@+id/calorieButton"
                             android:layout_width="35dp"
+                            android:layout_height="29dp"
                             android:layout_marginStart="90dp"
                             android:layout_marginTop="75dp"
                             android:background="@drawable/circle"
                             android:backgroundTint="@color/white"
-                            android:src="@drawable/ic_baseline_arrow_forward_24"
-                            android:layout_height="35dp"/>
+                            android:src="@drawable/ic_baseline_arrow_forward_24" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -294,6 +298,7 @@
             android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/calorierecycleView"
+                tools:listitem="@layout/pastacivitycalorie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

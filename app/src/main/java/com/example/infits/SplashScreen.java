@@ -37,10 +37,8 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
                 boolean isLoggedIn = loginDetails.getBoolean("hasLoggedIn", false);
-
                 // Shared preferences for showing the OnBoarding Screen Starts.
                 SharedPreferences OnBoardingScreenSharedPreferences = getSharedPreferences("OnBoardingScreen",MODE_PRIVATE);
                 boolean isFirstTimeAppOpen = OnBoardingScreenSharedPreferences.getBoolean("isFirstTimeAppOpen",true);
@@ -51,7 +49,6 @@ public class SplashScreen extends AppCompatActivity {
                     setDataFromDatabase(loginDetails);
                     String cameFromNotification = getIntent().getStringExtra("notification");
                     intent.putExtra("notification", cameFromNotification);
-
                     if(cameFromNotification != null) {
                         if(cameFromNotification.equals("sleep")) {
                             intent.putExtra("hours", getIntent().getStringExtra("hours"));
@@ -82,6 +79,8 @@ public class SplashScreen extends AppCompatActivity {
     private void setDataFromDatabase(SharedPreferences prefs) {
         DataFromDatabase.flag = prefs.getBoolean("flag", true);
         DataFromDatabase.clientuserID = prefs.getString("clientuserID", "");
+        DataFromDatabase.client_id = prefs.getString("client_id", "");
+        DataFromDatabase.dietitian_id = prefs.getString("dietitian_id","");
         DataFromDatabase.dietitianuserID = prefs.getString("dietitianuserID", "");
         DataFromDatabase.name = prefs.getString("name", "");
         DataFromDatabase.password = prefs.getString("password", "");
@@ -97,5 +96,6 @@ public class SplashScreen extends AppCompatActivity {
         DataFromDatabase.proUser = prefs.getBoolean("proUser", false);
         byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
         DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
+        DataFromDatabase.verification = prefs.getString("verification","");
     }
 }

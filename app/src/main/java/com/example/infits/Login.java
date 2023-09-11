@@ -70,11 +70,13 @@ public class Login extends AppCompatActivity {
     Button loginbtn;
     ImageView btnGoogle, btnFacebook, btnTwitter;
     String passwordStr,usernameStr;
-    String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
+    //String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
+    String url = "https://infits.in/androidApi/login_client.php";
     RequestQueue queue;
 
 
-    String google_social_signin_url = String.format("%ssocial_login/loginClientGoogle.php",DataFromDatabase.ipConfig);
+    //String google_social_signin_url = String.format("%ssocial_login/loginClientGoogle.php",DataFromDatabase.ipConfig);
+    String google_social_signin_url = "https://infits.in/androidApi/social_login/loginClientGoogle.php";
     //needs email & token ( google token );
     //email = "vinod.patil.pro@gmail.com"
     //token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI3NDA1MmEyYjY0NDg3NDU3NjRlNzJjMzU5MDk3MWQ5MGNmYjU4NWEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI1MDMyNDgzMzcwMDkta2FzYnM2ZmVzMjlnYjBhcm4wNjNhaWRpazljajU5ODIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI1MDMyNDgzMzcwMDktcnBqMWswZGNiZHMwam1xbjVoOW5wbGRnZGpjZTZwbnEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDk0NzkxNDA3NDQ5MTk0MDgxNjkiLCJlbWFpbCI6InZpbm9kLnBhdGlsLnByb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlZpbm9kIFBhdGlsIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FFZEZUcDYwU2JwWTJuaFpBTkVHVWR3VzVWOFROOGdLV1dsSHZqaHNwVFljPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlZpbm9kIiwiZmFtaWx5X25hbWUiOiJQYXRpbCIsImxvY2FsZSI6ImVuLUdCIiwiaWF0IjoxNjc1MzE4MjAzLCJleHAiOjE2NzUzMjE4MDN9.jO7OopE2iv8uU3w0oLLisNkU3fFRfWCb93SGKW5bTpAxsKO6zGmZFVxiSV0m3sEohHnKSjLbOARs1minBoJJ4091ZcPdoNFIy7HIyGzSo7dn71feRMThmaqJKuzcpwb3ZiAWAy6O6DvsYg0RpJUHuW1kFly7FVMQp3prhSI7HUkxGdJtHtQZAVkYn_JJtRcJGngh4aDCB-vdeRChG-86vFMHOqpX9H-6kFasUKFaYy07y48dDHkco7sSSii2Nj34wS-D-ssJg8U7B23jM2T6GRZEGY4GnDIBunManTAHImteiOAuWphnQeKL26mKasaPh9tg68GuRokGsP_yR77TeQ";
@@ -105,7 +107,8 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-    String facebook_social_signin_url = String.format("%ssocial_login/loginClientFacebook.php",DataFromDatabase.ipConfig);
+    //String facebook_social_signin_url = String.format("%ssocial_login/loginClientFacebook.php",DataFromDatabase.ipConfig);
+    String facebook_social_signin_url = "https://infits.in/androidApi/social_login/loginClientFacebook.php";
     //needs email & token ( google token );
     //email = "vinod.patil.pro@gmail.com"
     //token = "token"
@@ -122,12 +125,10 @@ public class Login extends AppCompatActivity {
         loginbtn = (Button) findViewById(R.id.logbtn);
 
         btnGoogle = (ImageView) findViewById(R.id.google);
-         btnTwitter = (ImageView) findViewById(R.id.twitter);
+        btnTwitter = (ImageView) findViewById(R.id.twitter);
         btnFacebook = (ImageView) findViewById(R.id.facebook);
 
         queue = Volley.newRequestQueue(this);
-
-
 
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,19 +162,23 @@ public class Login extends AppCompatActivity {
 
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    Toast.makeText(Login.this,response,Toast.LENGTH_SHORT).show();
                     if(response.equals("failure")){
                         Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
                         loginbtn.setClickable(true);
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
-                            Intent id = new Intent(Login.this, DashBoardMain.class);
+                        Intent id = new Intent(Login.this, DashBoardMain.class);
+                        Log.e("loginInfo",response.toString());
                         Log.d("Response Login",response);
                         try {
                             JSONArray jsonArray = new JSONArray(response);
-                            JSONObject object = jsonArray.getJSONObject(0);
+                            JSONObject object = jsonArray.getJSONObject(1);
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
+                            DataFromDatabase.proUser = !object.getString("verification_code").equals("null") && !object.getString("verification_code").equals("");
+
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
 
@@ -193,18 +198,13 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.gender  = object.getString("gender");
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
+                            DataFromDatabase.verification  = object.getString("verification");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
 
                             System.out.println(DataFromDatabase.weight);
                             System.out.println(DataFromDatabase.height);
 
-                            if (object.getString("verification").equals("0")){
-                                DataFromDatabase.proUser = false;
-                            }
-                            if (object.getString("verification").equals("1")){
-                                DataFromDatabase.proUser = true;
-                            }
-                            System.out.println(DataFromDatabase.proUser+" Prouser");
+
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
@@ -227,6 +227,7 @@ public class Login extends AppCompatActivity {
                             editor.putString("height",object.getString("height"));
                             editor.putString("profilePhotoBase",object.getString("profilePhoto"));
                             editor.putBoolean("proUser",DataFromDatabase.proUser);
+                            editor.putString("verification",object.getString("verification"));
                             editor.apply();
 
                             finish();
@@ -242,7 +243,7 @@ public class Login extends AppCompatActivity {
                 }){
                     @Override
                     protected Map<String,String> getParams() throws AuthFailureError{
-                        LinkedHashMap<String,String> data = new LinkedHashMap<>();
+                        HashMap<String,String> data = new HashMap<>();
                         data.put("userID",usernameStr);
                         data.put("password",passwordStr);
                         return data;
@@ -497,6 +498,4 @@ public class Login extends AppCompatActivity {
             facebookCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-
 }

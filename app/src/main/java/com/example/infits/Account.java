@@ -61,6 +61,8 @@ public class Account extends Fragment {
     ImageButton yesLogout, noLogout;
     String client_gender, cleint_name, client_age, client_email,client_phoneno,client_userID;
 
+    String client_weight,client_height,client_about;
+
     private Bitmap bitmap = DataFromDatabase.profile;
     private File destination = null;
     private InputStream inputStreamImg;
@@ -134,6 +136,21 @@ public class Account extends Fragment {
         EditText email=view.findViewById(R.id.email_edt);
         email.setText(DataFromDatabase.email);
         EditText phone=view.findViewById(R.id.phone_edt);
+        EditText weight=view.findViewById(R.id.weight_edt);
+        weight.setText(DataFromDatabase.weight);
+        EditText height=view.findViewById(R.id.height_edt);
+        height.setText(DataFromDatabase.height);
+        EditText plan = view.findViewById(R.id.plan_edt);
+        plan.setText("Basic");
+        EditText gender = view.findViewById(R.id.gender_edt);
+        if (DataFromDatabase.gender==("M")) {
+            gender.setText("Male");
+        } else if (DataFromDatabase.gender==("F")){
+            gender.setText("Female");
+        } else {
+            gender.setText("None");
+        }
+        gender.setText(DataFromDatabase.gender);
         phone.setText(DataFromDatabase.mobile);
         profile_pic=view.findViewById(R.id.dp);
         logout=view.findViewById(R.id.button_logout);
@@ -252,6 +269,9 @@ public class Account extends Fragment {
                     editor.apply();
 
                     Intent i= new Intent(getActivity(),Login.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                     requireActivity().finish();
                 });
@@ -268,51 +288,51 @@ public class Account extends Fragment {
         });
 
         queue = Volley.newRequestQueue(requireContext());
-        save.setOnClickListener(v-> {
-
-            String nameStr = name.getText().toString().trim();
-            String ageStr = age.getText().toString().trim();
-            String emailStr = email.getText().toString().trim();
-            String mobile = phone.getText().toString().trim();
-
-            Log.d("account","before");
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-                if (response.equals("updated")){
-                    Log.d("account","success");
-                    Log.d("response account",response);
-
-
-                    Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
-
-                    updateDataLocally(nameStr, ageStr, emailStr, mobile);
-                }
-                else {
-                    Log.d("account","failure");
-                    Log.d("response account",response);
-                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
-                }
-            },error -> Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show()
-            ){
-                @NotNull
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> data = new HashMap<>();
-                    data.put("userID",DataFromDatabase.clientuserID);
-                    data.put("email",emailStr);
-                    data.put("gender",client_gender);
-                    data.put("age",ageStr);
-                    data.put("mobile",mobile);
-                    data.put("name",nameStr);
-                    data.put("img", getEncodedImg(bitmap));
-                    data.put("nameImg", DataFromDatabase.clientuserID);
-
-                    return data;
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-            requestQueue.add(stringRequest);
-            Log.d("account","at end");
-        });
+//        save.setOnClickListener(v-> {
+//
+//            String nameStr = name.getText().toString().trim();
+//            String ageStr = age.getText().toString().trim();
+//            String emailStr = email.getText().toString().trim();
+//            String mobile = phone.getText().toString().trim();
+//
+//            Log.d("account","before");
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+//                if (response.equals("updated")){
+//                    Log.d("account","success");
+//                    Log.d("response account",response);
+//
+//
+//                    Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
+//
+//                    updateDataLocally(nameStr, ageStr, emailStr, mobile);
+//                }
+//                else {
+//                    Log.d("account","failure");
+//                    Log.d("response account",response);
+//                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
+//                }
+//            },error -> Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show()
+//            ){
+//                @NotNull
+//                @Override
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                    Map<String,String> data = new HashMap<>();
+//                    data.put("userID",DataFromDatabase.clientuserID);
+//                    data.put("email",emailStr);
+//                    data.put("gender",client_gender);
+//                    data.put("age",ageStr);
+//                    data.put("mobile",mobile);
+//                    data.put("name",nameStr);
+//                    data.put("img", getEncodedImg(bitmap));
+//                    data.put("nameImg", DataFromDatabase.clientuserID);
+//
+//                    return data;
+//                }
+//            };
+//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//            requestQueue.add(stringRequest);
+//            Log.d("account","at end");
+//        });
 
         return view;
 

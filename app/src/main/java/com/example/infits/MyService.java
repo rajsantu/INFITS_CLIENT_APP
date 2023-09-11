@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -45,6 +46,8 @@ import java.util.Map;
 
 public class MyService extends Service implements SensorEventListener {
 
+
+    private static final int PERMISSION_REQUEST_BODY_SENSORS = 1;
 
     float[] Last_accelerometer_values;
     long lastUpdatetime;
@@ -79,9 +82,16 @@ public class MyService extends Service implements SensorEventListener {
 
 
 
+
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer= sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+
+
+
+
+
 
         if(accelerometer !=null)
         {
@@ -100,7 +110,7 @@ public class MyService extends Service implements SensorEventListener {
             sensoravailable = false;
         }
         if (stepSensor != null) {
-            sensorManager.registerListener(this, stepSensor, sensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, stepSensor,sensorManager.SENSOR_DELAY_NORMAL);
         }
 
         final String Channel_id = "Steps Counting Service";
@@ -134,7 +144,6 @@ public class MyService extends Service implements SensorEventListener {
 
         if(FetchTrackerInfos.currentSteps>=FetchTrackerInfos.stop_steps-1 && FetchTrackerInfos.currentSteps!=1)
                 onDestroy();
-
         Log.d("service", "sensorChng");
         if (FetchTrackerInfos.flag_steps == 0) {
             pre_step = (int) event.values[0] - 1;
@@ -144,7 +153,7 @@ public class MyService extends Service implements SensorEventListener {
         Log.d("Sensor changing", "1");
 
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-             current= (int) event.values[0];
+            current= (int) event.values[0];
             FetchTrackerInfos.currentSteps  =  current - pre_step;
             FetchTrackerInfos.Distance= (float)0.0005*FetchTrackerInfos.currentSteps;
             Log.d("steps",String.valueOf(FetchTrackerInfos.currentSteps));
@@ -252,6 +261,7 @@ public class MyService extends Service implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+
     }
 
     @Override
@@ -260,6 +270,9 @@ public class MyService extends Service implements SensorEventListener {
         stopSelf();
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
             sensorManager.unregisterListener(this,stepSensor);
+        stopForeground(true);
+        stopSelf();
+        FetchTrackerInfos.flag_steps=0;
     }
 
 
@@ -388,6 +401,11 @@ public class MyService extends Service implements SensorEventListener {
 
         return builder.build();
     }*/
-    }
+
+
+}
+
+
+
 
 

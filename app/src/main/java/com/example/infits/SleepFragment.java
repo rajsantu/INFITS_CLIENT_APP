@@ -59,7 +59,8 @@ import java.util.Map;
 public class SleepFragment extends Fragment {
 
     RequestQueue queue;
-    String url = "http://192.168.9.1/infits/sleepFragment.php";
+    //String url = "http://"+DataFromDatabase.ipConfig+"sleepFragment.php";
+    String url = "https://infits.in/androidApi/sleepFragment.php";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -166,7 +167,8 @@ public class SleepFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%ssleepGraph.php",DataFromDatabase.ipConfig);
+                //String url = String.format("%ssleepGraph.php",DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/sleepGraph.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -205,7 +207,7 @@ public class SleepFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String,String> dataVol  = new HashMap<>();
-                        dataVol.put("clientID" , DataFromDatabase.clientuserID);
+                        dataVol.put("clientuserID" , DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
@@ -216,7 +218,8 @@ public class SleepFragment extends Fragment {
 
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%ssleepMonthGraph.php",DataFromDatabase.ipConfig);
+            //String url = String.format("%ssleepMonthGraph.php",DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/sleepMonthGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 System.out.println(DataFromDatabase.clientuserID);
                 System.out.println(response);
@@ -259,7 +262,7 @@ public class SleepFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("clientuserID",DataFromDatabase.clientuserID);
 
                     return data;
                 }
@@ -268,24 +271,29 @@ public class SleepFragment extends Fragment {
         });
         year_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = String.format("%ssleepYearGraph.php", DataFromDatabase.ipConfig);
+            //String url = String.format("%ssleepYearGraph.php", DataFromDatabase.ipConfig);
+            String url = "https://infits.in/androidApi/sleepYearGraph.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                 System.out.println("In request");
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
+                ArrayList<String> mons = new ArrayList<>();
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("sleep");
                     for (int i = 0; i < cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("av");
+                        String month = actor.getString("month");
                         System.out.println(name);
                         allNames.add(name);
+                        mons.add(month);
                         NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
                         System.out.println("Points " + NoOfEmp.get(i));
                         dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                         dataSet[0].setValues(NoOfEmp);
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
 
                         dataSet[0].notifyDataSetChanged();
                         lineChart.getData().notifyDataChanged();
@@ -335,7 +343,8 @@ public class SleepFragment extends Fragment {
                 SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
                 String from = sf.format(dates.get(0));
                 String to = sf.format(dates.get(dates.size() - 1));
-                String url = String.format("%scustomsleep.php", DataFromDatabase.ipConfig);
+                //String url = String.format("%scustomsleep.php", DataFromDatabase.ipConfig);
+                String url = "https://infits.in/androidApi/customsleep.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
