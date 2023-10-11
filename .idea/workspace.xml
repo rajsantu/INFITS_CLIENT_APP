@@ -9,60 +9,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2aac381d-1e75-4f05-95d2-1f36e0826556" name="Changes" comment="MealtrackerTodays_Breakfast.java-modified">
+    <list default="true" id="2aac381d-1e75-4f05-95d2-1f36e0826556" name="Changes" comment="All PHP For application">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Infits.app.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Infits.app.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Infits.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Infits.app.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Infits.app.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Infits.app.unitTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24-07-2023_10_01_pm__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24-07-2023_10_01_pm__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ConsultationFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/ConsultationFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/EditProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/EditProfile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q4.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section4Q7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q10.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q11.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q11.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q12.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q12.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q13.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q13.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q4.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q8.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q9.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section5Q9.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q10.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q11.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q11.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q12.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q12.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q13.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q13.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q14.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q14.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q4.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q8.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q9.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Section6Q9.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/SectionOneQEight.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/SectionOneQEight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterReminderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterReminderFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterTrackerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/WaterTrackerFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Activity_Todays_Breakfast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Activity_Todays_Breakfast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Adapter_Todays_BreakFast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Adapter_Todays_BreakFast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/CameraForMealTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/CameraForMealTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/DataFromDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/DataFromDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/FragmentTodays_BreakFast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/FragmentTodays_BreakFast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/InAppNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/InAppNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealtrackerFinalAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealtrackerFinalAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealtrackerTodays_Breakfast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/MealtrackerTodays_Breakfast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Todays_BreakFast_info.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/Todays_BreakFast_info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/infits/mealInfoWithPhoto.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/infits/mealInfoWithPhoto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_meal_info_with_photo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_meal_info_with_photo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mealtracker_todays__breakfast.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mealtracker_todays__breakfast.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +36,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[ZD22239RDS]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[6PW8MNGYLVPBAE8H]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -129,7 +93,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Php_file" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -155,6 +119,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
     &quot;PROJECT_TRUSTED_KEY&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -177,7 +142,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Suggestions&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;memory.settings&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -210,7 +175,6 @@
       <option name="ALL_USERS" value="false" />
       <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="CLEAR_APP_STORAGE" value="false" />
-      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -226,6 +190,8 @@
         <option name="WORKING_DIR" value="" />
         <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Auto>
       <Hybrid>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
@@ -233,14 +199,21 @@
         <option name="WORKING_DIR" value="" />
         <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Hybrid>
-      <Java />
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
       <Native>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
         <option name="SHOW_STATIC_VARS" value="true" />
         <option name="WORKING_DIR" value="" />
         <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
@@ -283,7 +256,28 @@
       <option name="project" value="LOCAL" />
       <updated>1691420529595</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fooditem selection with changing the value of Nutrients">
+      <created>1695650922724</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695650922724</updated>
+    </task>
+    <task id="LOCAL-00003" summary="All PHP For application">
+      <created>1696074865324</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1696074865324</updated>
+    </task>
+    <task id="LOCAL-00004" summary="All PHP For application">
+      <created>1696075637082</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1696075637082</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,6 +293,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MealtrackerTodays_Breakfast.java-modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="MealtrackerTodays_Breakfast.java-modified" />
+    <MESSAGE value="Fooditem selection with changing the value of Nutrients" />
+    <MESSAGE value="All PHP For application" />
+    <option name="LAST_COMMIT_MESSAGE" value="All PHP For application" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerAddMealFragment.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/infits/MealTrackerSharedMealAdapter.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

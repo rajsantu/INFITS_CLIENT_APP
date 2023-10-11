@@ -1,6 +1,8 @@
 package com.example.infits;
 
 import static android.content.ContentValues.TAG;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlarmManager;
@@ -8,24 +10,32 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ScrollCaptureCallback;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.airbnb.lottie.L;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -35,10 +45,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Timer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +71,8 @@ public class mealInfoWithPhoto extends Fragment {
     private String mParam2;
     TextView mealName, calorieValue, carbsValue, fatValue, proteinValue;
     //String url = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+
+
     String url = "https://infits.in/androidApi/getFavouriteFoodItems.php";
     //String url1 = String.format("%saddFavouriteFoodItems.php", DataFromDatabase.ipConfig);
     String url1 = "https://infits.in/androidApi/addFavouriteFoodItems.php";
@@ -73,7 +89,7 @@ public class mealInfoWithPhoto extends Fragment {
     View bottomSheetN;
 
     String Meal_Type;
-    NumberPicker quantityPicker, sizePicker;
+    NumberPicker numberPicker1, numberPicker2;
     RequestQueue requestQueue,requestQueue1,requestQueue2;
     ImageButton uparrow1, uparrow2, downarrow1, downarrow2, FavouriteMealButton;
     TextView TakeaPhotoButton;
@@ -119,7 +135,7 @@ public class mealInfoWithPhoto extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meal_info_with_photo, container, false);
         hooks(view);
 
-        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(1520);
+        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(800);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
 
 
@@ -167,61 +183,42 @@ public class mealInfoWithPhoto extends Fragment {
 //        Add Recent Meal Data
         AddingDataForRecentMeal();
 //        //numberPicker 1
-        quantityPicker.setDisplayedValues(numberPicker1List);
-        quantityPicker.setMaxValue(numberPicker1List.length - 1);
-        quantityPicker.setValue(1);
-        quantityPicker.setMinValue(0);
+        numberPicker1.setDisplayedValues(numberPicker1List);
+        numberPicker1.setMaxValue(numberPicker1List.length - 1);
+        numberPicker1.setValue(1);
+        numberPicker1.setMinValue(0);
         uparrow1 = view.findViewById(R.id.uparrow1);
         downarrow1 = view.findViewById(R.id.downarrow1);
         uparrow1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantityPicker.setValue(quantityPicker.getValue() + 1);
-                updateNutritionalValues();
+                numberPicker1.setValue(numberPicker1.getValue() + 1);
             }
         });
-
         downarrow1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantityPicker.setValue(quantityPicker.getValue() - 1);
-                updateNutritionalValues();
-            }
-        });
-
-        quantityPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                updateNutritionalValues();
+                numberPicker1.setValue(numberPicker1.getValue() - 1);
             }
         });
 
         //numberPicker 2
-        sizePicker.setDisplayedValues(numberPicker2List);
-        sizePicker.setMaxValue(numberPicker2List.length - 1);
-        sizePicker.setMinValue(0);
-        sizePicker.setValue(0);
+        numberPicker2.setDisplayedValues(numberPicker2List);
+        numberPicker2.setMaxValue(numberPicker2List.length - 1);
+        numberPicker2.setMinValue(0);
+        numberPicker2.setValue(0);
         uparrow2 = view.findViewById(R.id.uparrow2);
         downarrow2 = view.findViewById(R.id.downarrow2);
         uparrow2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizePicker.setValue(sizePicker.getValue() + 1);
-                updateNutritionalValues();
+                numberPicker2.setValue(numberPicker2.getValue() + 1);
             }
         });
         downarrow2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizePicker.setValue(sizePicker.getValue() - 1);
-                updateNutritionalValues();
-            }
-        });
-
-        sizePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                updateNutritionalValues();
+                numberPicker2.setValue(numberPicker2.getValue() - 1);
             }
         });
         //TakeaPhotoButton
@@ -237,8 +234,8 @@ public class mealInfoWithPhoto extends Fragment {
                     jsonObject.put("carbsValue", carbsValue.getText().toString());
                     jsonObject.put("fatValue", fatValue.getText().toString());
                     jsonObject.put("proteinValue", proteinValue.getText().toString());
-                    jsonObject.put("Quantity", numberPicker1List[quantityPicker.getValue()]);
-                    jsonObject.put("Size", numberPicker2List[sizePicker.getValue()]);
+                    jsonObject.put("Quantity", numberPicker1List[numberPicker1.getValue()]);
+                    jsonObject.put("Size", numberPicker2List[numberPicker2.getValue()]);
                     intent.putExtra("mealInfoForPhoto",jsonObject.toString());
 
                     //Sharedpref
@@ -270,45 +267,6 @@ public class mealInfoWithPhoto extends Fragment {
             }
         });
         return view;
-    }
-
-    private void updateNutritionalValues() {
-        String calorieString = mealInfotransfer.get(2).replaceAll("[^\\d.]", ""); // Remove non-numeric characters
-        double calorie = Double.parseDouble(calorieString);
-
-        String carbsString = mealInfotransfer.get(3).replaceAll("[^\\d.]", "");
-        double carbs = Double.parseDouble(carbsString);
-
-        String proteinString = mealInfotransfer.get(4).replaceAll("[^\\d.]", "");
-        double protein = Double.parseDouble(proteinString);
-
-        String fatString = mealInfotransfer.get(5).replaceAll("[^\\d.]", "");
-        double fat = Double.parseDouble(fatString);
-
-        int selectedQuantityFromPicker= quantityPicker.getValue();
-        int selectedSizeFromPicker= sizePicker.getValue();
-
-        double selectedQuantity=Double.parseDouble(numberPicker1List[selectedQuantityFromPicker]);
-        double selectedSize= 1.0;
-
-        if(selectedSizeFromPicker>=0 && selectedSizeFromPicker<numberPicker2List.length){
-            selectedSize=Double.parseDouble(numberPicker2List[selectedSizeFromPicker]
-                    .toLowerCase()
-                    .replace("small","0.5")
-                    .replace("regular","1")
-                    .replace("large","2"));
-        }
-        double newCaloriesValue= calorie* selectedQuantity*selectedSize;
-        double newCarbsValue= carbs*selectedQuantity* selectedSize;
-        double newProteinValue= protein* selectedQuantity* selectedSize;
-        double newFatsValue= fat * selectedQuantity* selectedSize;
-
-//        set the text view of nutrients with updated values
-        calorieValue.setText(String.format("%.2f",newCaloriesValue));
-        carbsValue.setText(String.format("%.2f",newCarbsValue));
-        proteinValue.setText(String.format("%.2f",newProteinValue));
-        fatValue.setText(String.format("%.2f",newFatsValue));
-
     }
 
 
@@ -432,8 +390,8 @@ public class mealInfoWithPhoto extends Fragment {
 
         bottomSheetN = view.findViewById(R.id.bottomSheetN);
 
-        quantityPicker = view.findViewById(R.id.numberPicker1);
-        sizePicker = view.findViewById(R.id.numberPicker2);
+        numberPicker1 = view.findViewById(R.id.numberPicker1);
+        numberPicker2 = view.findViewById(R.id.numberPicker2);
 
         TakeaPhotoButton = view.findViewById(R.id.TakeaPhotoButton);
 

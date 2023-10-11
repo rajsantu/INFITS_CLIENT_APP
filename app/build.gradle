@@ -102,7 +102,7 @@ dependencies {
 
     // google fit
     implementation 'com.google.android.gms:play-services-fitness:21.1.0'
-    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
 
     // SplashScreen
     implementation "androidx.core:core-splashscreen:1.0.0"
