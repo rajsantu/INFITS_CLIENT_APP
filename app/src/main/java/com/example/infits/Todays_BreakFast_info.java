@@ -1,11 +1,13 @@
 package com.example.infits;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 public class Todays_BreakFast_info {
-    Drawable icon;
+    Bitmap icon;
+    Bitmap image;
     String mealName, calorieValue, fatvalue, protinValue, carbsValue,  quantityValue, sizeValue;
-    public Todays_BreakFast_info(Drawable icon, String mealName, String calorieValue, String fatvalue, String protinValue, String carbsValue,
+    public Todays_BreakFast_info(Bitmap icon, String mealName, String calorieValue, String fatvalue, String protinValue, String carbsValue,
                                  String quantityValue, String sizeValue){
         this.icon=icon;
         this.mealName=mealName;
@@ -17,4 +19,7 @@ public class Todays_BreakFast_info {
         this.sizeValue=sizeValue;
     }
 
+    public Todays_BreakFast_info(Bitmap image) {
+        this.image = image;
+    }
 }

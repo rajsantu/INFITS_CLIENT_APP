@@ -12,6 +12,9 @@ buildscript {
         }
     }
     dependencies {
+ gaganTiwari
+        classpath 'com.android.tools.build:gradle:8.1.2'
+
     dipu
         classpath 'com.android.tools.build:gradle:8.0.2'
 
@@ -20,6 +23,7 @@ buildscript {
         // Use the latest stable AGP version (7.5.0)
 
         classpath 'com.android.tools.build:gradle:8.0.2'
+ test-branch
  test-branch
  test-branch
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21'

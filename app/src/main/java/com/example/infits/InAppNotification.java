@@ -32,7 +32,8 @@ public class InAppNotification extends AppCompatActivity {
 
     TextView noNotifications;
     RecyclerView notificationRV;
-    String inAppUrl = String.format("%sgetInAppNotifications.php", DataFromDatabase.ipConfig);
+  //  String inAppUrl = String.format("%sgetInAppNotifications.php", DataFromDatabase.ipConfig);
+  String inAppUrl = String.format("http://localhost/myproject/infits/getInAppNotifications.php.php", DataFromDatabase.ipConfig);
 
     ArrayList<InAppNotificationData> inAppData = new ArrayList<>();
 
