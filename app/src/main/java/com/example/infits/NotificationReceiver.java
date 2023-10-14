@@ -5,10 +5,14 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import java.util.Objects;
 
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
@@ -17,12 +21,17 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         String tracker = intent.getStringExtra("tracker");
 
-        switch (tracker) {
-            case "sleep" : sleep(context);
-            case "step" : step(context);
-            case "water" : water(context);
-            case "calorie" : calorie(context);
-            case "weight" : weight(context);
+        switch (Objects.requireNonNull(tracker)) {
+            case "sleep":
+                sleep(context);
+            case "step":
+                step(context);
+            case "water":
+                water(context);
+            case "calorie":
+                calorie(context);
+            case "weight":
+                weight(context);
         }
     }
 
@@ -30,25 +39,16 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "weight");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                context, 1, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String contentText = "It's time to eat and track your calories.";
 
-        Notification notification = new NotificationCompat.Builder(context, "WeightChannelId")
-                .setContentTitle("Weight Reminder")
-                .setContentText(contentText)
-                .setSmallIcon(R.mipmap.logo)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(resultPendingIntent)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(contentText))
-                .build();
+        Notification notification = new NotificationCompat.Builder(context, "WeightChannelId").setContentTitle("Weight Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("weight()", "set");
     }
@@ -57,25 +57,16 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "calorie");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                context, 1, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String contentText = "It's time to eat some food and reach your goal.";
 
-        Notification notification = new NotificationCompat.Builder(context, "CalorieChannelId")
-                .setContentTitle("Calorie Reminder")
-                .setContentText(contentText)
-                .setSmallIcon(R.mipmap.logo)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(resultPendingIntent)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(contentText))
-                .build();
+        Notification notification = new NotificationCompat.Builder(context, "CalorieChannelId").setContentTitle("Calorie Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("calorie()", "set");
     }
@@ -84,25 +75,17 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "water");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                context, 1, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String contentText = "It's time to drink a glass of water and reach your goal.";
 
-        Notification notification = new NotificationCompat.Builder(context, "WaterChannelId")
-                .setContentTitle("Water Reminder")
-                .setContentText(contentText)
-                .setSmallIcon(R.mipmap.logo)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(resultPendingIntent)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(contentText))
-                .build();
+        Notification notification = new NotificationCompat.Builder(context, "WaterChannelId").setContentTitle("Water Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("water()", "set");
     }
@@ -111,25 +94,16 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "step");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                context, 1, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String contentText = "It's time to go for a walk and finish your daily goal.";
 
-        Notification notification = new NotificationCompat.Builder(context, "SleepChannelId")
-                .setContentTitle("Step Reminder")
-                .setContentText(contentText)
-                .setSmallIcon(R.mipmap.logo)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(resultPendingIntent)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(contentText))
-                .build();
+        Notification notification = new NotificationCompat.Builder(context, "StepChannelId").setContentTitle("Step Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("step()", "set");
     }
@@ -138,25 +112,16 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "sleep");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                context, 1, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String contentText = "It's time to go to sleep.";
 
-        Notification notification = new NotificationCompat.Builder(context, "SleepChannelId")
-                .setContentTitle("Sleep Reminder")
-                .setContentText(contentText)
-                .setSmallIcon(R.mipmap.logo)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(resultPendingIntent)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(contentText))
-                .build();
+        Notification notification = new NotificationCompat.Builder(context, "SleepChannelId").setContentTitle("Sleep Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("sleep()", "set");
     }
