@@ -14,42 +14,47 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.BLUETOOTH"
-        android:maxSdkVersion="30"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
-        android:maxSdkVersion="30"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+ gaganTiwari
+
+ paras
+
+ <!--   <uses-feature android:name="android.hardware.camera"/> -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+ test-branch
 
 
 
+ test-branch
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
-
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
-    <!--<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
-
-
     <uses-feature
-        android:name="android.hardware.sensor.stepcounter"
+        android:name="android.hardware.bluetooth"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-    <!--<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> -->
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="true" /> <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
     <uses-permission android:name="android.permission.BODY_SENSORS" />
 
     <permission
@@ -58,8 +63,7 @@
         android:label="Body Sensor Permission"
         android:protectionLevel="dangerous" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -87,6 +91,10 @@
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity
+ HEAD
+            android:name=".PastActivity"
+            android:exported="false" />
+        <activity
             android:name=".connectingDietitian"
             android:exported="false">
             <meta-data
@@ -94,6 +102,8 @@
                 android:value="" />
         </activity>
         <activity
+
+ 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
             android:name=".EndedLiveScreen"
             android:exported="false">
             <meta-data
@@ -141,7 +151,7 @@
         -->
         <activity
             android:name=".feedback"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".LiveSession"
             android:exported="false">
@@ -367,11 +377,11 @@
         <activity
             android:name=".DashBoardMain"
             android:exported="true"
-            android:noHistory="false"></activity>
+            android:noHistory="false" />
         <activity
             android:name=".ChatAreaTwo"
             android:exported="true"
-            android:noHistory="false"/>
+            android:noHistory="false" />
         <activity
             android:name=".Diet_plan_main_screen"
             android:exported="false" />
@@ -444,8 +454,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-        <!--<service android:name=".MyService" />-->
     </application>
 
 </manifest>

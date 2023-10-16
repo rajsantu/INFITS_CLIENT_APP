@@ -124,8 +124,10 @@
 
                             <EditText
                                 android:id="@+id/name_edt"
+                                android:hint="Enter you full name"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
+                                android:layout_height="48dp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"
@@ -212,8 +214,10 @@
 
                             <EditText
                                 android:id="@+id/age_edt"
+                                android:hint="Enter the age"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
+                                android:layout_height="48dp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"
@@ -256,12 +260,15 @@
 
                             <EditText
                                 android:id="@+id/email_edt"
+                                android:hint="Enter the email address"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
+                                android:layout_height="48dp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"
-                                android:textSize="11sp" />
+                                android:textSize="11sp"
+                                />
                         </LinearLayout>
 
                         <ImageView
