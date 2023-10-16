@@ -12,8 +12,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import java.util.Objects;
-
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,17 +19,22 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         String tracker = intent.getStringExtra("tracker");
 
-        switch (Objects.requireNonNull(tracker)) {
+        switch (tracker) {
             case "sleep":
                 sleep(context);
+                break;
             case "step":
                 step(context);
+                break;
             case "water":
                 water(context);
+                break;
             case "calorie":
                 calorie(context);
+                break;
             case "weight":
                 weight(context);
+                break;
         }
     }
 
@@ -39,14 +42,33 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "weight");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                context, 1, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         String contentText = "It's time to eat and track your calories.";
 
-        Notification notification = new NotificationCompat.Builder(context, "WeightChannelId").setContentTitle("Weight Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
+        Notification notification = new NotificationCompat.Builder(context, "WeightChannelId")
+                .setContentTitle("Weight Reminder")
+                .setContentText(contentText)
+                .setSmallIcon(R.mipmap.logo)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(resultPendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(contentText))
+                .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         managerCompat.notify(1, notification);
@@ -57,14 +79,33 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "calorie");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                context, 1, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         String contentText = "It's time to eat some food and reach your goal.";
 
-        Notification notification = new NotificationCompat.Builder(context, "CalorieChannelId").setContentTitle("Calorie Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
+        Notification notification = new NotificationCompat.Builder(context, "CalorieChannelId")
+                .setContentTitle("Calorie Reminder")
+                .setContentText(contentText)
+                .setSmallIcon(R.mipmap.logo)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(resultPendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(contentText))
+                .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         managerCompat.notify(1, notification);
@@ -75,15 +116,33 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "water");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                context, 1, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         String contentText = "It's time to drink a glass of water and reach your goal.";
 
-        Notification notification = new NotificationCompat.Builder(context, "WaterChannelId").setContentTitle("Water Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
+        Notification notification = new NotificationCompat.Builder(context, "WaterChannelId")
+                .setContentTitle("Water Reminder")
+                .setContentText(contentText)
+                .setSmallIcon(R.mipmap.logo)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(resultPendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(contentText))
+                .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
-
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         managerCompat.notify(1, notification);
@@ -94,14 +153,33 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "step");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                context, 1, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         String contentText = "It's time to go for a walk and finish your daily goal.";
 
-        Notification notification = new NotificationCompat.Builder(context, "StepChannelId").setContentTitle("Step Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
+        Notification notification = new NotificationCompat.Builder(context, "SleepChannelId")
+                .setContentTitle("Step Reminder")
+                .setContentText(contentText)
+                .setSmallIcon(R.mipmap.logo)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(resultPendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(contentText))
+                .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         managerCompat.notify(1, notification);
@@ -109,17 +187,37 @@ public class NotificationReceiver extends BroadcastReceiver {
     }
 
     private void sleep(Context context) {
+        Log.i("TAG", "sleep: in notification receiver");
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "sleep");
 
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                context, 1, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
         String contentText = "It's time to go to sleep.";
 
-        Notification notification = new NotificationCompat.Builder(context, "SleepChannelId").setContentTitle("Sleep Reminder").setContentText(contentText).setSmallIcon(R.mipmap.logo).setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(resultPendingIntent).setStyle(new NotificationCompat.BigTextStyle().bigText(contentText)).build();
+        Notification notification = new NotificationCompat.Builder(context, "SleepChannelId")
+                .setContentTitle("Sleep Reminder")
+                .setContentText(contentText)
+                .setSmallIcon(R.mipmap.logo)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(resultPendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(contentText))
+                .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         managerCompat.notify(1, notification);

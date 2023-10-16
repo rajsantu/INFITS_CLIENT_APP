@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,7 +23,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +36,8 @@ public class InAppNotification extends AppCompatActivity {
     TextView noNotifications;
     RecyclerView notificationRV;
     String inAppUrl = String.format("%sgetInAppNotifications.php", DataFromDatabase.ipConfig);
+
+    Date date = new Date();
 
     ArrayList<InAppNotificationData> inAppData = new ArrayList<>();
 
@@ -80,8 +87,11 @@ public class InAppNotification extends AppCompatActivity {
                             String time = currObject.getString("time");
                             String text = currObject.getString("text");
 
+                            Log.i("Data from server", "type:"+type+" date:"+date+" time:"+time+" text:"+text);
+
                             InAppNotificationData inAppNotificationData = new InAppNotificationData(type, date, time, text);
                             inAppData.add(inAppNotificationData);
+
                         }
 
                         InAppNotificationAdapter inAppNotificationAdapter = new InAppNotificationAdapter(inAppData, this);
@@ -93,7 +103,7 @@ public class InAppNotification extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 },
-                this::logError
+                error -> logError(error)
         ) {
             @NotNull
             @Override
@@ -101,7 +111,7 @@ public class InAppNotification extends AppCompatActivity {
                 Map<String, String> data = new HashMap<>();
 
                 data.put("clientID", DataFromDatabase.clientuserID);
-
+                data.put("dateandtime", String.valueOf(date));
                 return data;
             }
         };

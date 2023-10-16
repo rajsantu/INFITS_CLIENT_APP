@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -28,14 +29,17 @@ import android.widget.Toast;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import org.joda.time.LocalDateTime;
+
 public class WaterReminderFragment extends Fragment {
 
     ImageView imgBack;
     TextView fromTime, fromAmPm, toTime, toAmPm, remindEveryTime, remindEveryHM, remindTimes, remindTimesTV, remindOnceTime, remindOnceAmPm;
     CheckBox remindEveryRB, remindTimesRB, remindOnceRB;
     Button set, dismiss;
+    long timeDiff=0L;
 
-    long pickedFromTime = 0L, pickedToTime = 0L, intervalTime = 0L, timesTime = 0L, remindOnceTimeMillis = 0L;
+    long pickedFromTime = 0L, pickedToTime = 0L, intervalTime = 0L, timesTime = 0L, remindOnceTimeMillis = 0L,remindsTime=1L;
     long millisInHour = 60 * 60 * 1000;
     long millisInMinute = 60 * 1000;
     long defaultInterval = 60 * 60 * 1000;
@@ -54,10 +58,11 @@ public class WaterReminderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_water_reminder, container, false);
-
         hooks(view);
         setFields();
 
+        Log.i("val of to and from", "onCreateView: from="+pickedFromTime+" to="+pickedToTime+" and diff is"+(pickedToTime-pickedFromTime));
+        Toast.makeText(getContext(), "onCreateView: from="+pickedFromTime+" to="+pickedToTime, Toast.LENGTH_SHORT).show();
         millisInHour = 60 * 60 * 1000;
         millisInMinute = 60 * 1000;
 
@@ -82,7 +87,7 @@ public class WaterReminderFragment extends Fragment {
 
         remindEveryRB.setOnCheckedChangeListener((compoundButton, b) -> {
             if(b) {
-                remindTimesRB.setChecked(false);
+                // remindTimesRB.setChecked(false);
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("remindEveryRB", true);
@@ -96,8 +101,8 @@ public class WaterReminderFragment extends Fragment {
 
         remindTimesRB.setOnCheckedChangeListener((compoundButton, b) -> {
             if(b) {
-                remindEveryRB.setChecked(false);
-
+                //remindEveryRB.setChecked(false);
+                // setAlarm();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("remindTimesRB", true);
                 editor.apply();
@@ -130,32 +135,95 @@ public class WaterReminderFragment extends Fragment {
         remindOnceAmPm.setOnClickListener(v -> showTimePickerOnce());
 
         set.setOnClickListener(v -> {
-            if(pickedFromTime == 0L || pickedToTime == 0L) {
-                Toast.makeText(requireActivity(), "Please select a time slot.", Toast.LENGTH_LONG).show();
-            } else {
-                setAlarm();
+            //setting reminder alarm
+            if(!remindOnceRB.isChecked()) {
+                setCancelAlarm();
+            }else {
+                if (timeDiff != 0L)   setOnceAlarm(timeDiff);
             }
 
-            if(remindOnceRB.isChecked()) setOnceAlarm();
+            if(pickedFromTime == 0L || pickedToTime == 0L) {
+                Toast.makeText(requireActivity(), "Please select a time slot.", Toast.LENGTH_LONG).show();
+            } else if(remindEveryRB.isChecked()){
+                if(remindTimesRB.isChecked()){
+                    WaterAlarmScheduler scheduler = new WaterAlarmScheduler();
+                    scheduler.setAlarm(getContext(),pickedFromTime,pickedToTime,intervalTime,remindsTime);
+                    Navigation.findNavController(v).navigate(R.id.action_waterReminderFragment_to_waterTrackerFragment);
+
+                }else {
+                    WaterAlarmScheduler scheduler = new WaterAlarmScheduler();
+                    scheduler.setAlarm(getContext(),pickedFromTime,pickedToTime,intervalTime,0);
+                    Navigation.findNavController(v).navigate(R.id.action_waterReminderFragment_to_waterTrackerFragment);
+                }
+            }else {
+                if(remindTimesRB.isChecked()) {
+                    Toast.makeText(getContext(), "Please select time interval", Toast.LENGTH_SHORT).show();
+                }else {
+                    WaterAlarmScheduler scheduler = new WaterAlarmScheduler();
+                    scheduler.cancelAlarm(getContext());
+                    Navigation.findNavController(v).navigate(R.id.action_waterReminderFragment_to_waterTrackerFragment);
+                }
+            }
+
         });
 
-        dismiss.setOnClickListener(v -> cancelAlarm());
+        remindOnceRB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+
+                //Toast.makeText(getContext(), "set", Toast.LENGTH_SHORT).show();
+                long pickedHour = (long) sharedPreferences.getFloat("remindOnceHr",23);
+                long pickedMinute = (long) sharedPreferences.getFloat("remindOnceMin",0);
+                String isAmPm = sharedPreferences.getString("remindOnceAmPm","AM");
+
+                if(isAmPm.equals("PM")){
+                    pickedHour +=12;
+                }
+
+                Toast.makeText(getContext(), "time :" +pickedHour+" : "+pickedMinute, Toast.LENGTH_SHORT).show();
+                long millisInHour = 60 * 60 * 1000;
+                long millisInMinute = 60 * 1000;
+
+                long timeInMillis =  pickedHour * millisInHour + pickedMinute * millisInMinute;
+
+                long currentMillisOfDay = LocalDateTime.now().getMillisOfDay();
+
+
+                if(timeInMillis<currentMillisOfDay){
+                    timeDiff= currentMillisOfDay-timeInMillis;
+                    timeDiff = 24*3600*1000 - timeDiff;
+                    Toast.makeText(getActivity(), "time : "+timeDiff/1000, Toast.LENGTH_SHORT).show();
+                    setOnceAlarm(timeDiff);
+                }else {
+                    timeDiff = (timeInMillis-currentMillisOfDay);
+                    Toast.makeText(getActivity(),String.valueOf(timeDiff/1000), Toast.LENGTH_SHORT).show();
+                    setOnceAlarm(timeDiff);
+                }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putFloat("timeDiffOnce",timeDiff);
+                editor.apply();
+            }
+        });
+
+        dismiss.setOnClickListener(v -> {
+            WaterAlarmScheduler scheduler = new WaterAlarmScheduler();
+            scheduler.cancelAlarm(getContext());
+            setCancelAlarm();
+            Navigation.findNavController(v).navigate(R.id.action_waterReminderFragment_to_waterTrackerFragment);
+        });
 
         return view;
     }
-
-    private void setOnceAlarm() {
+    private void setOnceAlarm(long timDiff) {
         createNotificationChannel();
+        long timeForNotify = timDiff + System.currentTimeMillis();
 
         alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        Intent waterReceiverIntent = new Intent(requireActivity(),NotificationReceiver.class );
         waterReceiverIntent.putExtra("tracker", "water");
         PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
+                requireActivity(), 1000, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, remindOnceTimeMillis, waterReceiverPendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeForNotify, waterReceiverPendingIntent);
         Log.d("setAlarm", "alarm set");
     }
 
@@ -174,6 +242,14 @@ public class WaterReminderFragment extends Fragment {
         remindEveryRB.setChecked(sharedPreferences.getBoolean("remindEveryRB", false));
         remindTimesRB.setChecked(sharedPreferences.getBoolean("remindTimesRB", false));
         remindOnceRB.setChecked(sharedPreferences.getBoolean("remindOnceRB", false));
+
+        pickedFromTime = (long) sharedPreferences.getFloat("pickedTimeFrom",0L);
+        pickedToTime = (long) sharedPreferences.getFloat("pickedTimeTo",0L);
+        intervalTime = (long) sharedPreferences.getFloat( "intervalTime",0L);
+        remindsTime = Long.parseLong(sharedPreferences.getString("remindTimes","1"));
+
+        timeDiff = (long) sharedPreferences.getFloat("timeDiffOnce",0L);
+
     }
 
     private void setAlarm() {
@@ -205,7 +281,13 @@ public class WaterReminderFragment extends Fragment {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, pickedToTime, waterReceiverPendingIntent);
+        Intent waterReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        waterReceiverIntent.putExtra("tracker", "water");
+
+        waterReceiverPendingIntent = PendingIntent.getBroadcast(
+                requireActivity(), 1000, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+        );
+        alarmManager.cancel(waterReceiverPendingIntent);
         Toast.makeText(requireActivity(), "Reminder Dismissed", Toast.LENGTH_LONG).show();
     }
 
@@ -237,6 +319,28 @@ public class WaterReminderFragment extends Fragment {
             long millisInMinute = 60 * 1000;
             remindOnceTimeMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
 
+            long timeInMillis =  pickedHour * millisInHour + pickedMinute * millisInMinute;
+
+            long currentMillisOfDay = LocalDateTime.now().getMillisOfDay();
+
+
+            if(remindOnceRB.isChecked()){
+                if(timeInMillis<currentMillisOfDay){
+                    timeDiff= currentMillisOfDay-timeInMillis;
+                    timeDiff = 24*3600*1000 - timeDiff;
+                    Toast.makeText(getActivity(), "time : "+timeDiff/1000, Toast.LENGTH_SHORT).show();
+                    setOnceAlarm(timeDiff);
+                }else {
+                    timeDiff = (timeInMillis-currentMillisOfDay);
+                    Toast.makeText(getActivity(),String.valueOf(timeDiff/1000), Toast.LENGTH_SHORT).show();
+                    setOnceAlarm(timeDiff);
+                }
+            }
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putFloat("timeDiffOnce",timeDiff);
+            editor.apply();
+
             setTextFieldsOnce(pickedHour, pickedMinute);
         });
     }
@@ -263,6 +367,8 @@ public class WaterReminderFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("remindOnceTime", timeText);
         editor.putString("remindOnceAmPm", amPm);
+        editor.putFloat("remindOnceHr",pickedHour);
+        editor.putFloat("remindOnceMin",pickedMinute);
         editor.apply();
     }
 
@@ -284,8 +390,9 @@ public class WaterReminderFragment extends Fragment {
 
             remindTimes.setText(times[timesPicker.getValue()]);
             editor.putString("remindTimes", times[timesPicker.getValue()]);
-
-            timesTime = (pickedToTime - pickedFromTime) / Integer.parseInt(times[timesPicker.getValue()]);
+            remindsTime = Long.parseLong(times[timesPicker.getValue()]);
+            Toast.makeText(getContext(), "time "+times[timesPicker.getValue()], Toast.LENGTH_SHORT).show();
+            // timesTime = (pickedToTime - pickedFromTime) / Integer.parseInt(times[timesPicker.getValue()]);
 
             dialog.dismiss();
             editor.apply();
@@ -335,15 +442,20 @@ public class WaterReminderFragment extends Fragment {
                 remindEveryTime.setText(hours[intervalPicker.getValue()]);
                 editor.putString("remindEveryTime", hours[intervalPicker.getValue()]);
                 intervalTime = Integer.parseInt(hours[intervalPicker.getValue()]) * millisInHour;
+                Toast.makeText(getContext(), "interval time "+intervalTime, Toast.LENGTH_SHORT).show();
+                editor.putFloat("intervalTime",intervalTime);
             }
             else {
                 remindEveryTime.setText(minutes[intervalPicker.getValue()]);
                 editor.putString("remindEveryTime", minutes[intervalPicker.getValue()]);
                 intervalTime = Integer.parseInt(minutes[intervalPicker.getValue()]) * millisInMinute;
+                Toast.makeText(getContext(), "interval time "+intervalTime, Toast.LENGTH_SHORT).show();
+                editor.putFloat("intervalTime",intervalTime);
             }
             System.out.println("interval: " + intervalTime);
             dialog.dismiss();
             editor.apply();
+            //
         });
 
         dialog.show();
@@ -365,7 +477,9 @@ public class WaterReminderFragment extends Fragment {
             int pickedMinute = timePicker.getMinute();
 
             pickedToTime = pickedHour * millisInHour + pickedMinute * millisInMinute;
-
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putFloat("pickedTimeTo",pickedToTime);
+            editor.apply();
             setTextFieldsTo(pickedHour, pickedMinute);
         });
     }
@@ -414,6 +528,10 @@ public class WaterReminderFragment extends Fragment {
             long millisInMinute = 60 * 1000;
             pickedFromTime = pickedHour * millisInHour + pickedMinute * millisInMinute;
 
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putFloat("pickedTimeFrom",pickedFromTime);
+            editor.apply();
+            Log.i("TAG", "timePickerFrom: value set");
             setTextFieldsFrom(pickedHour, pickedMinute);
         });
     }

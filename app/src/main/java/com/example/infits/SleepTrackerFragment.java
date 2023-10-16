@@ -399,8 +399,8 @@ public class SleepTrackerFragment extends Fragment {
         inAppEditor.putBoolean("newNotification", true);
         inAppEditor.apply();
 
-        //String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
-        String inAppUrl = "https://infits.in/androidApi/inAppNotifications.php";
+        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+        //String inAppUrl = "https://infits.in/androidApi/inAppNotifications.php";
 
         String type = "sleep";
         String text = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
@@ -426,8 +426,7 @@ public class SleepTrackerFragment extends Fragment {
                 data.put("clientID", DataFromDatabase.clientuserID);
                 data.put("type", type);
                 data.put("text", text);
-                data.put("date", String.valueOf(date));
-
+                data.put("dateandtime", String.valueOf(date));
                 return data;
             }
         };
