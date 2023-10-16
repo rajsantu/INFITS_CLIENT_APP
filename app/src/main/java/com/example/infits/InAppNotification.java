@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,6 +24,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+ 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+ 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +40,8 @@ public class InAppNotification extends AppCompatActivity {
     RecyclerView notificationRV;
   //  String inAppUrl = String.format("%sgetInAppNotifications.php", DataFromDatabase.ipConfig);
   String inAppUrl = String.format("http://localhost/myproject/infits/getInAppNotifications.php.php", DataFromDatabase.ipConfig);
+
+    Date date = new Date();
 
     ArrayList<InAppNotificationData> inAppData = new ArrayList<>();
 
@@ -91,9 +99,14 @@ public class InAppNotification extends AppCompatActivity {
                             String text = currObject.getString("text");
                             Log.d("Notif",text);
 
+                            Log.i("Data from server", "type:"+type+" date:"+date+" time:"+time+" text:"+text);
+
+                            InAppNotificationData inAppNotificationData = new InAppNotificationData(type, date, time, text);
+
                             Log.d("Notif",text+" "+type+" "+datePart+" "+time);
                             InAppNotificationData inAppNotificationData = new InAppNotificationData(type, datePart, time, text);
                             inAppData.add(inAppNotificationData);
+
                         }
 
                         InAppNotificationAdapter inAppNotificationAdapter = new InAppNotificationAdapter(inAppData, this);
@@ -105,12 +118,16 @@ public class InAppNotification extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 },
-                this::logError
+                error -> logError(error)
         ) {
 
             @NotNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("dateandtime", String.valueOf(date));
 
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -119,6 +136,7 @@ public class InAppNotification extends AppCompatActivity {
                 data.put("clientuserID", DataFromDatabase.clientuserID);
                 data.put("date",String.valueOf(date));
 
+ test-branch
                 return data;
             }
         };

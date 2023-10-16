@@ -130,7 +130,11 @@ dependencies {
  gaganTiwari
     implementation 'com.google.android.gms:play-services-auth:20.7.0'
 
+ gaganTiwari
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
+ test-branch
  test-branch
 
     // SplashScreen
