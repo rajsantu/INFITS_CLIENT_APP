@@ -120,6 +120,8 @@ public class Account extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    //The code of infits
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
