@@ -121,6 +121,8 @@ public class Account extends Fragment {
             Toast.makeText(getContext(),DataFromDatabase.clientuserID,Toast.LENGTH_LONG);
         }
     }
+    //The code of infits
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
