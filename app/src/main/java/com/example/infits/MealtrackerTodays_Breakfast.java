@@ -2,10 +2,14 @@ package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +42,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -47,6 +52,13 @@ public class MealtrackerTodays_Breakfast extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     ImageView calorieImgback;
+
+    //Mustafa
+    Bitmap myImage;
+    //Mustafa
+    String Meal_Type;
+    String mealName;
+    //Mustafa
     LinearLayout linear_layout1, linear_layout2,rcview;
 
     MealtrackerFinalAdapter mealtrackerFinalAdapter;
@@ -55,8 +67,9 @@ public class MealtrackerTodays_Breakfast extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     TextView DoneButtonView,headerTitle;
-    String url = String.format("%ssaveMeal.php", DataFromDatabase.ipConfig);
+    //String url = String.format("%ssaveMeal.php", DataFromDatabase.ipConfig);
 
+    String url = "http://192.168.41.94/phpProjects/saveMeal.php";
     SharedPreferences sharedPreferences;
     RecyclerView recyclerView_Todays_breakfast;
 
@@ -65,7 +78,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
     SimpleDateFormat todayTime;
     //String currentDay;
     Date date;
-   // DayOfWeek currentDay;
+    // DayOfWeek currentDay;
 
     public void FragmentTodays_BreakFast() {
         // Required empty public constructor
@@ -180,14 +193,29 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 obj.put("image",myValue);
                 Log.d("TAG", "AddDatatoTable: got "+obj.getString("image"));
             }
-            JSONObject jsonObject1 = jsonArray.getJSONObject(0);
-            String mealName=jsonObject1.getString("mealName");
-            String Meal_Type=jsonObject1.getString("Meal_Type");
+
 
             SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
             Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto",""));
             String base64String= sharedPreferences1.getString("ClickedPhoto","");
+            byte[] imageAsBytes = Base64.decode(base64String.getBytes(), Base64.DEFAULT);
+            myImage= BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            Log.d("MYBITMAP",myImage.toString());
 
+
+            //Changes Mustafa
+            SharedPreferences loginDetails = getActivity().getSharedPreferences("loginDetails",MODE_PRIVATE);
+            String client_id=   loginDetails.getString("client_id","");
+            String dietitian_id=   loginDetails.getString("dietitian_id","");
+            String clientuserID = loginDetails.getString("clientuserID",""); //clientuserID
+            String dietitianuserID = loginDetails.getString("dietitianuserID","");
+            //Changes Mustafa
+            //
+            JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+            //Mustafa comment
+            // mealName=jsonObject1.getString("mealName");
+            // Meal_Type=jsonObject1.getString("Meal_Type");
+            //Mustafa
 
             RequestQueue queue= Volley.newRequestQueue(requireContext());
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
@@ -198,7 +226,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     linear_layout2.setVisibility(View.GONE);
                 }
                 else{
-                    Toast.makeText(getContext(), "Error with database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
                 }
 
                 new Handler().postDelayed(() -> {
@@ -206,7 +234,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     MealTrackerFragment mealTrackerFragment = new MealTrackerFragment();
                     fragmentTransaction.add(R.id.frameLayout, mealTrackerFragment).commit();
-                }, 20000);
+                }, 20);
             },
 
                     error -> {
@@ -228,7 +256,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     String formattedDay = currentDate.format(formatter);
 
                     data.put("name", mealName);
-                    //data.put("image", base64String);
+                    data.put("image", base64String);
                     data.put("currentDay",formattedDay);
                     data.put("clientID", DataFromDatabase.clientuserID);
                     Date date = new Date();
@@ -237,14 +265,19 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                     data.put("dateandtime",dtf.format(now));
                     data.put("date", dateString);
                     data.put("time", timeString);
-                    //timeMeal is a Meal_Type
-                    data.put("timeMeal", Meal_Type);
-                    data.put("client_id",DataFromDatabase.client_id);
-                    data.put("dietitian_id",DataFromDatabase.dietitian_id);
-                    data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+                    //Mustafa Chamges
+                    data.put("fat",DataFromDatabase.carbsMeal);
+                    data.put("Calories",DataFromDatabase.caloriesMeal);
+                    data.put("carbs",DataFromDatabase.fatMeal);
+                    data.put("protein",DataFromDatabase.proteinMeal);
+                    //Mustafa Changes
+                    data.put("meal", Meal_Type);
+                    data.put("client_id",client_id);
+                    data.put("dietitian_id",dietitian_id);
+                    data.put("dietitianuserID",dietitianuserID);
                     data.put("description","Nothing");
                     //data.put("clientID", DataFromDatabase.clientuserID.toString());
-                    data.put("clientID", DataFromDatabase.clientuserID);
+                    data.put("clientuserID", clientuserID);
                     data.put("position",String.valueOf(jsonArray.length()-1));
                     data.put("jsonArray", jsonArray.toString());
                     return data;
@@ -282,10 +315,24 @@ public class MealtrackerTodays_Breakfast extends Fragment {
             sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
             JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
             JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
+            SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
+            Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto",""));
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 MealtrackerFinalAdapter adapter=new MealtrackerFinalAdapter(getContext(),todays_breakFast_infos);
                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                todays_breakFast_infos.add(new Todays_BreakFast_info(getContext().getDrawable(R.drawable.pizza_img),
+                //Mustafa
+                String base64String= sharedPreferences1.getString("ClickedPhoto","");
+                byte[] imageAsBytes = Base64.decode(base64String.getBytes(), Base64.DEFAULT);
+                Bitmap myImage= BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+//             Bitmap bitmap = imageList.get(i++);
+                mealName=jsonObject1.getString("mealName");
+                Meal_Type=jsonObject1.getString("Meal_Type");
+                String myImageString=  jsonObject1.getString("image");
+                byte[] imageAsBytess = Base64.decode(myImageString.getBytes(), Base64.DEFAULT);
+                Bitmap mybitmap= BitmapFactory.decodeByteArray(imageAsBytess, 0, imageAsBytess.length);
+                //Mustafa
+                todays_breakFast_infos.add(new Todays_BreakFast_info(mybitmap,
 //                        todays_breakFast_infos.add(new Todays_BreakFast_info(decodedBitmap,
                         jsonObject1.getString("mealName"),
                         jsonObject1.getString("calorieValue"),
@@ -295,7 +342,6 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                         jsonObject1.getString("Quantity"),
                         jsonObject1.getString("Size")));
             }
-
         } catch (Exception e) {
             Log.d("Displaydatainlist", e.toString());
         }

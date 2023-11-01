@@ -3,9 +3,11 @@ package com.example.infits;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,19 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +42,7 @@ public class Section6Q12 extends Fragment {
     TextView backbtn, textView77;
     RadioButton daily,never,oneWeek,twWeek,thrWeek,fifteen,monthly;
     String fastfood="";
+    String volue;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,6 +100,7 @@ public class Section6Q12 extends Fragment {
         thrWeek = view.findViewById(R.id.thrWeek);
         fifteen = view.findViewById(R.id.fifteen);
         monthly = view.findViewById(R.id.monthly);
+        final String[] storeAnswer = new String[1];
 
         textView77 = view.findViewById(R.id.textView77);
 
@@ -263,8 +280,7 @@ public class Section6Q12 extends Fragment {
                     ConsultationFragment.psection6 += 1;
 
                     Navigation.findNavController(v).navigate(R.id.action_section6Q12_to_section6Q13);
-                }
-            }
+                }            }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {

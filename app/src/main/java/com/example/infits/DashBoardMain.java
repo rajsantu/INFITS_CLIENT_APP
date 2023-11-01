@@ -1,7 +1,11 @@
 package com.example.infits;
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.DownloadManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,7 +59,8 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     CircleImageView profilePicNav;
     String Entered;
 
-
+    boolean isMealNotificationFinished;
+    SharedPreferences sharedPreferences;
     String profilePicimg = "https://infits.in/androidApi/upload/default.jpg";
     //String url ="http://192.168.29.222/infits/recipiesDisplay.php";
 
@@ -63,7 +68,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board_main);
-
+        sharedPreferences = this.getSharedPreferences("mealInfo",MODE_PRIVATE);
         /*
         fragment.getView().post(() -> {
              ImageView imageView = fragment.getView().findViewById(R.id.profile1);
@@ -196,6 +201,67 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
             }
             return true;
         });
+
+
+        isMealNotificationFinished = sharedPreferences.getBoolean("mealRunning",true);
+        SharedPreferences.Editor editor = (SharedPreferences.Editor) sharedPreferences.edit();
+
+
+        if(isMealNotificationFinished) {
+
+            isMealNotificationFinished = false;
+            editor.putBoolean("mealRunning",isMealNotificationFinished);
+            editor.apply();
+
+            long BreakfastTime = 7 * 3600 * 1000 + 30 * 60 * 1000;
+            long LunchTime = 13 * 3600 * 1000;
+            long SnackTime = 16 * 3600 * 1000 + 30 * 60 * 1000;
+            long DinnerTime = 20 * 3600 * 1000;
+
+            long AfterBreakfastTime = 8 * 3600 * 1000;
+            long AfterLunchTime = 13 * 3600 * 1000 + 30 * 60 * 1000;
+            long AfterSnackTime = 17 * 3600 * 1000;
+            long AfterDinnerTime = 20 * 3600 * 1000 + 30 * 60 * 1000;
+            createNotificationChannel();
+
+            setMealAlarm(BreakfastTime, "breakfast", 601);
+            setMealAlarm(LunchTime, "lunch", 602);
+            setMealAlarm(SnackTime,"snack",603);
+            setMealAlarm(DinnerTime,"dinner",604);
+
+            setMealAlarm(AfterBreakfastTime, "Afterbreakfast", 605);
+            setMealAlarm(AfterLunchTime, "Afterlunch", 606);
+            setMealAlarm(AfterSnackTime,"Aftersnack",607);
+            setMealAlarm(AfterDinnerTime,"Afterdinner",608);
+        }
+
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("CalorieChannelId", "calNotification", NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = this.getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+    }
+
+    private void setMealAlarm(long alarmTime,String text,int alarmCode) {
+        long NotificationTimeInMillis = alarmTime;
+        long todayTimeInMillis = org.joda.time.LocalDateTime.now().getMillisOfDay();
+        long timeDiff;
+        if(todayTimeInMillis > NotificationTimeInMillis){
+            long oneDayInMillis  = 24*3600*1000;
+            timeDiff = oneDayInMillis - (todayTimeInMillis-NotificationTimeInMillis);
+        }else {
+            timeDiff = NotificationTimeInMillis - todayTimeInMillis;
+        }
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(this.ALARM_SERVICE);
+
+        Intent intent = new Intent(DashBoardMain.this,CalorieNotificationReceiver.class);
+        intent.putExtra("Meal",text);
+        PendingIntent caloriePendingIntent = PendingIntent.getBroadcast(this,alarmCode,intent,PendingIntent.FLAG_IMMUTABLE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+timeDiff,caloriePendingIntent);
+
+        Log.i("Alarm set at "+timeDiff/1000, "Done!");
     }
 
     private void permissionsCheck() {

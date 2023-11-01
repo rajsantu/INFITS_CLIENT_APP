@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -267,13 +269,18 @@ public class FragmentTodays_BreakFast extends Fragment {
             // Set the Bitmap as the Drawable of the ImageView
 
 //        holder.addmealIcon.setImageDrawable(new BitmapDrawable(context.getResources(), decodedBitmap));
+            SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
+            Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto",""));
+            String base64String= sharedPreferences1.getString("ClickedPhoto","");
+            byte[] imageAsBytes = Base64.decode(base64String.getBytes(), Base64.DEFAULT);
+            Bitmap   myImage= BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
 
             JSONObject jsonObject = new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
             JSONArray jsonArray = jsonObject.getJSONArray("TodaysBreakFast");
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                todays_breakFast_infos.add(new Todays_BreakFast_info(getContext().getDrawable(R.drawable.pizza_img),
+                todays_breakFast_infos.add(new Todays_BreakFast_info(myImage,
 //                        todays_breakFast_infos.add(new Todays_BreakFast_info(decodedBitmap,
                         jsonObject1.getString("mealName"),
                         jsonObject1.getString("calorieValue"),
