@@ -2,7 +2,6 @@ package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.animation.Animator;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -14,6 +13,17 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -25,21 +35,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -48,15 +43,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.share.Share;
 import com.google.android.material.slider.Slider;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,11 +63,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
-
 public class WaterTrackerFragment extends Fragment {
 
-    ImageView imgback, addliq, reminder;
+    ImageView imgback, addliq, decliq, reminder;
 
     LottieAnimationView lottieAnimationViewWater;
     TextView waterGoalPercent, wgoal3, consumed;
@@ -144,7 +138,11 @@ public class WaterTrackerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_water_tracker, container, false);
 //        progressBar = (ProgressBar) view.findViewById(R.id.progress_barr);
 //        CircularProgressIndicator circularProgress = view.findViewById(R.id.progress_barr);
+
+        SharedPreferences preConsumed = getContext().getApplicationContext().getSharedPreferences("preStoredDrinkData", MODE_PRIVATE);
+
         addliq = view.findViewById(R.id.addliq);
+        decliq = view.findViewById(R.id.decliq);
         imgback = view.findViewById(R.id.imgback);
         lottieAnimationViewWater = view.findViewById(R.id.waterAnimation);
         waterGoalPercent = view.findViewById(R.id.water_goal_percent);
@@ -194,193 +192,287 @@ public class WaterTrackerFragment extends Fragment {
         createNotificationChannel();
         waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
 
-        ///////////////////////////////////////
+
         pastActivity();
 
-        setgoal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.watergoaldialog);
-                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                final EditText goaltxt = dialog.findViewById(R.id.goal_water);
-                Button setGoalBtn = dialog.findViewById(R.id.set_water_goal);  // Save Button in SetGoal Fragment
-                setGoalBtn.setOnClickListener(v -> {
-                    if (!goaltxt.getText().toString().equals("")) {
-                        goal = Integer.parseInt(goaltxt.getText().toString());
 
-                        // Log.d("Goal",String.valueOf(goal));
+        setgoal.setOnClickListener(view1 -> {
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.watergoaldialog);
+            Slider goal_slider = dialog.findViewById(R.id.slider);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            ImageView up_arrow = dialog.findViewById(R.id.number_Picker_up_button);
+            ImageView down_arrow = dialog.findViewById(R.id.number_Picker_down_button);
+            ImageView close_dialog = dialog.findViewById(R.id.close_btn);
+            TextView numberPickerText = dialog.findViewById(R.id.current_number_picked);
+            TextView selectedGoal = dialog.findViewById(R.id.selected_text);
+            TextView selectedGlass = dialog.findViewById(R.id.selected_glass_number);
+            TextView r1 = dialog.findViewById(R.id.r1);
+            TextView r2 = dialog.findViewById(R.id.r2);
+            TextView r3 = dialog.findViewById(R.id.r3);
+            TextView r4 = dialog.findViewById(R.id.r4);
+            TextView r5 = dialog.findViewById(R.id.r5);
+            TextView r6 = dialog.findViewById(R.id.r6);
+            TextView r7 = dialog.findViewById(R.id.r7);
+            close_dialog.setOnClickListener(v -> dialog.dismiss());
 
-                        waterGoal.setText(goaltxt.getText().toString() + " ml");
-                        waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
-                        consumedInDay = 0;
-                        //String url = String.format("%supdatewatergoal.php",DataFromDatabase.ipConfig);
+            //  Button setGoalBtn = dialog.findViewById(R.id.set_water_goal);
 
-                        String url =  DataFromDatabase.ipConfig +"updatewatergoal.php";
+            selectedGoal.setText(String.valueOf(goal_slider.getValue())+" L");
 
+            goal_slider.setCustomThumbDrawable(R.drawable.thumb_for_water_draw);
 
-                        StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                                url,
-                                new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-
-
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(response);
-                                            String message = jsonObject.getString("message");
-
-                                            int newGoal = jsonObject.getInt("goal");
-
-
-                                            // Update the UI with the new goal value if the operation was successful
-                                            if (goal!=newGoal) {
-                                                goaltxt.setText(String.valueOf(newGoal));
-                                                waterGoalPercent.setText(String.valueOf(calculateGoal(newGoal)));
-                                                getLatestWaterData();
-                                            }
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            Log.d("response;;", "JSON parsing error.");
-                                        }
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Log.d("response1;;","error");
-                                    }
-                                }
+            goal_slider.addOnChangeListener((slider, value, fromUser) -> {
+                DecimalFormat df = new DecimalFormat("0.0");
+                selectedGoal.setText(df.format(slider.getValue())+ " L");
+                int pickedNumber = Integer.parseInt(numberPickerText.getText().toString());
+                int selected_val = (int) ((value*1000)/pickedNumber);
+                selectedGlass.setText(String.valueOf(selected_val) +" Glass");
+            });
 
 
-                        ){
-                            @Nullable
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String, String> data = new HashMap<>();
-                                LocalDateTime now = LocalDateTime.now();// gets the current date and time
-                                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
-                                data.put("clientuserID", DataFromDatabase.clientuserID);
-                                data.put("client_id", DataFromDatabase.client_id);
-                                data.put("dateandtime",dtf.format(now));
-                                data.put("drinkConsumed", String.valueOf(consumedInDay));
-                                data.put("goal",String.valueOf(goal));
-                                data.put("type", "water");
-                                data.put("dietitian_id",DataFromDatabase.dietitian_id);
-                                data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
-                                data.put("amount", String.valueOf(consumedInDay));
-                                return data;
-                            }
-                        };
-                        Volley.newRequestQueue(getActivity().getApplicationContext()).add(stringRequest);
-                        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                        SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
-                        boolean waterNotificationPermission = notificationPrefs.getBoolean("waterSwitch", false);
+            up_arrow.setOnClickListener(v -> {
+                int pickedNumber = Integer.parseInt(numberPickerText.getText().toString());
+                int incrementNumber = pickedNumber+100;
+                // Toast.makeText(getContext(), "clicked: "+incrementNumber, Toast.LENGTH_SHORT).show();
+                numberPickerText.setText(String.valueOf(incrementNumber));
+                float val = Float.parseFloat((numberPickerText.getText().toString()));
+                float rangeVal = (val/1000)*2;
+                float interval = (rangeVal*10 - rangeVal*1)/6;
+                DecimalFormat df = new DecimalFormat("0.0");
 
-                        if(false /*waterNotificationPermission*/) {
-                            setNotificationAlarm();
-                            cancelNotificationAlarmAtEndOfDay();
-                        }
+                r1.setText(df.format(rangeVal*1)+" L");
+                r2.setText(df.format(rangeVal+interval*1)+" L");
+                r3.setText(df.format(rangeVal+interval*2)+" L");
+                r4.setText(df.format(rangeVal+interval*3)+" L");
+                r5.setText(df.format(rangeVal+interval*4)+" L");
+                r6.setText(df.format(rangeVal+interval*5)+" L");
+                r7.setText(df.format(rangeVal*10)+" L");
 
-                        dialog.dismiss();
-                    } else {
-                        Toast.makeText(getContext(), "Enter Goal", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                dialog.show();
+                goal_slider.setValueFrom(rangeVal);
+                goal_slider.setValueTo(rangeVal*10);
+                goal_slider.setValue(rangeVal);
+                DecimalFormat df1 = new DecimalFormat("0.0");
+                goal_slider.setStepSize(Float.parseFloat(df1.format(val/1000)));
+            });
+
+            down_arrow.setOnClickListener(v -> {
+                if(Integer.parseInt(numberPickerText.getText().toString())>100) {
+                    int pickedNumber = Integer.parseInt(numberPickerText.getText().toString());
+                    int DecNumber = pickedNumber - 100;
+                    //  Toast.makeText(getContext(), "clicked: " + incrementNumber, Toast.LENGTH_SHORT).show();
+                    numberPickerText.setText(String.valueOf(DecNumber));
+                    float val = Float.parseFloat((numberPickerText.getText().toString()));
+                    float rangeVal = (val/1000)*2;
+
+                    float interval = (rangeVal*10 - rangeVal*1)/6;
+
+                    DecimalFormat df = new DecimalFormat("0.0");
+
+                    r1.setText(df.format(rangeVal*1)+" L");
+                    r2.setText(df.format(rangeVal+interval*1)+" L");
+                    r3.setText(df.format(rangeVal+interval*2)+" L");
+                    r4.setText(df.format(rangeVal+interval*3)+" L");
+                    r5.setText(df.format(rangeVal+interval*4)+" L");
+                    r6.setText(df.format(rangeVal+interval*5)+" L");
+                    r7.setText(df.format(rangeVal*10)+" L");
+
+                    goal_slider.setValueFrom(rangeVal);
+                    goal_slider.setValueTo(rangeVal*10);
+                    goal_slider.setValue(rangeVal);
+                    DecimalFormat df1 = new DecimalFormat("0.0");
+                    goal_slider.setStepSize(Float.parseFloat(df1.format(val/1000)));
+                }
+            });
+
+
+            Button setGoalBtn = dialog.findViewById(R.id.set_water_goal);  // Save Button in SetGoal Fragment
+            setGoalBtn.setOnClickListener(v -> {
+
+                int goalInt = (int) (goal_slider.getValue() * 1000);
+                final String[] goaltxt = {String.valueOf(goalInt)};
+
+                goal = Integer.parseInt(goaltxt[0].toString());
+                Log.d("Goal",String.valueOf(goal));
+
+                waterGoal.setText(goaltxt[0].toString() + " ml");
                 waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
-                getLatestWaterData();
-            }
+                consumedInDay = 0;
+
+
+                //String url = String.format("%supdatewatergoal.php",DataFromDatabase.ipConfig);
+                // String url =  DataFromDatabase.ipConfig +"watergoalupdate.php";
+                String url = "https://infits.in/androidApi/updatewatergoal.php";
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        response -> {
+
+                            try {
+                                Log.i("response from server", "onResponse: "+response);
+                                JSONObject jsonObject = new JSONObject(response);
+                                String message = jsonObject.getString("message");
+
+                                int newGoal = jsonObject.getInt("goal");
+
+                                // Update the UI with the new goal value if the operation was successful
+                                if (goal!=newGoal) {
+                                    goaltxt[0] = (String.valueOf(newGoal));
+                                    waterGoalPercent.setText(String.valueOf(calculateGoal(newGoal)));
+                                    getLatestWaterData();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Log.d("response;;", "JSON parsing error."+e);
+
+                            }
+                        },
+                        error -> {
+                            Log.e("response from server ;", "error:" + error);
+                        }
+                ) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Date date = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        // int amt = (int) Float.parseFloat(choosed.getText().toString());
+                        Map<String, String> data = new HashMap<>();
+                        data.put("client_id", DataFromDatabase.client_id);
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
+                        data.put("dateandtime", sdf.format(date));
+                        data.put("drinkConsumed", String.valueOf(consumedInDay));
+                        data.put("goal", String.valueOf(goal));
+                        data.put("type", liqType);
+                        data.put("amount", String.valueOf(consumedInDay));
+                        data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                        data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+
+
+
+                        Log.i("goal uploaded", "data uploaded date="+sdf.format(date)+"\n"+
+                                "goal:"+goal+"\n"+
+                                "clientuserID:"+DataFromDatabase.clientuserID+"\n"+
+                                "type:"+"water"+"\n"+
+                                "amount:"+ (consumedInDay)+"\n"+
+                                "drinkConsumed:"+(consumedInDay)+"\n"+
+                                "client_id:"+DataFromDatabase.client_id+"\n"+
+                                "dietitian_id:"+DataFromDatabase.dietitian_id+"\n"+
+                                "dietitianuserID:"+DataFromDatabase.dietitianuserID);
+
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(getActivity().getApplicationContext()).add(stringRequest);
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails", MODE_PRIVATE);
+                boolean waterNotificationPermission = notificationPrefs.getBoolean("waterSwitch", false);
+
+                if (false /*waterNotificationPermission*/) {
+                    setNotificationAlarm();
+                    cancelNotificationAlarmAtEndOfDay();
+                }
+
+                dialog.dismiss();
+            });
+
+
+
+            dialog.show();
+            waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
 
         });
 
-        addliq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.fragment_add_liquid);
-                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        addliq.setOnClickListener(v -> {
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.fragment_add_liquid);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                Button addDrank = dialog.findViewById(R.id.addbtn);
+            Button addDrank = dialog.findViewById(R.id.addbtn);
 
-                Slider slider = dialog.findViewById(R.id.slider);
+            Slider slider = dialog.findViewById(R.id.slider);
 
-                TextView choosed = dialog.findViewById(R.id.liqamt); // choosed = choosedLiquedAmount
+            TextView choosed = dialog.findViewById(R.id.liqamt); // choosed = choosedLiquedAmount
 
-                final int[] value = new int[1];
+            final int[] value = new int[1];
 
 
-                RadioGroup typeOfLiquid = dialog.findViewById(R.id.radioGroup);
-                typeOfLiquid.setOnCheckedChangeListener((group, checkedId) -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (checkedId == R.id.soda) {
-                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                            dialog.findViewById(R.id.coffee).setForeground(null);
-                            dialog.findViewById(R.id.water).setForeground(null);
-                            dialog.findViewById(R.id.juice).setForeground(null);
-                            liqType = "soda";
-                        }
-                        if (checkedId == R.id.water) {
-                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                            dialog.findViewById(R.id.coffee).setForeground(null);
-                            dialog.findViewById(R.id.soda).setForeground(null);
-                            dialog.findViewById(R.id.juice).setForeground(null);
-                            liqType = "water";
-                        }
-                        if (checkedId == R.id.juice) {
-                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                            dialog.findViewById(R.id.coffee).setForeground(null);
-                            dialog.findViewById(R.id.water).setForeground(null);
-                            dialog.findViewById(R.id.soda).setForeground(null);
-                            liqType = "juice";
-                        }
-                        if(checkedId == R.id.coffee) {
-                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                            dialog.findViewById(R.id.soda).setForeground(null);
-                            dialog.findViewById(R.id.water).setForeground(null);
-                            dialog.findViewById(R.id.juice).setForeground(null);
-                            liqType = "coffee";
-                        }
+            RadioGroup typeOfLiquid = dialog.findViewById(R.id.radioGroup);
+            typeOfLiquid.setOnCheckedChangeListener((group, checkedId) -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkedId == R.id.soda) {
+                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                        dialog.findViewById(R.id.coffee).setForeground(null);
+                        dialog.findViewById(R.id.water).setForeground(null);
+                        dialog.findViewById(R.id.juice).setForeground(null);
+                        liqType = "soda";
                     }
-                });
-
-                slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-                    @Override
-                    public void onStartTrackingTouch(@NonNull Slider slider) {
-
+                    if (checkedId == R.id.water) {
+                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                        dialog.findViewById(R.id.coffee).setForeground(null);
+                        dialog.findViewById(R.id.soda).setForeground(null);
+                        dialog.findViewById(R.id.juice).setForeground(null);
+                        liqType = "water";
                     }
-
-                    @Override
-                    public void onStopTrackingTouch(@NonNull Slider slider) {
-
-                        value[0] = (int) slider.getValue();
-                        choosed.setText(String.valueOf((float) value[0]));
-                        Log.d("Water", String.valueOf(value[0]));
-
+                    if (checkedId == R.id.juice) {
+                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                        dialog.findViewById(R.id.coffee).setForeground(null);
+                        dialog.findViewById(R.id.water).setForeground(null);
+                        dialog.findViewById(R.id.soda).setForeground(null);
+                        liqType = "juice";
                     }
-                });
+                    if(checkedId == R.id.coffee) {
+                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                        dialog.findViewById(R.id.soda).setForeground(null);
+                        dialog.findViewById(R.id.water).setForeground(null);
+                        dialog.findViewById(R.id.juice).setForeground(null);
+                        liqType = "coffee";
+                    }
+                }
+            });
 
-                choosed.setText(String.valueOf(slider.getValue()));
+            slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
 
-                addDrank.setOnClickListener(v1 -> {
-                    consumedInDay = (int) Float.parseFloat(choosed.getText().toString());
-                    //consumed.setText(consumedInDay);
+                }
+
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+
+                    value[0] = (int) slider.getValue();
+                    choosed.setText(String.valueOf((float) value[0]));
+                    Log.d("Water", String.valueOf(value[0]));
+
+                }
+            });
+
+            choosed.setText(String.valueOf(slider.getValue()));
+
+            addDrank.setOnClickListener(v1 -> {
+
+                SharedPreferences.Editor editor = preConsumed.edit();
+                editor.putInt("prevConsumedInt",(int) Float.parseFloat(choosed.getText().toString()));
+                editor.putString("drinkType",liqType);
+                editor.apply();
+
+
+                consumedInDay = (int) Float.parseFloat(choosed.getText().toString());
+                //consumed.setText(consumedInDay);
 
 
 //                    int progress = (goal*value[0])/100; // setting progress
 //                    circularProgress.setProgress(progress, goal); // Added max to goal
-                    if(consumedInDay >= goal) {
-                        cancelNotificationAlarm();
-                        updateInAppNotifications(goal);
-                    }
+                if(consumedInDay >= goal) {
+                    cancelNotificationAlarm();
+                    updateInAppNotifications(goal);
+                }
 
-                    dialog.dismiss();
+                dialog.dismiss();
 //                    String url = String.format("%swatertracker.php", DataFromDatabase.ipConfig);
 //                    StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
 //                        if (response.equals("updated")) {
@@ -417,83 +509,165 @@ public class WaterTrackerFragment extends Fragment {
 
 //                    updateLastRecord();
 
-                    //String url = String.format("%supdatewatertracker.php", DataFromDatabase.ipConfig);
 
-                    String url = DataFromDatabase.ipConfig+"updateWatertracker.php";
+                //String url = String.format("%supdatewatertracker.php", DataFromDatabase.ipConfig);
+                //String url = DataFromDatabase.ipConfig+"updateWatertracker.php";
+                String url = String.format("%supdateWatertracker.php",DataFromDatabase.ipConfig);
 
-                    StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-                        try {
-                            Log.d("Water",response);
-                            JSONObject jsonObject=new JSONObject(response);
-                            Log.d("Water",String.valueOf(response));
-                            String amount=jsonObject.getString("total");
-                            consumedInDay= Integer.parseInt(amount);
-                            //String total=jsonObject.getString("total");
-                            consumed.setText(consumedInDay + " ml");
-                            waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
+                //  String url = "https://infits.in/androidApi/updateWatertracker.php";
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+                    try {
+                        Log.i("response from server", "onCreateView: response:"+response);
+                        JSONObject jsonObject=new JSONObject(response);
+                        String amount=jsonObject.getString("total");
+                        consumedInDay= Integer.parseInt(amount);
+                        //String total=jsonObject.getString("total");
+                        consumed.setText(consumedInDay);
+                        waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
 //                        circularProgress.setProgress(calculateGoalReturnInt(),100);
-                            lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
-                            int durationOfAnimationFromLottie = 6000;
-                            int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
-                            lottieAnimationViewWater.playAnimation();
-                            new Handler().postDelayed(new Runnable() {
-                                                          @Override
-                                                          public void run() {
-                                                              lottieAnimationViewWater.pauseAnimation();
-                                                          }
-                                                      },durationOfWaterAnimation
-                            );
-
-                            // consumed.setText(String.valueOf(consumedInDay));
-
-                            pastActivity();
-                        } catch (JSONException e) {
-                            Log.d("response","error");
-                            e.printStackTrace();
-                        }
-
-                    }, error -> {
-                        Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-                    }) {
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Date date = new Date();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                            int amt = (int) Float.parseFloat(choosed.getText().toString());
-                            Map<String, String> data = new HashMap<>();
-                            data.put("client_id", DataFromDatabase.client_id);
-                            data.put("clientuserID", DataFromDatabase.clientuserID);
-                            data.put("dateandtime", sdf.format(date));
-                            data.put("drinkConsumed", String.valueOf(consumedInDay));
-                            data.put("goal", String.valueOf(goal));
-                            data.put("type", liqType);
-                            data.put("amount", String.valueOf(consumedInDay));
-                            data.put("dietitian_id",DataFromDatabase.dietitian_id);
-                            data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
-
-                            //  Log.d("update", "consumed: " + consumedInDay);
-                            // Log.d("update", "amount: " + amt);
-
-                            return data;
-                        }
-                    };
-                    Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
-                    request.setRetryPolicy(new DefaultRetryPolicy(50000,
-                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                    // waterGoalPercent
-                    if(goal != 0)
-                        waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
-                    else{
-                        waterGoalPercent.setText("0 %");
+                        lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
+                        int durationOfAnimationFromLottie = 6000;
+                        int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
+                        lottieAnimationViewWater.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                                                      @Override
+                                                      public void run() {
+                                                          lottieAnimationViewWater.pauseAnimation();
+                                                      }
+                                                  },durationOfWaterAnimation
+                        );
+                        // consumed.setText(String.valueOf(consumedInDay));
+                        pastActivity();
+                    } catch (JSONException e) {
+                        Log.d("response","error");
+                        e.printStackTrace();
                     }
-                });
 
-                dialog.show();
+                }, error -> {
+                    Log.i("error", "response:"+error);
+                    Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Date date = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        int amt = (int) Float.parseFloat(choosed.getText().toString());
+                        Map<String, String> data = new HashMap<>();
+                        data.put("client_id", DataFromDatabase.client_id);
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
+                        data.put("dateandtime", sdf.format(date));
+                        data.put("drinkConsumed", String.valueOf(consumedInDay));
+                        data.put("goal", String.valueOf(goal));
+                        data.put("type", liqType);
+                        data.put("amount", String.valueOf(consumedInDay));
+                        data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                        data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+
+
+                        //  Log.d("update", "consumed: " + consumedInDay);
+                        // Log.d("update", "amount: " + amt);
+                        return data;
+
+                    }
+                };
+                Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+                request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                // waterGoalPercent
+                if(goal != 0)
+                    waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                else{
+                    waterGoalPercent.setText("0 %");
+                }
+            });
+
+            dialog.show();
+
+        });
+
+        decliq.setOnClickListener(v -> {
+            int prevConsumedDrink = preConsumed.getInt("prevConsumedInt",0);
+            if(prevConsumedDrink==0){
+                Toast.makeText(getContext(), "not consumed anything", Toast.LENGTH_SHORT).show();
+            }else {
+                int afterDeduc = ((int)Integer.parseInt(consumed.getText().toString()))-prevConsumedDrink;
+                Toast.makeText(getContext(), "data: prevDrink:"+prevConsumedDrink+" diff:"+afterDeduc, Toast.LENGTH_SHORT).show();
+
+                String url = String.format("%supdateWatertrackerDec.php",DataFromDatabase.ipConfig);
+
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+                    try {
+                        Log.i("response from server", "onCreateView: response:"+response);
+                        JSONObject jsonObject=new JSONObject(response);
+                        String amount=jsonObject.getString("total");
+                        consumedInDay= Integer.parseInt(amount);
+                        //String total=jsonObject.getString("total");
+                        consumed.setText(consumedInDay);
+                        waterGoalPercent.setText(String.valueOf(calculateGoal(goal)));
+//                        circularProgress.setProgress(calculateGoalReturnInt(),100);
+                        lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
+                        int durationOfAnimationFromLottie = 6000;
+                        int durationOfWaterAnimation = (durationOfAnimationFromLottie*calculateGoalReturnInt()/100)-500;
+                        lottieAnimationViewWater.playAnimation();
+                        new Handler().postDelayed(new Runnable() {
+                                                      @Override
+                                                      public void run() {
+                                                          lottieAnimationViewWater.pauseAnimation();
+                                                      }
+                                                  },durationOfWaterAnimation
+                        );
+                        // consumed.setText(String.valueOf(consumedInDay));
+                        pastActivity();
+                    } catch (JSONException e) {
+                        Log.d("response","error");
+                        e.printStackTrace();
+                    }
+
+                }, error -> {
+                    Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Date date = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+                        Map<String, String> data = new HashMap<>();
+                        data.put("client_id", DataFromDatabase.client_id);
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
+                        data.put("dateandtime", sdf.format(date));
+                        data.put("drinkConsumed", String.valueOf(prevConsumedDrink));
+                        data.put("goal", String.valueOf(goal));
+                        data.put("type", liqType);
+                        data.put("amount", String.valueOf(prevConsumedDrink));
+                        data.put("dietitian_id",DataFromDatabase.dietitian_id);
+                        data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+
+
+                        //  Log.d("update", "consumed: " + consumedInDay);
+                        // Log.d("update", "amount: " + amt);
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+                request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                // waterGoalPercent
+                if(goal != 0)
+                    waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                else{
+                    waterGoalPercent.setText("0 %");
+                }
 
             }
+            //   Toast.makeText(getContext(), "not crashed!", Toast.LENGTH_SHORT).show();
         });
 
         imgback.setOnClickListener(new View.OnClickListener() {
@@ -724,7 +898,12 @@ public class WaterTrackerFragment extends Fragment {
                             consumedInDay = Integer.parseInt(waterConsumedStr);
 
                             waterGoal.setText(goal + " ml");
-                            waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                            try {
+                                waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                            }catch (ArithmeticException e){
+                                Toast.makeText(getContext(), "Cannot be divided by zero: error"+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+
                             consumed.setText(consumedInDay + " ml");
                             lottieAnimationViewWater.setAnimation(R.raw.water_loading_animation_bottle);
                             int durationOfAnimationFromLottie = 6000;
