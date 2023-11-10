@@ -140,35 +140,35 @@ public class Activity_Todays_Breakfast extends AppCompatActivity {
 
 
 
-            Intent intent = getIntent();
-            JSONArray jsonArray = new JSONArray();
-            mainJsonArray=new JSONArray();
-            mainJsonobj=new JSONObject();
-            JSONObject jsonObject = new JSONObject(intent.getStringExtra("mealInfoForPhoto"));
-            sharedPreferences=getSharedPreferences("TodaysBreakFast", Context.MODE_PRIVATE);
-            if(sharedPreferences.contains("TodaysBreakFast")) {
-                JSONObject jsonObject1=new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
-                JSONArray jsonArray1=jsonObject1.getJSONArray("TodaysBreakFast");
-                for (int i=0;i<jsonArray1.length();i++){
-                    mainJsonArray.put(jsonArray1.getJSONObject(i));
+                Intent intent = getIntent();
+                JSONArray jsonArray = new JSONArray();
+                mainJsonArray=new JSONArray();
+                mainJsonobj=new JSONObject();
+                JSONObject jsonObject = new JSONObject(intent.getStringExtra("mealInfoForPhoto"));
+                sharedPreferences=getSharedPreferences("TodaysBreakFast", Context.MODE_PRIVATE);
+                if(sharedPreferences.contains("TodaysBreakFast")) {
+                    JSONObject jsonObject1=new JSONObject(sharedPreferences.getString("TodaysBreakFast", ""));
+                    JSONArray jsonArray1=jsonObject1.getJSONArray("TodaysBreakFast");
+                    for (int i=0;i<jsonArray1.length();i++){
+                        mainJsonArray.put(jsonArray1.getJSONObject(i));
+                    }
                 }
-            }
-            mainJsonArray.put(jsonObject);
-            mainJsonobj.put("TodaysBreakFast",mainJsonArray);
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            editor.putString("TodaysBreakFast",mainJsonobj.toString());
-            editor.commit();
-            Log.d("mealInfoForPhoto", sharedPreferences.getString("TodaysBreakFast","").toString());
+                mainJsonArray.put(jsonObject);
+                mainJsonobj.put("TodaysBreakFast",mainJsonArray);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString("TodaysBreakFast",mainJsonobj.toString());
+                editor.commit();
+                Log.d("mealInfoForPhoto", sharedPreferences.getString("TodaysBreakFast","").toString());
 
-            Bundle bundle=new Bundle();
+                Bundle bundle=new Bundle();
 //            MealtrackerTodays_Breakfast mealtrackerTodays_breakfast = new MealtrackerTodays_Breakfast();
 //            fragmentTransaction.replace(R.id.frameLayout,mealtrackerTodays_breakfast).commit();
-            MealtrackerTodays_Breakfast fragmentTodays_breakFast = new MealtrackerTodays_Breakfast();
-            fragmentTodays_breakFast.setArguments(bundle);
-            transaction.replace(R.id.frameLayout,fragmentTodays_breakFast).commit();
+                MealtrackerTodays_Breakfast fragmentTodays_breakFast = new MealtrackerTodays_Breakfast();
+                fragmentTodays_breakFast.setArguments(bundle);
+                transaction.replace(R.id.frameLayout,fragmentTodays_breakFast).commit();
 
 
-            Log.d("TAG", "TodayBreakfast: Called");
+                Log.d("TAG", "TodayBreakfast: Called");
 
 //            Toast.makeText(this, "TodayBreakfast: Called", Toast.LENGTH_SHORT).show();
 

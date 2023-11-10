@@ -118,8 +118,11 @@ public class Account extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            Toast.makeText(getContext(),DataFromDatabase.clientuserID,Toast.LENGTH_LONG);
         }
     }
+    //The code of infits
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,12 +139,20 @@ public class Account extends Fragment {
         EditText email=view.findViewById(R.id.email_edt);
         email.setText(DataFromDatabase.email);
         EditText phone=view.findViewById(R.id.phone_edt);
+        EditText location=view.findViewById(R.id.location_edt);
+        location.setText(DataFromDatabase.location);
         EditText weight=view.findViewById(R.id.weight_edt);
         weight.setText(DataFromDatabase.weight);
         EditText height=view.findViewById(R.id.height_edt);
         height.setText(DataFromDatabase.height);
         EditText plan = view.findViewById(R.id.plan_edt);
-        plan.setText("Basic");
+        if (DataFromDatabase.gender==("true")) {
+            plan.setText("Pro");
+        } else if (DataFromDatabase.gender==("false")){
+            plan.setText("Basic");
+        } else {
+            plan.setText("None");
+        }
         EditText gender = view.findViewById(R.id.gender_edt);
         if (DataFromDatabase.gender==("M")) {
             gender.setText("Male");
@@ -157,95 +168,6 @@ public class Account extends Fragment {
         profile_pic.setImageBitmap(DataFromDatabase.profile);
         backBtn = view.findViewById(R.id.imgBack);
         editProfile = view.findViewById(R.id.button_editProfile);
-
-
-        //        ImageView select_pic= view.findViewById(R.id.select_dp);
-        //        save=view.findViewById(R.id.button_save);
-
-//        ImageView name_btn=view.findViewById(R.id.name_edt_button);
-//        ImageView age_btn=view.findViewById(R.id.age_edt_button);
-//        ImageView email_btn=view.findViewById(R.id.email_edt_button);
-//        ImageView phone_btn=view.findViewById(R.id.phone_edt_button);
-
-//        if(DataFromDatabase.gender.equals("M")) {
-//            male.setImageResource(R.drawable.gender_male_selected);
-//            female.setImageResource(R.drawable.gender_female);
-//        } else {
-//            male.setImageResource(R.drawable.gender_male);
-//            female.setImageResource(R.drawable.gender_female_selected);
-//        }
-
-
-//        name_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"name edit enabled",Toast.LENGTH_SHORT).show();
-//                name.setCursorVisible(true);
-//                name.setFocusableInTouchMode(true);
-//                name.setInputType(InputType.TYPE_CLASS_TEXT);
-//            }
-//        });
-//        age_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"age edit enabled",Toast.LENGTH_SHORT).show();
-//                age.setCursorVisible(true);
-//                age.setFocusableInTouchMode(true);
-//                age.setInputType(InputType.TYPE_CLASS_NUMBER);
-//            }
-//        });
-//        email_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"email edit enabled",Toast.LENGTH_SHORT).show();
-//                email.setCursorVisible(true);
-//                email.setFocusableInTouchMode(true);
-//                email.setInputType(InputType.TYPE_CLASS_TEXT);
-//            }
-//        });
-//        phone_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"phone number edit enabled",Toast.LENGTH_SHORT).show();
-//                phone.setCursorVisible(true);
-//                phone.setFocusableInTouchMode(true);
-//                phone.setInputType(InputType.TYPE_CLASS_PHONE);
-//            }
-//        });
-
-//        if(DataFromDatabase.gender=="M"){
-//            male.setImageResource(R.drawable.gender_male_selected);
-//            female.setImageResource(R.drawable.gender_female);
-//        }else if(DataFromDatabase.gender=="F"){
-//            male.setImageResource(R.drawable.gender_male);
-//            female.setImageResource(R.drawable.gender_female_selected);
-//        }
-
-//        select_pic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectImage();
-//            }
-//        });
-
-
-//        client_gender=DataFromDatabase.gender;
-//        male.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                male.setImageResource(R.drawable.gender_male_selected);
-//                female.setImageResource(R.drawable.gender_female);
-//                client_gender="M";
-//            }
-//        });
-//        female.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                male.setImageResource(R.drawable.gender_male);
-//                female.setImageResource(R.drawable.gender_female_selected);
-//                client_gender="F";
-//            }
-//        });
 
         backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
 
@@ -288,179 +210,9 @@ public class Account extends Fragment {
         });
 
         queue = Volley.newRequestQueue(requireContext());
-//        save.setOnClickListener(v-> {
-//
-//            String nameStr = name.getText().toString().trim();
-//            String ageStr = age.getText().toString().trim();
-//            String emailStr = email.getText().toString().trim();
-//            String mobile = phone.getText().toString().trim();
-//
-//            Log.d("account","before");
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-//                if (response.equals("updated")){
-//                    Log.d("account","success");
-//                    Log.d("response account",response);
-//
-//
-//                    Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
-//
-//                    updateDataLocally(nameStr, ageStr, emailStr, mobile);
-//                }
-//                else {
-//                    Log.d("account","failure");
-//                    Log.d("response account",response);
-//                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
-//                }
-//            },error -> Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show()
-//            ){
-//                @NotNull
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    Map<String,String> data = new HashMap<>();
-//                    data.put("userID",DataFromDatabase.clientuserID);
-//                    data.put("email",emailStr);
-//                    data.put("gender",client_gender);
-//                    data.put("age",ageStr);
-//                    data.put("mobile",mobile);
-//                    data.put("name",nameStr);
-//                    data.put("img", getEncodedImg(bitmap));
-//                    data.put("nameImg", DataFromDatabase.clientuserID);
-//
-//                    return data;
-//                }
-//            };
-//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//            requestQueue.add(stringRequest);
-//            Log.d("account","at end");
-//        });
 
         return view;
 
-        /*
-
-        imgback = view.findViewById(R.id.backToSettings);
-        logout = view.findViewById(R.id.button_logout);
-        male = view.findViewById(R.id.gender_male_icon);
-        female=view.findViewById(R.id.gender_female_icon);
-        profile_pic=view.findViewById(R.id.dp);
-        save=view.findViewById(R.id.button_save);
-        EditText name=view.findViewById(R.id.name_edt);
-        EditText age=view.findViewById(R.id.age_edt);
-        EditText email=view.findViewById(R.id.email_edt);
-        EditText phone=view.findViewById(R.id.phone_edt);
-
-        profile_pic.setImageBitmap(DataFromDatabase.profile);
-
-        photo = registerForActivityResult(
-                new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri result) {
-                        profile_pic.setImageURI(result);
-                        path = result.getPath();
-                        file = new File(result.toString());
-                        String filename = path.substring(path.lastIndexOf("/")+1);
-                        if (filename.indexOf(".") > 0) {
-                            fileName = filename.substring(0, filename.lastIndexOf("."));
-                        } else {
-                            fileName =  filename;
-                        }
-                        Log.d("MainClass", "Real Path: " + path);
-                        Log.d("MainClass", "Filename With Extension: " + filename);
-                        Log.d("MainClass", "File Without Extension: " + fileName);
-                        try {
-                            photoBit = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver() , result);
-                            DataFromDatabase.profile = photoBit;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
-
-        profile_pic.setOnClickListener(v->{
-            photo.launch("image/*");
-        });
-
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                male.setImageResource(R.drawable.gender_male_selected);
-                female.setImageResource(R.drawable.gender_female);
-            }
-        });
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                male.setImageResource(R.drawable.gender_male);
-                female.setImageResource(R.drawable.gender_female_selected);
-                gen = "F";
-            }
-        });
-
-        imgback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_account_to_settingsFragment);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Dialog dialog = new Dialog(getContext());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.logoutdialog);
-
-                Button yes = dialog.findViewById(R.id.yes_log_out);
-                Button no = dialog.findViewById(R.id.no_log_out);
-
-                yes.setOnClickListener(v->{
-                    getActivity().finishAffinity();
-                    System.exit(0);
-                });
-                no.setOnClickListener(v->{
-                    dialog.dismiss();
-                });
-                dialog.show();
-            }
-        });
-
-        save.setOnClickListener(v->{
-            String nameStr = name.getText().toString();
-            String ageStr = age.getText().toString();
-            String emailStr = email.getText().toString();
-            String mobile = phone.getText().toString();
-            StringRequest request = new StringRequest(Request.Method.POST,url,response -> {
-                    if (response.equals("updated")){
-                        Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
-                    }
-            },error -> {
-                Toast.makeText(getActivity(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    String image = getStringOfImage(photoBit);
-                    LinkedHashMap<String,String> data = new LinkedHashMap<>();
-                    data.put("userID",DataFromDatabase.clientuserID);
-                    data.put("email",emailStr);
-                    data.put("gender",gen);
-                    data.put("age",ageStr);
-                    data.put("mobile",mobile);
-                    data.put("name",nameStr);
-                    data.put("img",image);
-                    data.put("nameImg",DataFromDatabase.clientuserID);
-
-                    return data;
-                }
-            };
-            Volley.newRequestQueue(getActivity()).add(request);
-        });
-
-        return view;
-
-         */
     }
 
     private String getEncodedImg(Bitmap bitmap) {

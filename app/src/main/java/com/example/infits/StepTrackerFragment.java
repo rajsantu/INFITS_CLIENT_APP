@@ -355,14 +355,9 @@ public class StepTrackerFragment extends Fragment implements UpdateStepCard {
                         if (!foregroundServiceRunning()) {
                             Intent serviceIntent = new Intent(requireContext(), MyService.class);
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                serviceIntent.putExtra("goal", goalVal);
-                                serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
-                                requireContext().startForegroundService(serviceIntent);
-
-                            } else {
-                                requireContext().startService(serviceIntent);
-                            }
+                            serviceIntent.putExtra("goal", goalVal);
+                            serviceIntent.putExtra("notificationPermission", true);
+                            requireContext().startForegroundService(serviceIntent);
 
 
                         }
