@@ -144,4 +144,10 @@ dependencies {
     implementation 'com.razorpay:checkout:1.6.7'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.7' // Replace '3.x.y' with the latest version
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2' // Replace '3.x.y' with the latest version
+
+    implementation "com.polidea.rxandroidble3:rxandroidble:1.17.2"
+    implementation 'com.github.tbruyelle:rxpermissions:0.12'
 }

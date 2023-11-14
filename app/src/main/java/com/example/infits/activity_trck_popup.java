@@ -2,6 +2,8 @@ package com.example.infits;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.os.Bundle;
@@ -25,6 +27,7 @@ public class activity_trck_popup extends AppCompatActivity {
     ImageView set_goal;
     EditText goal_value_txt;
     String goal_value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +76,9 @@ public class activity_trck_popup extends AppCompatActivity {
                 Volley.newRequestQueue(getApplicationContext().getApplicationContext()).add(request);
                 Toast.makeText(getApplicationContext(),"check 1",Toast.LENGTH_SHORT).show();
 
-//                Navigation.findNavController(v).navigate(R.id.action_activity_trck_popup_to_activitySecondFragment);
+
+
+              Navigation.findNavController(v).navigate(R.id.action_activity_trck_popup);
             }
         });
 
