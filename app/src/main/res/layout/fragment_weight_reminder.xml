@@ -173,31 +173,13 @@
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
         android:background="@drawable/dismiss_btn"
-        android:backgroundTint="#11998E"
         android:fontFamily="@font/nats_regular"
         android:text="Dismiss"
-        android:textColor="@color/white"
         android:textSize="22sp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/set" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/set"
-        android:layout_width="138dp"
-        android:layout_height="61dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/dismiss_btn"
         android:backgroundTint="#11998E"
-        android:fontFamily="@font/nats_regular"
-        android:text="set"
         android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dismiss"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

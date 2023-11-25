@@ -7,11 +7,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.joda.time.LocalDateTime;
-
-import java.time.LocalTime;
 
 public class WaterAlarmScheduler {
     PendingIntent waterReceiverPendingIntent;
@@ -58,7 +55,8 @@ public class WaterAlarmScheduler {
                             context, i, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
                     // Setting the repeating alarm
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, waterReceiverPendingIntent);
+                   // alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, waterReceiverPendingIntent);
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP,alarmTime, waterReceiverPendingIntent);
                     Log.e(TAG, "alarm set! : at "+(alarmTime-System.currentTimeMillis())/60000+" minutes");
                 }else{
                     Log.e(TAG, "setAlarm: error in endTime");

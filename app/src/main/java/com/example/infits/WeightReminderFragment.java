@@ -28,8 +28,6 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import org.joda.time.LocalDateTime;
 
-import Utility.AlarmHelper;
-
 public class WeightReminderFragment extends Fragment {
 
     ImageView imgBack;
@@ -196,15 +194,17 @@ public class WeightReminderFragment extends Fragment {
         timePicker.addOnPositiveButtonClickListener(view -> {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
-            AlarmHelper.createNotificationChannel(getContext(),"WeightChannelId","Weight Reminder");
-            AlarmHelper.setTrackerAlarm(getContext(),"weight",pickedHour,pickedMinute);
 
+            long millisInHour = 60 * 60 * 1000;
+            long millisInMinute = 60 * 1000;
+            timeInMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putFloat("timeInMillis",timeInMillis);
             editor.apply();
 
             setTextFields(pickedHour, pickedMinute);
+            // setAlarm(timeInMillis);
         });
     }
 
@@ -257,7 +257,8 @@ public class WeightReminderFragment extends Fragment {
     }
 
     private void setOnceAlarm(long time) {
-AlarmHelper.createNotificationChannel(getContext(),"WeightChannelId","Weight Reminder");
+        createNotificationChannel();
+
         long timeInMillis = System.currentTimeMillis() + time;
 
         alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
@@ -275,7 +276,7 @@ AlarmHelper.createNotificationChannel(getContext(),"WeightChannelId","Weight Rem
 
 
     private void setAlarm(long time) {
-AlarmHelper.createNotificationChannel(getContext(),"WeightChannelId","Weight Reminder");
+        createNotificationChannel();
         long timeInMillis = System.currentTimeMillis() + time;
 
         alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
@@ -302,6 +303,13 @@ AlarmHelper.createNotificationChannel(getContext(),"WeightChannelId","Weight Rem
         alarmManager.cancel(weightReceiverPendingIntent);
     }
 
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("WeightChannelId", "Weight Reminder", NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = requireActivity().getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+    }
 
     private void hooks(View view) {
         set = view.findViewById(R.id.set);

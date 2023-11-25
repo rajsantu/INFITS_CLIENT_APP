@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 =======
@@ -13,9 +12,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 <<<<<<< HEAD
@@ -29,28 +28,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 >>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class connectingDietitian extends AppCompatActivity {
-
-    String verificationUrl ="https://infits.in/androidApi/verify.php";
-    String connectUrl="https://infits.in/androidApi/dietitianUpdated.php";
     EditText verify_code;
     ProgressBar progressBar;
-    TextView name,age_gender,email,mobile,dietitian_details,txtEnterCode;
+    TextView name,age_gender,email,mobile,dietitian_details;
     Button discard,connect,verify;
-    CardView cardView,cardView3;
-    LinearLayout linearLayout;
-    Button button5connect;
+    CardView cardView;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,15 +60,11 @@ public class connectingDietitian extends AppCompatActivity {
         connect = findViewById(R.id.button4);
         verify_code = findViewById(R.id.verify);
         progressBar = findViewById(R.id.connectWithDietitianProgress);
-        linearLayout=findViewById(R.id.linearLayout2);
         dietitian_details = findViewById(R.id.textView2);
         name = findViewById(R.id.textViewName);
         age_gender = findViewById(R.id.textView5);
         email = findViewById(R.id.textView3);
         mobile = findViewById(R.id.textView4);
-        txtEnterCode=findViewById(R.id.txtCode);
-        cardView3=findViewById(R.id.cardView3);
-        button5connect=findViewById(R.id.button5Connect);
         verify.setOnClickListener(new View.OnClickListener() {
 =======
         requestWindowFeature(getWindow().FEATURE_NO_TITLE);
@@ -92,39 +86,15 @@ public class connectingDietitian extends AppCompatActivity {
                 dietitianUpdate();
             }
         });
-
-        discard.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                setVisibilty();
-
-            }
-        });
-    }
-
-    private void setVisibilty() {
-        linearLayout.setVisibility(View.VISIBLE);
-        cardView3.setVisibility(View.VISIBLE);
-        txtEnterCode.setVisibility(View.VISIBLE);
-        button5connect.setVisibility(View.VISIBLE);
-        dietitian_details.setVisibility(View.INVISIBLE);
-        cardView.setVisibility(View.INVISIBLE);
-        discard.setVisibility(View.INVISIBLE);
-        connect.setVisibility(View.INVISIBLE);
-        verify_code.setText(null);
     }
 
     private void fetchDataFromPhpFile() {
         progressBar.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, verificationUrl,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sverify_1.php",DataFromDatabase.ipConfig),
                 response->{
             progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(connectingDietitian.this,response,Toast.LENGTH_SHORT).show();
                     try {
-                        linearLayout.setVisibility(View.GONE);
-                        txtEnterCode.setVisibility(View.GONE);
-                        cardView3.setVisibility(View.GONE);
-                        button5connect.setVisibility(View.GONE);
                         JSONObject jsonObject = new JSONObject(response);
                         JSONArray jsonArray = new JSONArray(jsonObject.getString("data"));
                         JSONObject jsonObjectData = jsonArray.getJSONObject(0);
@@ -140,7 +110,6 @@ public class connectingDietitian extends AppCompatActivity {
 <<<<<<< HEAD
                     } catch (Exception e) {
                         Toast.makeText(connectingDietitian.this,e.toString(),Toast.LENGTH_SHORT).show();
-                        Log.d("connectingdietitian",e.getLocalizedMessage().toString());
                     }
                 },error->{
             progressBar.setVisibility(View.INVISIBLE);
@@ -162,7 +131,7 @@ public class connectingDietitian extends AppCompatActivity {
     }
     private void dietitianUpdate(){
         progressBar.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,connectUrl,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sdietitianUpdated_1.php",DataFromDatabase.ipConfig),
                 response->{
                     progressBar.setVisibility(View.INVISIBLE);
 

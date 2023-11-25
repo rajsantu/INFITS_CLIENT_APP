@@ -49,11 +49,9 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -70,28 +68,24 @@ import java.util.Calendar;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class SleepTrackerFragment extends Fragment {
 
-    //    UI elements
-    private ImageView imgback, reminder;
-    private Button setalarm, startcycle, endcycle;
-    private TextView texttime, tvDuration;
-    private RecyclerView pastActivity;
-    private ArrayList<SleepData> recyclerViewItems = new ArrayList<>();
+    String sleep;
+    String hours, minutes, secs;
 
-    //    Date
-    private Calendar calendar;
-    private SimpleDateFormat simpleDateFormat;
-    private String timerTime;
+    Button setalarm, startcycle, endcycle;
+    ImageView imgback, reminder;
+    TextView texttime, tvDuration;
+    Calendar calendar;
+    SimpleDateFormat simpleDateFormat;
+    String timerTime;
 
-    //    Sleep related timings
-    private String sleep;
-    private String hours, minutes, secs;
-
+    private int seconds;
+    private boolean running;
+    private boolean wasRunning;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -123,8 +117,8 @@ public class SleepTrackerFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                if (getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
-                    startActivity(new Intent(getActivity(), DashBoardMain.class));
+                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(),DashBoardMain.class));
                     requireActivity().finish();
                 } else {
                     Navigation.findNavController(requireActivity(), R.id.trackernav).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);
@@ -139,13 +133,77 @@ public class SleepTrackerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false);
+
+        RecyclerView pastActivity = view.findViewById(R.id.past_activity);
+
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+
+        // String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
+        String url = "https://infits.in/androidApi/pastActivitySleep.php";
         int customTimeout = 15000; // 15 seconds (you can adjust this)
 
-        View view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false);
-        hooks(view);
-        initializeUI();
-        setupListeners();
-        updateRecyclerViewData(pastActivity);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            try {
+                Log.d("response123", response.toString());
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("sleep");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String data = object.getString("hrsSlept");
+                    String date = object.getString("date");
+                    dates.add(date);
+                    datas.add(data);
+                    System.out.println(datas.get(i));
+                    System.out.println(dates.get(i));
+                }
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(), dates, datas, Color.parseColor("#9C74F5"));
+                pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
+                pastActivity.setAdapter(ad);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            if (error instanceof NetworkError) {
+                // Handle network-related errors
+                Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof ServerError) {
+                // Handle server errors
+                Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof ParseError) {
+                // Handle parse errors
+                Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof NoConnectionError) {
+                // Handle no connection errors
+                Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof TimeoutError) {
+                // Handle timeout errors
+                Toast.makeText(getActivity().getApplicationContext(), "Timeout Error for loading previous activity", Toast.LENGTH_SHORT).show();
+            } else {
+                // Handle other errors
+                Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+            Log.d("Error", error.toString());
+            Log.d("Error", error.toString());
+        }) {
+            @Override
+            public RetryPolicy getRetryPolicy() {
+                return new DefaultRetryPolicy(customTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            }
+
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> data = new HashMap<>();
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                return data;
+            }
+        };
+
+// Add the request to the request queue (assuming you have a RequestQueue instance)
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
 
 
         PowerManager powerManager = null;
@@ -156,61 +214,158 @@ public class SleepTrackerFragment extends Fragment {
                 "MyApp::MyWakelockTag");
         wakeLock.acquire();
 
-        handleNotificationFromArguments();
+        imgback = view.findViewById(R.id.imgback);
+        setalarm = view.findViewById(R.id.setalarm);
+        startcycle = view.findViewById(R.id.startcycle);
+        endcycle = view.findViewById(R.id.endcycle);
+        texttime = view.findViewById(R.id.texttime);
+        tvDuration = view.findViewById(R.id.tvDuration);
+        reminder = view.findViewById(R.id.reminder);
 
-        checkForegroundService();
+        tvDuration.setVisibility(View.INVISIBLE);
 
-        getActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
+        if(getArguments() != null && getArguments().getBoolean("notification")) {
+            texttime.setText(getArguments().getString("sleepTime"));
+            tvDuration.setVisibility(View.VISIBLE);
+            tvDuration.setText("You slept for " + getArguments().getString("sleepTime"));
+        }
+
+        if (foregroundServiceRunning()){
+            endcycle.setVisibility(View.VISIBLE);
+            startcycle.setVisibility(View.GONE);
+        }
+
+        if (!foregroundServiceRunning()){
+            endcycle.setVisibility(View.GONE);
+            startcycle.setVisibility(View.VISIBLE);
+        }
+
+        getActivity().registerReceiver(broadcastReceiver,new IntentFilter("com.example.infits.sleep"));
 
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("HH:mm");
         String time = simpleDateFormat.format(calendar.getTime());
 
-        if (savedInstanceState != null) {
+        if(savedInstanceState != null) {
             savedInstanceState.getInt("seconds");
             savedInstanceState.getBoolean("running");
             savedInstanceState.getBoolean("wasRunning");
         }
 
+//        runTimer();
+
+
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                    requireActivity().finish();
+                } else {
+                    Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);
+                }
+            }
+        });
+
+        reminder.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_sleepReminderFragment));
+
+        setalarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mClockIntent = new Intent(AlarmClock.ACTION_SHOW_ALARMS);
+                mClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(mClockIntent);
+            }
+        });
+
+
+        startcycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                SimpleDateFormat sleepTime = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                myEdit.putString("sleepTime", sleepTime.format(date));
+                myEdit.commit();
+                calendar.add(Calendar.HOUR_OF_DAY, 8);
+                tvDuration.setVisibility(View.VISIBLE);
+                SimpleDateFormat sim = new SimpleDateFormat("HH:mm");
+                tvDuration.setText("Optimal time to wake up is "+sim.format(calendar.getTime()));
+                startcycle.setVisibility(View.GONE);
+                endcycle.setVisibility(View.VISIBLE);
+                if (!foregroundServiceRunning()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Intent intent = new Intent(getActivity(), StopWatchService.class);
+                        getActivity().startForegroundService(new Intent(getActivity(), StopWatchService.class));
+                    }
+                    sleep = "";
+                    getActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
+                }
+            }
+        });
+
         endcycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Get the sleep time
                 String time = sleep;
-
-//                Hide and show UI elements
                 endcycle.setVisibility(View.GONE);
                 startcycle.setVisibility(View.VISIBLE);
-
-//                Stop the stopwatch service
                 Intent i = new Intent(getActivity(), StopWatchService.class);
                 i.putExtra("status", true);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     getActivity().getApplicationContext().stopService(new Intent(getActivity(), StopWatchService.class));
                 }
-
-//                unregister the broadcast receiver
                 getActivity().unregisterReceiver(broadcastReceiver);
-
-//                Update the displayed sleep duration
-
                 tvDuration.setText("You slept for " + sleep);
-//             update in app notification
 
                 updateInAppNotifications(hours, minutes, secs);
 
-                //Check if sleep notifications are permitted
                 SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails", MODE_PRIVATE);
                 boolean sleepNotificationPermission = notificationPrefs.getBoolean("sleepSwitch", false);
-                if (sleepNotificationPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    // Create a notification channel for sleep tracking
-                    createSleepNotificationChannel();
 
-                    // Build and display the sleep tracking notification
-                    String sleptFor = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
-                    displaySleepNotification(sleptFor);
+                if (sleepNotificationPermission) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Log.d("sleep", "permitted");
+                        NotificationChannel channel = new NotificationChannel(
+                                "SleepChannelId",
+                                "Sleep Tracker",
+                                NotificationManager.IMPORTANCE_HIGH
+                        );
+                        channel.setLightColor(Color.BLUE);
+                        channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+
+                        NotificationManager manager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                        manager.createNotificationChannel(channel);
+
+                        String sleptFor = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
+
+                        Intent intent = new Intent(requireContext(), SplashScreen.class);
+                        intent.putExtra("notification", "sleep");
+                        intent.putExtra("hours", hours);
+                        intent.putExtra("minutes", minutes);
+                        intent.putExtra("secs", secs);
+
+                        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), "SleepChannelId");
+                        Notification goalReachedNotification = builder.setOngoing(false)
+                                .setSmallIcon(R.mipmap.logo)
+                                .setContentTitle("Sleep Tracker")
+                                .setContentText(sleptFor)
+                                .setChannelId("SleepChannelId")
+                                .setContentIntent(pendingIntent)
+                                .setAutoCancel(true)
+                                .build();
+
+                        manager.notify(2, goalReachedNotification);
+                    }
                 }
+
                 // String url=String.format("%ssleepTracker.php", DataFromDatabase.ipConfig);
                 String url = "https://infits.in/androidApi/sleepTracker.php";
 
@@ -223,7 +378,30 @@ public class SleepTrackerFragment extends Fragment {
                         System.out.println(response);
                         Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
                     }
-                }, error -> handleVolleyError(error)) {
+                }, error -> {
+
+                    if (error instanceof NetworkError) {
+                        // Handle network-related errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        // Handle server errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ParseError) {
+                        // Handle parse errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof NoConnectionError) {
+                        // Handle no connection errors
+                        Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof TimeoutError) {
+                        // Handle timeout errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Timeout Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle other errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d("Error", error.toString());
+                })
+                {
                     @Override
                     public RetryPolicy getRetryPolicy() {
                         return new DefaultRetryPolicy(customTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -264,218 +442,83 @@ public class SleepTrackerFragment extends Fragment {
                 };
                 Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
                 sleep = "";
-                saveSleepDurationInPrefs();
 
+                SharedPreferences sleepPrefs = requireActivity().getSharedPreferences("sleepPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sleepPrefs.edit();
 
+                editor.putString("hours", hours);
+                editor.putString("minutes", minutes);
+
+                editor.apply();
             }
 
+            private void updateRecyclerViewData(RecyclerView pastActivity) {
+                String url = "https://infits.in/androidApi/pastActivitySleep.php";
+                //String url = "http://10.12.2.128/infits/pastActivitySleep.php";
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    try {
+                        Log.d("response123", response.toString());
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("sleep");
+                        ArrayList<String> dates = new ArrayList<>();
+                        ArrayList<String> datas = new ArrayList();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String data = object.getString("hrsSlept");
+                            String date = object.getString("date");
+                            dates.add(date);
+                            datas.add(data);
+                            System.out.println(datas.get(i));
+                            System.out.println(dates.get(i));
+                        }
+                        AdapterForPastActivity ad = new AdapterForPastActivity(getContext(), dates, datas, Color.parseColor("#9C74F5"));
+                        pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
+                        pastActivity.setAdapter(ad);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
 
+                    if (error instanceof NetworkError) {
+                        // Handle network-related errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        // Handle server errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ParseError) {
+                        // Handle parse errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof NoConnectionError) {
+                        // Handle no connection errors
+                        Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof TimeoutError) {
+                        // Handle timeout errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Timeout Error for past activity", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle other errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d("Error", error.toString());
+                }) {
+                    //                    @Override
+//                    public RetryPolicy getRetryPolicy() {
+//                        return new DefaultRetryPolicy(customTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+//                    }
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
+                        return data;
+                    }
+                };
+
+                Volley.newRequestQueue(getActivity()).add(stringRequest);
+            }
         });
         return view;
 
     }
-
-    private void displaySleepNotification(String sleptFor) {
-        Intent intent = new Intent(requireContext(), SplashScreen.class);
-        intent.putExtra("notification", "sleep");
-        intent.putExtra("hours", hours);
-        intent.putExtra("minutes", minutes);
-        intent.putExtra("secs", secs);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), "SleepChannelId");
-        Notification goalReachedNotification = builder.setOngoing(false)
-                .setSmallIcon(R.mipmap.logo)
-                .setContentTitle("Sleep Tracker")
-                .setContentText(sleptFor)
-                .setChannelId("SleepChannelId")
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .build();
-
-        NotificationManager manager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(2, goalReachedNotification);
-    }
-
-    private void createSleepNotificationChannel() {
-        NotificationChannel channel = new NotificationChannel(
-                "SleepChannelId",
-                "Sleep Tracker",
-                NotificationManager.IMPORTANCE_HIGH
-        );
-        channel.setLightColor(Color.BLUE);
-        channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
-
-        NotificationManager manager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.createNotificationChannel(channel);
-    }
-
-    private void updateRecyclerViewData(RecyclerView pastActivity) {
-        String url = "https://infits.in/androidApi/pastActivitySleep.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-            try {
-                Log.d("response123", response.toString());
-                JSONObject jsonObject = new JSONObject(response);
-                JSONArray jsonArray = jsonObject.getJSONArray("sleep");
-//                ArrayList<String> dates = new ArrayList<>();
-//                ArrayList<String> datas = new ArrayList();
-                ArrayList<SleepData>  sleepDataArrayList= new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String data = object.getString("hrsSlept");
-                    String date = object.getString("date");
-                    Log.d("data from server", "data" + data + "date" + date);
-                    SleepData sleepData = new SleepData(date, data);
-                    sleepDataArrayList.add(sleepData);
-//                    dates.add(date);
-//                    datas.add(data);
-//                    System.out.println(datas.get(i));
-//                    System.out.println(dates.get(i));
-                }
-                AdapterForSleepPastActivity ad= new AdapterForSleepPastActivity(getContext(),sleepDataArrayList, Color.parseColor("#9C74F5"));
-                pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
-                pastActivity.setAdapter(ad);
-
-//               int totalTime= ad.calculateTotalSleepTimeForCurrentDate();
-//               Log.d("totalTime","minutes"+totalTime);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> handleVolleyError(error)) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                data.put("clientuserID", DataFromDatabase.clientuserID);
-                return data;
-            }
-        };
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
-
-    }
-
-
-
-
-    private void handleVolleyError(VolleyError error) {
-        if (error instanceof NetworkError) {
-            Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
-        } else if (error instanceof ServerError) {
-            Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
-        } else if (error instanceof ParseError) {
-            Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
-        } else if (error instanceof NoConnectionError) {
-            Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
-        } else if (error instanceof TimeoutError) {
-            Toast.makeText(getActivity().getApplicationContext(), "Timeout Error", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
-        }
-        Log.d("Error", error.toString());
-    }
-
-    private void handleNotificationFromArguments() {
-        if (getArguments() != null && getArguments().getBoolean("notification")) {
-            texttime.setText(getArguments().getString("sleepTime"));
-            tvDuration.setVisibility(View.VISIBLE);
-            tvDuration.setText("You slept for " + getArguments().getString("sleepTime"));
-        }
-    }
-
-    private void checkForegroundService() {
-        if (foregroundServiceRunning()) {
-            endcycle.setVisibility(View.VISIBLE);
-            startcycle.setVisibility(View.GONE);
-        } else {
-            endcycle.setVisibility(View.GONE);
-            startcycle.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void saveSleepDurationInPrefs() {
-        SharedPreferences sleepPrefs = requireActivity().getSharedPreferences("sleepPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sleepPrefs.edit();
-
-        editor.putString("hours", hours);
-        editor.putString("minutes", minutes);
-
-        editor.apply();
-    }
-
-    private void setupListeners() {
-        imgback.setOnClickListener(v -> navigateBackOrFinishActivity(v));
-        reminder.setOnClickListener(v -> navigateToSleepReminderFragment(v));
-        setalarm.setOnClickListener(v -> openAlarmClock(v));
-        startcycle.setOnClickListener(v -> startSleepCycle(v));
-
-    }
-
-
-    private void startSleepCycle(View v) {
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        SimpleDateFormat sleepTime = new SimpleDateFormat("yyyy-MM-dd H:m:s");
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-        myEdit.putString("sleepTime", sleepTime.format(date));
-        myEdit.commit();
-        calendar.add(Calendar.HOUR_OF_DAY, 8);
-        tvDuration.setVisibility(View.VISIBLE);
-        SimpleDateFormat sim = new SimpleDateFormat("HH:mm");
-
-        tvDuration.setText("Optimal time to wake up is" + sim.format(calendar.getTime()));
-        startcycle.setVisibility(View.GONE);
-        endcycle.setVisibility(View.VISIBLE);
-        if (!foregroundServiceRunning()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                getActivity().startForegroundService(new Intent(getActivity(), StopWatchService.class));
-            }
-            sleep = "";
-            getActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
-        }
-
-
-    }
-
-    private void openAlarmClock(View v) {
-        CustomDialogFragment dialog = new CustomDialogFragment();
-        dialog.show(getChildFragmentManager(), "custom_dialog");
-    }
-
-
-    private void navigateToSleepReminderFragment(View v) {
-        Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_sleepReminderFragment);
-    }
-
-    private void navigateBackOrFinishActivity(View v) {
-        if (getArguments() != null && getArguments().getBoolean("notification")) {
-            startActivity(new Intent(getActivity(), DashBoardMain.class));
-            requireActivity().finish();
-        } else {
-            Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);
-        }
-    }
-
-    private void initializeUI() {
-        tvDuration.setVisibility(View.INVISIBLE);
-    }
-
-    private void hooks(View view) {
-        imgback = view.findViewById(R.id.imgback);
-        setalarm = view.findViewById(R.id.setalarm);
-        startcycle = view.findViewById(R.id.startcycle);
-        endcycle = view.findViewById(R.id.endcycle);
-        texttime = view.findViewById(R.id.texttime);
-        tvDuration = view.findViewById(R.id.tvDuration);
-        reminder = view.findViewById(R.id.reminder);
-        pastActivity = view.findViewById(R.id.past_activity);
-    }
-
 
     private void updateInAppNotifications(String hours, String minutes, String secs) {
         SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", MODE_PRIVATE);
@@ -502,7 +545,7 @@ public class SleepTrackerFragment extends Fragment {
                     if (response.equals("inserted")) Log.d("SleepTrackerFragment", "success");
                     else Log.d("SleepTrackerFragment", "failure");
                 },
-                error -> Log.e("SleepTrackerFragment", error.toString())
+                error -> Log.e("SleepTrackerFragment",error.toString())
         ) {
             @NotNull
             @Override
@@ -532,15 +575,15 @@ public class SleepTrackerFragment extends Fragment {
             hours = sleep.substring(0, 2);
             minutes = sleep.substring(3, 5);
             secs = sleep.substring(6);
-            Log.i("StepTracker", "Countdown seconds remaining:" + sleep);
+            Log.i("StepTracker","Countdown seconds remaining:" + sleep);
             texttime.setText(sleep);
         }
     }
 
-    public boolean foregroundServiceRunning() {
+    public boolean foregroundServiceRunning(){
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (StopWatchService.class.getName().equals(service.service.getClassName())) {
+        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
+            if (StopWatchService.class.getName().equals(service.service.getClassName())){
                 return true;
             }
         }
