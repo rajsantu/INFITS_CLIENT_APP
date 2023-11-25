@@ -1,14 +1,13 @@
 package com.example.infits;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -39,7 +38,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     }
 
     private void weight(Context context) {
-        Intent resultIntent = new Intent(context, SplashScreen.class);
+        Intent resultIntent = new Intent(context, WeightTrackerFragment.class);
         resultIntent.putExtra("notification", "weight");
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(
@@ -61,16 +60,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
         managerCompat.notify(1, notification);
         Log.d("weight()", "set");
     }
@@ -98,16 +87,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
         managerCompat.notify(1, notification);
         Log.d("calorie()", "set");
     }
@@ -135,20 +114,11 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
         managerCompat.notify(1, notification);
         Log.d("water()", "set");
     }
 
+    @SuppressLint("MissingPermission")
     private void step(Context context) {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "step");
@@ -172,23 +142,13 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
         managerCompat.notify(1, notification);
         Log.d("step()", "set");
     }
 
+    @SuppressLint("MissingPermission")
     private void sleep(Context context) {
-        Log.i("TAG", "sleep: in notification receiver");
-        Intent resultIntent = new Intent(context, SplashScreen.class);
+        Intent resultIntent = new Intent(context, SleepTrackerFragment.class);
         resultIntent.putExtra("notification", "sleep");
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(
@@ -196,7 +156,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        String contentText = "It's time to go to sleep.";
+        String contentText = "It's time to get some sleep and complete your sleep goals.";
 
         Notification notification = new NotificationCompat.Builder(context, "SleepChannelId")
                 .setContentTitle("Sleep Reminder")
@@ -210,16 +170,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
         managerCompat.notify(1, notification);
         Log.d("sleep()", "set");
     }

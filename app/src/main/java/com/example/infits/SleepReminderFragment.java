@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -28,6 +29,10 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import org.joda.time.LocalDateTime;
 
+import java.util.Calendar;
+
+import Utility.AlarmHelper;
+
 public class SleepReminderFragment extends Fragment {
 
     ImageView imgBack;
@@ -50,7 +55,6 @@ public class SleepReminderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sleep_reminder, container, false);
 
         hooks(view);
@@ -74,7 +78,7 @@ public class SleepReminderFragment extends Fragment {
                 if(timeDiffOnce ==0){
                     Toast.makeText(getActivity(), "please set alarm first", Toast.LENGTH_SHORT).show();
                 }else{
-                    setAlarmOnce(timeDiffOnce);
+//                    setAlarmOnce(timeDiffOnce);
                     Navigation.findNavController(v).navigate(R.id.action_sleepReminderFragment_to_sleepTrackerFragment);
                 }
 
@@ -151,27 +155,39 @@ public class SleepReminderFragment extends Fragment {
         timePicker.addOnPositiveButtonClickListener(view -> {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
+            if(checkBox.isChecked()) {
+                AlarmHelper.createNotificationChannel(getContext(),"SleepChannelId","Sleep Reminder");
+                setOnceAlarm(pickedHour, pickedMinute);
+            }
 
-            long millisInHour = 60 * 60 * 1000;
-            long millisInMinute = 60 * 1000;
-            long OnceTimeInMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            else{
+                Toast.makeText(getActivity(), "Please check the box to set the alarm", Toast.LENGTH_SHORT).show();
 
-            long currentMillisOfDayOnce = LocalDateTime.now().getMillisOfDay();
-
-            if(OnceTimeInMillis<currentMillisOfDayOnce){
-                long currentMillisOfDayOnceExtra =currentMillisOfDayOnce + 24*60*60*1000;
-                long diff = currentMillisOfDayOnce - OnceTimeInMillis;
-                timeDiffOnce = (currentMillisOfDayOnceExtra - diff)/2;
-                Toast.makeText(getActivity(), "time : "+timeDiffOnce/1000, Toast.LENGTH_SHORT).show();
-                //setAlarm(timeDiffOnce);
-            }else {
-                timeDiffOnce = (OnceTimeInMillis-currentMillisOfDayOnce);
-                Toast.makeText(getActivity(),String.valueOf(timeDiffOnce/1000), Toast.LENGTH_SHORT).show();
-                //  setAlarm(timeDiffOnce);
             }
             setTextFieldsOnce(pickedHour, pickedMinute);
 
         });
+    }
+
+    private void setOnceAlarm(int pickedHour, int pickedMinute) {
+        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        sleepReceiverIntent.putExtra("tracker", "sleep");
+
+        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
+                requireActivity(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+        );
+        Calendar calendar= Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, pickedHour);
+        calendar.set(Calendar.MINUTE, pickedMinute);
+        calendar.set(Calendar.SECOND, 0);
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() , sleepReceiverPendingIntent);
     }
 
     private void showTimePicker() {
@@ -186,30 +202,16 @@ public class SleepReminderFragment extends Fragment {
         timePicker.show(requireActivity().getSupportFragmentManager(), "Reminder");
 
         timePicker.addOnPositiveButtonClickListener(view -> {
-            int pickedHour = timePicker.getHour();
-            int pickedMinute = timePicker.getMinute();
+//            obtaining user specified hour and minute
+                    int pickedHour = timePicker.getHour();
+                    int pickedMinute = timePicker.getMinute();
+//                    setRepeatingAlarm(pickedHour, pickedMinute);
+            AlarmHelper.createNotificationChannel(getContext(),"SleepChannelId","Sleep Reminder");
+            AlarmHelper.setTrackerAlarm(getContext(),"sleep",pickedHour,pickedMinute);
 
-            long millisInHour = 60 * 60 * 1000;
-            long millisInMinute = 60 * 1000;
-            long timeInMillis =  pickedHour * millisInHour + pickedMinute * millisInMinute;
-
-            long currentMillisOfDay = LocalDateTime.now().getMillisOfDay();
-
-            long timeDiff;
-
-            if(timeInMillis<currentMillisOfDay){
-                long currentMillisOfDayOnceExtra =currentMillisOfDay + 24*60*60*1000;
-                long diff = currentMillisOfDay - timeInMillis;
-                timeDiff = (currentMillisOfDayOnceExtra - diff)/2;
-                Toast.makeText(getActivity(), "time : "+timeDiff/1000, Toast.LENGTH_SHORT).show();
-                setAlarm(timeDiff);
-            }else {
-                timeDiff = (timeInMillis-currentMillisOfDay);
-                Toast.makeText(getActivity(),String.valueOf(timeDiff/1000), Toast.LENGTH_SHORT).show();
-                setAlarm(timeDiff);
-            }
-            setTextFields(pickedHour, pickedMinute);
-        });
+                    setTextFields(pickedHour, pickedMinute);
+                    Log.d("repeat", pickedHour + "" + pickedMinute);
+                });
     }
 
     private void setTextFieldsOnce(int pickedHour, int pickedMinute) {
@@ -266,39 +268,6 @@ public class SleepReminderFragment extends Fragment {
         Toast.makeText(getActivity(), "data stored", Toast.LENGTH_SHORT).show();
     }
 
-    private void setAlarm(long time) {
-        createNotificationChannel();
-
-        long timeInMillis =time + System.currentTimeMillis();
-
-        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
-        sleepReceiverIntent.putExtra("tracker", "sleep");
-
-        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sleepReceiverPendingIntent);
-        Log.d("setAlarm", "alarm set");
-    }
-
-    private void setAlarmOnce(long time) {
-        createNotificationChannel();
-
-        long timeInMillis =time + System.currentTimeMillis();
-
-        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
-        sleepReceiverIntent.putExtra("tracker", "sleep");
-
-        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 1, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sleepReceiverPendingIntent);
-        Log.d("setAlarm", "alarm set");
-    }
 
     private void cancelAlarm() {
         Intent sleepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
@@ -311,13 +280,6 @@ public class SleepReminderFragment extends Fragment {
         alarmManager.cancel(sleepReceiverPendingIntent);
     }
 
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("SleepChannelId", "Sleep Reminder", NotificationManager.IMPORTANCE_HIGH);
-            NotificationManager manager = requireActivity().getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-    }
 
     private void hooks(View view) {
         set = view.findViewById(R.id.set);

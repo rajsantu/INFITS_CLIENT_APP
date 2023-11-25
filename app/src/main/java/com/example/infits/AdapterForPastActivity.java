@@ -2,6 +2,7 @@ package com.example.infits;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class AdapterForPastActivity extends RecyclerView.Adapter<AdapterForPastActivity.PastVH> {
 
@@ -26,6 +32,9 @@ public class AdapterForPastActivity extends RecyclerView.Adapter<AdapterForPastA
         this.datas = datas;
         this.dates = dates;
         this.color = color;
+    }
+
+    public AdapterForPastActivity() {
     }
 
     @NonNull
@@ -49,6 +58,10 @@ public class AdapterForPastActivity extends RecyclerView.Adapter<AdapterForPastA
     public int getItemCount() {
         return datas.size();
     }
+
+
+
+
 
     public class PastVH extends RecyclerView.ViewHolder {
         TextView steps,date;
