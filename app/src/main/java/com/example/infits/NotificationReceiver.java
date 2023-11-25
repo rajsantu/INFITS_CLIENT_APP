@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -18,16 +19,26 @@ public class NotificationReceiver extends BroadcastReceiver {
         String tracker = intent.getStringExtra("tracker");
 
         switch (tracker) {
-            case "sleep" : sleep(context);
-            case "step" : step(context);
-            case "water" : water(context);
-            case "calorie" : calorie(context);
-            case "weight" : weight(context);
+            case "sleep":
+                sleep(context);
+                break;
+            case "step":
+                step(context);
+                break;
+            case "water":
+                water(context);
+                break;
+            case "calorie":
+                calorie(context);
+                break;
+            case "weight":
+                weight(context);
+                break;
         }
     }
 
     private void weight(Context context) {
-        Intent resultIntent = new Intent(context, SplashScreen.class);
+        Intent resultIntent = new Intent(context, WeightTrackerFragment.class);
         resultIntent.putExtra("notification", "weight");
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(
@@ -107,6 +118,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         Log.d("water()", "set");
     }
 
+    @SuppressLint("MissingPermission")
     private void step(Context context) {
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "step");
@@ -134,8 +146,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         Log.d("step()", "set");
     }
 
+    @SuppressLint("MissingPermission")
     private void sleep(Context context) {
-        Intent resultIntent = new Intent(context, SplashScreen.class);
+        Intent resultIntent = new Intent(context, SleepTrackerFragment.class);
         resultIntent.putExtra("notification", "sleep");
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(
@@ -143,7 +156,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        String contentText = "It's time to go to sleep.";
+        String contentText = "It's time to get some sleep and complete your sleep goals.";
 
         Notification notification = new NotificationCompat.Builder(context, "SleepChannelId")
                 .setContentTitle("Sleep Reminder")

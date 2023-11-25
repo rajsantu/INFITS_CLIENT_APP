@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -25,18 +26,27 @@ import android.widget.Toast;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import org.joda.time.LocalDateTime;
+
+import java.util.Calendar;
+
+import Utility.AlarmHelper;
+
 public class StepReminderFragment extends Fragment {
 
     ImageView imgBack;
     TextView time, timeAmPm, remindOnceTime, remindOnceAmPm;
     CheckBox checkBox;
-    Button dismiss;
+    Button dismiss,set;
 
     AlarmManager alarmManager;
 
     PendingIntent stepReceiverPendingIntent;
 
-    long remindOnceTimeInMillis = 0L;
+    long remindOnceTimeInMillis = 0L,timeDiff=0L,timeDiffOnce=0L;
+
+    long OneDayInMillis = 24*3600*1000;
+    SharedPreferences sharedPreferences;
 
     public StepReminderFragment() {
         // Required empty public constructor
@@ -48,6 +58,8 @@ public class StepReminderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_step_reminder, container, false);
 
         hooks(view);
+        setFields();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         imgBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_stepReminderFragment_to_stepTrackerFragment));
 
@@ -59,22 +71,63 @@ public class StepReminderFragment extends Fragment {
 
         remindOnceAmPm.setOnClickListener(v -> showTimePickerOnce());
 
+        sharedPreferences = getActivity().getSharedPreferences("StepReminderPrefs", Context.MODE_PRIVATE);
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timeDiff == 0L){
+                    Toast.makeText(getContext(), "Please set Alarm first", Toast.LENGTH_SHORT).show();
+                }else{
+                    setAlarm(timeDiff);
+                    Toast.makeText(getContext(), "set: "+timeDiff/1000, Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(v).navigate(R.id.action_stepReminderFragment_to_stepTrackerFragment);
+                }
+            }
+        });
+
         checkBox.setOnCheckedChangeListener(((compoundButton, b) -> {
             if(b) {
-                setAlarm(remindOnceTimeInMillis);
+                editor.putBoolean("isChecked",true);
+                editor.apply();
+
+                if(timeDiffOnce == 0L){
+                    Toast.makeText(getContext(), "Please select reminder time", Toast.LENGTH_SHORT).show();
+                }else {
+                    setOnceAlarm(timeDiffOnce);
+                }
+
             } else {
+                editor.putBoolean("isChecked",false);
+                editor.apply();
                 cancelOnceAlarm();
             }
         }));
 
         dismiss.setOnClickListener(v -> {
             dismissAlarm();
+            Navigation.findNavController(v).navigate(R.id.action_stepReminderFragment_to_stepTrackerFragment);
         });
 
         return view;
     }
 
+    private void setFields() {
+        sharedPreferences = requireActivity().getSharedPreferences("StepReminderPrefs", Context.MODE_PRIVATE);
+
+        time.setText(sharedPreferences.getString("get_stepTime","--:--"));
+        timeAmPm.setText(sharedPreferences.getString("get_StepTime_am_pm","--"));
+        remindOnceTime.setText(sharedPreferences.getString("get_stepTimeOnce","--:--"));
+        remindOnceAmPm.setText(sharedPreferences.getString("get_StepTimeOnce_am_pm","--"));
+        checkBox.setChecked(sharedPreferences.getBoolean("isChecked",false));
+        Toast.makeText(getActivity(), "data retrieved!", Toast.LENGTH_SHORT).show();
+
+    }
+
     private void dismissAlarm() {
+        Intent stepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
+        PendingIntent stepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, stepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         }
@@ -85,7 +138,7 @@ public class StepReminderFragment extends Fragment {
 
     private void cancelOnceAlarm() {
         Intent stepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent stepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, stepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent stepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 1, stepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
@@ -113,6 +166,26 @@ public class StepReminderFragment extends Fragment {
             long millisInMinute = 60 * 1000;
             remindOnceTimeInMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
 
+            long todayTimeInMillis = LocalDateTime.now().getMillisOfDay();
+
+            if(remindOnceTimeInMillis>todayTimeInMillis){
+                timeDiffOnce  =remindOnceTimeInMillis - todayTimeInMillis;
+            }else {
+                long timeD  =remindOnceTimeInMillis - todayTimeInMillis;
+                timeDiffOnce = OneDayInMillis - timeD;
+            }
+
+            if(checkBox.isChecked()){
+                setOnceAlarm(timeDiffOnce);
+                Toast.makeText(getContext(), "set: "+timeDiffOnce/1000, Toast.LENGTH_SHORT).show();
+            }
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putFloat("remindOnceTime",remindOnceTimeInMillis);
+            editor.putFloat("getTimeDiffOnce",timeDiffOnce);
+            editor.apply();
+
+
             setTextFieldsOnce(pickedHour, pickedMinute);
         });
     }
@@ -131,15 +204,18 @@ public class StepReminderFragment extends Fragment {
         timePicker.addOnPositiveButtonClickListener(view -> {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
+            Log.d("alerrt dialog ok button clicked","alert");
+            AlarmHelper.createNotificationChannel(getContext(),"StepChannelId","Step Reminder");
+            AlarmHelper.setTrackerAlarm(getContext(),"step",pickedHour,pickedMinute);
 
-            long millisInHour = 60 * 60 * 1000;
-            long millisInMinute = 60 * 1000;
-            long timeInMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putFloat("getTimeDiff",timeDiffOnce);
+            editor.apply();
 
             setTextFields(pickedHour, pickedMinute);
-            setAlarm(timeInMillis);
         });
     }
+
 
     private void setTextFieldsOnce(int pickedHour, int pickedMinute) {
         String timeText = "", amPm = "AM";
@@ -158,6 +234,11 @@ public class StepReminderFragment extends Fragment {
 
         remindOnceTime.setText(timeText);
         remindOnceAmPm.setText(amPm);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("get_stepTimeOnce",timeText);
+        editor.putString("get_StepTimeOnce_am_pm",amPm);
+        editor.apply();
     }
 
     private void setTextFields(int pickedHour, int pickedMinute) {
@@ -177,10 +258,16 @@ public class StepReminderFragment extends Fragment {
 
         time.setText(timeText);
         timeAmPm.setText(amPm);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("get_stepTime",timeText);
+        editor.putString("get_StepTime_am_pm",amPm);
+        editor.apply();
     }
 
     private void setAlarm(long time) {
-        createNotificationChannel();
+
+        time = System.currentTimeMillis() + time;
 
         AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
 
@@ -195,15 +282,27 @@ public class StepReminderFragment extends Fragment {
         Log.d("setAlarm", "alarm set");
     }
 
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("StepChannelId", "Step Reminder", NotificationManager.IMPORTANCE_HIGH);
-            NotificationManager manager = requireActivity().getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
+    private void setOnceAlarm(long time) {
+//        createNotificationChannel();
+
+        long timeInMilli = System.currentTimeMillis() + time;
+
+        AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent stepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        stepReceiverIntent.putExtra("tracker", "step");
+
+        stepReceiverPendingIntent = PendingIntent.getBroadcast(
+                requireActivity(), 1001, stepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+        );
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMilli, stepReceiverPendingIntent);
+        Log.d("setAlarm", "alarm set");
     }
 
+
     private void hooks(View view) {
+        set = view.findViewById(R.id.set);
         imgBack = view.findViewById(R.id.img_back);
         time = view.findViewById(R.id.time);
         timeAmPm = view.findViewById(R.id.timeAmPm);
