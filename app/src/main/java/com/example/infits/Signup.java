@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,9 @@ public class Signup extends AppCompatActivity {
 
     char gender = 'M';
 
-    EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
+    EditText fullName,userName,emailID,password,phoneNo, age, height, weight,referredCode;
+    //referred_code is code shared by other use
+    //referralcode is user referral code when he/she wants to share
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class Signup extends AppCompatActivity {
         age = findViewById(R.id.age_background);
         height = findViewById(R.id.new_height);
         weight = findViewById(R.id.new_weight);
+        referredCode = findViewById(R.id.new_referral_code);
         maleRB = findViewById(R.id.male_rb);
         femaleRB = findViewById(R.id.female_rb);
         progressBar = findViewById(R.id.signUpProgress);
@@ -84,10 +88,9 @@ public class Signup extends AppCompatActivity {
 
     private boolean checkIfFieldsAreFilled(
             String userID, String passwordStr, String emailStr, String phoneStr,
-            String fullNameStr, String ageStr, String heightStr, String weightStr
-    ) {
+            String fullNameStr, String ageStr, String heightStr, String weightStr) {
         return !userID.equals("") && !passwordStr.equals("") && !emailStr.equals("") && !phoneStr.equals("") &&
-                !fullNameStr.equals("") && !ageStr.equals("") && !heightStr.equals("") && !weightStr.equals("");
+                !fullNameStr.equals("") && !ageStr.equals("") && !heightStr.equals("") && !weightStr.equals("") ;
     }
 
     private void generateReferral() {
@@ -121,17 +124,19 @@ public class Signup extends AppCompatActivity {
         String ageStr = age.getText().toString();
         String heightStr = height.getText().toString();
         String weightStr = weight.getText().toString();
+        String referredCodeStr = referredCode.getText().toString();
         if(!checkIfFieldsAreFilled(userID, passwordStr, emailStr, phoneStr, fullNameStr, ageStr, heightStr, weightStr)) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
         }
         else {
-            String url = "https://infits.in/androidApi/register_client_with_referral.php";
+
+            String url = String.format("%sregister_client_with_referral.php",DataFromDatabase.ipConfig);
             //StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sregister_client_with_referral.php",DataFromDatabase.ipConfig), response -> {
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
                 if (response != null && !response.contains("Duplicate entry")){
                     progressBar.setVisibility(View.INVISIBLE);
                     signbtn.setClickable(true);
-                    Toast.makeText(getApplicationContext(), "Registration completed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Registration completed", Toast.LENGTH_LONG).show();
                     Intent id = new Intent(getApplicationContext(), Login.class);
                     startActivity(id);
                     finish();
@@ -140,7 +145,7 @@ public class Signup extends AppCompatActivity {
                     if (response != null && response.contains("client.PRIMARY")){
                         progressBar.setVisibility(View.INVISIBLE);
                         signbtn.setClickable(true);
-                        Toast.makeText(getApplicationContext(),"Username already exits",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Username already exits",Toast.LENGTH_LONG).show();
                     }else {
                         if (response != null && response.contains("Duplicate entry")) generateReferral();
                     }
@@ -148,7 +153,12 @@ public class Signup extends AppCompatActivity {
             },error -> {
                 signbtn.setClickable(true);
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+                String errorMessage = "Unknown error";
+                if (error.networkResponse != null && error.networkResponse.data != null) {
+                    errorMessage = new String(error.networkResponse.data);
+                }
+                Log.e("VolleyError", errorMessage); // Log the complete error message
+                Toast.makeText(getApplicationContext(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();})
             {
                 @Nullable
                 @Override
@@ -161,13 +171,20 @@ public class Signup extends AppCompatActivity {
                     data.put("phone",phoneStr);
                     data.put("gender",String.valueOf(gender));
                     data.put("age",ageStr);
-                    data.put("weight",heightStr);
-                    data.put("height",weightStr);
+                    data.put("height",heightStr);
+                    data.put("weight",weightStr);
+                    data.put("referredCode",referredCodeStr);
                     data.put("verification","0");
                     data.put("dietitian_id","-1");
                     data.put("dietitianuserID","-1");
+                    data.put("userid",userID);
                     data.put("referralCode",referralCode);
                     data.put("activeUsers","none");
+
+                    for (Map.Entry<String, String> entry : data.entrySet()) {
+                        Log.d("Request Data", entry.getKey() + ": " + entry.getValue());
+                    }
+
                     return data;
                 }
             };

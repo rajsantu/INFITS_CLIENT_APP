@@ -43,7 +43,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -132,15 +140,16 @@ public class SleepTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        //String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
+        // String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
         String url = "https://infits.in/androidApi/pastActivitySleep.php";
+        int customTimeout = 15000; // 15 seconds (you can adjust this)
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             try {
-                Log.d("response123",response.toString());
+                Log.d("response123", response.toString());
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("sleep");
-                for (int i = 0;i<jsonArray.length();i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     String data = object.getString("hrsSlept");
                     String date = object.getString("date");
@@ -149,26 +158,53 @@ public class SleepTrackerFragment extends Fragment {
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#9C74F5"));
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(), dates, datas, Color.parseColor("#9C74F5"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        },error -> {
-            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            Log.d("Error",error.toString());
-        }){
+        }, error -> {
+            if (error instanceof NetworkError) {
+                // Handle network-related errors
+                Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof ServerError) {
+                // Handle server errors
+                Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof ParseError) {
+                // Handle parse errors
+                Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof NoConnectionError) {
+                // Handle no connection errors
+                Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
+            } else if (error instanceof TimeoutError) {
+                // Handle timeout errors
+                Toast.makeText(getActivity().getApplicationContext(), "Timeout Error for loading previous activity", Toast.LENGTH_SHORT).show();
+            } else {
+                // Handle other errors
+                Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+            Log.d("Error", error.toString());
+            Log.d("Error", error.toString());
+        }) {
+            @Override
+            public RetryPolicy getRetryPolicy() {
+                return new DefaultRetryPolicy(customTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            }
+
             @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> data = new HashMap<>();
-                data.put("clientuserID",DataFromDatabase.clientuserID);
+            protected Map<String, String> getParams() {
+                Map<String, String> data = new HashMap<>();
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
 
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+// Add the request to the request queue (assuming you have a RequestQueue instance)
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
 
         PowerManager powerManager = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -279,20 +315,20 @@ public class SleepTrackerFragment extends Fragment {
                 String time = sleep;
                 endcycle.setVisibility(View.GONE);
                 startcycle.setVisibility(View.VISIBLE);
-                Intent i = new Intent(getActivity(),StopWatchService.class);
-                i.putExtra("status",true);
+                Intent i = new Intent(getActivity(), StopWatchService.class);
+                i.putExtra("status", true);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    getActivity().getApplicationContext().stopService(new Intent(getActivity(),StopWatchService.class));
+                    getActivity().getApplicationContext().stopService(new Intent(getActivity(), StopWatchService.class));
                 }
                 getActivity().unregisterReceiver(broadcastReceiver);
-                tvDuration.setText("You slept for " +sleep);
+                tvDuration.setText("You slept for " + sleep);
 
                 updateInAppNotifications(hours, minutes, secs);
 
-                SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
+                SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails", MODE_PRIVATE);
                 boolean sleepNotificationPermission = notificationPrefs.getBoolean("sleepSwitch", false);
 
-                if(sleepNotificationPermission) {
+                if (sleepNotificationPermission) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         Log.d("sleep", "permitted");
                         NotificationChannel channel = new NotificationChannel(
@@ -307,7 +343,6 @@ public class SleepTrackerFragment extends Fragment {
                         manager.createNotificationChannel(channel);
 
                         String sleptFor = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
-
 
                         Intent intent = new Intent(requireContext(), SplashScreen.class);
                         intent.putExtra("notification", "sleep");
@@ -331,20 +366,47 @@ public class SleepTrackerFragment extends Fragment {
                     }
                 }
 
-                //String url=String.format("%ssleepTracker.php",DataFromDatabase.ipConfig);
+                // String url=String.format("%ssleepTracker.php", DataFromDatabase.ipConfig);
                 String url = "https://infits.in/androidApi/sleepTracker.php";
-                StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
-                    if (response.equals("updated")){
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+                    if (response.equals("updated")) {
                         Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                        // After successfully updating the data on the server, update the RecyclerView
+                        updateRecyclerViewData(pastActivity);
+                    } else {
                         System.out.println(response);
                         Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
                     }
-                },error -> {
-                    Toast.makeText(requireContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }, error -> {
+
+                    if (error instanceof NetworkError) {
+                        // Handle network-related errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        // Handle server errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ParseError) {
+                        // Handle parse errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof NoConnectionError) {
+                        // Handle no connection errors
+                        Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof TimeoutError) {
+                        // Handle timeout errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Timeout Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle other errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d("Error", error.toString());
                 })
                 {
+                    @Override
+                    public RetryPolicy getRetryPolicy() {
+                        return new DefaultRetryPolicy(customTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                    }
+
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
@@ -355,18 +417,18 @@ public class SleepTrackerFragment extends Fragment {
                         Date date = new Date();
                         String pat = "dd-MM-yyyy H:m:s";
                         SimpleDateFormat sdf = new SimpleDateFormat(pat);
-                        Map<String,String> data = new HashMap<>();
-                        data.put("userID",DataFromDatabase.clientuserID);
-                        data.put("sleeptime",sleepTime);
+                        Map<String, String> data = new HashMap<>();
+                        data.put("userID", DataFromDatabase.clientuserID);
+                        data.put("sleeptime", sleepTime);
                         data.put("waketime", sdf.format(date));
-                        data.put("timeslept",time);
-                        System.out.println("hi"+time);
+                        data.put("timeslept", time);
+                        //   System.print("hi" + time);
                         data.put("goal", "8");
                         data.put("hrsslept", hours);
                         data.put("minsslept", minutes);
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
                         LocalDateTime now = LocalDateTime.now();
-                        data.put("date",dtf.format(now));
+                        data.put("date", dtf.format(now));
                         Log.d("sleep", "userId: " + DataFromDatabase.clientuserID);
                         Log.d("sleep", "sleepTime: " + sleepTime);
                         Log.d("sleep", "wakeTime: " + sdf.format(date));
@@ -374,7 +436,7 @@ public class SleepTrackerFragment extends Fragment {
                         Log.d("sleep", "goal: " + 8);
                         Log.d("sleep", "hrsSlept: " + hours);
                         Log.d("sleep", "minSlept: " + minutes);
-                        Log.d("sleep",dtf.format(now));
+                        Log.d("sleep", dtf.format(now));
                         return data;
                     }
                 };
@@ -389,8 +451,73 @@ public class SleepTrackerFragment extends Fragment {
 
                 editor.apply();
             }
+
+            private void updateRecyclerViewData(RecyclerView pastActivity) {
+                String url = "https://infits.in/androidApi/pastActivitySleep.php";
+                //String url = "http://10.12.2.128/infits/pastActivitySleep.php";
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    try {
+                        Log.d("response123", response.toString());
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("sleep");
+                        ArrayList<String> dates = new ArrayList<>();
+                        ArrayList<String> datas = new ArrayList();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String data = object.getString("hrsSlept");
+                            String date = object.getString("date");
+                            dates.add(date);
+                            datas.add(data);
+                            System.out.println(datas.get(i));
+                            System.out.println(dates.get(i));
+                        }
+                        AdapterForPastActivity ad = new AdapterForPastActivity(getContext(), dates, datas, Color.parseColor("#9C74F5"));
+                        pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
+                        pastActivity.setAdapter(ad);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+
+                    if (error instanceof NetworkError) {
+                        // Handle network-related errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        // Handle server errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ParseError) {
+                        // Handle parse errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Parse Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof NoConnectionError) {
+                        // Handle no connection errors
+                        Toast.makeText(getActivity().getApplicationContext(), "No Connection Error", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof TimeoutError) {
+                        // Handle timeout errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Timeout Error for past activity", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle other errors
+                        Toast.makeText(getActivity().getApplicationContext(), "Other Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d("Error", error.toString());
+                }) {
+                    //                    @Override
+//                    public RetryPolicy getRetryPolicy() {
+//                        return new DefaultRetryPolicy(customTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+//                    }
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        data.put("clientuserID", DataFromDatabase.clientuserID);
+                        return data;
+                    }
+                };
+
+                Volley.newRequestQueue(getActivity()).add(stringRequest);
+            }
         });
         return view;
+
     }
 
     private void updateInAppNotifications(String hours, String minutes, String secs) {
@@ -399,8 +526,10 @@ public class SleepTrackerFragment extends Fragment {
         inAppEditor.putBoolean("newNotification", true);
         inAppEditor.apply();
 
-        //String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+
+        // String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
         String inAppUrl = "https://infits.in/androidApi/inAppNotifications.php";
+
 
         String type = "sleep";
         String text = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
@@ -426,8 +555,7 @@ public class SleepTrackerFragment extends Fragment {
                 data.put("clientID", DataFromDatabase.clientuserID);
                 data.put("type", type);
                 data.put("text", text);
-                data.put("date", String.valueOf(date));
-
+                data.put("dateandtime", String.valueOf(date));
                 return data;
             }
         };

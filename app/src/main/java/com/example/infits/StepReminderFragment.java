@@ -6,8 +6,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.os.Build;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -104,10 +106,10 @@ public class StepReminderFragment extends Fragment {
             }
         }));
 
-        dismiss.setOnClickListener(v -> {
-            dismissAlarm();
-            Navigation.findNavController(v).navigate(R.id.action_stepReminderFragment_to_stepTrackerFragment);
-        });
+
+
+        dismiss.setOnClickListener(v -> dismissAlarm());
+
 
         return view;
     }
@@ -218,7 +220,7 @@ public class StepReminderFragment extends Fragment {
 
 
     private void setTextFieldsOnce(int pickedHour, int pickedMinute) {
-        String timeText = "", amPm = "AM";
+        String timeText, amPm = "AM";
 
         if(pickedHour > 12) {
             pickedHour -= 12;
@@ -242,7 +244,7 @@ public class StepReminderFragment extends Fragment {
     }
 
     private void setTextFields(int pickedHour, int pickedMinute) {
-        String timeText = "", amPm = "AM";
+        String timeText, amPm = "AM";
 
         if(pickedHour > 12) {
             pickedHour -= 12;
@@ -282,6 +284,7 @@ public class StepReminderFragment extends Fragment {
         Log.d("setAlarm", "alarm set");
     }
 
+
     private void setOnceAlarm(long time) {
 //        createNotificationChannel();
 
@@ -298,8 +301,8 @@ public class StepReminderFragment extends Fragment {
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMilli, stepReceiverPendingIntent);
         Log.d("setAlarm", "alarm set");
-    }
 
+    }
 
     private void hooks(View view) {
         set = view.findViewById(R.id.set);

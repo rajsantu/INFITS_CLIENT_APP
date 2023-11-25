@@ -374,26 +374,26 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object1 = jsonArray.getJSONObject(1);
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
-                    String stepsWeek = object0.getString("SumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
+                    String SumWeek = object0.getString("SumWeek");
+                    if (SumWeek.equals("null")){
+                        SumWeek ="0";
                     }
-                    weekly.setText(stepsWeek);
-                    String stepsMonth = object1.getString("SumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
+                    weekly.setText(SumWeek);
+                    String SumMonth = object1.getString("SumMonth");
+                    if (SumMonth.equals("null")){
+                        SumMonth ="0";
                     }
-                    monthly.setText(stepsMonth);
-                    String stepsDaily = object2.getString("SumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
+                    monthly.setText(SumMonth);
+                    String SumDaily = object2.getString("SumDaily");
+                    if (SumDaily.equals("null")){
+                        SumDaily ="0";
                     }
-                    daily.setText(stepsDaily);
-                    String stepsTotal = object3.getString("SumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
+                    daily.setText(SumDaily);
+                    String SumTotal = object3.getString("SumTotal");
+                    if (SumTotal.equals("null")){
+                        SumTotal ="0";
                     }
-                    total.setText(stepsTotal);
+                    total.setText(SumTotal);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -409,7 +409,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", DataFromDatabase.clientuserID);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
                 return data;
             }
         };

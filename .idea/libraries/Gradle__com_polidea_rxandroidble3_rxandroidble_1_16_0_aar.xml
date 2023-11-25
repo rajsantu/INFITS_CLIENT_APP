@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="Gradle: com.polidea.rxandroidble3:rxandroidble:1.16.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/65b5e3fb5db3c5c1df74f00f88cc90f8/transformed/jetified-rxandroidble-1.16.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/efca4a3a9d42ac88a10a90d4e6571ba8/transformed/jetified-rxandroidble-1.16.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/65b5e3fb5db3c5c1df74f00f88cc90f8/transformed/jetified-rxandroidble-1.16.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/65b5e3fb5db3c5c1df74f00f88cc90f8/transformed/jetified-rxandroidble-1.16.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/efca4a3a9d42ac88a10a90d4e6571ba8/transformed/jetified-rxandroidble-1.16.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/efca4a3a9d42ac88a10a90d4e6571ba8/transformed/jetified-rxandroidble-1.16.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.polidea.rxandroidble3/rxandroidble/1.16.0/729dc69f88da99e4142726a3f4f7bb19d4344890/rxandroidble-1.16.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.polidea.rxandroidble3/rxandroidble/1.16.0/ce472dc685f7868c63889e8c4201cb80a9f09ed2/rxandroidble-1.16.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
