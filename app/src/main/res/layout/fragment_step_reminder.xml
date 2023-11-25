@@ -54,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-53dp"
@@ -103,36 +104,36 @@
         <View
             android:layout_width="142dp"
             android:layout_height="2dp"
-            android:background="#FF6416"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="80dp"
+            android:background="#FF6416" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="35dp"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:buttonTint="#FF6416"
-                tools:ignore="TouchTargetSizeCheck"
-                android:focusable="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="-4dp"/>
+                android:layout_marginTop="-4dp"
+                android:buttonTint="#FF6416"
+                android:clickable="true"
+                android:focusable="true"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:layout_marginStart="28dp"
                 android:text="Remind me once at"
                 android:textColor="#555353"
                 android:textSize="16sp" />
@@ -174,13 +175,31 @@
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
         android:background="@drawable/dismiss_btn"
+        android:backgroundTint="#FF6416"
         android:fontFamily="@font/nats_regular"
         android:text="Dismiss"
-        android:textSize="20sp"
-        android:backgroundTint="#FF6416"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/set"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/set"
+        android:layout_width="138dp"
+        android:layout_height="61dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/dismiss_btn"
+        android:backgroundTint="#FF6416"
+        android:fontFamily="@font/nats_regular"
+        android:text="set"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@+id/dismiss"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

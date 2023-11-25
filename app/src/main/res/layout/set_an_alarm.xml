@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Set an alarm"
+        android:textColor="#138DE5"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cancelAlarm"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/_mark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView90"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="180sp"
+        android:layout_height="1sp"
+        android:layout_marginTop="15dp"
+        android:background="#E1DFDF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView90" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:layout_marginTop="65dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3">
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="48dp"
+            android:layout_height="200sp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/uparrow1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_keyboard_arrow_up_24" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/numberPicker1"
+                android:descendantFocusability="beforeDescendants"
+                android:divider="@null"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                app:np_dividerColor="@color/black"
+                android:layout_height="90dp"
+                android:showDividers="middle"
+                app:np_dividerThickness="0dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:layout_weight="4"
+                app:np_min="1"
+                app:np_max="12"
+                android:contentDescription="Numpicker"
+                app:np_itemSpacing="2dp"
+                app:np_selectedTextSize="25dp"
+                app:np_textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/downarrow1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_keyboard_arrow_down_24" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:layout_marginHorizontal="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text=":"
+            />
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="48dp"
+            android:layout_height="200sp"
+            android:layout_marginRight="20sp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/uparrow2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_keyboard_arrow_up_24" />
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/numberPicker2"
+                android:layout_width="match_parent"
+                app:np_min="0"
+                app:np_max="59"
+                android:divider="@drawable/mealtracker_icon"
+                android:layout_height="80dp"
+                android:layout_marginTop="-5dp"
+                app:np_dividerColor="@color/white"
+                android:layout_marginBottom="-5dp"
+                android:layout_weight="4"
+                android:contentDescription="Numpicker"
+                android:showDividers="middle"
+                app:np_dividerThickness="0dp"
+                app:np_itemSpacing="2dp"
+                app:np_selectedTextColor="#030000"
+                app:np_selectedTextSize="25dp"
+                app:np_textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/downarrow2"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_keyboard_arrow_down_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="48dp"
+            android:layout_height="161sp"
+            android:layout_marginBottom="5sp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/uparrow3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_keyboard_arrow_up_24" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/numberPicker3"
+                android:layout_width="match_parent"
+                android:layout_height="90sp"
+                android:showDividers="middle"
+                android:contentDescription="AM PM"
+                android:layout_marginTop="-10sp"
+                app:np_min="1"
+                app:np_max="2"
+                app:np_dividerColor="@color/white"
+                app:np_dividerThickness="0sp"
+                app:np_itemSpacing="15sp"
+                app:np_selectedTextSize="20dp"
+                app:np_textSize="18dp"
+                />
+
+            <ImageButton
+                android:id="@+id/downarrow3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_keyboard_arrow_down_24" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView91"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="48dp"
+        android:text="Label"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="200dp"
+        android:layout_height="30sp"
+        android:layout_marginTop="43dp"
+        android:layout_marginLeft="5sp"
+        app:cardCornerRadius="8sp"
+        app:cardElevation="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView91"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5sp"
+            android:id="@+id/label"
+            android:background="@null"
+            android:hint="Type here"
+            android:textSize="15sp" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/setAlarm"
+        android:layout_width="110sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginEnd="140dp"
+        android:text="Set Alarm"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        app:cornerRadius="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+        <TextView
+            android:id="@+id/selectedTime"
+            android:layout_width="30sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginStart="100dp"
+            android:text="--"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+        <TextView
+            android:layout_width="30sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:text=":"
+            android:layout_marginTop="3sp"
+            android:layout_marginLeft="-15sp"
+            android:layout_marginRight="-14sp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/min"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="--"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/selectedTime"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+        <TextView
+            android:id="@+id/ampm"
+            android:layout_width="30sp"
+            android:layout_height="20sp"
+            android:gravity="center"
+            android:layout_marginEnd="100dp"
+            android:text="--"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/min"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
