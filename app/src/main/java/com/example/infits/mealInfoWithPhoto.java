@@ -71,6 +71,8 @@ public class mealInfoWithPhoto extends Fragment {
     private String mParam2;
     TextView mealName, calorieValue, carbsValue, fatValue, proteinValue;
     //String url = String.format("%sgetFavouriteFoodItems.php", DataFromDatabase.ipConfig);
+
+
     String url = "https://infits.in/androidApi/getFavouriteFoodItems.php";
     //String url1 = String.format("%saddFavouriteFoodItems.php", DataFromDatabase.ipConfig);
     String url1 = "https://infits.in/androidApi/addFavouriteFoodItems.php";
@@ -133,7 +135,7 @@ public class mealInfoWithPhoto extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meal_info_with_photo, container, false);
         hooks(view);
 
-        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(1520);
+        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(800);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
 
 

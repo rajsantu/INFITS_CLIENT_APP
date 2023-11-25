@@ -2,9 +2,11 @@ package com.example.infits;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,24 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +45,8 @@ public class Section4Q7 extends Fragment {
     Button nextbtn;
     TextView backbtn, textView80;
     EditText eTextHeight;
+    int position = 1;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,8 +98,11 @@ public class Section4Q7 extends Fragment {
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         eTextHeight = view.findViewById(R.id.eTextHeight);
-
+        final String[] storeAnswer = new String[1];
         textView80 = view.findViewById(R.id.textView80);
+
+
+
 
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +121,13 @@ public class Section4Q7 extends Fragment {
                     ConsultationFragment.psection4 += 1;
 
                     Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_consultationFragment);
+
+
+
                 }
             }
         });
+
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override

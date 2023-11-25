@@ -219,6 +219,22 @@
             android:textColor="@color/white"
             app:hintTextColor="@color/white"
             android:inputType="number"/>
+        <EditText
+            android:id="@+id/new_referral_code"
+            android:hint="Enter Referral Code"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="40dp"
+            android:fontFamily="@font/nats_regular"
+            android:textSize="18sp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/referral_code_background"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            app:hintTextColor="@color/white"
+            android:inputType="text"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

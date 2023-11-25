@@ -193,7 +193,7 @@ public class DashBoardFragment extends Fragment {
 
         // Dashboard Profile pic from server
         ImageView profileImageView = view.findViewById(R.id.profile1);
-        String DashboardprofilePic = "https://infits.in/androidApi/upload/default.jpg";
+        String DashboardprofilePic = "http://192.168.1.9/infits/upload/default.jpg";
         Glide.with(this).load(DashboardprofilePic).fitCenter().into(profileImageView);
 
         // Execute the query using a Volley StringRequest
@@ -639,7 +639,7 @@ public class DashBoardFragment extends Fragment {
 
     private void getLatestCalorieData() {
         //String calorieUrl = String.format("%sgetLatestCalorieData.php", DataFromDatabase.ipConfig);
-        String calorieUrl = "https://infits.in/androidApi/getLatestCalorieData.php";
+        String calorieUrl = "http://192.168.1.9/infits/getLatestCalorieData.php";
         calorietv.setText("------");
         calorieGoaltv.setText("2000 Kcal");
 

@@ -1,5 +1,6 @@
 package com.example.infits;
 
+<<<<<<< HEAD
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -7,6 +8,8 @@ import androidx.cardview.widget.CardView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+=======
+>>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,10 +18,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+<<<<<<< HEAD
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+=======
+
+import androidx.appcompat.app.AppCompatActivity;
+
+>>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -45,6 +54,7 @@ public class connectingDietitian extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_connecting_dietitian);
         verify = findViewById(R.id.button5Connect);
         cardView = findViewById(R.id.card70);
@@ -62,6 +72,15 @@ public class connectingDietitian extends AppCompatActivity {
         cardView3=findViewById(R.id.cardView3);
         button5connect=findViewById(R.id.button5Connect);
         verify.setOnClickListener(new View.OnClickListener() {
+=======
+        requestWindowFeature(getWindow().FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_connetcing_dietitian);
+
+        Button verifyButton = findViewById(R.id.button5);
+        verifyButton.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
             @Override
             public void onClick(View v) {
                 fetchDataFromPhpFile();
@@ -118,6 +137,7 @@ public class connectingDietitian extends AppCompatActivity {
                         email.setText(jsonObjectData.getString("email"));
                         mobile.setText(jsonObjectData.getString("mobile"));
 
+<<<<<<< HEAD
                     } catch (Exception e) {
                         Toast.makeText(connectingDietitian.this,e.toString(),Toast.LENGTH_SHORT).show();
                         Log.d("connectingdietitian",e.getLocalizedMessage().toString());
@@ -158,6 +178,42 @@ public class connectingDietitian extends AppCompatActivity {
                             Toast.makeText(connectingDietitian.this,"Updated",Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(connectingDietitian.this,response,Toast.LENGTH_SHORT).show();
+=======
+        String url = "http://192.168.18.6/verify.php?verification_code=" + verificationCode;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (!response.has("error")) {
+
+                                TextView textViewName = findViewById(R.id.textViewName);
+                                TextView textViewMobile = findViewById(R.id.textViewMobile);
+
+                                textViewName.setText(response.getString("name"));
+                                textViewMobile.setText(response.getString("mobile"));
+
+                                findViewById(R.id.card70).setVisibility(View.VISIBLE);
+
+                                TextView errorTextView = findViewById(R.id.errorTextView);
+                                errorTextView.setVisibility(View.GONE);
+                            } else {
+
+                                String errorMessage = response.getString("error");
+
+                                TextView errorTextView = findViewById(R.id.errorTextView);
+                                errorTextView.setText(errorMessage);
+                                errorTextView.setVisibility(View.VISIBLE);
+
+                                findViewById(R.id.card70).setVisibility(View.INVISIBLE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+>>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
                         }
 
                     } catch (Exception e) {
