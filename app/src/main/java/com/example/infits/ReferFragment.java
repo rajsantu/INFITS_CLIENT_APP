@@ -110,12 +110,22 @@ public class ReferFragment extends Fragment {
                 response -> {
                     Log.d("ReferralFragment", "checkReferralTable: " + response);
 
-                    if(response.equals("found")) {
-                        updateReferralTable(referralCode);
-                        showSuccessDialog();
+                    if (response.equals("found")) {
+                        Toast.makeText(requireContext(), "Waiting To response", Toast.LENGTH_LONG).show();
+                        String referralText = referralTV.getText().toString(); // Get the text from the TextView
+                        // the uppar part is to check the print what is coming
+                        System.out.println(referralText+"gagan");
+                        // Using inner conditional statment To check self user Can`t user own referrCode
+                        if (referralCode.toString().equals(referralText)) { // Compare the text with the response
+                            Toast.makeText(requireContext(), "Try With other Refferral", Toast.LENGTH_LONG).show();
+                        } else {
+                            updateReferralTable(referralCode);
+                            showSuccessDialog();
+                        }
                     } else {
                         showFailureDialog();
                     }
+
                 },
                 error -> Log.e("ReferralFragment", "checkReferralTable: " + error.toString())
         ) {
@@ -200,6 +210,7 @@ public class ReferFragment extends Fragment {
                     Log.d("ReferralFragment", "getReferralCode: " + response);
                     referralCode = response;
                     referralTV.setText(response);
+
 
                 },
                 error -> Log.e("ReferralFragment", "getReferralCode: " + error.toString())

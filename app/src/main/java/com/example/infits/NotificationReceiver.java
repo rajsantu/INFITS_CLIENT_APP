@@ -5,8 +5,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -18,11 +20,21 @@ public class NotificationReceiver extends BroadcastReceiver {
         String tracker = intent.getStringExtra("tracker");
 
         switch (tracker) {
-            case "sleep" : sleep(context);
-            case "step" : step(context);
-            case "water" : water(context);
-            case "calorie" : calorie(context);
-            case "weight" : weight(context);
+            case "sleep":
+                sleep(context);
+                break;
+            case "step":
+                step(context);
+                break;
+            case "water":
+                water(context);
+                break;
+            case "calorie":
+                calorie(context);
+                break;
+            case "weight":
+                weight(context);
+                break;
         }
     }
 
@@ -49,6 +61,16 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("weight()", "set");
     }
@@ -76,6 +98,16 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("calorie()", "set");
     }
@@ -103,6 +135,16 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("water()", "set");
     }
@@ -130,11 +172,22 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("step()", "set");
     }
 
     private void sleep(Context context) {
+        Log.i("TAG", "sleep: in notification receiver");
         Intent resultIntent = new Intent(context, SplashScreen.class);
         resultIntent.putExtra("notification", "sleep");
 
@@ -157,6 +210,16 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .build();
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         managerCompat.notify(1, notification);
         Log.d("sleep()", "set");
     }

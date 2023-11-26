@@ -40,6 +40,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:padding="1dp"
             android:layout_height="match_parent">
 
 
@@ -49,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:scrollbars="none"
+                android:layout_marginLeft="@dimen/_15sdp"
                 app:layout_constraintTop_toBottomOf="@+id/textView24">
 
                 <LinearLayout
@@ -59,7 +61,7 @@
                         android:id="@+id/button9"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/_5sdp"
                         android:background="@drawable/bg_scrn_3rd_nutr"
                         android:drawableLeft="@drawable/fire_diet_chart"
                         android:fontFamily="@font/nats_regular"
@@ -73,7 +75,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/_5sdp"
                         android:background="@drawable/bg_scrn_3rd_nutr"
                         android:drawableLeft="@drawable/fats"
                         android:fontFamily="@font/nats_regular"
@@ -85,19 +87,20 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/_5sdp"
                         android:background="@drawable/bg_scrn_3rd_nutr"
                         android:drawableLeft="@drawable/fish"
+
                         android:fontFamily="@font/nats_regular"
                         android:paddingLeft="15dp"
                         android:paddingRight="1dp"
-                        android:text="20g protien"
+                        android:text="20g protiens "
                         android:textAllCaps="false" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="@dimen/_5sdp"
                         android:background="@drawable/bg_scrn_3rd_nutr"
                         android:drawableLeft="@drawable/carbs_diet_chart"
                         android:fontFamily="@font/nats_regular"
@@ -152,6 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/_3sdp"
                             android:fontFamily="@font/nats_regular"
                             android:text="Wheat Flour"
                             android:textAlignment="center"
@@ -616,8 +620,8 @@
 
             <ImageView
                 android:id="@+id/imageView115"
-                android:layout_width="300dp"
-                android:layout_height="78dp"
+                android:layout_width="340dp"
+                android:layout_height="89dp"
                 android:background="@drawable/diet_btn_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -749,9 +753,10 @@
                 android:src="@drawable/bg_rect_scn3rd"
                 app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.931"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textView42"
-                app:layout_constraintTop_toTopOf="@+id/textView42" />
+                app:layout_constraintTop_toTopOf="@+id/textView42"
+                app:layout_constraintVertical_bias="0.141" />
 
             <ImageView
                 android:id="@+id/imageView62"
@@ -770,6 +775,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:layout_marginLeft="@dimen/_3sdp"
                 android:fontFamily="@font/nats_regular"
                 android:text="Blueberry Pancake"
                 android:textColor="#1D1617"
@@ -788,6 +794,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-10dp"
                 android:layout_marginBottom="6dp"
+                android:layout_marginLeft="@dimen/_8sdp"
                 android:text="by Ronald Richards"
                 app:layout_constraintBottom_toTopOf="@+id/textView24"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -801,6 +808,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:layout_marginLeft="@dimen/_15sdp"
                 android:fontFamily="@font/nats_regular"
                 android:text="Nutrition Breakdown"
                 android:textColor="#1D1617"
@@ -814,7 +822,7 @@
                 android:id="@+id/textView59"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-8dp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/nats_regular"
                 android:text="Description"
                 android:textColor="#1D1617"
@@ -828,28 +836,31 @@
 
             <TextView
                 android:id="@+id/textView60"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="366dp"
+                android:layout_height="64dp"
                 android:layout_marginStart="10dp"
-                android:text="Pancakes are some people\'s favorite breakfast, who doesn\'t
-                like pancakes? Especially with the real honey splash on top of the pancakes, of course everyone loves that! besides being      read more......"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="8dp"
+                android:text="Pancakes are some people\'s favorite breakfast, who &#xA;doesn\'t like pancakes?  Especially with the real honey splash on top of the pancakes,  of course everyone loves that! besides being read more......"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView59" />
 
             <TextView
                 android:id="@+id/textView26"
-                android:layout_width="308dp"
-                android:layout_height="48dp"
+                android:layout_width="317dp"
+                android:layout_height="84dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+
                 android:fontFamily="@font/nats_regular"
                 android:lineHeight="30dp"
-                android:text="Ingredients that will be needed to "
+                android:text="Ingredients that will be needed to &#xA; prepare the recipe"
                 android:textColor="#1D1617"
                 android:textSize="21sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView60" />
 
@@ -857,26 +868,26 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="36dp"
                 android:fontFamily="@font/nats_regular"
                 android:text="6 items"
                 android:textColor="#7B6F72"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toEndOf="@+id/textView26"
                 app:layout_constraintTop_toBottomOf="@+id/textView60" />
 
             <TextView
                 android:id="@+id/textView63"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="5dp"
                 android:fontFamily="@font/nats_regular"
                 android:lineHeight="30dp"
-                android:text="prepare the recipe"
+                android:text=""
                 android:textColor="#1D1617"
                 android:textSize="21sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.029"
+                app:layout_constraintHorizontal_bias="0.093"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
