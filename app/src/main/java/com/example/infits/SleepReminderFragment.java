@@ -1,11 +1,13 @@
 package com.example.infits;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +27,24 @@ import android.widget.Toast;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import org.joda.time.LocalDateTime;
+
+import java.util.Calendar;
+
+import Utility.AlarmHelper;
+
 public class SleepReminderFragment extends Fragment {
 
     ImageView imgBack;
     TextView time, timeAmPm, remindOnceTime, remindOnceAmPm;
     CheckBox checkBox;
-    Button dismiss;
+    Button dismiss,set;
 
+    SharedPreferences sharedPreferences;
     AlarmManager alarmManager;
-    long remindOnceTimeInMillis = 0L;
+    //  long remindOnceTimeInMillis = 2000L;
+    long timeDiffOnce =0;
+
 
     PendingIntent sleepReceiverPendingIntent;
 
@@ -45,10 +55,10 @@ public class SleepReminderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sleep_reminder, container, false);
 
         hooks(view);
+        setFields();
 
         imgBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_sleepReminderFragment_to_sleepTrackerFragment));
 
@@ -60,10 +70,35 @@ public class SleepReminderFragment extends Fragment {
 
         remindOnceAmPm.setOnClickListener(v -> showTimePickerOnce());
 
+        sharedPreferences = getActivity().getSharedPreferences("SleepReminderPrefs", Context.MODE_PRIVATE);
+
+        set.setOnClickListener(v -> {
+            if(checkBox.isChecked()){
+                // setAlarm(remindOnceTimeInMillis);
+                if(timeDiffOnce ==0){
+                    Toast.makeText(getActivity(), "please set alarm first", Toast.LENGTH_SHORT).show();
+                }else{
+//                    setAlarmOnce(timeDiffOnce);
+                    Navigation.findNavController(v).navigate(R.id.action_sleepReminderFragment_to_sleepTrackerFragment);
+                }
+
+            }else {
+                cancelOnceAlarm();
+                Navigation.findNavController(v).navigate(R.id.action_sleepReminderFragment_to_sleepTrackerFragment);
+            }
+        });
+
         checkBox.setOnCheckedChangeListener(((compoundButton, b) -> {
             if(b) {
-                setAlarm(remindOnceTimeInMillis);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isChecked",true);
+                editor.apply();
+                //   setAlarm(remindOnceTimeInMillis);
+
             } else {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isChecked",false);
+                editor.apply();
                 cancelOnceAlarm();
             }
         }));
@@ -73,6 +108,17 @@ public class SleepReminderFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void setFields() {
+        sharedPreferences = requireActivity().getSharedPreferences("SleepReminderPrefs", Context.MODE_PRIVATE);
+
+        time.setText(sharedPreferences.getString("get_sleepTime","8:20"));
+        timeAmPm.setText(sharedPreferences.getString("get_SleepTime_am_pm","PM"));
+        remindOnceTime.setText(sharedPreferences.getString("get_sleepTimeOnce","5:20"));
+        remindOnceAmPm.setText(sharedPreferences.getString("get_SleepTimeOnce_am_pm","PM"));
+        checkBox.setChecked(sharedPreferences.getBoolean("isChecked",false));
+        Toast.makeText(getActivity(), "data retrieved!", Toast.LENGTH_SHORT).show();
     }
 
     private void dismissAlarm() {
@@ -86,7 +132,7 @@ public class SleepReminderFragment extends Fragment {
 
     private void cancelOnceAlarm() {
         Intent sleepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
-        PendingIntent sleepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent sleepReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 1, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
 
         if(alarmManager == null) {
             alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
@@ -109,13 +155,39 @@ public class SleepReminderFragment extends Fragment {
         timePicker.addOnPositiveButtonClickListener(view -> {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
+            if(checkBox.isChecked()) {
+                AlarmHelper.createNotificationChannel(getContext(),"SleepChannelId","Sleep Reminder");
+                setOnceAlarm(pickedHour, pickedMinute);
+            }
 
-            long millisInHour = 60 * 60 * 1000;
-            long millisInMinute = 60 * 1000;
-            remindOnceTimeInMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
+            else{
+                Toast.makeText(getActivity(), "Please check the box to set the alarm", Toast.LENGTH_SHORT).show();
 
+            }
             setTextFieldsOnce(pickedHour, pickedMinute);
+
         });
+    }
+
+    private void setOnceAlarm(int pickedHour, int pickedMinute) {
+        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
+        sleepReceiverIntent.putExtra("tracker", "sleep");
+
+        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
+                requireActivity(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
+        );
+        Calendar calendar= Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, pickedHour);
+        calendar.set(Calendar.MINUTE, pickedMinute);
+        calendar.set(Calendar.SECOND, 0);
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() , sleepReceiverPendingIntent);
     }
 
     private void showTimePicker() {
@@ -130,15 +202,15 @@ public class SleepReminderFragment extends Fragment {
         timePicker.show(requireActivity().getSupportFragmentManager(), "Reminder");
 
         timePicker.addOnPositiveButtonClickListener(view -> {
+//            obtaining user specified hour and minute
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
-
-            long millisInHour = 60 * 60 * 1000;
-            long millisInMinute = 60 * 1000;
-            long timeInMillis = pickedHour * millisInHour + pickedMinute * millisInMinute;
+//                    setRepeatingAlarm(pickedHour, pickedMinute);
+            AlarmHelper.createNotificationChannel(getContext(),"SleepChannelId","Sleep Reminder");
+            AlarmHelper.setTrackerAlarm(getContext(),"sleep",pickedHour,pickedMinute);
 
             setTextFields(pickedHour, pickedMinute);
-            setAlarm(timeInMillis);
+            Log.d("repeat", pickedHour + "" + pickedMinute);
         });
     }
 
@@ -159,6 +231,14 @@ public class SleepReminderFragment extends Fragment {
 
         remindOnceTime.setText(timeText);
         remindOnceAmPm.setText(amPm);
+
+        sharedPreferences = requireActivity().getSharedPreferences("SleepReminderPrefs", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("get_sleepTimeOnce",timeText);
+        editor.putString("get_SleepTimeOnce_am_pm",amPm);
+        editor.apply();
+
     }
 
     private void setTextFields(int pickedHour, int pickedMinute) {
@@ -178,23 +258,16 @@ public class SleepReminderFragment extends Fragment {
 
         time.setText(timeText);
         timeAmPm.setText(amPm);
+
+        sharedPreferences = requireActivity().getSharedPreferences("SleepReminderPrefs", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("get_sleepTime",timeText);
+        editor.putString("get_SleepTime_am_pm",amPm);
+        editor.apply();
+        Toast.makeText(getActivity(), "data stored", Toast.LENGTH_SHORT).show();
     }
 
-    private void setAlarm(long time) {
-        createNotificationChannel();
-
-        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
-        sleepReceiverIntent.putExtra("tracker", "sleep");
-
-        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 0, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, sleepReceiverPendingIntent);
-        Log.d("setAlarm", "alarm set");
-    }
 
     private void cancelAlarm() {
         Intent sleepReceiverIntent = new Intent(requireContext(), NotificationReceiver.class);
@@ -207,15 +280,9 @@ public class SleepReminderFragment extends Fragment {
         alarmManager.cancel(sleepReceiverPendingIntent);
     }
 
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("SleepChannelId", "Sleep Reminder", NotificationManager.IMPORTANCE_HIGH);
-            NotificationManager manager = requireActivity().getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-    }
 
     private void hooks(View view) {
+        set = view.findViewById(R.id.set);
         imgBack = view.findViewById(R.id.img_back);
         time = view.findViewById(R.id.sleep_time);
         timeAmPm = view.findViewById(R.id.sleep_time_am_pm);
