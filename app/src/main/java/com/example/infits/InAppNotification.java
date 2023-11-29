@@ -104,7 +104,7 @@ public class InAppNotification extends AppCompatActivity {
                             InAppNotificationData inAppNotificationData = new InAppNotificationData(type, date, time, text);
 
                             Log.d("Notif",text+" "+type+" "+datePart+" "+time);
-                            InAppNotificationData inAppNotificationData = new InAppNotificationData(type, datePart, time, text);
+                             inAppNotificationData = new InAppNotificationData(type, datePart, time, text);
                             inAppData.add(inAppNotificationData);
 
                         }
@@ -124,19 +124,16 @@ public class InAppNotification extends AppCompatActivity {
             @NotNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
-
-                data.put("clientID", DataFromDatabase.clientuserID);
+Map<String,String> data= new HashMap<>() ;
+data.put("clientID", DataFromDatabase.clientuserID);
                 data.put("dateandtime", String.valueOf(date));
 
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 sdf.format(date);
-                Map<String, String> data = new HashMap<>();
                 data.put("clientuserID", DataFromDatabase.clientuserID);
                 data.put("date",String.valueOf(date));
 
- test-branch
                 return data;
             }
         };

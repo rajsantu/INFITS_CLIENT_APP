@@ -9,13 +9,7 @@
         android:bottomRightRadius="45dp"
         />
     <stroke
-<<<<<<< HEAD
         android:color="#FF0000"
-        android:width="3dp"
-=======
-        android:color="#4B9AFB"
-        android:width="5dp"
->>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
-        />
+        android:width="3dp" />
 
 </shape>

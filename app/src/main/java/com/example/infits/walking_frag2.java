@@ -158,8 +158,6 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
         stopClockwiseRotation();
         stopAntiClockwiseRotation();
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+

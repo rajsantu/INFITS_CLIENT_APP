@@ -76,7 +76,6 @@ public class Login extends AppCompatActivity {
 
     //String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     //String url = "https://infits.in/androidApi/login_client.php";
-    String url="http://192.168.1.9/infits/login_client.php";
 
     RequestQueue queue;
 
@@ -204,7 +203,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
                             DataFromDatabase.verification  = object.getString("verification");
-                            DataFromDatabase.verification_code  = object.getString("verification_code");
+//                            DataFromDatabase.verification_code  = object.getString("verification_code");
 
                             DataFromDatabase.profilePhotoBase = object.getString("profilePhoto");
 
