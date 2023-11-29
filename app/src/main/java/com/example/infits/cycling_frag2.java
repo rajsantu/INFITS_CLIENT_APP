@@ -260,8 +260,5 @@ public class cycling_frag2 extends Fragment implements LocationListener {
         super.onDestroy();
         stopLocationUpdates();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
+

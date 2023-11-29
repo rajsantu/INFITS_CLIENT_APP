@@ -22,17 +22,15 @@
         android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
- gaganTiwari
 
- paras
 
  <!--   <uses-feature android:name="android.hardware.camera"/> -->
     <uses-permission android:name="android.permission.CAMERA"/>
- test-branch
 
 
 
- test-branch
+
+
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -91,7 +89,7 @@
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
         <activity
- HEAD
+
             android:name=".PastActivity"
             android:exported="false" />
         <activity
@@ -102,9 +100,7 @@
                 android:value="" />
         </activity>
         <activity
-
- 52a7283f68c8d9f4458eb4ef2f9536bebbb861b5
-            android:name=".EndedLiveScreen"
+           android:name=".EndedLiveScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -121,24 +117,6 @@
         <activity
             android:name=".LiveScreen"
             android:exported="false">
-
-            <!--
-            android:exported="true" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
 
             <meta-data
                 android:name="android.app.lib_name"
