@@ -544,6 +544,7 @@ public class DashBoardFragment extends Fragment {
 
     private String getCurrentSleepDuration(SleepDurationCallback callback) {
 
+
         String url = "https://infits.in/androidApi/pastActivitySleep.php";
         String clientUserId = DataFromDatabase.clientuserID;
         Log.d("entered", "url");

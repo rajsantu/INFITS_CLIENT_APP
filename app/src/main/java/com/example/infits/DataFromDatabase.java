@@ -25,6 +25,7 @@ public class DataFromDatabase {
 
 
 
+
 //    public static String ipConfig = "http://192.168.29.187/infits/";
     public static String ipConfig = "https://infits.in/androidApi/";
 
