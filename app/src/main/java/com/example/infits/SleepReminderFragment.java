@@ -29,14 +29,11 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import org.joda.time.LocalDateTime;
 
-
 import java.util.Calendar;
 
 import Utility.AlarmHelper;
 
-
 public class SleepReminderFragment extends Fragment {
-
 
     ImageView imgBack;
     TextView time, timeAmPm, remindOnceTime, remindOnceAmPm;
@@ -81,9 +78,8 @@ public class SleepReminderFragment extends Fragment {
                 if(timeDiffOnce ==0){
                     Toast.makeText(getActivity(), "please set alarm first", Toast.LENGTH_SHORT).show();
                 }else{
-
-                    setAlarmOnce(timeDiffOnce);
-
+//                    setAlarmOnce(timeDiffOnce);
+                    Navigation.findNavController(v).navigate(R.id.action_sleepReminderFragment_to_sleepTrackerFragment);
                 }
 
             }else {
@@ -164,9 +160,9 @@ public class SleepReminderFragment extends Fragment {
                 setOnceAlarm(pickedHour, pickedMinute);
             }
 
-
             else{
                 Toast.makeText(getActivity(), "Please check the box to set the alarm", Toast.LENGTH_SHORT).show();
+
             }
             setTextFieldsOnce(pickedHour, pickedMinute);
 
@@ -209,17 +205,12 @@ public class SleepReminderFragment extends Fragment {
 //            obtaining user specified hour and minute
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
-
+//                    setRepeatingAlarm(pickedHour, pickedMinute);
             AlarmHelper.createNotificationChannel(getContext(),"SleepChannelId","Sleep Reminder");
             AlarmHelper.setTrackerAlarm(getContext(),"sleep",pickedHour,pickedMinute);
 
             setTextFields(pickedHour, pickedMinute);
             Log.d("repeat", pickedHour + "" + pickedMinute);
-
-
-            
-            setTextFields(pickedHour, pickedMinute);
-
         });
     }
 
@@ -268,8 +259,6 @@ public class SleepReminderFragment extends Fragment {
         time.setText(timeText);
         timeAmPm.setText(amPm);
 
-
-
         sharedPreferences = requireActivity().getSharedPreferences("SleepReminderPrefs", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -277,35 +266,6 @@ public class SleepReminderFragment extends Fragment {
         editor.putString("get_SleepTime_am_pm",amPm);
         editor.apply();
         Toast.makeText(getActivity(), "data stored", Toast.LENGTH_SHORT).show();
-    }
-
-
-        sharedPreferences = requireActivity().getSharedPreferences("SleepReminderPrefs", Context.MODE_PRIVATE);
-
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("get_sleepTime",timeText);
-        editor.putString("get_SleepTime_am_pm",amPm);
-        editor.apply();
-        Toast.makeText(getActivity(), "data stored", Toast.LENGTH_SHORT).show();
-}
-
-    private void setAlarmOnce(long time) {
-        createNotificationChannel();
-
-        long timeInMillis =time + System.currentTimeMillis();
-
-        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent sleepReceiverIntent = new Intent(requireActivity(), NotificationReceiver.class);
-        sleepReceiverIntent.putExtra("tracker", "sleep");
-
-        sleepReceiverPendingIntent = PendingIntent.getBroadcast(
-                requireActivity(), 1, sleepReceiverIntent, PendingIntent.FLAG_IMMUTABLE
-        );
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, sleepReceiverPendingIntent);
-        Log.d("setAlarm", "alarm set");
-
     }
 
 

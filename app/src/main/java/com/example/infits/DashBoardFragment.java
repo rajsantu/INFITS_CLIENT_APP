@@ -38,6 +38,8 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
@@ -293,8 +295,18 @@ public class DashBoardFragment extends Fragment {
         String sleepText = sleepPrefs.getString("hours", "00") + " hr " + sleepPrefs.getString("minutes", "00") + " mins";
 
         sleepGoaltv.setText(sleepGoalText);
-        sleeptv.setText(sleepText);
+        sleepGoaltv.setText(sleepGoalText);
+        getCurrentSleepDuration(new SleepDurationCallback() {
+            @Override
+            public void onSleepDurationReceived(String sleepDuration) {
+                sleeptv.setText(sleepDuration);
+            }
 
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("Sleep Duration Error", errorMessage);
+            }
+        });
         watercard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_waterTrackerFragment));
         getLatestWaterData();
 
@@ -340,7 +352,7 @@ public class DashBoardFragment extends Fragment {
                 //Toast.makeText(getContext(),"Consultation card clicked",Toast.LENGTH_SHORT).show();
             }
             else {
-                showDialog();
+                startActivity(new Intent(getActivity(), connectingDietitian.class));
             }
         });
 
@@ -535,6 +547,80 @@ public class DashBoardFragment extends Fragment {
             }
         }
         return view;
+    }
+
+    private void getCurrentSleepDuration(SleepDurationCallback callback) {
+        String url = "https://infits.in/androidApi/pastActivitySleep.php";
+        String clientUserId = DataFromDatabase.clientuserID;
+        Log.d("entered", "url");
+        final StringBuilder resultBuilder = new StringBuilder();
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Handle the JSON response from the server
+                        Log.d("SleepDataResponse", response);
+
+                        // Parse the JSON response
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            JSONArray sleepArray = jsonResponse.getJSONArray("sleep");
+
+                            // Variables to store total hours and minutes slept
+                            int totalHours = 0;
+                            int totalMinutes = 0;
+
+                            // Iterate through the sleep data array
+                            for (int i = 0; i < sleepArray.length(); i++) {
+                                JSONObject sleepData = sleepArray.getJSONObject(i);
+                                String hrsSlept = sleepData.getString("hrsSlept");
+
+                                // Parse hours and minutes from the "hrsSlept" string
+                                String[] parts = hrsSlept.split(" ");
+                                int hours = Integer.parseInt(parts[0]);
+                                int minutes = Integer.parseInt(parts[2]);
+
+                                // Add to the total hours and minutes
+                                totalHours += hours;
+                                totalMinutes += minutes;
+                            }
+
+                            // Convert excess minutes to hours
+                            totalHours += totalMinutes / 60;
+                            totalMinutes %= 60;
+
+                            // Now, totalHours and totalMinutes contain the summed up sleep duration
+                            Log.d("TotalSleepDuration", totalHours + " hrs " + totalMinutes + " mins");
+//                      Build the result string
+                            String sleepDuration = String.valueOf(resultBuilder.append(totalHours).append("hrs").append(" ").append(totalMinutes).append("min"));
+                            callback.onSleepDurationReceived(sleepDuration);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onError("Error parsing JSON");
+                            Log.d("callback","error");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle errors
+                        callback.onError("Error in network request");
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("clientuserID", clientUserId);
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd H:m:s ", Locale.getDefault()).format(new Date());
+                params.put("selectedDate", currentDate);
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(getActivity()).add(request);
+        return resultBuilder.toString();
+
     }
 
     public void setProfileImage(Drawable drawable) {
