@@ -24,4 +24,8 @@
         <item>#FFFFFF</item>
         <item>#FFC37D</item>
     </array>
+    <array name = "myGradientProgress">
+        <item>#FFFFFF</item>
+        <item>#FFFFFF</item>
+    </array>
 </resources>
