@@ -45,6 +45,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class running_frag1 extends Fragment implements SensorEventListener {
@@ -58,11 +59,14 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     float distance, calories;
 
     Button btn_pause, btn_start;
+
     ImageView btn_stop;
     ImageView imageView80;
     ImageView imageView79;
     ImageView imageView76;
-    TextView running_txt, cont_running_txt, distance_disp, calorie_disp, time_disp;
+    TextView running_txt, cont_running_txt, distance_disp, calorie_disp, time_disp,distance_show;
+    private long startTime = 0;
+    private long elapsedTime = 0;
 
     public static final String preference = "running_values";
     SharedPreferences sharedpreferences;
@@ -93,7 +97,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_running_frag1, container, false);
-        //distance_show=view.findViewById(R.id.textView70);
+        distance_show=view.findViewById(R.id.textView71);
         btn_pause = view.findViewById(R.id.imageView86);
         btn_start = view.findViewById(R.id.imageView105);
         btn_stop = view.findViewById(R.id.imageView89);
@@ -169,6 +173,8 @@ public class running_frag1 extends Fragment implements SensorEventListener {
         if (flag_steps == 0) {
             pre_step = (int) event.values[0] - 1;
             flag_steps = 1;
+            startTime = System.currentTimeMillis();
+            Log.d("MyApp", "startTime initialized: " + startTime);
         }
 
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
@@ -176,11 +182,21 @@ public class running_frag1 extends Fragment implements SensorEventListener {
             current_steps = current - pre_step;
             distance = (float) 0.002 * current_steps;
             calories = (float) 0.06 * current_steps;
+            long currentTime = System.currentTimeMillis();
+            elapsedTime = currentTime - startTime;
 
+            int hours = (int) (elapsedTime / 3600000); // Convert milliseconds to hours
+            int minutes = (int) ((elapsedTime % 3600000) / 60000); // Convert milliseconds to minutes
+
+            String formattedTime = String.format("%02d.%02d", hours, minutes);
+            Log.d("elapsed time", formattedTime);
             distance_disp.setText(String.format("%.2f", distance));
+            distance_show.setText(String.format("%.2f", distance));
             calorie_disp.setText(String.format("%.2f", calories));
+            time_disp.setText(formattedTime);
         }
     }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -230,13 +246,16 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     }
 
     private void sendDataToServer() {
-        String url = "https://infits.in/androidApi/runningTracker.php";
-
+        //String url = "https://infits.in/androidApi/runningTracker.php";
+        //String url = "http://10.12.2.128/infits/runningTracker.php";
+        String url = "http://192.168.29.52/infits/runningTracker.php";
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-            if (response.equals("updated")) {
+            String cleanResponse = response.trim();
+            if (cleanResponse.equals("updated")) {
                 Toast.makeText(getActivity(), "Data updated successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getActivity(), "Failed to update data", Toast.LENGTH_SHORT).show();
+                Log.e("MyApp", "Failed to update data: " + cleanResponse);
             }
         }, error -> {
             Toast.makeText(requireContext(), "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
@@ -252,20 +271,19 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                 data.put("calories", String.valueOf(calories));
                 data.put("runtime", String.valueOf(time));
                 data.put("goal", goal);
-                data.put("duration", "0");
+                //data.put("duration", "0");
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 data.put("date", dtf.format(now));
                 data.put("dateandtime", DTF.format(now));
+                data.put("operationtodo","updatedata");
                 return data;
             }
         };
-
         // Set a retry policy in case of timeout or connection errors
         int socketTimeout = 30000; // 30 seconds
         request.setRetryPolicy(new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
         Toast.makeText(getActivity(), "Updating data...", Toast.LENGTH_SHORT).show();
     }
