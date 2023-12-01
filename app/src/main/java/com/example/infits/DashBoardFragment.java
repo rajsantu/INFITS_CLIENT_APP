@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,10 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -47,14 +42,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.bumptech.glide.Glide;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 public class DashBoardFragment extends Fragment {
 
     //String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
@@ -549,7 +542,8 @@ public class DashBoardFragment extends Fragment {
         return view;
     }
 
-    private void getCurrentSleepDuration(SleepDurationCallback callback) {
+    private String getCurrentSleepDuration(SleepDurationCallback callback) {
+
         String url = "https://infits.in/androidApi/pastActivitySleep.php";
         String clientUserId = DataFromDatabase.clientuserID;
         Log.d("entered", "url");
