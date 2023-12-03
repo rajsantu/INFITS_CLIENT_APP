@@ -1,14 +1,12 @@
-package com.example.infits;
+package com.example.infits.Fragments.SleepTracker;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,25 +17,20 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.AlarmClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +47,12 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.infits.AdapterForPastActivity;
+import com.example.infits.DashBoardMain;
+import com.example.infits.DataFromDatabase;
+import com.example.infits.R;
+import com.example.infits.SplashScreen;
+import com.example.infits.StopWatchService;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -68,7 +67,6 @@ import java.util.Calendar;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class SleepTrackerFragment extends Fragment {
@@ -118,7 +116,7 @@ public class SleepTrackerFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
-                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                    startActivity(new Intent(getActivity(), DashBoardMain.class));
                     requireActivity().finish();
                 } else {
                     Navigation.findNavController(requireActivity(), R.id.trackernav).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);

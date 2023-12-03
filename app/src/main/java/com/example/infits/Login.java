@@ -203,7 +203,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
                             DataFromDatabase.verification  = object.getString("verification");
-//                            DataFromDatabase.verification_code  = object.getString("verification_code");
+                            DataFromDatabase.verification_code  = object.getString("verification_code");
 
                             DataFromDatabase.profilePhotoBase = object.getString("profilePhoto");
 
@@ -243,6 +243,7 @@ public class Login extends AppCompatActivity {
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(Login.this,e.getMessage(),Toast.LENGTH_SHORT);
                         }
 
                         startActivity(id);

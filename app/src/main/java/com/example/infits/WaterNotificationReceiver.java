@@ -15,6 +15,8 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.infits.databinding.FragmentWaterReminderBinding;
+
 import java.util.Calendar;
 
 public class WaterNotificationReceiver extends BroadcastReceiver {
@@ -25,7 +27,7 @@ public class WaterNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("HII","WaterTracker");
-        Intent resultIntent = new Intent(context, WaterReminderFragment.class);
+        Intent resultIntent = new Intent(context, FragmentWaterReminderBinding.class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         resultIntent.putExtra("notification", "water");
         String notificationData="It's time to drink water!";

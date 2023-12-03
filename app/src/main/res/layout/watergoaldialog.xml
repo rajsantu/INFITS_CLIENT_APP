@@ -1,43 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_height="400dp"
     android:background="@color/white"
-    android:gravity="center"
     android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    app:cardElevation="5dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="5dp">
-
-
-
-
+    android:layout_margin="10dp">
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:orientation="vertical"
         android:gravity="center"
-        android:orientation="vertical">
-
-
-
+        android:layout_gravity="center">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_gravity="center">
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="    Set goal for water intake"
                 android:fontFamily="@font/nats_regular"
-                android:text=" Set goal for water intake"
                 android:textAlignment="center"
                 android:textColor="#0051AA"
                 android:textSize="23sp" />
@@ -50,10 +43,10 @@
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_baseline_close_24"
                 app:tint="@color/black" />
-
         </LinearLayout>
 
         <TextView
+            android:id="@+id/valueIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-20dp"
@@ -68,24 +61,20 @@
             android:layout_height="0.8dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            app:dividerColor="#CADAF3" />
-
-
-
+            app:dividerColor="#CADAF3"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Set quantity!"
                 android:layout_gravity="center"
                 android:fontFamily="@font/nats_regular"
-                android:text="Set quantity!"
                 android:textAlignment="center"
                 android:textColor="#0051AA"
                 android:textSize="21sp" />
@@ -94,38 +83,33 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginStart="13dp"
+                android:text="1 Glass (in ml) =  "
                 android:fontFamily="@font/nats_regular"
-                android:text="1 Glass (in ml) = "
+                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textColor="#0051AA"
                 android:textSize="18sp" />
-
-
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <ImageView
                     android:id="@+id/number_Picker_up_button"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:clickable="true"
                     android:layout_gravity="center"
                     android:layout_marginBottom="-13dp"
-                    android:clickable="true"
-                    android:src="@drawable/baseline_keyboard_arrow_up_24" />
-
+                    android:src="@drawable/baseline_keyboard_arrow_up_24"/>
                 <TextView
                     android:id="@+id/current_number_picked"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:text="200"
                     android:layout_gravity="center"
                     android:fontFamily="@font/nats_regular"
-                    android:text="200"
                     android:textAlignment="center"
                     android:textColor="#0051AA"
                     android:textSize="18sp" />
@@ -134,84 +118,60 @@
                     android:id="@+id/number_Picker_down_button"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:clickable="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="-3dp"
-                    android:clickable="true"
-                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
-
+                    android:src="@drawable/baseline_keyboard_arrow_down_24"/>
             </LinearLayout>
+
+
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/goal_water"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/nats_regular"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:visibility="gone" />
-
-
-
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
+            app:cardCornerRadius="50dp"
+            android:elevation="0.8dp"
             android:layout_margin="10dp"
-            android:elevation="0dp"
-            android:outlineSpotShadowColor="#EDF4FD"
-            app:cardCornerRadius="50dp">
-
-
-
-
+            android:outlineSpotShadowColor="#8F9296">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
 
-
-
-
-                <androidx.cardview.widget.CardView
+                <TextView
+                    android:id="@+id/selected_text"
                     android:layout_width="85dp"
                     android:layout_height="match_parent"
-                    android:outlineSpotShadowColor="#EEF5FE"
-                    app:cardBackgroundColor="#EEF5FE"
-                    app:cardCornerRadius="50dp">
-
-                    <TextView
-                        android:id="@+id/selected_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/nats_regular"
-                        android:gravity="center"
-                        android:text="0.4 L"
-                        android:textAlignment="center"
-                        android:textColor="#0051AA"
-                        android:textSize="18dp" />
-
-                </androidx.cardview.widget.CardView>
+                    android:layout_marginEnd="-7dp"
+                    android:text="0.4 L"
+                    android:background="@drawable/selecter_shape"
+                    android:layerType="hardware"
+                    android:fontFamily="@font/nats_regular"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textColor="#0051AA"/>
 
                 <TextView
                     android:id="@+id/selected_glass_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="85dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_marginStart="-7dp"
+                    android:text="2 Glass"
                     android:fontFamily="@font/nats_regular"
                     android:gravity="center"
-                    android:text="2 Glass"
-                    android:textColor="#0051AA"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="#0051AA"/>
 
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.slider.Slider
@@ -219,18 +179,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="13dp"
             android:stepSize="0.20"
             android:thumb="@drawable/thumb_for_water_draw"
             android:value="0.40"
             android:valueFrom="0.40"
             android:valueTo="4.0"
+            app:tickVisible="true"
+            app:tickColor="@color/blue"
             app:thumbColor="#0051AB"
             app:thumbRadius="10dp"
-            app:tickColor="@color/blue"
             app:tickColorActive="#0051AB"
             app:tickColorInactive="#DDECFF"
-            app:tickVisible="true"
             app:trackColorActive="#0051AB"
             app:trackColorInactive="#DDECFF"
             app:trackHeight="3dp" />
@@ -241,29 +201,27 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             android:thumb="@drawable/thumb_for_water_draw"
+            android:visibility="gone"
             android:value="0"
             android:valueFrom="0"
             android:valueTo="1000"
-            android:visibility="gone"
             app:thumbColor="#0051AB"
             app:thumbRadius="5dp"
             app:tickColorActive="#0051AB"
             app:tickColorInactive="#DDECFF"
             app:trackColorActive="#0051AB"
             app:trackColorInactive="#DDECFF"
-            app:trackHeight="2dp" />
-
-
+            app:trackHeight="2dp"/>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="25dp"
+            android:orientation="horizontal"
             android:layout_marginTop="-5dp"
+            android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/r1"
@@ -275,88 +233,81 @@
                 android:gravity="center"
                 android:text="0.4 L"
                 android:textSize="15dp" />
-
             <TextView
                 android:id="@+id/r2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="1 L"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:gravity="center"
-                android:text="1 L"
-                android:textSize="15dp" />
-
+                android:layout_gravity="center"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/r3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="1.6 L"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:gravity="center"
-                android:text="1.6 L"
-                android:textSize="15dp" />
-
+                android:layout_gravity="center"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/r4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="2.2 L"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:gravity="center"
-                android:text="2.2 L"
-                android:textSize="15dp" />
-
+                android:layout_gravity="center"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/r5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="2.8 L"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:gravity="center"
-                android:text="2.8 L"
-                android:textSize="15dp" />
-
+                android:layout_gravity="center"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/r6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="3.4 L"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:gravity="center"
-                android:text="3.4 L"
-                android:textSize="15dp" />
-
+                android:layout_gravity="center"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/r7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:text="4 L"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nats_regular"
-                android:gravity="center"
-                android:text="4 L"
-                android:textSize="15dp" />
+                android:layout_gravity="center"
+                android:gravity="center"/>
 
         </LinearLayout>
+
 
         <Button
             android:id="@+id/set_water_goal"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
             android:backgroundTint="#52A4FF"
-            android:fontFamily="@font/nats_regular"
             android:text="Set Goal"
             android:textAllCaps="false"
+            android:layout_marginBottom="30dp"
+            app:cornerRadius="20sp"
             android:textSize="15sp"
-            app:cornerRadius="20sp" />
-
+            android:fontFamily="@font/nats_regular"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

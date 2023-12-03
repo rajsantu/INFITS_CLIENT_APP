@@ -1,4 +1,4 @@
-package com.example.infits;
+package com.example.infits.Fragments.SleepTracker;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.NotificationReceiver;
+import com.example.infits.R;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
