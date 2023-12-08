@@ -1,6 +1,9 @@
 package com.example.infits;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -30,11 +35,14 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class EditProfile extends AppCompatActivity {
+    Context mcontext = EditProfile.this;
 
     ImageView male;
     ImageView female;
@@ -67,11 +75,21 @@ public class EditProfile extends AppCompatActivity {
 
     AlertDialog.Builder builder;
 
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String IMG_ENCODED = "encoded";
+    String img_text;
+    static boolean default_pic;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        SharedPrefManager spf = new SharedPrefManager(getApplicationContext());
+        boolean b = spf.checkSession();
+
 
 
         male = findViewById(R.id.gender_male_icon);
@@ -93,7 +111,15 @@ public class EditProfile extends AppCompatActivity {
 
         phone.setText(DataFromDatabase.mobile);
         profile_pic = findViewById(R.id.dp);
-        profile_pic.setImageBitmap(DataFromDatabase.profile);
+        if(b)
+        {
+            Bitmap profile_photo_temp = spf.getSessionDetails("key_session_profile_pic");
+            profile_pic.setImageBitmap(profile_photo_temp);
+        }
+        else{
+            profile_pic.setImageBitmap((Bitmap) DataFromDatabase.profile);
+        }
+
         backBtn = findViewById(R.id.imgBack);
         editProfile = findViewById(R.id.button_editProfile);
 
