@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -42,8 +44,10 @@ public class caloriesetgoalFragment extends Fragment {
     TextView calconsumeTV,calBurnTV,carbTV,fiberTV,proteinTV,fatTV;
     CardView setgoal;
 
-    Integer CCcurrentProgress,CBcurrentProgress,fibercurrentProgress,carbcurrentProgress,fatcurrentProgress,proteincurrentProgress;
+    int CCcurrentProgress,CBcurrentProgress,fibercurrentProgress,carbcurrentProgress,fatcurrentProgress,proteincurrentProgress;
 
+    private static final String PREFERENCES_NAME = "GoalSetPreferences";
+    SharedPreferences sharedPreferences;
     ImageView confirmed,backbutton;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -77,6 +81,7 @@ public class caloriesetgoalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -88,9 +93,9 @@ public class caloriesetgoalFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_caloriesetgoal, container, false);
         View view = inflater.inflate(R.layout.fragment_caloriesetgoal, container, false);
-        pastActivity();
 
         hooks(view);
+        pastActivity();
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,6 +236,7 @@ public class caloriesetgoalFragment extends Fragment {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
                         Map<String, String> data = new HashMap<>();
                         LocalDateTime now = LocalDateTime.now();// gets the current date and time
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
@@ -238,12 +244,27 @@ public class caloriesetgoalFragment extends Fragment {
                         data.put("dateandtime",dtf.format(now));
                         data.put("client_id",DataFromDatabase.client_id);
                         data.put("clientuserID",DataFromDatabase.clientuserID);
+                        //Calorie Consume Goal
+                        editor.putInt("calorieConsumeGoal", CCcurrentProgress);
                         data.put("calorieConsumeGoal",Integer.toString(CCcurrentProgress));
+                        //Calorie Burn Goal
+                        editor.putInt("calorieBurnGoal", CBcurrentProgress);
                         data.put("calorieBurnGoal",Integer.toString(CBcurrentProgress));
+                        //Carbs Goal
+                        editor.putInt("carbsGoal", carbcurrentProgress);
                         data.put("carbsGoal",Integer.toString(carbcurrentProgress));
+                        //Fiber Goal
+                        editor.putInt("fiberGoal", fibercurrentProgress);
                         data.put("fiberGoal",Integer.toString(fibercurrentProgress));
+                        //Protein Goal
+                        editor.putInt("proteinGoal", proteincurrentProgress);
                         data.put("proteinGoal",Integer.toString(proteincurrentProgress));
+                        //Fat Goal
+                        editor.putInt("fatGoal", fatcurrentProgress);
                         data.put("fatGoal",Integer.toString(fatcurrentProgress));
+
+                        editor.apply();
+
                         data.put("operationToDo","add");
                         data.put("calorieConsumed","2210");
                         data.put("dietitian_id",DataFromDatabase.dietitian_id);
@@ -278,18 +299,39 @@ public class caloriesetgoalFragment extends Fragment {
                     Log.d("Calorie Goals Data Bro", response);
 
                     try {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
                         JSONObject jsonObject = new JSONObject(response);
                         JSONObject goalsObject = jsonObject.getJSONObject("Goals");
                         // Extract values from the "values" object
                         JSONObject valuesObject = goalsObject.getJSONObject("values");
                         String clientUserID = valuesObject.getString("clientuserID");
                         String dietitianUserID = valuesObject.getString("dietitianuserID");
+                        //Calorie Consume network update
                         String calorieConsumeGoal = valuesObject.getString("calorieConsumeGoal");
+                        //Calorie Consume Network to local update
+                        editor.putInt("calorieConsumeGoal", Integer.parseInt(calorieConsumeGoal));
+
                         String calorieBurnGoal = valuesObject.getString("calorieBurnGoal");
+                        //Calorie Consume Network to local update
+                        editor.putInt("calorieBurnGoal", Integer.parseInt(calorieBurnGoal));
+
                         String carbsGoal = valuesObject.getString("CarbsGoal");
+                        //Calorie Consume Network to local update
+                        editor.putInt("CarbsGoal", Integer.parseInt(carbsGoal));
+
                         String fatGoal = valuesObject.getString("fatGoal");
+                        //Calorie Consume Network to local update
+                        editor.putInt("fatGoal", Integer.parseInt(fatGoal));
+
                         String proteinGoal = valuesObject.getString("Protein");
+                        //Calorie Consume Network to local update
+                        editor.putInt("Protein", Integer.parseInt(proteinGoal));
+
                         String fiberGoal = valuesObject.getString("Fiber");
+                        //Calorie Consume Network to local update
+                        editor.putInt("Fiber", Integer.parseInt(fiberGoal));
+
                         //Seek bar progress
                         calorieconsume.setProgress(Integer.parseInt(calorieConsumeGoal));
                         calorieburn.setProgress(Integer.parseInt(calorieBurnGoal));
@@ -362,5 +404,30 @@ public class caloriesetgoalFragment extends Fragment {
         confirmed = view.findViewById(R.id.calsetgoalconfirmed);
         backbutton = view.findViewById(R.id.setgoalimgback);
 
+        initialDataEntryFromSharedPreferences();
+
+    }
+
+    private void initialDataEntryFromSharedPreferences(){
+        calconsumeTV.setText(sharedPreferences.getInt("calorieConsumeGoal", 0)+" Kcal");
+        calBurnTV.setText(sharedPreferences.getInt("calorieBurnGoal", 0)+" Kcal");
+        carbTV.setText(sharedPreferences.getInt("carbsGoal", 0)+" g");
+        fiberTV.setText(sharedPreferences.getInt("fiberGoal", 0)+" g");
+        proteinTV.setText(sharedPreferences.getInt("proteinGoal", 0)+" g");
+        fatTV.setText(sharedPreferences.getInt("fatGoal", 0)+" g");
+
+        CCcurrentProgress = Integer.parseInt(""+sharedPreferences.getInt("calorieConsumeGoal", 0));
+        CBcurrentProgress = Integer.parseInt(""+sharedPreferences.getInt("calorieBurnGoal", 0));
+        fibercurrentProgress = Integer.parseInt(""+sharedPreferences.getInt("carbsGoal", 0));
+        carbcurrentProgress = Integer.parseInt(""+sharedPreferences.getInt("fiberGoal", 0));
+        fatcurrentProgress = Integer.parseInt(""+sharedPreferences.getInt("proteinGoal", 0));
+        proteincurrentProgress = Integer.parseInt(""+sharedPreferences.getInt("fatGoal", 0));
+
+        calorieconsume.setProgress(Integer.parseInt(""+sharedPreferences.getInt("calorieConsumeGoal", 0)));
+        calorieburn.setProgress(Integer.parseInt(""+sharedPreferences.getInt("calorieBurnGoal", 0)));
+        carbs.setProgress(Integer.parseInt(""+sharedPreferences.getInt("carbsGoal", 0)));
+        fiber.setProgress(Integer.parseInt(""+sharedPreferences.getInt("fiberGoal", 0)));
+        protein.setProgress(Integer.parseInt(""+sharedPreferences.getInt("proteinGoal", 0)));
+        fat.setProgress(Integer.parseInt(""+sharedPreferences.getInt("fatGoal", 0)));
     }
 }
