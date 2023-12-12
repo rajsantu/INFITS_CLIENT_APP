@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +65,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     ImageView imageView80;
     ImageView imageView79;
     ImageView imageView76;
-    TextView running_txt, cont_running_txt, distance_disp, calorie_disp, time_disp,distance_show;
+    TextView running_txt, cont_running_txt, distance_disp, calorie_disp, time_disp,distance_show,todaygoal;
     private long startTime = 0;
     private long elapsedTime = 0;
 
@@ -72,7 +73,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     SharedPreferences sharedpreferences;
     Context c;
 
-    String calories_save = "", distance_save = " ", time_disp_save = " ", goal = "8", goal_save = "", time = "2";
+    String calories_save = "", distance_save = " ", time_disp_save = " ", goal="5", goal_save = "", time;
 
     public running_frag1() {
 
@@ -109,10 +110,17 @@ public class running_frag1 extends Fragment implements SensorEventListener {
         distance_disp = view.findViewById(R.id.textView70);
         calorie_disp = view.findViewById(R.id.textView72);
         time_disp = view.findViewById(R.id.textView73);
+        todaygoal = view.findViewById(R.id.textView87);
 
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         register();
 
+        Bundle bundle = getArguments();
+        register();
+        if (bundle != null) {
+            String todayGoal = bundle.getString("todaysgoal");
+            todaygoal.setText(todayGoal);
+        }
         // Start the rotation animation when the fragment is created
         startRotationAnimation();
 
@@ -157,14 +165,12 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                 if (!isRotationStarted) {
                     // Start the rotation animations
                     startRotationAnimation();
-
                     isRotationStarted = true;
                 }
                 flag_steps = 0;
                 stop();
             }
         });
-
         return view;
     }
 
@@ -173,7 +179,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
         if (flag_steps == 0) {
             pre_step = (int) event.values[0] - 1;
             flag_steps = 1;
-            startTime = System.currentTimeMillis();
+            startTime = SystemClock.elapsedRealtime();
             Log.d("MyApp", "startTime initialized: " + startTime);
         }
 
@@ -182,18 +188,28 @@ public class running_frag1 extends Fragment implements SensorEventListener {
             current_steps = current - pre_step;
             distance = (float) 0.002 * current_steps;
             calories = (float) 0.06 * current_steps;
-            long currentTime = System.currentTimeMillis();
+            long currentTime = SystemClock.elapsedRealtime();
             elapsedTime = currentTime - startTime;
 
-            int hours = (int) (elapsedTime / 3600000); // Convert milliseconds to hours
-            int minutes = (int) ((elapsedTime % 3600000) / 60000); // Convert milliseconds to minutes
-
+            int seconds = (int) (elapsedTime / 1000); // Convert milliseconds to seconds
+            int minutes = seconds / 60; // Convert seconds to minutes
+            int hours = minutes / 60; // Convert minutes to hours
+            Log.d("seconds", String.valueOf(seconds));
+            Log.d("minutes", String.valueOf(minutes));
+            seconds = seconds % 60; // Remaining seconds
+            minutes = minutes % 60; // Remaining minutes
             String formattedTime = String.format("%02d.%02d", hours, minutes);
             Log.d("elapsed time", formattedTime);
             distance_disp.setText(String.format("%.2f", distance));
             distance_show.setText(String.format("%.2f", distance));
             calorie_disp.setText(String.format("%.2f", calories));
             time_disp.setText(formattedTime);
+            time = formattedTime;
+            Log.e("Value of distance :", String.valueOf(distance));
+            Log.e("Value of time :", time);
+            if (distance == Float.parseFloat(todaygoal.getText().toString())) {
+                Toast.makeText(getContext(),"Today's Goal Achieved !",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -246,13 +262,16 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     }
 
     private void sendDataToServer() {
-        //String url = "https://infits.in/androidApi/runningTracker.php";
-        //String url = "http://10.12.2.128/infits/runningTracker.php";
+        Log.e("Value of string value of time", String.valueOf(time));
+        Log.e(" value of time", time);
         String url = "http://192.168.29.52/infits/runningTracker.php";
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
             String cleanResponse = response.trim();
-            if (cleanResponse.equals("updated")) {
-                Toast.makeText(getActivity(), "Data updated successfully!", Toast.LENGTH_SHORT).show();
+            if (cleanResponse.equalsIgnoreCase("updated")) {
+                Toast.makeText(requireActivity().getApplicationContext(), "Data updated successfully!", Toast.LENGTH_SHORT).show();
+                Bundle result = new Bundle();
+                result.putString("updateKey", "dataUpdated");
+                getParentFragmentManager().setFragmentResult("updateDataKey", result);
             } else {
                 Toast.makeText(getActivity(), "Failed to update data", Toast.LENGTH_SHORT).show();
                 Log.e("MyApp", "Failed to update data: " + cleanResponse);
@@ -267,9 +286,9 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                 Map<String, String> data = new HashMap<>();
                 data.put("client_id", DataFromDatabase.client_id);
                 data.put("clientuserID", DataFromDatabase.clientuserID);
-                data.put("distance", String.valueOf(distance));
-                data.put("calories", String.valueOf(calories));
-                data.put("runtime", String.valueOf(time));
+                data.put("distance",  String.valueOf(distance));
+                data.put("calories", String.format("%.2f", calories));
+                data.put("runtime",time);
                 data.put("goal", goal);
                 //data.put("duration", "0");
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

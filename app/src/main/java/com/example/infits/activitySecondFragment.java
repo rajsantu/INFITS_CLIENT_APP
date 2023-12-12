@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,15 +46,15 @@ import java.util.Map;
 public class activitySecondFragment extends Fragment {
 
     //GaugeSeekBar progressBar;
+    // Button btn_setgoal, btn_start_trd;
     Button run_goal_btn,btn_start;
-    TextView textView71, textView72, textView73, textView74, textView76,textView61,textView75;
+    TextView textView71, textView72, textView73, textView74, textView70,textView61,textView75,textView76,goal_unit;
     ImageView back_button;
     ImageView set_goal;
     EditText goal_value_txt;
     String goal_value;
-
-    private int distance,calories,runtime,goal;
-    private RequestQueue requestQueue;
+    private GaugeSeekBar progressBarWalking;
+    private static final int REQUEST_CODE = 123;
     public activitySecondFragment() {
         // Required empty public constructor
     }
@@ -89,62 +91,18 @@ public class activitySecondFragment extends Fragment {
         textView75 = view.findViewById(R.id.textView75);
 
         back_button=view.findViewById(R.id.imageView75);
-
-        // String url = "https://infits.in/androidApi/runningTracker.php";
-        //  String url = "http://10.12.2.128/infits/runningTracker.php";
-        String url = "http://192.168.29.52/infits/runningTracker.php";
-        StringRequest request = new StringRequest(Request.Method.POST, url,
-                response -> {
-                    Log.d("Running Tracker Data", response);
-
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        JSONObject dataObject = jsonObject.getJSONObject("Data");
-
-                        // Parse your data and update your UI elements here
-                        // For example:
-                        String totaldistance = dataObject.getString("distance");
-                        String totalcalories = dataObject.getString("calories");
-                        String totalruntime = dataObject.getString("runtime");
-                        String todaysgoal = dataObject.getString("goal");
-
-                        // Update your TextViews after converting the values to strings
-                        textView71.setText(todaysgoal+" KM");
-                        textView72.setText(totaldistance+" KM");
-                        textView73.setText(totalcalories+ " KCAL");
-                        textView74.setText(totalruntime + " HOURS");
-                        textView75.setText(totaldistance);
-                        textView61.setText(totaldistance+"KM");
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }, error -> Log.e("Running Tracker data", error.toString())) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                LocalDateTime now = LocalDateTime.now();// gets the current date and time
-                data.put("client_id", DataFromDatabase.client_id);
-                data.put("clientuserID", DataFromDatabase.clientuserID);
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                data.put("date", dtf.format(now));
-                data.put("distance", "0");
-                data.put("calories", "0");
-                data.put("runtime", "0");
-                data.put("goal","0");
-                data.put("operationtodo","get");
-                return data;
+        progressBarWalking =  view.findViewById(R.id.progressBarCycling);
+        LoadTodayData();
+        getParentFragmentManager().setFragmentResultListener("updateDataKey", this, (requestKey, result) -> {
+            // Check if the updateKey is present in the result
+            if (result.containsKey("updateKey")) {
+                String updateKey = result.getString("updateKey", "");
+                if ("dataUpdated".equals(updateKey)) {
+                    // Data is updated, perform your actions here
+                    LoadTodayData(); // Call your method to update the TextView
+                }
             }
-        };
-        Volley.newRequestQueue(requireContext()).add(request);
-        request.setRetryPolicy(new DefaultRetryPolicy(50000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-
-
+        });
         run_goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +120,7 @@ public class activitySecondFragment extends Fragment {
                         goal_value = goal_value_txt.getText().toString();
                         //Toast.makeText(getApplicationContext(), goal_value, Toast.LENGTH_SHORT).show();
                         String goal = goal_value;
-                        //String url = "http://10.12.2.128/infits/activitygoal.php";
+
                         String url = "http://192.168.29.52/infits/runningTracker.php";
 
                         Log.d("Request", "Sending a request to: " + url);
@@ -187,16 +145,11 @@ public class activitySecondFragment extends Fragment {
                                 Map<String, String> data = new HashMap<>();
                                 data.put("client_id", DataFromDatabase.client_id);
                                 data.put("clientuserID", DataFromDatabase.clientuserID);
-//                                data.put("distance", "0");
-//                                data.put("calories", "0");
-//                                data.put("runtime", "0");
                                 data.put("goal", goal);
                                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                 java.time.LocalDateTime now = LocalDateTime.now();
                                 data.put("date", dtf.format(now));
                                 data.put("operationtodo","setgoal");
-                                //data.put("categories", "Running");
-//                                data.put("heartrate", "0");
                                 return data;
                             }
                         };
@@ -209,7 +162,7 @@ public class activitySecondFragment extends Fragment {
                         //  Toast.makeText(getApplicationContext(),"check 1",Toast.LENGTH_SHORT).show();
 
                         dialog.dismiss();
-                        textView71.setText(goal+" KM");
+                        textView71.setText(goal);
 
                     }
                 });
@@ -226,54 +179,117 @@ public class activitySecondFragment extends Fragment {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String goal = "5";
-//                String url = "https://infits.in/androidApi/runningTracker.php";
-//
-//                StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(response);
-//                        String calories = jsonObject.getString("calories");
-//                        String distance = jsonObject.getString("distance");
-//                        String runtime = jsonObject.getString("runtime");
-//
-//                        textView71.setText(calories);
-//                        textView72.setText(distance);
-//                        textView73.setText(runtime);
-//
-//                        Toast.makeText(getContext(), "Data updated successfully!", Toast.LENGTH_SHORT).show();
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(getContext(), "Error parsing JSON response", Toast.LENGTH_SHORT).show();
-//                    }
-//                }, error -> {
-//                    Toast.makeText(getContext(), "Error: for " + error.toString(), Toast.LENGTH_SHORT).show();
-//                }) {
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String, String> data = new HashMap<>();
-//                        Date now = new Date();
-//                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
-//                        data.put("client_id", DataFromDatabase.client_id);
-//                        data.put("clientuserID", DataFromDatabase.clientuserID);
-//                        data.put("distance", "0");
-//                        data.put("calories", "0");
-//                        data.put("runtime", "0");
-//                        data.put("duration", "0");
-//                        data.put("dateandtime", dtf.format((TemporalAccessor) now));
-//                        data.put("goal", goal);
-//                        data.put("operationtodo","get");
-//                        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                        data.put("date", dtf2.format((TemporalAccessor) now));
-//                        return data;
-//                    }
-//                };
-//
-//                Volley.newRequestQueue(getContext()).add(request);
-                Navigation.findNavController(v).navigate(R.id.action_activitySecondFragment_to_running_frag1);
+                String TodayGoal = textView71.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("todaysgoal", TodayGoal);
+                int actionId = R.id.action_activitySecondFragment_to_running_frag1;
+                Navigation.findNavController(v).navigate(actionId, bundle);
             }
         });
+        textView71.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed for this example
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed for this example
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Update the progress of the GaugeSeekBar when the goal text changes
+                updateProgress();
+            }
+        });
+        textView75.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed for this example
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed for this example
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Update the progress of the GaugeSeekBar when the goal text changes
+                updateProgress();
+            }
+        });
         return view;
+    }
+
+    private void updateProgress() {
+        String goalValue = textView71.getText().toString();
+        String todayTotalValue = textView75.getText().toString();
+
+        // Convert the string values to floats (you might want to add error handling here)
+        float goal = Float.parseFloat(goalValue);
+        float todayTotal = Float.parseFloat(todayTotalValue);
+
+        // Set the progress of the GaugeSeekBar based on the goal and today's total
+        float progress = Math.min(1.0f, todayTotal / goal);
+        // Set the progress of the GaugeSeekBar
+        progressBarWalking.setProgress(progress);
+        //progressBarWalking.setProgress(progress);
+
+    }
+
+    private void LoadTodayData() {
+        String url = "http://192.168.29.52/infits/runningTracker.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("Running Tracker Data", response);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONObject dataObject = jsonObject.getJSONObject("Data");
+                        if (!dataObject.isNull("distance")) {
+                            String totaldistance = dataObject.getString("distance");
+                            String totalcalories = dataObject.getString("calories");
+                            String totalruntime = dataObject.getString("runtime");
+                            String todaysgoal = dataObject.getString("goal");
+                            textView71.setText(todaysgoal);
+                            textView72.setText(totaldistance + " KM");
+                            textView73.setText(totalcalories + " KCAL");
+                            textView74.setText(totalruntime + " HOURS");
+                            textView75.setText(totaldistance);
+                            textView61.setText(totaldistance + " KM");
+                        } else {
+                            String todaysgoal = dataObject.getString("goal");
+                            textView71.setText(todaysgoal);
+                            textView72.setText("0 KM");
+                            textView73.setText("0 KCAL");
+                            textView74.setText("0 HOURS");
+                            textView75.setText("0");
+                            textView61.setText("0 Steps");
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }, error -> Log.e("Walking Tracker data", error.toString())) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                data.put("client_id", DataFromDatabase.client_id);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                data.put("date", dtf.format(now));
+                data.put("operationtodo","get");
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 }
