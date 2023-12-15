@@ -72,6 +72,7 @@ public class WeightTrackerFragment extends Fragment {
     //String url = String.format("%sweighttracker.php",DataFromDatabase.ipConfig);
     String url = "https://infits.in/androidApi/weighttracker.php";
 
+
     float bmi = 0;
 
     int height = 0;
