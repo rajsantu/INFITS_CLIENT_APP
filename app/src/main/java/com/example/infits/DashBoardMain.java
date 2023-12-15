@@ -92,7 +92,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
                 super.onDrawerOpened(drawerView);
                 drawerusername = findViewById(R.id.drawer_username);
                 draweruserplan = findViewById(R.id.drawer_user_plan);
-                drawerusername.setText(DataFromDatabase.name);
+                drawerusername.setText(Utils.DisplayNameFormatter(DataFromDatabase.name,14));
                 drawerState = true;
             }
 
