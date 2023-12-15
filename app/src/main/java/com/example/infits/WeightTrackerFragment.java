@@ -250,6 +250,7 @@ public class WeightTrackerFragment extends Fragment {
                     System.out.println(String.valueOf(bmi));
                     StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                         System.out.println("weight " + response);
+                        Log.d("weight tra",String.valueOf(response));
                         if (response.equals("updated")){
                             Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
                             dialog.dismiss();
@@ -323,9 +324,24 @@ public class WeightTrackerFragment extends Fragment {
         });
 
         resetBmi.setOnClickListener(v -> {
-            textbmi.setText(String.valueOf(0));
-            congrats.setText("Keep it Up!");
-            congrats.setTextColor(Color.parseColor("#00C170"));
+            float hsquare = Integer.parseInt(DataFromDatabase.height) * Integer.parseInt(DataFromDatabase.height);
+            bmi = cur_weight/(hsquare/10000);
+            curWeight.setText(String.valueOf(cur_weight));
+            if (bmi < 18.5){
+                congrats.setText("Low");
+                congrats.setTextColor(Color.parseColor("#6C95FF"));
+            }
+            else if (bmi > 25){
+                congrats.setText("Too High");
+                congrats.setTextColor(Color.parseColor("#FF6565"));
+            }
+            else{
+                congrats.setText("Keep it Up!");
+                congrats.setTextColor(Color.parseColor("#00C170"));
+            }
+            textbmi.setText(String.format("%.2f",bmi));
+            System.out.println(String.valueOf(bmi));
+
         });
 
         pastActivity = view.findViewById(R.id.past_activity);
