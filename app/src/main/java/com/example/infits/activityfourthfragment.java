@@ -102,16 +102,7 @@ public class activityfourthfragment extends Fragment {
                 }
             }
         });
-        getParentFragmentManager().setFragmentResultListener("updateDataKey", this, (requestKey, result) -> {
-            // Check if the updateKey is present in the result
-            if (result.containsKey("updateKey")) {
-                // Handle the result data here
-                String updateKey = result.getString("updateKey", "");
-                if ("dataUpdated".equals(updateKey)) {
-                   LoadTodayData();
-                }
-            }
-        });
+
         run_goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -22,19 +22,33 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.infits.R;
 
-public class cycling_frag2 extends Fragment implements LocationListener {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
-    long time;
+public class cycling_frag2 extends Fragment implements LocationListener {
+    Long time;
+    long elapsed_time;
+    String formattedTime;
     float totalDistance, weight, calorie_burn, temp_calorie = 0;
-    private double distance;
+    float distance, calories;
     int pre_step = 0, current = 0, flag_steps = 0, current_steps;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private LocationManager locationManager;
@@ -43,14 +57,14 @@ public class cycling_frag2 extends Fragment implements LocationListener {
     SensorManager sensorManager;
     Sensor stepSensor;
     private boolean isRotationStarted = false;
-    TextView distance_show, Calorie_meter, time_meter;
+    TextView distance_show, Calorie_meter, time_meter,todaygoal;
     ImageView imageView80;
     ImageView imageView79;
     ImageView imageView76;
     ImageView btn_stop;
     Button btn_pause, btn_start;
     TextView running_txt, cont_running_txt, dunit;
-
+    String  goal;
     public cycling_frag2() {
         // Required empty public constructor
     }
@@ -82,13 +96,17 @@ public class cycling_frag2 extends Fragment implements LocationListener {
         imageView79 = view.findViewById(R.id.imageView79);
         btn_stop = view.findViewById(R.id.imageView89);
         time_meter = view.findViewById(R.id.textView73);
-        time = System.currentTimeMillis();
+        todaygoal = view.findViewById(R.id.textView87);
         Calorie_meter.setText("0");
         time_meter.setText("0");
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         startLocationUpdates();
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String todayGoal = bundle.getString("todaysgoal");
+            todaygoal.setText(todayGoal);
+        }
         SharedPreferences data = PreferenceManager.getDefaultSharedPreferences(requireContext());
         weight = data.getFloat("weight", 60);
 
@@ -101,7 +119,7 @@ public class cycling_frag2 extends Fragment implements LocationListener {
                 cont_running_txt.setVisibility(View.VISIBLE);
                 stopLocationUpdates();
                 stopRotationAnimation();
-                time = 0;
+                time = 0L;
                 temp_calorie += calorie_burn;
             }
         });
@@ -123,8 +141,8 @@ public class cycling_frag2 extends Fragment implements LocationListener {
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Navigation.findNavController(v).navigate(R.id.action_activitythirdfragment_to_cycling_frag2);
+                sendDataToServer();
+                Navigation.findNavController(v).navigate(R.id.cycling_frag2_to_activitythirdfragment);
             }
         });
 
@@ -140,6 +158,7 @@ public class cycling_frag2 extends Fragment implements LocationListener {
                 totalDistance += distance;
             }
             lastLocation = location;
+            Log.d("Distance", String.valueOf(totalDistance));
             distance_show.setText(String.format("%.2f", totalDistance));
             if (totalDistance / 1000 >= 1) dunit.setText("KM");
             Calorieburn(location.getSpeed(), weight);
@@ -174,16 +193,19 @@ public class cycling_frag2 extends Fragment implements LocationListener {
     public void Calorieburn(float speed, float weight) {
         speed = (float) (speed * 3.6);
         float MET = 0;
-        long elapsed_time;
+
         elapsed_time = (System.currentTimeMillis() - time) / 1000;
         if (speed == 0) {
         } else {
             MET = (float) ((0.175 * speed) + 3.5);
             calorie_burn = MET * weight * (elapsed_time) / 3600;
         }
-
-        time_meter.setText(String.format("%.1f", (float) elapsed_time));
-        Calorie_meter.setText(String.format("%.1f", (calorie_burn + temp_calorie)));
+        formattedTime = formatTime(elapsed_time);
+        Log.d("time", formattedTime);
+        Log.d("calories",String.format(Locale.getDefault(), "%.1f", (calorie_burn + temp_calorie)));
+        time_meter.setText(formattedTime);
+        time = Long.valueOf(formattedTime);
+        Calorie_meter.setText(String.format(Locale.getDefault(), "%.1f", (calorie_burn + temp_calorie)));
     }
 
     private void startRotationAnimation() {
@@ -208,13 +230,21 @@ public class cycling_frag2 extends Fragment implements LocationListener {
             rotateAnimation.setDuration(4000);
             rotateAnimation.setRepeatCount(Animation.INFINITE);
             rotateAnimation.setFillAfter(true);
-
             imageView80.startAnimation(rotateAnimation);
             imageView76.startAnimation(rotateAnimation);
             isRotationStarted = true;
         }
     }
+    private String formatTime(long milliseconds) {
+        int seconds = (int) (milliseconds / 1000);
+        int minutes = seconds / 60;
+        int hours = minutes / 60;
 
+        minutes = minutes % 60;
+        seconds = seconds % 60;
+
+        return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
+    }
     private void stopRotationAnimation() {
         if (isRotationStarted) {
             imageView79.clearAnimation();
@@ -259,5 +289,50 @@ public class cycling_frag2 extends Fragment implements LocationListener {
     public void onDestroy() {
         super.onDestroy();
         stopLocationUpdates();
+    }
+    private void sendDataToServer() {
+        Log.e("Value of string value of time", String.valueOf(time));
+        Log.e(" value of time", String.valueOf(time));
+        String url = "http:// 192.168.29.52/infits/runningTracker.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+            String cleanResponse = response.trim();
+            if (cleanResponse.equalsIgnoreCase("updated")) {
+                Toast.makeText(requireActivity().getApplicationContext(), "Data updated successfully!", Toast.LENGTH_SHORT).show();
+                Bundle result = new Bundle();
+                result.putString("updateKey", "dataUpdated");
+                getParentFragmentManager().setFragmentResult("updateDataKey", result);
+            } else {
+                Toast.makeText(getActivity(), "Failed to update data", Toast.LENGTH_SHORT).show();
+                Log.e("MyApp", "Failed to update data: " + cleanResponse);
+            }
+        }, error -> {
+            Toast.makeText(requireContext(), "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Data to be sent in the request body
+                Map<String, String> data = new HashMap<>();
+                data.put("client_id", DataFromDatabase.client_id);
+                data.put("clientuserID", DataFromDatabase.clientuserID);
+                data.put("distance",  String.valueOf(distance));
+                data.put("calories", String.format("%.2f", calories));
+                data.put("runtime",formattedTime);
+                data.put("goal", String.valueOf(todaygoal));
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                data.put("date", dtf.format(now));
+                data.put("dateandtime", DTF.format(now));
+                data.put("operationtodo","updatedata");
+                return data;
+            }
+        };
+
+        int socketTimeout = 30000;
+        request.setRetryPolicy(new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+        Toast.makeText(getActivity(), "Updating data...", Toast.LENGTH_SHORT).show();
+
     }
 }

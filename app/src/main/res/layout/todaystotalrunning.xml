@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="6.2KM"
+        android:text="0 KM"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -115,6 +115,7 @@
         android:fontFamily="@font/nats_regular"
         android:lineSpacingExtra="-20sp"
         android:text="Running is a great cardiovascular exercise that provides a wide range of health and fitness benefits. It can help improve your cardiovascular health, strengthen your lowerbody,burn calories."
+
 
         android:textColor="#D9D9D9"
         android:textSize="18sp"
@@ -247,15 +248,18 @@
     <!--        app:layout_constraintVertical_bias="0.954" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/todaytotaldata"
         android:layout_width="360dp"
         android:layout_height="200dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/yellow_background"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/imageView86_trd"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView83"
-        >
+
+        app:layout_constraintTop_toBottomOf="@+id/imageView83">
 
         <TextView
             android:id="@+id/textView36"
@@ -280,29 +284,27 @@
             android:layout_height="145dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="4dp"
-            android:rotation="0"
+            android:rotation="360"
             android:visibility="visible"
             app:interactive="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:progress="0.40"
-            app:progressGradient="@array/myGradientTodayTotal"
+            app:progress="0"
+            app:progressGradient="@array/myGradientProgress"
             app:progressWidth="10dp"
             app:showProgress="true"
             app:showThumb="false"
-            app:startAngleDegrees="65"
             app:trackGradient="@array/track"
             app:trackWidth="10dp"
             tools:ignore="MissingConstraints" />
-
         <TextView
             android:id="@+id/textView75"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
-            android:text="6.2"
+            android:text="0"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="@+id/progressBarCycling"
@@ -311,6 +313,7 @@
             app:layout_constraintStart_toStartOf="@+id/progressBarCycling"
             app:layout_constraintTop_toTopOf="@+id/progressBarCycling"
             app:layout_constraintVertical_bias="0.613" />
+
         <TextView
             android:id="@+id/textView76"
             android:layout_width="wrap_content"
@@ -344,22 +347,22 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button3"
-            android:layout_width="140dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/transparent"
             android:drawableStart="@drawable/trophynew"
             android:drawablePadding="5dp"
             android:fontFamily="@font/nats_regular"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="0dp"
             android:text="Daily Goal"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.711"
+            app:layout_constraintHorizontal_bias="0.641"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -368,36 +371,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
-            android:text="0 KM"
+            android:text="10"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:flow_horizontalBias="1.999"
             app:layout_constraintBottom_toBottomOf="@+id/button3"
-            app:layout_constraintEnd_toEndOf="@+id/button3"
+            app:layout_constraintEnd_toStartOf="@id/textView77"
             app:layout_constraintHorizontal_bias="1.289"
-            app:layout_constraintStart_toStartOf="@+id/button3"
-            app:layout_constraintTop_toTopOf="@+id/button3"
-            />
+            app:layout_constraintStart_toEndOf="@+id/button3"
+            app:layout_constraintTop_toTopOf="@+id/button3" />
+
+        <TextView
+            android:id="@+id/textView77"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/nats_regular"
+            android:text="KM"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/button3"
+
+            app:layout_constraintStart_toEndOf="@+id/textView71"
+            app:layout_constraintTop_toTopOf="@+id/button3" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button4"
-            android:layout_width="140dp"
+            android:layout_width="120dp"
             android:layout_height="40dp"
             android:background="@color/transparent"
             android:drawableStart="@drawable/distancelogo"
             android:drawablePadding="5dp"
             android:fontFamily="@font/nats_regular"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="0dp"
             android:text="Distance"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.711"
+            app:layout_constraintHorizontal_bias="0.641"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button3" />
 
@@ -408,26 +425,25 @@
             android:fontFamily="@font/nats_regular"
             android:text="0 KM"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="20sp"
-            app:flow_horizontalBias="0.999"
+            android:textStyle="bold"
+
             app:layout_constraintBottom_toBottomOf="@+id/button4"
-            app:layout_constraintEnd_toEndOf="@+id/button4"
+
             app:layout_constraintHorizontal_bias="1.289"
-            app:layout_constraintStart_toStartOf="@+id/button4"
-            app:layout_constraintTop_toTopOf="@+id/button4"
-            />
+            app:layout_constraintStart_toEndOf="@+id/button4"
+            app:layout_constraintTop_toTopOf="@+id/button4" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button5"
-            android:layout_width="125dp"
+            android:layout_width="120dp"
             android:layout_height="45dp"
             android:layout_marginTop="0dp"
             android:background="@color/transparent"
             android:drawableStart="@drawable/calorieslogo"
             android:drawablePadding="11dp"
             android:fontFamily="@font/nats_regular"
-            android:paddingLeft="18dp"
+            android:paddingLeft="12dp"
             android:paddingRight="18dp"
             android:text="Calories"
 
@@ -437,7 +453,7 @@
             android:textSize="18sp"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.671"
+            app:layout_constraintHorizontal_bias="0.641"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button4" />
 
@@ -445,37 +461,39 @@
             android:id="@+id/textView73"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginRight="110dp"
             android:fontFamily="@font/nats_regular"
-            android:text="0 KCAL"
+            android:text="0 kcal"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-
             app:flow_horizontalBias="0.999"
+            app:layout_constraintBottom_toBottomOf="@+id/button5"
+
+            app:layout_constraintHorizontal_bias="1.289"
             app:layout_constraintStart_toEndOf="@+id/button5"
             app:layout_constraintTop_toTopOf="@+id/button5" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button6"
-            android:layout_width="110dp"
+            android:layout_width="100dp"
             android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/transparent"
             android:drawableStart="@drawable/time"
             android:drawablePadding="7dp"
             android:fontFamily="@font/nats_regular"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:text="Time"
 
+            android:paddingLeft="12dp"
+
+            android:text="Time"
             android:textAlignment="textStart"
-            android:layout_marginBottom="10dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.619"
+            app:layout_constraintHorizontal_bias="0.579"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button5" />
 
@@ -483,12 +501,15 @@
             android:id="@+id/textView74"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:fontFamily="@font/nats_regular"
             android:text="0 Hours"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:flow_horizontalBias="1.999"
+            app:layout_constraintBottom_toBottomOf="@+id/button6"
+
+            app:layout_constraintHorizontal_bias="1.289"
             app:layout_constraintStart_toEndOf="@+id/button6"
             app:layout_constraintTop_toTopOf="@+id/button6" />
 
@@ -510,13 +531,13 @@
         android:id="@+id/imageView86_trd"
         android:layout_width="153dp"
         android:layout_height="55dp"
-        android:background="@drawable/startactivity"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/startbutton"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967" />
+        app:layout_constraintTop_toBottomOf="@id/todaytotaldata"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="0dp"
+        />
 
     <!--    <com.tenclouds.gaugeseekbar.GaugeSeekBar-->
     <!--        android:id="@+id/progressBar111"-->

@@ -103,7 +103,5 @@ public class activityTracker2 extends Fragment {
 
 //        return inflater.inflate(R.layout.fragment_diet_fourth, container, false);
         return  view;
-
-
     }
 }

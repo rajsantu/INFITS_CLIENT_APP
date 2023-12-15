@@ -443,6 +443,20 @@
             android:id="@+id/action_activityTracker2_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment" />
     </fragment>
+<!--    <destination-->
+<!--        android:id="@+id/activity_trck_popup"-->
+
+<!--        android:label="fragment_activity_trck_popup">-->
+<!--        <action-->
+<!--            android:id="@+id/action_activity_trck_popup_to_activitySecondFragment"-->
+<!--            app:destination="@id/activitySecondFragment" />-->
+
+<!--    </destination>-->
+    <action
+        android:id="@+id/action_activity_trck_popup"
+        app:destination="@id/activitySecondFragment" />
+
+
     <fragment
         android:id="@+id/activityfourthfragment"
         android:name="com.example.infits.activityfourthfragment"
@@ -469,6 +483,9 @@
         <action
             android:id="@+id/action_activitythirdfragment_to_activityTracker2"
             app:destination="@id/activityTracker2" />
+        <action
+            android:id="@+id/action_activitythirdfragment_to_walking_frag2"
+            app:destination="@id/walking_frag2"/>
     </fragment>
     <fragment
         android:id="@+id/activitySecondFragment"
@@ -495,12 +512,21 @@
         android:id="@+id/cycling_frag2"
         android:name="com.example.infits.cycling_frag2"
         android:label="fragment_cycling_frag2"
-        tools:layout="@layout/fragment_cycling_frag2" />
+        tools:layout="@layout/fragment_cycling_frag2"
+        >
+        <action
+            android:id="@+id/cycling_frag2_to_activitythirdfragment"
+            app:destination="@id/activitythirdfragment"/>
+    </fragment>
     <fragment
         android:id="@+id/walking_frag2"
         android:name="com.example.infits.walking_frag2"
         android:label="fragment_walking_frag2"
-        tools:layout="@layout/fragment_walking_frag2" />
+        tools:layout="@layout/fragment_walking_frag2" >
+    <action
+        android:id="@+id/action_walking_frag2_to_activityfourthFragment"
+        app:destination="@id/activityfourthfragment" />
+    </fragment>
     <fragment
         android:id="@+id/caloriesetgoalFragment"
         android:name="com.example.infits.caloriesetgoalFragment"

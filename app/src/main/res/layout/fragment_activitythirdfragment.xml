@@ -7,8 +7,6 @@
     tools:context=".activitythirdfragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-
     <ImageView
         android:id="@+id/imageView73"
         android:layout_width="25dp"
@@ -285,6 +283,7 @@ increase muscle strength and endurance, reduce stress levels. It can also help w
             app:progress="0.34"
             app:progressGradient="@array/myGradientColors"
             app:progressWidth="14dp"
+
             app:showThumb="false"
             app:startAngleDegrees="148"
             app:trackGradient="@array/track"
