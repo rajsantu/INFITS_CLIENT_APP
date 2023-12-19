@@ -46,7 +46,7 @@ import java.util.Map;
 public class activityfourthfragment extends Fragment {
     // Button btn_setgoal, btn_start_trd;
     Button run_goal_btn,btn_start;
-    TextView textView71, textView72, textView73, textView74, textView70,textView61,textView75,textView76,goal_unit;
+    TextView textView71, textView72, textView73, textView74,goal_type,textView61,textView75,textView76,goal_unit;
     ImageView back_button;
     ImageView set_goal;
     EditText goal_value_txt;
@@ -71,7 +71,6 @@ public class activityfourthfragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -81,6 +80,7 @@ public class activityfourthfragment extends Fragment {
         run_goal_btn = view.findViewById(R.id.imageView74_btn);
         btn_start = view.findViewById(R.id.imageView86_trd);
         goal_value_txt = dialog.findViewById(R.id.textView88);
+        goal_type = dialog.findViewById(R.id.textView83);
         goal_unit = dialog.findViewById(R.id.textView89);
         textView71 = view.findViewById(R.id.textView71);
         textView72 = view.findViewById(R.id.textView72);
@@ -109,6 +109,7 @@ public class activityfourthfragment extends Fragment {
                 ImageView closeImageView = dialog.findViewById(R.id.imageView87);
                 dialog.show();
                 goal_unit.setText("ST");
+                goal_type.setText("Set Walking Goal");
                 closeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
