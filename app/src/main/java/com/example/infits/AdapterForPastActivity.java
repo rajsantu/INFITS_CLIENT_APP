@@ -21,7 +21,7 @@ public class AdapterForPastActivity extends RecyclerView.Adapter<AdapterForPastA
     ArrayList<String> datas = new ArrayList<>();
     int color;
 
-    AdapterForPastActivity(Context context, ArrayList<String> dates, ArrayList<String> datas, int color){
+    public AdapterForPastActivity(Context context, ArrayList<String> dates, ArrayList<String> datas, int color){
         this.context = context;
         this.datas = datas;
         this.dates = dates;

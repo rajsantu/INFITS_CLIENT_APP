@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.gastricspark:scrolldatepicker:0.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e0b4f59a3ff3ae958cd246a17ef0a97e/transformed/jetified-scrolldatepicker-0.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e0b4f59a3ff3ae958cd246a17ef0a97e/transformed/jetified-scrolldatepicker-0.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e0b4f59a3ff3ae958cd246a17ef0a97e/transformed/jetified-scrolldatepicker-0.0.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/eb11d89ef63c82db0f21441590444fb9/transformed/jetified-scrolldatepicker-0.0.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/eb11d89ef63c82db0f21441590444fb9/transformed/jetified-scrolldatepicker-0.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/eb11d89ef63c82db0f21441590444fb9/transformed/jetified-scrolldatepicker-0.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d848a02866751844843e66f97723f4b5/transformed/jetified-scrolldatepicker-0.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d848a02866751844843e66f97723f4b5/transformed/jetified-scrolldatepicker-0.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d848a02866751844843e66f97723f4b5/transformed/jetified-scrolldatepicker-0.0.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
