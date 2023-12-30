@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.4bh1nav:ProgressView:v1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2620f6b65c282cb46ac849171e7b3495/transformed/jetified-ProgressView-v1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2620f6b65c282cb46ac849171e7b3495/transformed/jetified-ProgressView-v1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2620f6b65c282cb46ac849171e7b3495/transformed/jetified-ProgressView-v1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/26d91d12e4fffe33bc4472bab1047595/transformed/jetified-ProgressView-v1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/26d91d12e4fffe33bc4472bab1047595/transformed/jetified-ProgressView-v1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/26d91d12e4fffe33bc4472bab1047595/transformed/jetified-ProgressView-v1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b146cd6029aca966c34933f6f97f498e/transformed/jetified-ProgressView-v1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b146cd6029aca966c34933f6f97f498e/transformed/jetified-ProgressView-v1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b146cd6029aca966c34933f6f97f498e/transformed/jetified-ProgressView-v1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

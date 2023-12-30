@@ -166,9 +166,9 @@ public class WaterTrackerFragment extends Fragment {
         wgoal3 = view.findViewById(R.id.wgoal3);
         setgoal = view.findViewById(R.id.setgoal_watertracker);
         consumed = view.findViewById(R.id.water_consumed);
-        consumed2 = view.findViewById(R.id.water_consumed2);
+//        consumed2 = view.findViewById(R.id.water_consumed2);
         waterGoal = view.findViewById(R.id.water_goal);
-        waterGoal2 = view.findViewById(R.id.water_goal2);
+//        waterGoal2 = view.findViewById(R.id.water_goal2);
         reminder = view.findViewById(R.id.reminder);
         rc = view.findViewById(R.id.past_activity);
 
