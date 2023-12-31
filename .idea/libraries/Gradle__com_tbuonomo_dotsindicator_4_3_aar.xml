@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.tbuonomo:dotsindicator:4.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/330a7375fdb3eefceb331ab593eaf0ca/transformed/jetified-dotsindicator-4.3-debug/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/330a7375fdb3eefceb331ab593eaf0ca/transformed/jetified-dotsindicator-4.3-debug/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/330a7375fdb3eefceb331ab593eaf0ca/transformed/jetified-dotsindicator-4.3-debug/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5b478f313690dccd1ed3188469faad97/transformed/jetified-dotsindicator-4.3-debug/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5b478f313690dccd1ed3188469faad97/transformed/jetified-dotsindicator-4.3-debug/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5b478f313690dccd1ed3188469faad97/transformed/jetified-dotsindicator-4.3-debug/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3c304e6ad84e69e35eb2e7109dddbc6e/transformed/jetified-dotsindicator-4.3-debug/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3c304e6ad84e69e35eb2e7109dddbc6e/transformed/jetified-dotsindicator-4.3-debug/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3c304e6ad84e69e35eb2e7109dddbc6e/transformed/jetified-dotsindicator-4.3-debug/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

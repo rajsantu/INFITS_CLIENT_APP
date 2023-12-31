@@ -1,12 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.antonKozyriatskyi:CircularProgressIndicator:1.3.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c9636cabe81dc89a6e63df15842e6a67/transformed/jetified-CircularProgressIndicator-1.3.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e3663934dd7666f6935b7b1bd9bac25a/transformed/jetified-CircularProgressIndicator-1.3.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/198ee3d4ccb2f659bb8db114b0943b46/transformed/jetified-CircularProgressIndicator-1.3.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c9636cabe81dc89a6e63df15842e6a67/transformed/jetified-CircularProgressIndicator-1.3.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c9636cabe81dc89a6e63df15842e6a67/transformed/jetified-CircularProgressIndicator-1.3.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c9636cabe81dc89a6e63df15842e6a67/transformed/jetified-CircularProgressIndicator-1.3.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e3663934dd7666f6935b7b1bd9bac25a/transformed/jetified-CircularProgressIndicator-1.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e3663934dd7666f6935b7b1bd9bac25a/transformed/jetified-CircularProgressIndicator-1.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e3663934dd7666f6935b7b1bd9bac25a/transformed/jetified-CircularProgressIndicator-1.3.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/198ee3d4ccb2f659bb8db114b0943b46/transformed/jetified-CircularProgressIndicator-1.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/198ee3d4ccb2f659bb8db114b0943b46/transformed/jetified-CircularProgressIndicator-1.3.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/198ee3d4ccb2f659bb8db114b0943b46/transformed/jetified-CircularProgressIndicator-1.3.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

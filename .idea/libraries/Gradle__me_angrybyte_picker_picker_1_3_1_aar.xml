@@ -1,12 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: me.angrybyte.picker:picker:1.3.1@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/060ec59bc2c082936b3340c1b85cdaf8/transformed/jetified-picker-1.3.1/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3a39c8b8de685a6d635baddcc843d3dc/transformed/jetified-picker-1.3.1/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2c642031b9372baff386338ff16f74fb/transformed/jetified-picker-1.3.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/060ec59bc2c082936b3340c1b85cdaf8/transformed/jetified-picker-1.3.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/060ec59bc2c082936b3340c1b85cdaf8/transformed/jetified-picker-1.3.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/060ec59bc2c082936b3340c1b85cdaf8/transformed/jetified-picker-1.3.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3a39c8b8de685a6d635baddcc843d3dc/transformed/jetified-picker-1.3.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3a39c8b8de685a6d635baddcc843d3dc/transformed/jetified-picker-1.3.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3a39c8b8de685a6d635baddcc843d3dc/transformed/jetified-picker-1.3.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2c642031b9372baff386338ff16f74fb/transformed/jetified-picker-1.3.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2c642031b9372baff386338ff16f74fb/transformed/jetified-picker-1.3.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2c642031b9372baff386338ff16f74fb/transformed/jetified-picker-1.3.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.angrybyte.picker/picker/1.3.1/69a2d7605c99e9790fb61a6baa83a2893023eefe/picker-1.3.1-javadoc.jar!/" />

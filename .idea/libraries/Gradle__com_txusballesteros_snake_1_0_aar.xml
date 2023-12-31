@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.txusballesteros:snake:1.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2f1a8d2aeef7a3ae5ea8d1c6e759ce0c/transformed/jetified-snake-1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2f1a8d2aeef7a3ae5ea8d1c6e759ce0c/transformed/jetified-snake-1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2f1a8d2aeef7a3ae5ea8d1c6e759ce0c/transformed/jetified-snake-1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8e540616e1238c7769e3ad2a5023e80c/transformed/jetified-snake-1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8e540616e1238c7769e3ad2a5023e80c/transformed/jetified-snake-1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8e540616e1238c7769e3ad2a5023e80c/transformed/jetified-snake-1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/954a430d09fa20486ef9546f1763a1fd/transformed/jetified-snake-1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/954a430d09fa20486ef9546f1763a1fd/transformed/jetified-snake-1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/954a430d09fa20486ef9546f1763a1fd/transformed/jetified-snake-1.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.txusballesteros/snake/1.0/69676d4543fb8375c04e4a9e69ed07c1fc66e9a/snake-1.0-javadoc.jar!/" />
