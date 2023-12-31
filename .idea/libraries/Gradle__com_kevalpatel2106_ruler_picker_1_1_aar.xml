@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.kevalpatel2106:ruler-picker:1.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1fd99eebe4e99e4fedca827e07d4ec5b/transformed/jetified-ruler-picker-1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1fd99eebe4e99e4fedca827e07d4ec5b/transformed/jetified-ruler-picker-1.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1fd99eebe4e99e4fedca827e07d4ec5b/transformed/jetified-ruler-picker-1.1/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/27f3bfb52068f0eb89e81137fe2c6594/transformed/jetified-ruler-picker-1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/27f3bfb52068f0eb89e81137fe2c6594/transformed/jetified-ruler-picker-1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/27f3bfb52068f0eb89e81137fe2c6594/transformed/jetified-ruler-picker-1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bfb521b218459e1a65394637bc972520/transformed/jetified-ruler-picker-1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bfb521b218459e1a65394637bc972520/transformed/jetified-ruler-picker-1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bfb521b218459e1a65394637bc972520/transformed/jetified-ruler-picker-1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
