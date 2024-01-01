@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.Utility.AlarmHelper;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -32,7 +33,7 @@ import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
 
-import Utility.AlarmHelper;
+//import Utility.AlarmHelper;
 
 public class StepReminderFragment extends Fragment {
 
