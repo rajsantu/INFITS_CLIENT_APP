@@ -43,23 +43,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class activitySecondFragment extends Fragment {
+public class activitySkating extends Fragment {
 
     //GaugeSeekBar progressBar;
     // Button btn_setgoal, btn_start_trd;
     Button run_goal_btn,btn_start;
-    TextView textView71, textView72, textView73, textView74, textView70,textView61,textView75,textView76,goal_unit;
+    TextView textView71, textView72, textView73, textView74, textView70,goal_type,textView61,textView75,textView76,goal_unit;
     ImageView back_button;
     ImageView set_goal;
     EditText goal_value_txt;
     String goal_value;
     private GaugeSeekBar progressBarWalking;
     private static final int REQUEST_CODE = 123;
-    public activitySecondFragment() {
+    public activitySkating() {
         // Required empty public constructor
     }
-    public static activitySecondFragment newInstance(String param1, String param2) {
-        activitySecondFragment fragment = new activitySecondFragment();
+    public static activitySkating newInstance(String param1, String param2) {
+        activitySkating fragment = new activitySkating();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -75,12 +75,14 @@ public class activitySecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.todaystotalrunning, container, false);
+        View view =inflater.inflate(R.layout.todaytotalskating, container, false);
         Dialog dialog = new Dialog(this.getContext());
         dialog.setContentView(R.layout.activity_trck_popup);
         run_goal_btn = view.findViewById(R.id.imageView74_btn);
         btn_start = view.findViewById(R.id.imageView86_trd);
         goal_value_txt = dialog.findViewById(R.id.textView88);
+        goal_type = dialog.findViewById(R.id.textView83);
+        goal_unit = dialog.findViewById(R.id.textView89);
         textView71 = view.findViewById(R.id.textView71);
         textView72 = view.findViewById(R.id.textView72);
         textView73 = view.findViewById(R.id.textView73);
@@ -108,6 +110,8 @@ public class activitySecondFragment extends Fragment {
             public void onClick(View v) {
                 ImageView closeImageView = dialog.findViewById(R.id.imageView87);
                 dialog.show();
+                goal_unit.setText("KM");
+                goal_type.setText("Set Skating Goal");
                 closeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -150,8 +154,8 @@ public class activitySecondFragment extends Fragment {
                                 java.time.LocalDateTime now = LocalDateTime.now();
                                 data.put("date", dtf.format(now));
                                 data.put("operationtodo","setgoal");
-                                data.put("table","runningtracker");
-                                data.put("category","Running");
+                                data.put("table","skatingtracker");
+                                data.put("category","Skating");
                                 return data;
                             }
                         };
@@ -174,7 +178,7 @@ public class activitySecondFragment extends Fragment {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_activitySecondFragment_to_activityTracker2);
+                Navigation.findNavController(v).navigate(R.id.action_activitySkating_to_activityTracker2);
             }
         });
 
@@ -184,7 +188,7 @@ public class activitySecondFragment extends Fragment {
                 String TodayGoal = textView71.getText().toString();
                 Bundle bundle = new Bundle();
                 bundle.putString("todaysgoal", TodayGoal);
-                int actionId = R.id.action_activitySecondFragment_to_running_frag1;
+                int actionId = R.id.action_activitySkating_to_Skating;
                 Navigation.findNavController(v).navigate(actionId, bundle);
             }
         });
@@ -267,14 +271,14 @@ public class activitySecondFragment extends Fragment {
                             textView73.setText("0 KCAL");
                             textView74.setText("0 HOURS");
                             textView75.setText("0");
-                            textView61.setText("0 Steps");
+                            textView61.setText("0 KM");
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                }, error -> Log.e("Tracker data", error.toString())) {
+                }, error -> Log.e("Walking Tracker data", error.toString())) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -285,8 +289,8 @@ public class activitySecondFragment extends Fragment {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 data.put("date", dtf.format(now));
                 data.put("operationtodo","get");
-                data.put("table","runningtracker");
-                data.put("category","Running");
+                data.put("table","skatingtracker");
+                data.put("category","Skating");
                 return data;
             }
         };

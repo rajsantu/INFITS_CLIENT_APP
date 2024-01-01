@@ -123,7 +123,7 @@ public class activityfourthfragment extends Fragment {
                         //Toast.makeText(getApplicationContext(), goal_value, Toast.LENGTH_SHORT).show();
                         String goal = goal_value;
                         //String url = "http://10.12.2.128/infits/activitygoal.php";
-                        String url = "http://10.12.1.198/infits/walkingTracker.php";
+                        String url = "http://192.168.29.52/infits/trekkingTracker.php";
 
                         Log.d("Request", "Sending a request to: " + url);
 
@@ -152,6 +152,8 @@ public class activityfourthfragment extends Fragment {
                                 java.time.LocalDateTime now = LocalDateTime.now();
                                 data.put("date", dtf.format(now));
                                 data.put("operationtodo","setgoal");
+                                data.put("table","walkingtracker");
+                                data.put("category","Walking");
                                 return data;
                             }
                         };
@@ -243,7 +245,7 @@ public class activityfourthfragment extends Fragment {
     }
 
     private void LoadTodayData() {
-        String url = "http://10.12.1.198/infits/walkingTracker.php";
+        String url = "http://192.168.29.52/infits/trekkingTracker.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("Walking Tracker Data", response);
@@ -290,6 +292,8 @@ public class activityfourthfragment extends Fragment {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 data.put("date", dtf.format(now));
                 data.put("operationtodo","get");
+                data.put("table","walkingtracker");
+                data.put("category","Walking");
                 return data;
             }
         };

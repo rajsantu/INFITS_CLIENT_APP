@@ -349,7 +349,7 @@
             android:layout_height="111dp"
             android:layout_marginStart="120dp"
             android:fontFamily="@font/nats_regular"
-            android:text="Meters"
+            android:text="KM"
             android:textColor="@color/white"
             android:textSize="55sp"
             app:layout_constraintBottom_toBottomOf="parent"

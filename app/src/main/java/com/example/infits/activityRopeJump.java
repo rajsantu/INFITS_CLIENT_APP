@@ -1,14 +1,18 @@
 package com.example.infits;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
@@ -23,12 +27,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abhinav.progress_view.ProgressData;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tenclouds.gaugeseekbar.GaugeSeekBar;
@@ -38,28 +39,27 @@ import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class activitySecondFragment extends Fragment {
 
-    //GaugeSeekBar progressBar;
+public class activityRopeJump extends Fragment {
     // Button btn_setgoal, btn_start_trd;
     Button run_goal_btn,btn_start;
-    TextView textView71, textView72, textView73, textView74, textView70,textView61,textView75,textView76,goal_unit;
+    TextView textView71, textView72, textView73, textView74,goal_type,textView61,textView75,textView76,goal_unit;
     ImageView back_button;
     ImageView set_goal;
     EditText goal_value_txt;
     String goal_value;
     private GaugeSeekBar progressBarWalking;
     private static final int REQUEST_CODE = 123;
-    public activitySecondFragment() {
+
+
+    public activityRopeJump() {
         // Required empty public constructor
     }
-    public static activitySecondFragment newInstance(String param1, String param2) {
-        activitySecondFragment fragment = new activitySecondFragment();
+    public static activityRopeJump newInstance(String param1, String param2) {
+        activityRopeJump fragment = new activityRopeJump();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -71,25 +71,24 @@ public class activitySecondFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.todaystotalrunning, container, false);
+        View view =inflater.inflate(R.layout.todaytotalropejump, container, false);
         Dialog dialog = new Dialog(this.getContext());
         dialog.setContentView(R.layout.activity_trck_popup);
         run_goal_btn = view.findViewById(R.id.imageView74_btn);
         btn_start = view.findViewById(R.id.imageView86_trd);
         goal_value_txt = dialog.findViewById(R.id.textView88);
+        goal_type = dialog.findViewById(R.id.textView83);
+        goal_unit = dialog.findViewById(R.id.textView89);
         textView71 = view.findViewById(R.id.textView71);
         textView72 = view.findViewById(R.id.textView72);
         textView73 = view.findViewById(R.id.textView73);
         textView74 = view.findViewById(R.id.textView74);
-        textView76 = view.findViewById(R.id.textView76);
+        textView75 = view.findViewById(R.id.textView75);
         textView61 = view.findViewById(R.id.textView61);
         set_goal = dialog.findViewById(R.id.imageView89);
-        textView75 = view.findViewById(R.id.textView75);
-
         back_button=view.findViewById(R.id.imageView75);
         progressBarWalking =  view.findViewById(R.id.progressBarCycling);
         LoadTodayData();
@@ -103,11 +102,14 @@ public class activitySecondFragment extends Fragment {
                 }
             }
         });
+
         run_goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImageView closeImageView = dialog.findViewById(R.id.imageView87);
                 dialog.show();
+                goal_unit.setText("ST");
+                goal_type.setText("Set Goal");
                 closeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -120,8 +122,8 @@ public class activitySecondFragment extends Fragment {
                         goal_value = goal_value_txt.getText().toString();
                         //Toast.makeText(getApplicationContext(), goal_value, Toast.LENGTH_SHORT).show();
                         String goal = goal_value;
-
-                        String url = "http://192.168.29.52/infits/trekkingTracker.php";
+                        //String url = "http://10.12.2.128/infits/activitygoal.php";
+                        String url = "http://192.168.29.52/infits/TrekkingTracker.php";
 
                         Log.d("Request", "Sending a request to: " + url);
 
@@ -150,8 +152,8 @@ public class activitySecondFragment extends Fragment {
                                 java.time.LocalDateTime now = LocalDateTime.now();
                                 data.put("date", dtf.format(now));
                                 data.put("operationtodo","setgoal");
-                                data.put("table","runningtracker");
-                                data.put("category","Running");
+                                data.put("table","ropejumptracker");
+                                data.put("category","Rope Jump");
                                 return data;
                             }
                         };
@@ -174,17 +176,16 @@ public class activitySecondFragment extends Fragment {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_activitySecondFragment_to_activityTracker2);
+                Navigation.findNavController(v).navigate(R.id.action_activityRopeJump_to_activityTracker2);
             }
         });
-
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String TodayGoal = textView71.getText().toString();
                 Bundle bundle = new Bundle();
                 bundle.putString("todaysgoal", TodayGoal);
-                int actionId = R.id.action_activitySecondFragment_to_running_frag1;
+                int actionId = R.id.action_activityRopeJump_to_RopeJump;
                 Navigation.findNavController(v).navigate(actionId, bundle);
             }
         });
@@ -225,9 +226,11 @@ public class activitySecondFragment extends Fragment {
         return view;
     }
 
+
+
     private void updateProgress() {
         String goalValue = textView71.getText().toString();
-        String todayTotalValue = textView75.getText().toString();
+        String todayTotalValue =textView75.getText().toString();
 
         // Convert the string values to floats (you might want to add error handling here)
         float goal = Float.parseFloat(goalValue);
@@ -245,29 +248,33 @@ public class activitySecondFragment extends Fragment {
         String url = "http://192.168.29.52/infits/trekkingTracker.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    Log.d("Running Tracker Data", response);
+                    Log.d("Tracker Data", response);
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         JSONObject dataObject = jsonObject.getJSONObject("Data");
-                        if (!dataObject.isNull("distance")) {
+                        if (!dataObject.isNull("steps")) {
+                            // Data found in walkingtracker table
+                            String totalsteps = dataObject.getString("steps");
                             String totaldistance = dataObject.getString("distance");
                             String totalcalories = dataObject.getString("calories");
                             String totalruntime = dataObject.getString("runtime");
                             String todaysgoal = dataObject.getString("goal");
+
                             textView71.setText(todaysgoal);
-                            textView72.setText(totaldistance + " KM");
+                            textView72.setText(totalsteps + " Jumps");
                             textView73.setText(totalcalories + " KCAL");
                             textView74.setText(totalruntime + " HOURS");
-                            textView75.setText(totaldistance);
-                            textView61.setText(totaldistance + " KM");
+                            textView75.setText(totalsteps);
+                            textView61.setText(totalsteps + " Jumps");
                         } else {
+                            // No data found in walkingtracker table, set values to 0
                             String todaysgoal = dataObject.getString("goal");
                             textView71.setText(todaysgoal);
-                            textView72.setText("0 KM");
+                            textView72.setText("0 Jumps");
                             textView73.setText("0 KCAL");
                             textView74.setText("0 HOURS");
                             textView75.setText("0");
-                            textView61.setText("0 Steps");
+                            textView61.setText("0 Jumps");
                         }
 
                     } catch (JSONException e) {
@@ -285,8 +292,8 @@ public class activitySecondFragment extends Fragment {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 data.put("date", dtf.format(now));
                 data.put("operationtodo","get");
-                data.put("table","runningtracker");
-                data.put("category","Running");
+                data.put("table","ropejumptracker");
+                data.put("category","Rope Jump");
                 return data;
             }
         };
@@ -295,5 +302,4 @@ public class activitySecondFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
-
 }

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activityfourthfragment">
+    tools:context=".activitySecondFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <ImageView
         android:id="@+id/imageView75"
         android:layout_width="25dp"
@@ -66,9 +67,9 @@
 
     <ImageView
         android:id="@+id/imageView81"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:src="@drawable/r2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/dance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Walking"
+        android:text="Dancing"
         android:textColor="#000000"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -113,9 +114,7 @@
         android:layout_height="84dp"
         android:fontFamily="@font/nats_regular"
         android:lineSpacingExtra="-20sp"
-        android:text="Walking is a basic human activity and is a low-impact form of exercise that can be done almost anywhere and is beneficial for overall health and fitness."
-
-
+        android:text="Dancing is a vibrant cardiovascular activity that not only strengthens the heart but also tones muscles throughout the body, offering a fun and energetic route to improved fitness"
         android:textColor="#D9D9D9"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -130,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Muscles used during walking:"
+        android:text="Muscles used during dancing"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -370,7 +369,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
-            android:text="0"
+            android:text="10"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -387,7 +386,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/nats_regular"
-            android:text="ST"
+            android:text="Steps"
             android:textColor="@color/white"
             android:textSize="20sp"
 
@@ -407,7 +406,7 @@
             android:fontFamily="@font/nats_regular"
             android:paddingLeft="12dp"
             android:paddingRight="0dp"
-            android:text="Distance"
+            android:text="Steps"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -422,7 +421,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
-            android:text="0 KM"
+            android:text="0 Steps"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -536,7 +535,7 @@
         app:layout_constraintTop_toBottomOf="@id/todaytotaldata"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="0dp"
-         />
+        />
 
     <!--    <com.tenclouds.gaugeseekbar.GaugeSeekBar-->
     <!--        android:id="@+id/progressBar111"-->
