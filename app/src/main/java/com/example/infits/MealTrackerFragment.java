@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ import java.util.Map;
  */
 public class MealTrackerFragment extends Fragment {
 
-    private CardView breakfast,lunch,snack,dinner;
+    private Button breakfast,lunch,snack,dinner;
     private RecyclerView rv;
     List<addmealInfo> addmealInfos;
     View bottomSheetN;
