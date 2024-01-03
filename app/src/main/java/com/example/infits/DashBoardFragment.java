@@ -216,7 +216,7 @@ public class DashBoardFragment extends Fragment {
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
 
-        name.setText("Hi " + DataFromDatabase.name);
+        name.setText("Hi " + Utils.DisplayNameFormatter(DataFromDatabase.name,14));
         date.setText(sf.format(dateToday));
 
         meal_date.setText(sf.format(dateToday));
@@ -1038,7 +1038,6 @@ public class DashBoardFragment extends Fragment {
         String stepPercentText = stepPercent + "%";
         stepsProgressPercent.setText(stepPercentText);
         stepsProgressBar.setProgress(stepPercent);
-
 
     }
 
