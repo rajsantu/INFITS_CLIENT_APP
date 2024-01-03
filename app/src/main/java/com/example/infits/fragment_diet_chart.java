@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,10 +36,13 @@ import com.android.volley.toolbox.Volley;
 import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -136,7 +140,42 @@ public class fragment_diet_chart extends Fragment {
             gaugeSeekMiddleIcon.setBackground(getResources().getDrawable(R.drawable.fire_diet_chart));
             gaugeSeekMiddleText.setText("Calories");
             gaugeSeekMiddleTextUnit.setText("kcal");
-            gaugeSeekMiddleTextValue.setText("1050");
+            String url = "https://infits.in/androidApi/calorieTracker.php"; // main database api
+            RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
+            StringRequest request = new StringRequest(Request.Method.POST, url,
+                    response -> {
+                        Log.d("Tracker macro", response);
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONObject dataObject = jsonObject.getJSONObject("Data"); // calling the object from api
+                            JSONObject goalsObject = dataObject.getJSONObject("values"); //goals has all goals of item protien fibers fats etc
+
+                            String calories = goalsObject.getString("Calories");
+                            gaugeSeekMiddleTextValue.setText(calories);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }, error -> Log.e("Traget Macro", error.toString())) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                    data.put("clientID", DataFromDatabase.clientuserID);
+                    data.put("today", dtf.format(now));
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(requireContext()).add(request);
+            request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
             progressBarCarbs.setVisibility(View.INVISIBLE);
             progressBarProtein.setVisibility(View.INVISIBLE);
             progressBarFats.setVisibility(View.INVISIBLE);
@@ -152,7 +191,42 @@ public class fragment_diet_chart extends Fragment {
             gaugeSeekMiddleIcon.setBackground(getResources().getDrawable(R.drawable.fish));
             gaugeSeekMiddleText.setText("Protein");
             gaugeSeekMiddleTextUnit.setText("g");
-            gaugeSeekMiddleTextValue.setText("256");
+            String url = "https://infits.in/androidApi/calorieTracker.php"; // main database api
+            RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
+            StringRequest request = new StringRequest(Request.Method.POST, url,
+                    response -> {
+                        Log.d("Tracker macro", response);
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONObject dataObject = jsonObject.getJSONObject("Data"); // calling the object from api
+                            JSONObject goalsObject = dataObject.getJSONObject("values"); //goals has all goals of item protien fibers fats etc
+
+                            String protien = goalsObject.getString("protein");
+                            gaugeSeekMiddleTextValue.setText(protien);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }, error -> Log.e("Traget Macro", error.toString())) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                    data.put("clientID", DataFromDatabase.clientuserID);
+                    data.put("today", dtf.format(now));
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(requireContext()).add(request);
+            request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
             progressBar.setVisibility(View.INVISIBLE);
             progressBarCarbs.setVisibility(View.INVISIBLE);
             progressBarFats.setVisibility(View.INVISIBLE);
@@ -169,7 +243,42 @@ public class fragment_diet_chart extends Fragment {
             gaugeSeekMiddleIcon.setBackground(getResources().getDrawable(R.drawable.carbs_diet_chart));
             gaugeSeekMiddleText.setText("Carbs");
             gaugeSeekMiddleTextUnit.setText("g");
-            gaugeSeekMiddleTextValue.setText("512");
+            String url = "https://infits.in/androidApi/calorieTracker.php"; // main database api
+            RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
+            StringRequest request = new StringRequest(Request.Method.POST, url,
+                    response -> {
+                        Log.d("Tracker macro", response);
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONObject dataObject = jsonObject.getJSONObject("Data"); // calling the object from api
+                            JSONObject goalsObject = dataObject.getJSONObject("values"); //goals has all goals of item protien fibers fats etc
+
+                            String carbs = goalsObject.getString("carbs");
+                            gaugeSeekMiddleTextValue.setText(carbs);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }, error -> Log.e("Traget Macro", error.toString())) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                    data.put("clientID", DataFromDatabase.clientuserID);
+                    data.put("today", dtf.format(now));
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(requireContext()).add(request);
+            request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
             progressBar.setVisibility(View.INVISIBLE);
             progressBarProtein.setVisibility(View.INVISIBLE);
             progressBarFats.setVisibility(View.INVISIBLE);
@@ -178,14 +287,48 @@ public class fragment_diet_chart extends Fragment {
 
         //for fats click listener
         btn_fats.setOnClickListener(view1 -> {
-            btn_proteins.setBackground(getResources().getDrawable(R.drawable.protien_bg));
-            btn_calories.setBackground(getResources().getDrawable(R.drawable.protien_bg));
-            btn_carbs.setBackground(getResources().getDrawable(R.drawable.protien_bg));
-            btn_fats.setBackground(getResources().getDrawable(R.drawable.btn_bg_fats));
-            gaugeSeekMiddleIcon.setBackground(getResources().getDrawable(R.drawable.fats));
-            gaugeSeekMiddleText.setText("Fats");
-            gaugeSeekMiddleTextUnit.setText("g");
-            gaugeSeekMiddleTextValue.setText("200");
+                    btn_proteins.setBackground(getResources().getDrawable(R.drawable.protien_bg));
+                    btn_calories.setBackground(getResources().getDrawable(R.drawable.protien_bg));
+                    btn_carbs.setBackground(getResources().getDrawable(R.drawable.protien_bg));
+                    btn_fats.setBackground(getResources().getDrawable(R.drawable.btn_bg_fats));
+                    gaugeSeekMiddleIcon.setBackground(getResources().getDrawable(R.drawable.fats));
+                    gaugeSeekMiddleText.setText("Fats");
+                    gaugeSeekMiddleTextUnit.setText("g");
+                    String url = "https://infits.in/androidApi/calorieTracker.php"; // main database api
+                    RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
+                    StringRequest request = new StringRequest(Request.Method.POST, url,
+                            response -> {
+                                Log.d("Tracker macro", response);
+
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+
+                                    JSONObject dataObject = jsonObject.getJSONObject("Data"); // calling the object from api
+                                    JSONObject goalsObject = dataObject.getJSONObject("values"); //goals has all goals of item protien fibers fats etc
+
+                                    String fats = goalsObject.getString("Fat");
+                                    gaugeSeekMiddleTextValue.setText(fats);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }, error -> Log.e("Traget Macro", error.toString())) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> data = new HashMap<>();
+                            LocalDateTime now = LocalDateTime.now();// gets the current date and time
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd H:m:s");
+                            data.put("clientID", DataFromDatabase.clientuserID);
+                            data.put("today", dtf.format(now));
+                            return data;
+                        }
+                    };
+                    Volley.newRequestQueue(requireContext()).add(request);
+                    request.setRetryPolicy(new DefaultRetryPolicy(50000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             progressBar.setVisibility(View.INVISIBLE);
             progressBarProtein.setVisibility(View.INVISIBLE);
             progressBarCarbs.setVisibility(View.INVISIBLE);
