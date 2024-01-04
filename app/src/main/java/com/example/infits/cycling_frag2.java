@@ -1,7 +1,7 @@
 package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
-
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,13 +14,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-
+import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,14 +32,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.infits.R;
-
+import androidx.navigation.Navigation;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,13 +46,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 public class cycling_frag2 extends Fragment implements SensorEventListener {
 
+   // long time;
+    //  float totalDistance, weight, calorie_burn, temp_calorie = 0;
+    //  private double distance;
+    //  int pre_step = 0, current = 0, flag_steps = 0, current_steps;
+    // private static final int PERMISSION_REQUEST_CODE = 1;
+    //   private LocationManager locationManager;
+    private Location lastLocation;
     private RotateAnimation rotateAnimation;
     private boolean isRotationStarted = false;
     SensorManager sensorManager;
     Sensor stepSensor;
+
     int pre_step=0,current=0,flag_steps=0,current_steps;
     float distance, calories;
     Button btn_pause, btn_start;
@@ -96,11 +101,15 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cycling_frag2, container, false);
+
         distance_show=view.findViewById(R.id.textView71);
         distance_show2=view.findViewById(R.id.textView88);
         btn_pause = view.findViewById(R.id.imageView86);
         btn_start = view.findViewById(R.id.imageView105);
         btn_stop = view.findViewById(R.id.imageView89);
+
+
+
         imageView80 = view.findViewById(R.id.imageView80);
         imageView76 = view.findViewById(R.id.imageView76);
         imageView79 = view.findViewById(R.id.imageView79);
@@ -147,8 +156,20 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
                 // Send data to the server when "Stop" button is pressed
                 sendDataToServer();
 
+                //******** prevous codeeee*****************
+                //	 btn_start.setVisibility(View.GONE);
+                //     btn_pause.setVisibility(View.VISIBLE);
+                //    running_txt.setVisibility(View.VISIBLE);
+                //    cont_running_txt.setVisibility(View.GONE);
+// startLocationUpdates();
+                //        startRotationAnimation();
+                //     time = System.currentTimeMillis();
+                flag_steps = 0;
                 // Navigate to the next fragment after sending the data
                 Navigation.findNavController(v).navigate(R.id.cycling_frag2_to_activitythirdfragment);
+
+
+
             }
         });
 
@@ -170,6 +191,7 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
                 stop();
             }
         });
+
         return view;
     }
 
@@ -180,7 +202,13 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
             flag_steps = 1;
             startTime = SystemClock.elapsedRealtime();
             Log.d("MyApp", "startTime initialized: " + startTime);
+
+
+
+
+
         }
+
 
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             current = (int) event.values[0];
@@ -189,6 +217,9 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
             calories = (float) 0.03 * current_steps;
             long currentTime = SystemClock.elapsedRealtime();
             elapsedTime = currentTime - startTime;
+
+
+
 
             int seconds = (int) (elapsedTime / 1000); // Convert milliseconds to seconds
             int minutes = seconds / 60; // Convert seconds to minutes
@@ -215,19 +246,63 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
     }
 
 
+
+
+
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+
+
+
+
+
+
+
+
+
 
     }
 
     public void register() {
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public void stop() {
         sensorManager.unregisterListener(this, stepSensor);
+
+
+
+
+
     }
+
 
     public void startRotationAnimation() {
         // Create a RotateAnimation for imageView79 (anti-clockwise)
@@ -243,12 +318,15 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
         rotateAnimation79.setRepeatCount(Animation.INFINITE); // Infinite repeat count for continuous rotation
         rotateAnimation79.setFillAfter(true); // Set to true to keep the final rotation state after the animation ends
 
+
         // Create a RotateAnimation for imageView80 and imageView76 (clockwise)
         rotateAnimation = new RotateAnimation(
                 0, 360, // Starting and ending angles of rotation (0 to 360 degrees for clockwise)
                 Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point for the X coordinate (center)
                 Animation.RELATIVE_TO_SELF, 0.5f // Pivot point for the Y coordinate (center)
         );
+
+
 
         // Set the animation properties
         rotateAnimation.setInterpolator(new LinearInterpolator());
@@ -310,3 +388,4 @@ public class cycling_frag2 extends Fragment implements SensorEventListener {
         Toast.makeText(getActivity(), "Updating data...", Toast.LENGTH_SHORT).show();
     }
 }
+

@@ -1,7 +1,7 @@
 package com.example.infits;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
+
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,9 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,7 +44,7 @@ import java.util.Map;
 
 
 public class activityfourthfragment extends Fragment {
-    // Button btn_setgoal, btn_start_trd;
+    Button btn_setgoal, btn_start_trd;
     Button run_goal_btn,btn_start;
     TextView textView71, textView72, textView73, textView74,goal_type,textView61,textView75,textView76,goal_unit;
     ImageView back_button;
@@ -58,6 +58,7 @@ public class activityfourthfragment extends Fragment {
     public activityfourthfragment() {
         // Required empty public constructor
     }
+
     public static activityfourthfragment newInstance(String param1, String param2) {
         activityfourthfragment fragment = new activityfourthfragment();
         Bundle args = new Bundle();
@@ -71,6 +72,7 @@ public class activityfourthfragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -99,6 +101,17 @@ public class activityfourthfragment extends Fragment {
                 if ("dataUpdated".equals(updateKey)) {
                     // Data is updated, perform your actions here
                     LoadTodayData(); // Call your method to update the TextView
+                }
+            }
+        });
+
+        getParentFragmentManager().setFragmentResultListener("updateDataKey", this, (requestKey, result) -> {
+            // Check if the updateKey is present in the result
+            if (result.containsKey("updateKey")) {
+                // Handle the result data here
+                String updateKey = result.getString("updateKey", "");
+                if ("dataUpdated".equals(updateKey)) {
+                    LoadTodayData();
                 }
             }
         });

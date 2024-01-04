@@ -34,6 +34,7 @@ public class activityTracker2 extends Fragment {
     }
 
 
+
     @Override
     public void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
@@ -88,6 +89,7 @@ public class activityTracker2 extends Fragment {
         cycling_img.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activitythirdfragment);
         });
+
         walking_img.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityfourthfragment);
         });
@@ -110,6 +112,15 @@ public class activityTracker2 extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_dashBoardFragment);
         });
 
+
+        //  backbutton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_dashBoardFragment);
+        //     }
+        // });
+
+//        return inflater.inflate(R.layout.fragment_diet_fourth, container, false);
         return  view;
     }
 }

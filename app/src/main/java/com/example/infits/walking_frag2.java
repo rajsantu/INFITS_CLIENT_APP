@@ -2,7 +2,6 @@ package com.example.infits;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -10,13 +9,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.navigation.Navigation;
-
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +22,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -39,7 +36,6 @@ import com.android.volley.toolbox.Volley;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class walking_frag2 extends Fragment implements SensorEventListener {
@@ -77,6 +73,7 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_walking_frag2, container, false);
+
 
         btnPause = view.findViewById(R.id.imageView86);
         btnStart = view.findViewById(R.id.imageView105);

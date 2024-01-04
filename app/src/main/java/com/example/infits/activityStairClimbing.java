@@ -1,7 +1,7 @@
 package com.example.infits;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
+
 
 import android.app.Activity;
 import android.app.Dialog;

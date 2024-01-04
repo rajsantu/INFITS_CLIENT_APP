@@ -53,10 +53,12 @@ public class running_frag1 extends Fragment implements SensorEventListener {
 
     private RotateAnimation rotateAnimation;
     private boolean isRotationStarted = false;
+
     SensorManager sensorManager;
     Sensor stepSensor;
     int pre_step=0,current=0,flag_steps=0,current_steps;
     float distance, calories;
+
     Button btn_pause, btn_start;
 
     ImageView btn_stop;
@@ -202,7 +204,6 @@ public class running_frag1 extends Fragment implements SensorEventListener {
             distance_disp.setText(String.format("%.2f", distance));
             distance_show.setText(String.format("%.2f", distance));
             distance_show2.setText(String.format("%.2f", distance));
-
             calorie_disp.setText(String.format("%.2f", calories));
             time_disp.setText(formattedTime);
             time = formattedTime;
