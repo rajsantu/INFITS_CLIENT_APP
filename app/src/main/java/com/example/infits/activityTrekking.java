@@ -11,9 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,8 +43,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class activityfourthfragment extends Fragment {
-    Button btn_setgoal, btn_start_trd;
+public class activityTrekking extends Fragment {
+    // Button btn_setgoal, btn_start_trd;
     Button run_goal_btn,btn_start;
     TextView textView71, textView72, textView73, textView74,goal_type,textView61,textView75,textView76,goal_unit;
     ImageView back_button;
@@ -55,12 +55,11 @@ public class activityfourthfragment extends Fragment {
     private static final int REQUEST_CODE = 123;
 
 
-    public activityfourthfragment() {
+    public activityTrekking() {
         // Required empty public constructor
     }
-
-    public static activityfourthfragment newInstance(String param1, String param2) {
-        activityfourthfragment fragment = new activityfourthfragment();
+    public static activityTrekking newInstance(String param1, String param2) {
+        activityTrekking fragment = new activityTrekking();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -72,11 +71,10 @@ public class activityfourthfragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.todaystotalwalking, container, false);
+        View view =inflater.inflate(R.layout.todaytotaltrekking, container, false);
         Dialog dialog = new Dialog(this.getContext());
         dialog.setContentView(R.layout.activity_trck_popup);
         run_goal_btn = view.findViewById(R.id.imageView74_btn);
@@ -105,24 +103,13 @@ public class activityfourthfragment extends Fragment {
             }
         });
 
-        getParentFragmentManager().setFragmentResultListener("updateDataKey", this, (requestKey, result) -> {
-            // Check if the updateKey is present in the result
-            if (result.containsKey("updateKey")) {
-                // Handle the result data here
-                String updateKey = result.getString("updateKey", "");
-                if ("dataUpdated".equals(updateKey)) {
-                    LoadTodayData();
-                }
-            }
-        });
-
         run_goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImageView closeImageView = dialog.findViewById(R.id.imageView87);
                 dialog.show();
                 goal_unit.setText("ST");
-                goal_type.setText("Set Walking Goal");
+                goal_type.setText("Set Trekking Goal");
                 closeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -136,7 +123,7 @@ public class activityfourthfragment extends Fragment {
                         //Toast.makeText(getApplicationContext(), goal_value, Toast.LENGTH_SHORT).show();
                         String goal = goal_value;
                         //String url = "http://10.12.2.128/infits/activitygoal.php";
-                        String url = "http://192.168.29.52/infits/trekkingTracker.php";
+                        String url = "http://192.168.29.52/infits/TrekkingTracker.php";
 
                         Log.d("Request", "Sending a request to: " + url);
 
@@ -165,8 +152,8 @@ public class activityfourthfragment extends Fragment {
                                 java.time.LocalDateTime now = LocalDateTime.now();
                                 data.put("date", dtf.format(now));
                                 data.put("operationtodo","setgoal");
-                                data.put("table","walkingtracker");
-                                data.put("category","Walking");
+                                data.put("table","trekkingtracker");
+                                data.put("category","Trekking");
                                 return data;
                             }
                         };
@@ -189,7 +176,7 @@ public class activityfourthfragment extends Fragment {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_activityfourthfragment_to_activityTracker2);
+                Navigation.findNavController(v).navigate(R.id.action_activityTrekking_to_activityTracker2);
             }
         });
         btn_start.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +185,7 @@ public class activityfourthfragment extends Fragment {
                 String TodayGoal = textView71.getText().toString();
                 Bundle bundle = new Bundle();
                 bundle.putString("todaysgoal", TodayGoal);
-                int actionId = R.id.action_activityfourthfragment_to_walking_frag2;
+                int actionId = R.id.action_activityTrekking_to_Trekking;
                 Navigation.findNavController(v).navigate(actionId, bundle);
             }
         });
@@ -294,7 +281,7 @@ public class activityfourthfragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                }, error -> Log.e("Walking Tracker data", error.toString())) {
+                }, error -> Log.e("Trekking Tracker data", error.toString())) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -305,8 +292,8 @@ public class activityfourthfragment extends Fragment {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 data.put("date", dtf.format(now));
                 data.put("operationtodo","get");
-                data.put("table","walkingtracker");
-                data.put("category","Walking");
+                data.put("table","trekkingtracker");
+                data.put("category","Trekking");
                 return data;
             }
         };

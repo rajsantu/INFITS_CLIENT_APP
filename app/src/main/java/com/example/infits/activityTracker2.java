@@ -26,7 +26,7 @@ public class activityTracker2 extends Fragment {
     RecyclerView recyclerView;
     List<Date> dateList;
     CalAdapter_at adapter;
-    ImageView running_img,walking_img,cycling_img;
+    ImageView running_img,walking_img,cycling_img,jumprope_img,trekking_img,skating_img,dancing_img,stair_climbing;
     ImageButton backbutton;
 
     public activityTracker2 () {
@@ -76,6 +76,11 @@ public class activityTracker2 extends Fragment {
         running_img=view.findViewById ( R.id.imageView79 );
         cycling_img=view.findViewById ( R.id.imageView73 );
         walking_img=view.findViewById ( R.id.imageView82 );
+        jumprope_img=view.findViewById ( R.id.imageView85 );
+        skating_img=view.findViewById ( R.id.imageView89 );
+        trekking_img=view.findViewById ( R.id.imageView99 );
+        dancing_img=view.findViewById ( R.id.imageView105 );
+        stair_climbing=view.findViewById ( R.id.imageView101);
         backbutton=view.findViewById(R.id.activitytrackerimgback);
 
         running_img.setOnClickListener(v->{
@@ -88,7 +93,21 @@ public class activityTracker2 extends Fragment {
         walking_img.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityfourthfragment);
         });
-
+        jumprope_img.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityRopeJump);
+        });
+        skating_img.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activitySkating);
+        });
+        trekking_img.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityTrekking);
+        });
+        stair_climbing.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityStairClimbing);
+        });
+        dancing_img.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_activityDancing);
+        });
         backbutton.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_activityTracker2_to_dashBoardFragment);
         });

@@ -23,12 +23,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abhinav.progress_view.ProgressData;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tenclouds.gaugeseekbar.GaugeSeekBar;
@@ -121,7 +119,7 @@ public class activitySecondFragment extends Fragment {
                         //Toast.makeText(getApplicationContext(), goal_value, Toast.LENGTH_SHORT).show();
                         String goal = goal_value;
 
-                        String url = "http://192.168.29.52/infits/runningTracker.php";
+                        String url = "http://192.168.29.52/infits/trekkingTracker.php";
 
                         Log.d("Request", "Sending a request to: " + url);
 
@@ -150,6 +148,8 @@ public class activitySecondFragment extends Fragment {
                                 java.time.LocalDateTime now = LocalDateTime.now();
                                 data.put("date", dtf.format(now));
                                 data.put("operationtodo","setgoal");
+                                data.put("table","runningtracker");
+                                data.put("category","Running");
                                 return data;
                             }
                         };
@@ -240,7 +240,7 @@ public class activitySecondFragment extends Fragment {
     }
 
     private void LoadTodayData() {
-        String url = "http://192.168.29.52/infits/runningTracker.php";
+        String url = "http://192.168.29.52/infits/trekkingTracker.php";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Log.d("Running Tracker Data", response);
@@ -272,7 +272,7 @@ public class activitySecondFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                }, error -> Log.e("Walking Tracker data", error.toString())) {
+                }, error -> Log.e("Tracker data", error.toString())) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -283,6 +283,8 @@ public class activitySecondFragment extends Fragment {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 data.put("date", dtf.format(now));
                 data.put("operationtodo","get");
+                data.put("table","runningtracker");
+                data.put("category","Running");
                 return data;
             }
         };

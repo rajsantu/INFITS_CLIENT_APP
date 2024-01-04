@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".walking_frag2">
+    tools:context=".activitySecondFragment">
+
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Walking"
+        android:text="Trekking"
         android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Continue Walking!!"
+        android:text="Continue Trekking!!"
         android:visibility="invisible"
         android:textColor="#000000"
         android:textSize="40sp"
@@ -73,16 +74,14 @@
 
     <ImageView
         android:id="@+id/imageView81"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:src="@drawable/r2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/trekking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.169" />
-
-
     <TextView
         android:id="@+id/textView88"
         android:layout_width="wrap_content"
@@ -93,7 +92,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292" />
@@ -103,22 +102,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Steps"
+        android:text=" Steps"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292" />
+
+
 
     <TextView
         android:id="@+id/textView62"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nats_regular"
-        android:text="Walking"
+        android:text="Running"
         android:textColor="#D9D9D9"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -281,10 +282,10 @@
             android:src="@drawable/trophy_act"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.295"
+            app:layout_constraintHorizontal_bias="0.344"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503" />
+            app:layout_constraintVertical_bias="0.501" />
 
         <ImageView
             android:id="@+id/imageView89"
@@ -297,7 +298,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.637" />
-
 
         <ImageView
             android:id="@+id/imageView85"
@@ -320,11 +320,11 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.562"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textView86"
+            app:layout_constraintHorizontal_bias="0.021"
+            app:layout_constraintStart_toEndOf="@id/textView85"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.501" />
+            app:layout_constraintVertical_bias="0.498" />
 
         <TextView
             android:id="@+id/textView70"
@@ -351,10 +351,10 @@
             android:textSize="55sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.781"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView70"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.243" />
+            app:layout_constraintVertical_bias="0.25" />
 
         <TextView
             android:id="@+id/textView84"
@@ -381,7 +381,7 @@
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.408"
+            app:layout_constraintHorizontal_bias="0.441"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.501" />
@@ -391,13 +391,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
-            android:text="Steps"
+            android:text="ST"
             android:textColor="@color/white"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.738"
-            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.604"
+            app:layout_constraintStart_toEndOf="@id/textView87"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.501" />
 

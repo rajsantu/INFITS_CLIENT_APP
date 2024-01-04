@@ -49,16 +49,14 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class running_frag1 extends Fragment implements SensorEventListener {
+public class Skating extends Fragment implements SensorEventListener {
 
     private RotateAnimation rotateAnimation;
     private boolean isRotationStarted = false;
-
     SensorManager sensorManager;
     Sensor stepSensor;
     int pre_step=0,current=0,flag_steps=0,current_steps;
     float distance, calories;
-
     Button btn_pause, btn_start;
 
     ImageView btn_stop;
@@ -75,12 +73,12 @@ public class running_frag1 extends Fragment implements SensorEventListener {
 
     String calories_save = "", distance_save = " ", time_disp_save = " ", goal="5", goal_save = "", time;
 
-    public running_frag1() {
+    public Skating() {
 
     }
 
-    public static running_frag1 newInstance(String param1, String param2) {
-        running_frag1 fragment = new running_frag1();
+    public static Skating newInstance(String param1, String param2) {
+        Skating fragment = new Skating();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -97,9 +95,10 @@ public class running_frag1 extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_running_frag1, container, false);
+        View view = inflater.inflate(R.layout.skating, container, false);
         distance_show=view.findViewById(R.id.textView71);
         distance_show2=view.findViewById(R.id.textView88);
+
         btn_pause = view.findViewById(R.id.imageView86);
         btn_start = view.findViewById(R.id.imageView105);
         btn_stop = view.findViewById(R.id.imageView89);
@@ -150,7 +149,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                 sendDataToServer();
 
                 // Navigate to the next fragment after sending the data
-                Navigation.findNavController(v).navigate(R.id.action_running_frag1_to_activitySecondFragment);
+                Navigation.findNavController(v).navigate(R.id.action_Skating_to_activitySkating);
             }
         });
 
@@ -187,7 +186,7 @@ public class running_frag1 extends Fragment implements SensorEventListener {
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             current = (int) event.values[0];
             current_steps = current - pre_step;
-            distance = (float) 0.002 * current_steps;
+            distance = (float) 0.004 * current_steps;
             calories = (float) 0.06 * current_steps;
             long currentTime = SystemClock.elapsedRealtime();
             elapsedTime = currentTime - startTime;
@@ -292,15 +291,16 @@ public class running_frag1 extends Fragment implements SensorEventListener {
                 data.put("calories", String.format("%.2f", calories));
                 data.put("runtime",time);
                 data.put("goal", goal);
-                data.put("steps", "0");
+                //data.put("duration", "0");
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 data.put("date", dtf.format(now));
                 data.put("dateandtime", DTF.format(now));
                 data.put("operationtodo","updatedata");
-                data.put("table","runningtracker");
-                data.put("category","Running");
+                data.put("table","skatingtracker");
+                data.put("category","Skating");
+                data.put("steps",  String.valueOf(current_steps));
                 return data;
             }
         };
