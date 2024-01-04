@@ -5,7 +5,6 @@
     android:id="@+id/trackers_graph"
     app:startDestination="@id/dashBoardFragment"
     >
-
     <fragment
         android:id="@+id/mealTracker"
         android:name="com.example.infits.MealTrackerFragment"
@@ -74,13 +73,13 @@
             android:id="@+id/action_weightTrackerFragment_to_weightReminderFragment"
             app:destination="@id/weightReminderFragment" />
     </fragment>
-    <!--    <fragment-->
-    <!--        android:id="@+id/calorieTrackerFragment"-->
-    <!--        android:name="com.example.infits.CalorieTrackerFragment">-->
-    <!--        -->
-    <!--        -->
-    <!--        -->
-    <!--    <fragment/>-->
+<!--    <fragment-->
+<!--        android:id="@+id/calorieTrackerFragment"-->
+<!--        android:name="com.example.infits.CalorieTrackerFragment">-->
+<!--        -->
+<!--        -->
+<!--        -->
+<!--    <fragment/>-->
 
     <fragment
         android:id="@+id/calorieTrackerFragment"
@@ -118,8 +117,8 @@
             android:id="@+id/action_calorieTrackerFragment_to_caloriesetgoalFragment"
             app:destination="@id/caloriesetgoalFragment" />
         <!--        <action-->
-        <!--            android:id="@+id/action_calorieConsumedFragment_to_calorieAddBreakFastFragment"-->
-        <!--            app:destination="@id/calorieAddBreakFastFragment" />-->
+<!--            android:id="@+id/action_calorieConsumedFragment_to_calorieAddBreakFastFragment"-->
+<!--            app:destination="@id/calorieAddBreakFastFragment" />-->
     </fragment>
 
     <fragment
@@ -149,7 +148,7 @@
     </fragment>
     <fragment
         android:id="@+id/sleepTrackerFragment"
-        android:name="com.example.infits.Fragments.SleepTracker.SleepTrackerFragment"
+        android:name="com.example.infits.SleepTrackerFragment"
         android:label="fragment_sleep_tracker"
         tools:layout="@layout/fragment_sleep_tracker">
         <action
@@ -235,7 +234,7 @@
     </fragment>
     <fragment
         android:id="@+id/sleepReminderFragment"
-        android:name="com.example.infits.Fragments.SleepTracker.SleepReminderFragment"
+        android:name="com.example.infits.SleepReminderFragment"
         android:label="fragment_sleep_reminder"
         tools:layout="@layout/fragment_sleep_reminder">
         <action
@@ -440,18 +439,33 @@
             android:id="@+id/action_activityTracker2_to_activitySecondFragment"
             app:destination="@id/activitySecondFragment" />
         <action
+            android:id="@+id/action_activityTracker2_to_activityRopeJump"
+            app:destination="@id/activityRopeJump" />
+        <action
+            android:id="@+id/action_activityTracker2_to_activitySkating"
+            app:destination="@id/activitySkating" />
+        <action
+            android:id="@+id/action_activityTracker2_to_activityStairClimbing"
+            app:destination="@id/activityStairClimbing" />
+        <action
+            android:id="@+id/action_activityTracker2_to_activityTrekking"
+            app:destination="@id/activityTrekking" />
+        <action
+            android:id="@+id/action_activityTracker2_to_activityDancing"
+            app:destination="@id/activityDancing" />
+        <action
             android:id="@+id/action_activityTracker2_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment" />
     </fragment>
-    <!--    <destination-->
-    <!--        android:id="@+id/activity_trck_popup"-->
+<!--    <destination-->
+<!--        android:id="@+id/activity_trck_popup"-->
 
-    <!--        android:label="fragment_activity_trck_popup">-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_activity_trck_popup_to_activitySecondFragment"-->
-    <!--            app:destination="@id/activitySecondFragment" />-->
+<!--        android:label="fragment_activity_trck_popup">-->
+<!--        <action-->
+<!--            android:id="@+id/action_activity_trck_popup_to_activitySecondFragment"-->
+<!--            app:destination="@id/activitySecondFragment" />-->
 
-    <!--    </destination>-->
+<!--    </destination>-->
     <action
         android:id="@+id/action_activity_trck_popup"
         app:destination="@id/activitySecondFragment" />
@@ -470,6 +484,76 @@
             app:destination="@id/walking_frag2" />
         <action
             android:id="@+id/action_activityfourthfragment_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityRopeJump"
+        android:name="com.example.infits.activityRopeJump"
+        tools:layout="@layout/todaytotalropejump">
+    <action
+        android:id="@+id/action_activityRopeJump_self"
+        app:destination="@id/activityRopeJump" />
+    <action
+        android:id="@+id/action_activityRopeJump_to_RopeJump"
+        app:destination="@id/RopeJump" />
+    <action
+        android:id="@+id/action_activityRopeJump_to_activityTracker2"
+        app:destination="@id/activityTracker2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activitySkating"
+        android:name="com.example.infits.activitySkating"
+        tools:layout="@layout/todaytotalskating">
+        <action
+            android:id="@+id/action_activitySkating_self"
+            app:destination="@id/activitySkating" />
+        <action
+            android:id="@+id/action_activitySkating_to_Skating"
+            app:destination="@id/Skating" />
+        <action
+            android:id="@+id/action_activitySkating_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityTrekking"
+        android:name="com.example.infits.activityTrekking"
+        tools:layout="@layout/todaytotaltrekking">
+        <action
+            android:id="@+id/action_activityTrekking_self"
+            app:destination="@id/activityTrekking" />
+        <action
+            android:id="@+id/action_activityTrekking_to_Trekking"
+            app:destination="@id/Trekking" />
+        <action
+            android:id="@+id/action_activityTrekking_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityStairClimbing"
+        android:name="com.example.infits.activityStairClimbing"
+        tools:layout="@layout/todaytotaltrekking">
+        <action
+            android:id="@+id/action_activityStairClimbing_self"
+            app:destination="@id/activityStairClimbing" />
+        <action
+            android:id="@+id/action_activityStairClimbing_to_StairClimbing"
+            app:destination="@id/StairClimbing" />
+        <action
+            android:id="@+id/action_activityStairClimbing_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityDancing"
+        android:name="com.example.infits.activityDancing"
+        tools:layout="@layout/todaytotaldancing">
+        <action
+            android:id="@+id/action_activityDancing_self"
+            app:destination="@id/activityDancing" />
+        <action
+            android:id="@+id/action_activityDancing_to_Dancing"
+            app:destination="@id/Dancing" />
+        <action
+            android:id="@+id/action_activityDancing_to_activityTracker2"
             app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
@@ -523,9 +607,54 @@
         android:name="com.example.infits.walking_frag2"
         android:label="fragment_walking_frag2"
         tools:layout="@layout/fragment_walking_frag2" >
+    <action
+        android:id="@+id/action_walking_frag2_to_activityfourthFragment"
+        app:destination="@id/activityfourthfragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RopeJump"
+        android:name="com.example.infits.RopeJump"
+        android:label="fragment_walking_frag2"
+        tools:layout="@layout/jumprope" >
         <action
-            android:id="@+id/action_walking_frag2_to_activityfourthFragment"
-            app:destination="@id/activityfourthfragment" />
+            android:id="@+id/action_RopeJump_to_activityRopeJump"
+            app:destination="@id/activityRopeJump" />
+    </fragment>
+    <fragment
+        android:id="@+id/Skating"
+        android:name="com.example.infits.Skating"
+        android:label="fragment_skating"
+        tools:layout="@layout/skating" >
+        <action
+            android:id="@+id/action_Skating_to_activitySkating"
+            app:destination="@id/activitySkating" />
+    </fragment>
+    <fragment
+        android:id="@+id/Trekking"
+        android:name="com.example.infits.Trekking"
+        android:label="fragment_trekking"
+        tools:layout="@layout/fragment_trekking" >
+        <action
+            android:id="@+id/action_Trekking_to_activityTrekking"
+            app:destination="@id/activityTrekking" />
+    </fragment>
+    <fragment
+        android:id="@+id/StairClimbing"
+        android:name="com.example.infits.StairClimbing"
+        android:label="fragment_stairclimbing"
+        tools:layout="@layout/fragment_stairclimbing" >
+        <action
+            android:id="@+id/action_StairClimbing_to_activityStairClimbing"
+            app:destination="@id/activityStairClimbing" />
+    </fragment>
+    <fragment
+        android:id="@+id/Dancing"
+        android:name="com.example.infits.Dancing"
+        android:label="fragment_dancing"
+        tools:layout="@layout/fragment_dancing" >
+        <action
+            android:id="@+id/action_dancing_to_activityDancing"
+            app:destination="@id/activityDancing" />
     </fragment>
     <fragment
         android:id="@+id/caloriesetgoalFragment"

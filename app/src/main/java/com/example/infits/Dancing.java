@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class walking_frag2 extends Fragment implements SensorEventListener {
+public class Dancing extends Fragment implements SensorEventListener {
 
     SensorManager sensorManager;
     private RotateAnimation rotateAnimation;
@@ -58,12 +58,12 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
     private ObjectAnimator clockwiseRotationAnimator;
     private ObjectAnimator anticlockwiseRotationAnimator;
     private static final int REQUEST_CODE = 123;
-    public walking_frag2() {
+    public Dancing () {
         // Required empty public constructor
     }
 
-    public static walking_frag2 newInstance(String param1, String param2) {
-        walking_frag2 fragment = new walking_frag2();
+    public static Dancing  newInstance(String param1, String param2) {
+        Dancing  fragment = new Dancing ();
         return fragment;
     }
 
@@ -76,7 +76,7 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_walking_frag2, container, false);
+        View view = inflater.inflate(R.layout.fragment_dancing ,container, false);
 
         btnPause = view.findViewById(R.id.imageView86);
         btnStart = view.findViewById(R.id.imageView105);
@@ -134,7 +134,7 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
                 // Send data to the server when "Stop" button is pressed
                 sendDataToServer();
                 // Navigate to the next fragment after sending the data
-                Navigation.findNavController(v).navigate(R.id.action_walking_frag2_to_activityfourthFragment);
+                Navigation.findNavController(v).navigate(R.id.action_dancing_to_activityDancing);
             }
         });
 
@@ -153,8 +153,8 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             current = (int) event.values[0];
             current_steps = current - pre_step;
-            distance = (float) 0.001 * current_steps;
-            calories = (float) 0.04 * current_steps;
+            distance = (float) 0.002 * current_steps;
+            calories = (float) 0.05 * current_steps;
             long currentTime = SystemClock.elapsedRealtime();
             elapsedTime = currentTime - startTime;
             int seconds = (int) (elapsedTime / 1000); // Convert milliseconds to seconds
@@ -213,8 +213,8 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
                 LocalDateTime now = LocalDateTime.now();
                 data.put("date", dtf.format(now));
                 data.put("operationtodo","updatedata");
-                data.put("table","walkingtracker");
-                data.put("category","Walking");
+                data.put("table","dancingtracker");
+                data.put("category","Dancing");
                 return data;
             }
         };
