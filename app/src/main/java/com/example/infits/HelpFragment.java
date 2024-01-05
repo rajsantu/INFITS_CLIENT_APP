@@ -90,17 +90,10 @@ public class HelpFragment extends Fragment {
             }
         });
 
-        email.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.putExtra(Intent.EXTRA_EMAIL, "email@google.com");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "subject");
-            intent.putExtra(Intent.EXTRA_TEXT, "text");
-            intent.setData(Uri.parse("mailto:"));
-
-            if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(requireContext(), "There is no application that support this action", Toast.LENGTH_SHORT).show();
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_helpFragment_to_emailFragment);
             }
         });
 

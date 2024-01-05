@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_helpFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_helpFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
     </fragment>
     <fragment
         android:id="@+id/FAQFragment"
@@ -99,5 +102,14 @@
         <action
             android:id="@+id/action_referralFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.infits.EmailFragment"
+        android:label="fragment_email"
+        tools:layout="@layout/fragment_email" >
+        <action
+            android:id="@+id/action_emailFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
     </fragment>
 </navigation>
