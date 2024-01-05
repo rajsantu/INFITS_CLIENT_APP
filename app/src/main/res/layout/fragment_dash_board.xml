@@ -4,728 +4,828 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/toplayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/namelayout"
+        android:layout_height="0dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/hamburger_menu"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:src="@drawable/menu_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="contentDescription" />
+
+        <RelativeLayout
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:id="@+id/belliconrelative"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:id="@+id/dashboard_bell"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/bell_icon"
+                tools:ignore="contentDescription" />
+
+            <ImageView
+                android:id="@+id/dashboard_bell_update"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/bell_icon_update"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/namelayout"
+        app:layout_constraintTop_toBottomOf="@id/toplayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        android:layout_height="0dp">
+
+
+
+        <TextView
+            android:id="@+id/nameInDash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="28sp"
+            tools:targetApi="p"
+            tools:text="Ankit Sharma"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/pro_identifier"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/pro_identifier_dashboard"
+            android:visibility="gone"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/nameInDash"
+            app:layout_constraintStart_toEndOf="@id/nameInDash"
+            app:layout_constraintTop_toTopOf="@id/nameInDash" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameInDash"
+            android:layout_alignParentStart="true"
+            android:textColor="#6A6A6A"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/nameInDash"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/nameInDash"
+            app:layout_constraintTop_toBottomOf="@+id/nameInDash"
+            tools:text="Feb 10, 2022" />
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/profile_image"
+            app:cardCornerRadius="22.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/profile1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/profilepic_dashboard"
+                tools:ignore="contentDescription" />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.175" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardviewlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rowCount="5"
+            android:columnCount="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/stepcard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_margin="4dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="18dp">
 
                 <ImageView
-                    android:id="@+id/hamburger_menu"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/menu_icon"
-                    tools:ignore="contentDescription"
-                    app:layout_constraintStart_toStartOf="@+id/nameInDash"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/metrics_steps_dashboard"
+                    tools:ignore="contentDescription" />
 
-                <ImageView
-                    android:id="@+id/dashboard_bell"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/bell_icon"
-                    tools:ignore="contentDescription"
-                    app:layout_constraintEnd_toEndOf="@+id/cardView"
-                    app:layout_constraintTop_toTopOf="@+id/hamburger_menu" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/dashboard_bell_update"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="-12dp"
-                    android:src="@drawable/bell_icon_update"
-                    android:visibility="gone"
-                    tools:ignore="contentDescription"
-                    app:layout_constraintStart_toEndOf="@+id/dashboard_bell"
-                    app:layout_constraintTop_toTopOf="@id/dashboard_bell" />
 
-                <TextView
-                    android:id="@+id/nameInDash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/nats_regular"
-                    android:textFontWeight="400"
-                    android:textColor="#000000"
-                    android:lineHeight="0dp"
-                    android:gravity="top"
-                    tools:text="Ankit Sharma"
-                    android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="@+id/left"
-                    app:layout_constraintTop_toBottomOf="@+id/hamburger_menu"
-                    tools:targetApi="p" />
-
-                <ImageView
-                    android:id="@+id/pro_identifier"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/pro_identifier_dashboard"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginStart="10dp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toEndOf="@id/nameInDash"
-                    app:layout_constraintTop_toBottomOf="@+id/hamburger_menu"/>
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/nameInDash"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="-10dp"
-                    tools:text="Feb 10, 2022"
-                    android:textColor="#6A6A6A"
-                    android:textSize="11sp"
-                    app:layout_constraintStart_toStartOf="@+id/nameInDash"
-                    app:layout_constraintTop_toBottomOf="@+id/nameInDash" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/profile_image"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/date"
-                    app:layout_constraintEnd_toEndOf="@+id/right"
-                    app:layout_constraintTop_toTopOf="@+id/nameInDash">
-
-                    <ImageView
-                        android:id="@+id/profile1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        tools:ignore="contentDescription"
-                        app:srcCompat="@drawable/profilepic_dashboard" />
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:id="@+id/left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/right"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/stepcard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
-
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/metrics_steps_dashboard" />
-
-                        <TextView
-                            android:id="@+id/steps"
-                            android:layout_width="wrap_content"
-                            android:layout_height="19dp"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
+                    <RelativeLayout
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginBottom="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
 
                         <TextView
                             android:id="@+id/steps_progress_percent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
                             android:layout_gravity="bottom"
-                            android:layout_marginStart="109dp"
-                            android:layout_marginBottom="22dp"
                             android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="75%"
+                            android:gravity="center"
                             android:textColor="@color/white"
-                            android:textSize="11sp" />
+                            android:textSize="14sp"
+                            tools:text="75%" />
 
                         <com.google.android.material.progressindicator.CircularProgressIndicator
                             android:id="@+id/steps_progress_bar"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
-                            android:layout_marginStart="98dp"
-                            android:layout_marginTop="47dp"
-                            tools:progress="75"
                             app:indicatorColor="@color/white"
                             app:indicatorDirectionCircular="counterclockwise"
-                            app:trackThickness="2dp" />
-                    </androidx.cardview.widget.CardView>
+                            app:trackThickness="2dp"
+                            tools:progress="75" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/watercard"
+                    </RelativeLayout>
+
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/stepsguide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
-
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/metrics_water" />
-
-                        <TextView
-                            android:id="@+id/glasses"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/watergoal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="top"
-                            android:text="@string/goal"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-
-                        <TextView
-                            android:id="@+id/glassesGoal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/weightcard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
-
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/metrics_weight" />
-
-                        <TextView
-                            android:id="@+id/weight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/GoalWeight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/goal"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-
-                        <TextView
-                            android:id="@+id/weightGoal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end|bottom"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/proCrad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
-
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitCenter"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/consultation_bkg_dashboard" />
-
-                        <TextView
-                            android:id="@+id/consultation_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/consultation"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"/>
-
-                        <TextView
-                            android:id="@+id/consultation_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="30dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            tools:text="Feb 10,2022"
-                            android:visibility="gone"/>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/consultation_gopro_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="0dp">
-
-                            <TextView
-                                android:layout_width="100dp"
-                                android:layout_height="26dp"
-                                android:background="@drawable/coming_soon"
-                                android:fontFamily="@font/nats_regular"
-                                android:paddingVertical="1dp"
-                                android:text="@string/go_pro"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
-                        </androidx.cardview.widget.CardView>
-
-                    </androidx.cardview.widget.CardView>
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.56" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/meal_tracker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/meal_tracker_card" />
+                <TextView
+                    android:id="@+id/steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="----------" />
 
-                        <TextView
-                            android:id="@+id/meal_track_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/meals_tracker"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"/>
 
-                        <TextView
-                            android:id="@+id/date_meal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="30dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            tools:text="Feb 10,2022"
-                            android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/heartcard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/meal_tracker_go_pro_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="0dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/metrics_heart_rate"
+                    tools:ignore="contentDescription" />
 
-                            <TextView
-                                android:layout_width="100dp"
-                                android:layout_height="26dp"
-                                android:background="@drawable/coming_soon"
-                                android:fontFamily="@font/nats_regular"
-                                android:paddingVertical="1dp"
-                                android:text="@string/go_pro"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
-                        </androidx.cardview.widget.CardView>
-
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/right"
+                <TextView
+                    android:id="@+id/bpm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/left"
-                    app:layout_constraintTop_toTopOf="@+id/left">
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    tools:text="0 BPM" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/heartcard"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/bpmguidee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.85" />
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/metrics_heart_rate" />
-
-                        <TextView
-                            android:id="@+id/bpm"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="0 BPM"
-                            android:textColor="#ffffff"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/bpmUp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="95dp"
-                            android:layout_marginTop="53dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="0 bpm"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-
-                        <TextView
-                            android:id="@+id/bpmDown"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="95dp"
-                            android:layout_marginTop="73dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="0 bpm"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/sleepcard"
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/bpmguidee2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.7" />
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/metrics_sleep" />
-
-                        <TextView
-                            android:id="@+id/sleep"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/Goalsleep"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/goal"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-
-                        <TextView
-                            android:id="@+id/sleepgoal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end|bottom"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/caloriecard"
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/bpmguidee3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.56" />
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/calorie_track_bkg_dashboard" />
-
-                        <TextView
-                            android:id="@+id/calorie"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/calorieGoal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/limit"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-
-                        <TextView
-                            android:id="@+id/GoalCalorie"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            tools:text="----------"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/dietcardPro"
+                    <TextView
+                        android:id="@+id/bpmUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
+                        android:fontFamily="@font/manrope_medium"
+                        app:layout_constraintStart_toStartOf="@id/bpmguidee3"
+                        app:layout_constraintEnd_toEndOf="@id/bpmguidee2"
+                        app:layout_constraintBottom_toBottomOf="@id/bpmguidee3"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        tools:text="0 bpm" />
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/diet_chart_bkg_dashboard" />
-
-                        <TextView
-                            android:id="@+id/diet_chart_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/diet_chart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"/>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/diet_chart_gopro_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="0dp">
-
-                            <TextView
-                                android:layout_width="100dp"
-                                android:layout_height="26dp"
-                                android:background="@drawable/coming_soon"
-                                android:fontFamily="@font/nats_regular"
-                                android:paddingVertical="1dp"
-                                android:text="@string/go_pro"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/date_diet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="30dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            tools:text="Feb 10,2022"
-                            android:visibility="gone"/>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/workout_card"
+                    <TextView
+                        android:id="@+id/bpmDown"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="5dp">
+                        android:fontFamily="@font/manrope_medium"
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/workout_bkg_dashboard"
-                            tools:ignore="contentDescription"/>
+                        app:layout_constraintTop_toTopOf="@id/bpmguidee"
+                        app:layout_constraintEnd_toEndOf="@id/bpmguidee2"
+                        app:layout_constraintBottom_toBottomOf="@id/bpmguidee"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        tools:text="0 bpm" />
 
-                        <TextView
-                            android:id="@+id/workout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="3dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:text="@string/workout_tracker"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/workout_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="30dp"
-                            android:fontFamily="@font/manrope_medium"
-                            android:gravity="top"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            tools:text="Feb 10,2022" />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-            <View
-                android:layout_width="120dp"
-                android:layout_height="4dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:background="#6A6A6A"
-                />
-        </LinearLayout>
-    </ScrollView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/watercard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/metrics_water"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/glasses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="----------" />
+
+                <TextView
+                    android:id="@+id/watergoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="top"
+                    android:text="@string/goal"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/glassesGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp"
+                    tools:text="----------" />
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sleepcard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/metrics_sleep"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/sleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="----------" />
+
+                <TextView
+                    android:id="@+id/Goalsleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/goal"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/sleepgoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp"
+                    tools:text="----------" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/weightcard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/metrics_weight"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="----------" />
+
+                <TextView
+                    android:id="@+id/GoalWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/goal"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/weightGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp"
+                    tools:text="----------" />
+            </androidx.cardview.widget.CardView>
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dietcardPro"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/diet_chart_bkg_dashboard"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/diet_chart_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/diet_chart"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/diet_chart_gopro_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="26dp"
+                        android:background="@drawable/coming_soon"
+                        android:fontFamily="@font/nats_regular"
+                        android:paddingVertical="1dp"
+                        android:text="@string/go_pro"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/date_diet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:text="Feb 10,2022" />
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/proCrad"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/consultation_bkg_dashboard"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/consultation_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/consultation"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/consultation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:text="Feb 10,2022" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/consultation_gopro_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/proCrad"
+                    app:layout_constraintEnd_toEndOf="@id/proCrad"
+                    app:layout_constraintStart_toStartOf="@id/proCrad"
+                    app:layout_constraintTop_toTopOf="@id/proCrad">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="26dp"
+                        android:background="@drawable/coming_soon"
+                        android:fontFamily="@font/nats_regular"
+                        android:paddingVertical="1dp"
+                        android:text="@string/go_pro"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/caloriecard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/calorie_track_bkg_dashboard"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/calorie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="----------" />
+
+                <TextView
+                    android:id="@+id/calorieGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/limit"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/GoalCalorie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:ignore="SmallSp"
+                    tools:text="----------" />
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/meal_tracker"
+                android:layout_width="0dp"
+                android:layout_margin="4dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_height="0dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/meal_tracker_card"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/meal_track_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/meals_tracker"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/date_meal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:text="Feb 10,2022" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/meal_tracker_go_pro_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="26dp"
+                        android:background="@drawable/coming_soon"
+                        android:fontFamily="@font/nats_regular"
+                        android:paddingVertical="1dp"
+                        android:text="@string/go_pro"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/workout_card"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/workout_bkg_dashboard"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    android:id="@+id/workout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:text="@string/workout_tracker"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/workout_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="Feb 10,2022" />
+            </androidx.cardview.widget.CardView>
+
+
+        </GridLayout>
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--            <View-->
+    <!--                android:layout_width="120dp"-->
+    <!--                android:layout_height="4dp"-->
+    <!--                android:layout_gravity="center_horizontal"-->
+    <!--                android:layout_marginTop="40dp"-->
+    <!--                android:background="#6A6A6A"-->
+    <!--                />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
