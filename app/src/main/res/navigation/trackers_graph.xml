@@ -5,6 +5,7 @@
     android:id="@+id/trackers_graph"
     app:startDestination="@id/dashBoardFragment"
     >
+
     <fragment
         android:id="@+id/mealTracker"
         android:name="com.example.infits.MealTrackerFragment"
@@ -73,13 +74,13 @@
             android:id="@+id/action_weightTrackerFragment_to_weightReminderFragment"
             app:destination="@id/weightReminderFragment" />
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/calorieTrackerFragment"-->
-<!--        android:name="com.example.infits.CalorieTrackerFragment">-->
-<!--        -->
-<!--        -->
-<!--        -->
-<!--    <fragment/>-->
+    <!--    <fragment-->
+    <!--        android:id="@+id/calorieTrackerFragment"-->
+    <!--        android:name="com.example.infits.CalorieTrackerFragment">-->
+    <!--        -->
+    <!--        -->
+    <!--        -->
+    <!--    <fragment/>-->
 
     <fragment
         android:id="@+id/calorieTrackerFragment"
@@ -116,9 +117,12 @@
         <action
             android:id="@+id/action_calorieTrackerFragment_to_caloriesetgoalFragment"
             app:destination="@id/caloriesetgoalFragment" />
+        <action
+            android:id="@+id/action_calorieTrackerFragment_to_calorieAddBreakFastFragment"
+            app:destination="@id/calorieAddBreakFastFragment" />
         <!--        <action-->
-<!--            android:id="@+id/action_calorieConsumedFragment_to_calorieAddBreakFastFragment"-->
-<!--            app:destination="@id/calorieAddBreakFastFragment" />-->
+        <!--            android:id="@+id/action_calorieConsumedFragment_to_calorieAddBreakFastFragment"-->
+        <!--            app:destination="@id/calorieAddBreakFastFragment" />-->
     </fragment>
 
     <fragment
@@ -291,6 +295,9 @@
         <action
             android:id="@+id/action_calorieAddBreakfastFragment_to_mealInfoWithPhoto"
             app:destination="@+id/mealInfoWithPhoto"/>
+        <action
+            android:id="@+id/action_calorieAddBreakFastFragment_to_calorie_meal_info_with_photo2"
+            app:destination="@id/calorie_meal_info_with_photo2" />
 
     </fragment>
     <fragment
@@ -457,15 +464,15 @@
             android:id="@+id/action_activityTracker2_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment" />
     </fragment>
-<!--    <destination-->
-<!--        android:id="@+id/activity_trck_popup"-->
+    <!--    <destination-->
+    <!--        android:id="@+id/activity_trck_popup"-->
 
-<!--        android:label="fragment_activity_trck_popup">-->
-<!--        <action-->
-<!--            android:id="@+id/action_activity_trck_popup_to_activitySecondFragment"-->
-<!--            app:destination="@id/activitySecondFragment" />-->
+    <!--        android:label="fragment_activity_trck_popup">-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_activity_trck_popup_to_activitySecondFragment"-->
+    <!--            app:destination="@id/activitySecondFragment" />-->
 
-<!--    </destination>-->
+    <!--    </destination>-->
     <action
         android:id="@+id/action_activity_trck_popup"
         app:destination="@id/activitySecondFragment" />
@@ -490,15 +497,15 @@
         android:id="@+id/activityRopeJump"
         android:name="com.example.infits.activityRopeJump"
         tools:layout="@layout/todaytotalropejump">
-    <action
-        android:id="@+id/action_activityRopeJump_self"
-        app:destination="@id/activityRopeJump" />
-    <action
-        android:id="@+id/action_activityRopeJump_to_RopeJump"
-        app:destination="@id/RopeJump" />
-    <action
-        android:id="@+id/action_activityRopeJump_to_activityTracker2"
-        app:destination="@id/activityTracker2" />
+        <action
+            android:id="@+id/action_activityRopeJump_self"
+            app:destination="@id/activityRopeJump" />
+        <action
+            android:id="@+id/action_activityRopeJump_to_RopeJump"
+            app:destination="@id/RopeJump" />
+        <action
+            android:id="@+id/action_activityRopeJump_to_activityTracker2"
+            app:destination="@id/activityTracker2" />
     </fragment>
     <fragment
         android:id="@+id/activitySkating"
@@ -607,9 +614,9 @@
         android:name="com.example.infits.walking_frag2"
         android:label="fragment_walking_frag2"
         tools:layout="@layout/fragment_walking_frag2" >
-    <action
-        android:id="@+id/action_walking_frag2_to_activityfourthFragment"
-        app:destination="@id/activityfourthfragment" />
+        <action
+            android:id="@+id/action_walking_frag2_to_activityfourthFragment"
+            app:destination="@id/activityfourthfragment" />
     </fragment>
     <fragment
         android:id="@+id/RopeJump"
@@ -665,4 +672,18 @@
             android:id="@+id/action_caloriesetgoalFragment_to_calorieTrackerFragment"
             app:destination="@id/calorieTrackerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/calorie_meal_info_with_photo2"
+        android:name="com.example.infits.Calorie_meal_info_with_photo"
+        android:label="fragment_calorie_meal_info_with_photo"
+        tools:layout="@layout/fragment_calorie_meal_info_with_photo" >
+        <action
+            android:id="@+id/action_calorie_meal_info_with_photo2_to_fragmentTodays_BreakFast"
+            app:destination="@id/fragmentTodays_BreakFast" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentTodays_BreakFast"
+        android:name="com.example.infits.FragmentTodays_BreakFast"
+        android:label="fragment_todays__break_fast"
+        tools:layout="@layout/fragment_todays__break_fast" />
 </navigation>
