@@ -332,7 +332,7 @@ public class MealtrackerTodays_Breakfast extends Fragment {
                 byte[] imageAsBytess = Base64.decode(myImageString.getBytes(), Base64.DEFAULT);
                 Bitmap mybitmap= BitmapFactory.decodeByteArray(imageAsBytess, 0, imageAsBytess.length);
                 //Mustafa
-                todays_breakFast_infos.add(new Todays_BreakFast_info(mybitmap,
+                todays_breakFast_infos.add(new Todays_BreakFast_info(getContext().getDrawable(R.drawable.pizza_img),
 //                        todays_breakFast_infos.add(new Todays_BreakFast_info(decodedBitmap,
                         jsonObject1.getString("mealName"),
                         jsonObject1.getString("calorieValue"),

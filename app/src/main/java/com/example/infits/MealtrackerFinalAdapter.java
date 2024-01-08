@@ -33,6 +33,7 @@ public class MealtrackerFinalAdapter extends RecyclerView.Adapter<MealtrackerFin
     ArrayList<Todays_BreakFast_info> todays_breakFast_infos;
 
 
+
     public MealtrackerFinalAdapter(Context context, ArrayList<Todays_BreakFast_info> todays_breakFast_infos){
         this.todays_breakFast_infos=todays_breakFast_infos;
         this.context=context;
@@ -48,8 +49,9 @@ public class MealtrackerFinalAdapter extends RecyclerView.Adapter<MealtrackerFin
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //  holder.icon.setImageDrawable(todays_breakFast_infos.get(position).icon);
-        holder.icon.setImageBitmap(todays_breakFast_infos.get(position).icon);
+        position = holder.getBindingAdapterPosition();
+
+        holder.icon.setImageDrawable(todays_breakFast_infos.get(position).icon);
 //        holder.icon.setImageBitmap(todays_breakFast_infos.get(position).icon);
         holder.mealName.setText(todays_breakFast_infos.get(position).mealName);
         holder.calorieValue.setText(todays_breakFast_infos.get(position).calorieValue);
@@ -68,6 +70,7 @@ public class MealtrackerFinalAdapter extends RecyclerView.Adapter<MealtrackerFin
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int position = holder.getBindingAdapterPosition();
 //                Toast.makeText(context, "clicked for "+todays_breakFast_infos.get(position).mealName, Toast.LENGTH_SHORT).show();
                 todays_breakFast_infos.remove(position);
                 notifyItemRemoved(position);

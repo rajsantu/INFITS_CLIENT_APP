@@ -159,7 +159,7 @@ public class WaterTrackerFragment extends Fragment {
 
 
         addliq = view.findViewById(R.id.addliq);
-        decliq = view.findViewById(R.id.decliq);
+//        decliq = view.findViewById(R.id.decliq);
         imgback = view.findViewById(R.id.imgback);
         lottieAnimationViewWater = view.findViewById(R.id.waterAnimation);
         waterGoalPercent = view.findViewById(R.id.water_goal_percent);

@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -46,7 +47,7 @@ public class AddMealAdapter extends RecyclerView.Adapter<AddMealAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.addmealIcon.setImageDrawable(context.getDrawable(addmealInfos.get(position).mealIocn));
 
 
@@ -79,7 +80,7 @@ public class AddMealAdapter extends RecyclerView.Adapter<AddMealAdapter.ViewHold
 
                 bundle.putStringArrayList("mealInfotransfer",mealInfotransfer);
                 if (addmealInfos.get(position).mealType == "BreakFast") {
-                    Navigation.findNavController(v).navigate(R.id.action_calorieAddBreakfastFragment_to_mealInfoWithPhoto, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_calorieAddBreakFastFragment_to_calorie_meal_info_with_photo2, bundle);
                 }
                 if (addmealInfos.get(position).mealType == "Lunch") {
                     Navigation.findNavController(v).navigate(R.id.action_calorieAddLunchFragment_to_mealInfoWithPhoto, bundle);
