@@ -213,4 +213,6 @@ public class LiveAct extends AppCompatActivity {
         webView.loadUrl("about:blank");
         super.onDestroy();
     }
+
+    ////Example commit
 }

@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +33,7 @@ public class SettingsFragment extends Fragment {
 
     ImageView profilepic;
 
-    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp, imgbtnKnowDt;
+    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp, imgbtnKnowDt, backButton;
 
     TextView tvName;
 
@@ -39,6 +42,8 @@ public class SettingsFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private NavController navController;
 
     public SettingsFragment() {
 
@@ -77,6 +82,9 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        // Initialize NavController
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView3);
+        navController = navHostFragment.getNavController();
 
         profilepic = view.findViewById(R.id.profilepic);
 
@@ -88,6 +96,7 @@ public class SettingsFragment extends Fragment {
         imgbtnHelp = view.findViewById(R.id.imgbtnHelp);
         imgbtnKnowDt = view.findViewById(R.id.know_diet_btn);
         tvName = view.findViewById(R.id.tvName);
+        backButton = view.findViewById(R.id.settings_back_bt);
 
         profilepic.setImageBitmap(DataFromDatabase.profile);
 
@@ -145,6 +154,13 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleBackButtonClick();
+            }
+        });
+
 //        imgbtnAccount.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -187,5 +203,8 @@ public class SettingsFragment extends Fragment {
 
     private String getReferralCode() {
         return "test123";
+    }
+    private void handleBackButtonClick() {
+        getActivity().onBackPressed();
     }
 }
