@@ -257,7 +257,7 @@ public class MealTrackerAddMealFragment extends Fragment {
 
                 }
 //                Log.d("error123", addmealInfos.toString());
-                addMealAdapter=new MealtrackerAddMealAdapter(requireContext(),addmealInfos);
+                addMealAdapter=new MealtrackerAddMealAdapter(getContext(),addmealInfos);
                 breakfastitems.setAdapter(addMealAdapter);
             }catch (JSONException e){
                 Log.d("error123", e.toString());

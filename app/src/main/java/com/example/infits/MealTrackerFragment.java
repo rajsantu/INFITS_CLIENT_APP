@@ -224,7 +224,7 @@ public class MealTrackerFragment extends Fragment {
                 } catch (Exception e) {
                     Log.d("TAG", "setData: " + e);
                 }
-        },error -> Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show()){
+        },error -> Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show()){
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
