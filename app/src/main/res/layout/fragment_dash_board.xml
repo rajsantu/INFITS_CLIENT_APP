@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/hamburger_menu"
             android:layout_width="40dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/menu_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,8 @@
             tools:ignore="contentDescription" />
 
         <RelativeLayout
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="0dp"
             android:id="@+id/belliconrelative"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,10 +38,11 @@
 
             <ImageView
                 android:id="@+id/dashboard_bell"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/bell_icon"
+                android:padding="1dp"
                 tools:ignore="contentDescription" />
 
             <ImageView
@@ -50,7 +51,7 @@
                 android:layout_height="10dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginEnd="5dp"
                 android:src="@drawable/bell_icon_update"
                 android:visibility="visible" />
@@ -112,6 +113,12 @@
             tools:text="Feb 10, 2022" />
 
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mealguideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -140,7 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.14" />
+        app:layout_constraintGuide_percent="0.17" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -347,7 +354,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/manrope_medium"
                     android:gravity="top"
                     android:textColor="@color/white"
@@ -402,7 +409,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/manrope_medium"
                     android:gravity="top"
                     android:textColor="@color/white"
@@ -460,11 +467,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/manrope_medium"
                     android:gravity="top"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     tools:text="----------" />
 
                 <TextView
@@ -556,8 +563,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
                     android:fontFamily="@font/manrope_medium"
                     android:gravity="top"
                     android:textColor="@color/white"
@@ -660,7 +667,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/manrope_medium"
                     android:gravity="top"
                     android:textColor="@color/white"
