@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +25,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
- 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
- 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +39,9 @@ public class InAppNotification extends AppCompatActivity {
 
     TextView noNotifications;
     RecyclerView notificationRV;
-  //  String inAppUrl = String.format("%sgetInAppNotifications.php", DataFromDatabase.ipConfig);
-  String inAppUrl = String.format("http://localhost/myproject/infits/getInAppNotifications.php.php", DataFromDatabase.ipConfig);
+    ImageView notificationBackBtn;
+    //  String inAppUrl = String.format("%sgetInAppNotifications.php", DataFromDatabase.ipConfig);
+    String inAppUrl = String.format("http://localhost/myproject/infits/getInAppNotifications.php.php", DataFromDatabase.ipConfig);
 
     Date date = new Date();
 
@@ -52,6 +54,13 @@ public class InAppNotification extends AppCompatActivity {
         noNotifications = findViewById(R.id.no_notifications);
         notificationRV = findViewById(R.id.in_app_notification_rv);
 
+        notificationBackBtn=findViewById(R.id.notificationBackBtn);
+        notificationBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -104,7 +113,7 @@ public class InAppNotification extends AppCompatActivity {
                             InAppNotificationData inAppNotificationData = new InAppNotificationData(type, date, time, text);
 
                             Log.d("Notif",text+" "+type+" "+datePart+" "+time);
-                             inAppNotificationData = new InAppNotificationData(type, datePart, time, text);
+                            inAppNotificationData = new InAppNotificationData(type, datePart, time, text);
                             inAppData.add(inAppNotificationData);
 
                         }
@@ -124,8 +133,8 @@ public class InAppNotification extends AppCompatActivity {
             @NotNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-Map<String,String> data= new HashMap<>() ;
-data.put("clientID", DataFromDatabase.clientuserID);
+                Map<String,String> data= new HashMap<>() ;
+                data.put("clientID", DataFromDatabase.clientuserID);
                 data.put("dateandtime", String.valueOf(date));
 
                 Date date = new Date();

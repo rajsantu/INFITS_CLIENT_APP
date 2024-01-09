@@ -7,31 +7,63 @@
     android:background="@drawable/in_app_bg"
     tools:context=".InAppNotification">
 
-    <TextView
-        android:id="@+id/in_app_notification_tv"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/conlay"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/notificationguide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/notificationBackBtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/backwhite"
+            app:layout_constraintBottom_toBottomOf="@+id/in_app_notification_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/in_app_notification_tv" />
+
+        <TextView
+            android:id="@+id/in_app_notification_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/notificationguide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:fontFamily="@font/nats_regular"
-        android:text="NOTIFICATIONS"
-        android:textColor="@color/white"
-        android:textSize="25dp"
+        android:orientation="horizontal"
+
+        app:layout_constraintGuide_percent="0.075"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/in_app_notification_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="26dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/conlay"
+        tools:listitem="@layout/in_app_notification_item"
+        android:visibility="gone"
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/in_app_notification_rv"
-            android:layout_width="300dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/in_app_notification_tv"
-            android:visibility="gone"/>
+        />
 
     <TextView
         android:id="@+id/no_notifications"
