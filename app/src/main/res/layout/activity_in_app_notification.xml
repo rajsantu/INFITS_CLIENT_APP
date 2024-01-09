@@ -19,9 +19,11 @@
 
         <ImageView
             android:id="@+id/notificationBackBtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/backwhite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            app:tint="@color/white"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintBottom_toBottomOf="@+id/in_app_notification_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/in_app_notification_tv" />
