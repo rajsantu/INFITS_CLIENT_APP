@@ -53,6 +53,8 @@ public class activitySkating extends Fragment {
     ImageView set_goal;
     EditText goal_value_txt;
     String goal_value;
+
+
     private GaugeSeekBar progressBarWalking;
     private static final int REQUEST_CODE = 123;
     public activitySkating() {
@@ -92,6 +94,7 @@ public class activitySkating extends Fragment {
         set_goal = dialog.findViewById(R.id.imageView89);
         textView75 = view.findViewById(R.id.textView75);
 
+
         back_button=view.findViewById(R.id.imageView75);
         progressBarWalking =  view.findViewById(R.id.progressBarCycling);
         LoadTodayData();
@@ -105,6 +108,7 @@ public class activitySkating extends Fragment {
                 }
             }
         });
+
         run_goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

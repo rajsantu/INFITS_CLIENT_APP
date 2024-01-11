@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.os.SystemClock;
@@ -43,6 +44,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Trekking extends Fragment implements SensorEventListener {
+
+    ImageView imgback;
 
     SensorManager sensorManager;
     private RotateAnimation rotateAnimation;
@@ -92,6 +95,7 @@ public class Trekking extends Fragment implements SensorEventListener {
         imageView76 = view.findViewById(R.id.imageView76);
         imageView79 = view.findViewById(R.id.imageView79);
         imageView80 = view.findViewById(R.id.imageView80);
+        imgback = view.findViewById(R.id.trek_imgback);
 
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Bundle bundle = getArguments();
@@ -102,6 +106,22 @@ public class Trekking extends Fragment implements SensorEventListener {
         }
 
         startRotationAnimation();
+
+
+        //back button
+        imgback.setOnClickListener(v -> {
+
+            Navigation.findNavController(v).navigate(
+                    R.id.action_Trekking_to_activityTrekking,
+                    null,
+                    new NavOptions.Builder()
+                            .setPopUpTo(R.id.activityTrekking, true)
+                            .build()
+            );
+
+         //   Navigation.findNavController(v).navigate(R.id.action_Trekking_to_activityTrekking);
+
+        });
 
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override

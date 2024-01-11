@@ -12,8 +12,13 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +27,10 @@ import java.util.List;
 
 
 public class activityTracker2 extends Fragment {
+
+    LinearLayout linear3;
+    LinearLayout linear4;
+    TextView toggleButton;
 
     RecyclerView recyclerView;
     List<Date> dateList;
@@ -39,15 +48,25 @@ public class activityTracker2 extends Fragment {
     public void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
 
+
     }
 
     @Override
     public View onCreateView ( LayoutInflater inflater , ViewGroup container ,
                                Bundle savedInstanceState ) {
+
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate ( R.layout.fragment_activity_tracker2 , container , false);
         Date today = new Date();
         dateList = new ArrayList<> ();
+
+
+        linear3 = view.findViewById(R.id.linear3);
+        linear4 = view.findViewById(R.id.linear4);
+        toggleButton = view.findViewById(R.id.toggleButton);
+
 
         // Add some test data to the dateList
         Calendar calendar = Calendar.getInstance();
@@ -113,6 +132,16 @@ public class activityTracker2 extends Fragment {
         });
 
 
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleLinearLayoutVisibility();
+            }
+        });
+
+
+
+
         //  backbutton.setOnClickListener(new View.OnClickListener() {
         //    @Override
         //    public void onClick(View v) {
@@ -122,5 +151,17 @@ public class activityTracker2 extends Fragment {
 
 //        return inflater.inflate(R.layout.fragment_diet_fourth, container, false);
         return  view;
+    }
+
+    private void toggleLinearLayoutVisibility() {
+        if (linear3.getVisibility() == View.VISIBLE) {
+            linear3.setVisibility(View.GONE);
+            linear4.setVisibility(View.GONE);
+            toggleButton.setText("View All");
+        } else {
+            linear3.setVisibility(View.VISIBLE);
+            linear4.setVisibility(View.VISIBLE);
+            toggleButton.setText("View Less");
+        }
     }
 }

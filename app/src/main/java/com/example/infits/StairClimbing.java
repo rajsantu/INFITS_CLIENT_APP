@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.os.SystemClock;
@@ -45,6 +46,8 @@ import java.util.Map;
 public class StairClimbing extends Fragment implements SensorEventListener {
 
     SensorManager sensorManager;
+
+    ImageView imgback;
     private RotateAnimation rotateAnimation;
     Sensor stepSensor;
     int pre_step = 0, current = 0, flag_steps = 0, current_steps;
@@ -92,6 +95,7 @@ public class StairClimbing extends Fragment implements SensorEventListener {
         imageView76 = view.findViewById(R.id.imageView76);
         imageView79 = view.findViewById(R.id.imageView79);
         imageView80 = view.findViewById(R.id.imageView80);
+        imgback = view.findViewById(R.id.stairs_imgback);
 
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Bundle bundle = getArguments();
@@ -102,6 +106,19 @@ public class StairClimbing extends Fragment implements SensorEventListener {
         }
 
         startRotationAnimation();
+
+        //back button
+        imgback.setOnClickListener(v -> {
+
+            Navigation.findNavController(v).navigate(
+                    R.id.action_StairClimbing_to_activityStairClimbing,
+                    null,
+                    new NavOptions.Builder()
+                            .setPopUpTo(R.id.activityStairClimbing, true)
+                            .build()
+            );
+
+        });
 
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
