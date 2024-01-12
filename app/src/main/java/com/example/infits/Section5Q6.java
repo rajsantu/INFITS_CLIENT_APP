@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,9 +82,23 @@ public class Section5Q6 extends Fragment {
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         eTextHeight = view.findViewById(R.id.eTextHeight);
-
         textView80 = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section5Q6_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP5Q6", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("food_allergy", "");
+        if(!storedvalue.isEmpty()) {
+            eTextHeight.setText(storedvalue);
+            DataSectionFive.food_allergy = storedvalue;
+        }
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +114,9 @@ public class Section5Q6 extends Fragment {
                     Toast.makeText(getContext(), "Enter details", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection5 += 1;
-
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC5PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress5",0);
+                    SectionPref.saveformsection5("food_allergy",eTextHeight.getText().toString(),5,preval,6,"STEP5Q6",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section5Q6_to_section5Q7);
                 }
             }

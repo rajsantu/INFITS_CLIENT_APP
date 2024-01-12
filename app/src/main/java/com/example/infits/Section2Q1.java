@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +86,21 @@ public class Section2Q1 extends Fragment {
 
         pheighttv = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q1_to_consultationFragment);
 
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP2Q1", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("height", "");
+        if(!storedvalue.isEmpty()) {
+            eTextHeight.setText(storedvalue);
+            DataSectionTwo.height = storedvalue;
+        }
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +116,8 @@ public class Section2Q1 extends Fragment {
                     Toast.makeText(getContext(), "Enter your height", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection2 += 1;
+                   // SectionPref.saveform("uGender",uGender,4,preval,5,"STEP1Q5",requireContext());
+                    SectionPref.saveformsection2("height",user_height,0,0,1,"STEP2Q1",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_section2Q2);
                 }
             }

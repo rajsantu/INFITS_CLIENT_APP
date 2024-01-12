@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,133 +87,84 @@ public class Section3Q2 extends Fragment {
         occ = view.findViewById(R.id.occ);
         afterFood = view.findViewById(R.id.afterFood);
         beforeFood = view.findViewById(R.id.beforeFood);
-
         contv = view.findViewById(R.id.textView77);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section3Q2_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP3Q2", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("constipation", "");
+        if(!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "Yes":
+                    Yes();
+                    break;
+                case "Sometimes":
+                    Some();
+                    break;
+                case "No":
+                    No();
+                    break;
+                case "Occasionally":
+                    Occ();
+                    break;
+                case "After having food":
+                    AfterFood();
+                    break;
+                case "Before having food":
+                    BeforeFood();
+                    break;
+                default:
+
+            }
+            DataSectionThree.constipation = storedvalue;
+        }
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                yes.setBackgroundResource(R.drawable.radiobtn_on);
-                some.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-                afterFood.setBackgroundResource(R.drawable.radiobtn_off);
-                beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
-
-                yes.setTextColor(Color.WHITE);
-                some.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-                afterFood.setTextColor(Color.BLACK);
-                beforeFood.setTextColor(Color.BLACK);
-
-                constipation="Yes";
+               Yes();
             }
         });
 
         some.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                some.setBackgroundResource(R.drawable.radiobtn_on);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-                afterFood.setBackgroundResource(R.drawable.radiobtn_off);
-                beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
-
-                some.setTextColor(Color.WHITE);
-                yes.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-                afterFood.setTextColor(Color.BLACK);
-                beforeFood.setTextColor(Color.BLACK);
-
-                constipation="Sometimes";
+               Some();
             }
         });
 
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                no.setBackgroundResource(R.drawable.radiobtn_on);
-                some.setBackgroundResource(R.drawable.radiobtn_off);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-                afterFood.setBackgroundResource(R.drawable.radiobtn_off);
-                beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
-
-                no.setTextColor(Color.WHITE);
-                some.setTextColor(Color.BLACK);
-                yes.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-                afterFood.setTextColor(Color.BLACK);
-                beforeFood.setTextColor(Color.BLACK);
-
-                constipation="No";
+                No();
             }
         });
 
         occ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                occ.setBackgroundResource(R.drawable.radiobtn_on);
-                some.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-                afterFood.setBackgroundResource(R.drawable.radiobtn_off);
-                beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
-
-                occ.setTextColor(Color.WHITE);
-                some.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                yes.setTextColor(Color.BLACK);
-                afterFood.setTextColor(Color.BLACK);
-                beforeFood.setTextColor(Color.BLACK);
-
-                constipation="Occasionally";
+               Occ();
             }
         });
 
         afterFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                afterFood.setBackgroundResource(R.drawable.radiobtn_on);
-                some.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-                beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
-
-                afterFood.setTextColor(Color.WHITE);
-                some.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-                yes.setTextColor(Color.BLACK);
-                beforeFood.setTextColor(Color.BLACK);
-
-                constipation="After having food";
+               AfterFood();
             }
         });
 
         beforeFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                beforeFood.setBackgroundResource(R.drawable.radiobtn_on);
-                some.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-                afterFood.setBackgroundResource(R.drawable.radiobtn_off);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-
-                beforeFood.setTextColor(Color.WHITE);
-                some.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-                afterFood.setTextColor(Color.BLACK);
-                yes.setTextColor(Color.BLACK);
-
-                constipation="Before having food";
+               BeforeFood();
             }
         });
 
@@ -227,6 +182,10 @@ public class Section3Q2 extends Fragment {
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection3 += 1;
+                    ConsultationFragment.psection3 += 1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC3PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress3",0);
+                    SectionPref.saveformsection3("constipation",constipation,1,preval,2,"STEP3Q2",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section3Q2_to_section3Q3);
                 }
             }
@@ -244,5 +203,113 @@ public class Section3Q2 extends Fragment {
         imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
+    }
+
+    private void Yes() {
+        yes.setBackgroundResource(R.drawable.radiobtn_on);
+        some.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+        afterFood.setBackgroundResource(R.drawable.radiobtn_off);
+        beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
+
+        yes.setTextColor(Color.WHITE);
+        some.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+        afterFood.setTextColor(Color.BLACK);
+        beforeFood.setTextColor(Color.BLACK);
+
+        constipation="Yes";
+    }
+
+    private void Some() {
+        some.setBackgroundResource(R.drawable.radiobtn_on);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+        afterFood.setBackgroundResource(R.drawable.radiobtn_off);
+        beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
+
+        some.setTextColor(Color.WHITE);
+        yes.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+        afterFood.setTextColor(Color.BLACK);
+        beforeFood.setTextColor(Color.BLACK);
+
+        constipation="Sometimes";
+    }
+
+    private void No() {
+        no.setBackgroundResource(R.drawable.radiobtn_on);
+        some.setBackgroundResource(R.drawable.radiobtn_off);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+        afterFood.setBackgroundResource(R.drawable.radiobtn_off);
+        beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
+
+        no.setTextColor(Color.WHITE);
+        some.setTextColor(Color.BLACK);
+        yes.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+        afterFood.setTextColor(Color.BLACK);
+        beforeFood.setTextColor(Color.BLACK);
+
+        constipation="No";
+    }
+
+    private void Occ() {
+        occ.setBackgroundResource(R.drawable.radiobtn_on);
+        some.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+        afterFood.setBackgroundResource(R.drawable.radiobtn_off);
+        beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
+
+        occ.setTextColor(Color.WHITE);
+        some.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        yes.setTextColor(Color.BLACK);
+        afterFood.setTextColor(Color.BLACK);
+        beforeFood.setTextColor(Color.BLACK);
+
+        constipation="Occasionally";
+    }
+
+    private void AfterFood() {
+        afterFood.setBackgroundResource(R.drawable.radiobtn_on);
+        some.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+        beforeFood.setBackgroundResource(R.drawable.radiobtn_off);
+
+        afterFood.setTextColor(Color.WHITE);
+        some.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+        yes.setTextColor(Color.BLACK);
+        beforeFood.setTextColor(Color.BLACK);
+
+        constipation="After having food";
+    }
+
+    private void BeforeFood() {
+        beforeFood.setBackgroundResource(R.drawable.radiobtn_on);
+        some.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+        afterFood.setBackgroundResource(R.drawable.radiobtn_off);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+
+        beforeFood.setTextColor(Color.WHITE);
+        some.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+        afterFood.setTextColor(Color.BLACK);
+        yes.setTextColor(Color.BLACK);
+
+        constipation="Before having food";
     }
 }

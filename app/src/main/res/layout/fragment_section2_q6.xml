@@ -178,6 +178,32 @@
         app:layout_constraintStart_toStartOf="@+id/imageView27"
         app:layout_constraintTop_toTopOf="@+id/imageView27" />
 
-
+    <TextView
+        android:id="@+id/gotomainsection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/black"
+        android:text="Go to main section"
+        android:fontFamily="@font/nats_regular"
+        app:layout_constraintBottom_toTopOf="@+id/nextbtn"
+        app:layout_constraintRight_toRightOf="@id/imageView27"
+        app:layout_constraintLeft_toLeftOf="@id/imageView27"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="145dp" />
+    <ProgressBar
+        android:id="@+id/download_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_marginTop="3sp"
+        android:layout_marginHorizontal="30sp"
+        android:background="@drawable/sec2_progress_shape"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:progress="75"
+        android:progressDrawable="@drawable/sec2_linear_progress"
+        app:layout_constraintTop_toBottomOf="@+id/textView34"
+        tools:layout_editor_absoluteX="23dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

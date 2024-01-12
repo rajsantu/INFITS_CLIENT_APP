@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,10 +80,23 @@ public class Section4Q7 extends Fragment {
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         eTextHeight = view.findViewById(R.id.eTextHeight);
-
         textView80 = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section4Q7_to_consultationFragment);
 
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP4Q7", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("activity_duration", "");
+        if(!storedvalue.isEmpty()) {
+            eTextHeight.setText(storedvalue);
+            DataSectionFour.activity_duration = storedvalue;
+        }
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +111,9 @@ public class Section4Q7 extends Fragment {
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection4 += 1;
-
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC4PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress4",0);
+                    SectionPref.saveformsection4("activity_duration",activity_duration,6,preval,7,"STEP4Q7",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_consultationFragment);
                 }
             }
@@ -113,4 +132,5 @@ public class Section4Q7 extends Fragment {
 
         return view;
     }
+
 }

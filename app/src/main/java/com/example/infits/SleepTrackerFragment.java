@@ -46,6 +46,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.infits.customDialog.CustomDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -232,13 +233,14 @@ public class SleepTrackerFragment extends Fragment {
         });
 
         reminder.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_sleepReminderFragment));
-
         setalarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mClockIntent = new Intent(AlarmClock.ACTION_SHOW_ALARMS);
-                mClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(mClockIntent);
+//                Intent mClockIntent = new Intent(AlarmClock.ACTION_SHOW_ALARMS);
+//                mClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(mClockIntent);
+                CustomDialogFragment dialog = new CustomDialogFragment();
+                dialog.show(getChildFragmentManager(), "custom_dialog");
             }
         });
 

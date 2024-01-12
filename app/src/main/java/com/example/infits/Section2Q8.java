@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.customDialog.SectionPref;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 /**
@@ -27,8 +32,17 @@ public class Section2Q8 extends Fragment {
     ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, famtv;
-    CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl;
+    CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl,lactose;
     EditText oth;
+    private SharedPreferences checkboxPrefs;
+    private SharedPreferences.Editor editor;
+    private boolean isDiag;
+    private boolean isHyperthy;
+    private boolean isHypothy;
+    private boolean isHyperten;
+    private boolean isPcod;
+    private boolean isFattly;
+    private boolean isLactose;
     ArrayList<String> fam;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -86,69 +100,150 @@ public class Section2Q8 extends Fragment {
         hyperten = view.findViewById(R.id.hyperten);
         pcod = view.findViewById(R.id.pcod);
         fattyl = view.findViewById(R.id.fattyl);
+        lactose = view.findViewById(R.id.lactose);
         oth = view.findViewById(R.id.oth);
 
         fam = new ArrayList<>();
 
         famtv = view.findViewById(R.id.textView77);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q8_to_consultationFragment);
+
+            }
+        });
+
+
+        checkboxPrefs = requireContext().getSharedPreferences("checkbox_pref", Context.MODE_PRIVATE);
+        editor = checkboxPrefs.edit();
+
+        boolean isChecked1 = checkboxPrefs.getBoolean("diabetes", false);
+        dia.setChecked(isChecked1);
+        isDiag = isChecked1;
+
+
+        boolean isChecked2 = checkboxPrefs.getBoolean("hyperthy", false);
+        hyperthy.setChecked(isChecked2);
+        isHyperthy = isChecked2;
+
+        boolean isChecked3 = checkboxPrefs.getBoolean("hypothy", false);
+        hypothy.setChecked(isChecked3);
+        isHypothy = isChecked3;
+
+        boolean isChecked4 = checkboxPrefs.getBoolean("hyperten", false);
+        hyperten.setChecked(isChecked4);
+        isHyperten = isChecked4;
+
+        boolean isChecked5 = checkboxPrefs.getBoolean("pcod", false);
+        pcod.setChecked(isChecked5);
+        isPcod = isChecked5;
+
+        boolean isChecked6 = checkboxPrefs.getBoolean("fattly", false);
+        fattyl.setChecked(isChecked6);
+        isFattly = isChecked6;
+
+        boolean isChecked7 = checkboxPrefs.getBoolean("lactose", false);
+        lactose.setChecked(isChecked7);
+        isLactose = isChecked7;
+
         dia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dia.isChecked())
+                if(dia.isChecked()) {
                     fam.add("Diabetes");
-                else
+                    isDiag = dia.isChecked();
+                }
+                else {
                     fam.remove("Diabetes");
+                    isDiag = dia.isChecked();
+                }
             }
         });
 
         hyperthy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hyperthy.isChecked())
+                if(hyperthy.isChecked()) {
                     fam.add("Hyperthyroidism");
-                else
+                    isHyperthy = hyperthy.isChecked();
+                }
+                else {
                     fam.remove("Hyperthyroidism");
+                    isHyperthy = hyperthy.isChecked();
+                }
             }
         });
 
         hypothy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hypothy.isChecked())
+                if(hypothy.isChecked()) {
                     fam.add("Hypothyroidism");
-                else
+                    isHypothy = hypothy.isChecked();
+                }
+                else {
                     fam.remove("Hypothyroidism");
+                    isHypothy = hypothy.isChecked();
+                }
             }
         });
 
         hyperten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hyperten.isChecked())
+                if(hyperten.isChecked()) {
                     fam.add("Hypertension");
-                else
+                    isHyperten = hyperten.isChecked();
+                }
+                else {
                     fam.remove("Hypertension");
+                    isHyperten = hyperten.isChecked();
+                }
             }
         });
 
         pcod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pcod.isChecked())
+                if(pcod.isChecked()) {
                     fam.add("PCOD/PCOS");
-                else
+                    isPcod = pcod.isChecked();
+                }
+                else {
                     fam.remove("PCOD/PCOS");
+                    isPcod = pcod.isChecked();
+                }
             }
         });
 
         fattyl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fattyl.isChecked())
+                if(fattyl.isChecked()) {
                     fam.add("Fatty liver");
-                else
+                    isFattly = fattyl.isChecked();
+                }
+                else {
                     fam.remove("Fatty liver");
+                    isFattly = fattyl.isChecked();
+                }
+            }
+        });
+
+        lactose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lactose.isChecked()) {
+                    fam.add("Fatty liver");
+                    isLactose = lactose.isChecked();
+                }
+                else {
+                    fam.remove("Fatty liver");
+                    isLactose = lactose.isChecked();
+                }
             }
         });
 
@@ -173,6 +268,27 @@ public class Section2Q8 extends Fragment {
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection2 += 1;
+                    editor.putBoolean("diabetes", isDiag);
+                    // editor.apply();
+                    editor.putBoolean("hyperthy", isHyperthy);
+                    // editor.apply();
+                    editor.putBoolean("hypothy", isHypothy);
+                    // editor.apply();
+                    editor.putBoolean("hyperten", isHyperten);
+                    // editor.apply();
+                    editor.putBoolean("pcod", isPcod);
+                    // editor.apply();
+                    editor.putBoolean("fattly", isFattly);
+                    // editor.apply();
+                    editor.putBoolean("lactose", isLactose);
+                    editor.apply();
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(fam);
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC2PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress2",0);
+                    SectionPref.saveformsection2("fam",json,7,preval,8,"STEP2Q8",requireContext());
+
                     Navigation.findNavController(v).navigate(R.id.action_section2Q8_to_consultationFragment);
                 }
             }

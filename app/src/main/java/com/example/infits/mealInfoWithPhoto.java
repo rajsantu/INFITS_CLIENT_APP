@@ -237,7 +237,6 @@ public class mealInfoWithPhoto extends Fragment {
                     jsonObject.put("Quantity", numberPicker1List[numberPicker1.getValue()]);
                     jsonObject.put("Size", numberPicker2List[numberPicker2.getValue()]);
                     intent.putExtra("mealInfoForPhoto",jsonObject.toString());
-
                     //Sharedpref
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TodaysBreakFast", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -304,7 +303,6 @@ public class mealInfoWithPhoto extends Fragment {
             editor.putString("RecentMealInfo", mainJSONobj.toString());
             editor.commit();
             Log.d("RecentMeal", sharedPreferences.getString("RecentMealInfo", ""));
-
 
 
         }catch (Exception exception){

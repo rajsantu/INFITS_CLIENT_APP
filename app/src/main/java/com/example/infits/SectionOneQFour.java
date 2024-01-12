@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 import java.util.LinkedHashMap;
 
@@ -81,6 +85,21 @@ public class SectionOneQFour extends Fragment {
 
         hometv = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_sectionOneQFour_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q4", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("hometown", "");
+        if(!storedvalue.isEmpty()) {
+            eTextEmail.setText(storedvalue);
+            DataSectionOne.hometown = storedvalue;
+        }
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +114,21 @@ public class SectionOneQFour extends Fragment {
                     Toast.makeText(getContext(),"Add your hometown",Toast.LENGTH_SHORT).show();
                 else{
                     ConsultationFragment.psection1+=1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress",0);
+                    SectionPref.saveform("hometown",eTextEmail.getText().toString(),3,preval,4,"STEP1Q4",requireContext());
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q4", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("hometown", eTextEmail.getText().toString());
+//                    editor.apply();
+//                    String sharedage = sharedPreferences.getString("hometown", "");
+//
+//                    if (!(sharedage.isEmpty()) && preval==3){
+//                        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+//                        editor1.putInt("progress", 4);
+//                        editor1.apply();
+//                    }
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFour_to_sectionOneQFive);
             }}
         });

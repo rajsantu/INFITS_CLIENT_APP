@@ -58,6 +58,9 @@
             android:id="@+id/action_sectionOneQTwo_to_sectionOneQThree"
             app:destination="@id/sectionOneQThree" />
         <action
+            android:id="@+id/action_sectionOneQTwo_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
+        <action
             android:id="@+id/action_sectionOneQTwo_to_sectionOneQOne"
             app:destination="@id/sectionOneQOne"
             app:popUpTo="@id/sectionOneQTwo"
@@ -73,6 +76,9 @@
             app:destination="@id/sectionOneQTwo"
             app:popUpTo="@id/sectionOneQThree"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_sectionOneQThree_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
         <action
             android:id="@+id/action_sectionOneQThree_to_sectionOneQFour"
             app:destination="@id/sectionOneQFour" />
@@ -90,6 +96,9 @@
         <action
             android:id="@+id/action_sectionOneQFour_to_sectionOneQFive"
             app:destination="@id/sectionOneQFive" />
+        <action
+            android:id="@+id/action_sectionOneQFour_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/sectionOneQSix"
@@ -104,6 +113,9 @@
             app:destination="@id/sectionOneQFive"
             app:popUpTo="@id/sectionOneQSix"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_sectionOneQSix_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/sectionOneQSeven"
@@ -118,6 +130,9 @@
             app:destination="@id/sectionOneQSix"
             app:popUpTo="@id/sectionOneQSeven"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_sectionOneQSeven_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/sectionOneQEight"
@@ -148,6 +163,9 @@
             app:destination="@id/sectionOneQFour"
             app:popUpTo="@id/sectionOneQFive"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_sectionOneQFive_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q1"
@@ -176,6 +194,9 @@
             app:destination="@id/section2Q1"
             app:popUpTo="@id/section2Q2"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section2Q2_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q3"
@@ -190,6 +211,9 @@
             app:destination="@id/section2Q2"
             app:popUpTo="@id/section2Q3"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section2Q3_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q4"
@@ -204,6 +228,9 @@
         <action
             android:id="@+id/action_section2Q4_to_section2Q5"
             app:destination="@id/section2Q5" />
+        <action
+            android:id="@+id/action_section2Q4_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q5"
@@ -218,6 +245,9 @@
             app:destination="@id/section2Q4"
             app:popUpTo="@id/section2Q5"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section2Q5_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q6"
@@ -232,6 +262,9 @@
             app:destination="@id/section2Q5"
             app:popUpTo="@id/section2Q6"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section2Q6_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q7"
@@ -246,6 +279,9 @@
             app:destination="@id/section2Q6"
             app:popUpTo="@id/section2Q7"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section2Q7_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section2Q8"
@@ -276,6 +312,9 @@
             app:destination="@id/consultationFragment"
             app:popUpTo="@id/section3Q1"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Que1_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q2"
@@ -290,6 +329,9 @@
             app:destination="@id/section3Q1"
             app:popUpTo="@id/section3Q2"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q2_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q3"
@@ -304,6 +346,9 @@
             app:destination="@id/section3Q2"
             app:popUpTo="@id/section3Q3"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q3_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q4"
@@ -318,6 +363,9 @@
             app:destination="@id/section3Q3"
             app:popUpTo="@id/section3Q4"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q4_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q5"
@@ -332,6 +380,9 @@
             app:destination="@id/section3Q4"
             app:popUpTo="@id/section3Q5"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q5_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q6"
@@ -346,6 +397,9 @@
             app:destination="@id/section3Q5"
             app:popUpTo="@id/section3Q6"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q6_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q7"
@@ -360,6 +414,9 @@
             app:destination="@id/section3Q6"
             app:popUpTo="@id/section3Q7"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q7_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q8"
@@ -374,6 +431,9 @@
             app:destination="@id/section3Q7"
             app:popUpTo="@id/section3Q8"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q8_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q9"
@@ -388,6 +448,9 @@
             app:destination="@id/section3Q8"
             app:popUpTo="@id/section3Q9"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q9_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q10"
@@ -402,6 +465,9 @@
             app:destination="@id/section3Q9"
             app:popUpTo="@id/section3Q10"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section3Q10_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section3Q11"
@@ -432,6 +498,7 @@
         <action
             android:id="@+id/action_section5Q1_to_section5Q2"
             app:destination="@id/section5Q2" />
+
     </fragment>
     <fragment
         android:id="@+id/section4Q1"
@@ -460,6 +527,9 @@
             app:destination="@id/section4Q1"
             app:popUpTo="@id/section4Q2"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section4Q2_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section4Q3"
@@ -474,6 +544,9 @@
             app:destination="@id/section4Q2"
             app:popUpTo="@id/section4Q3"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section4Q3_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section4Q4"
@@ -488,6 +561,9 @@
             app:destination="@id/section4Q3"
             app:popUpTo="@id/section4Q4"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section4Q4_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section4Q5"
@@ -502,6 +578,9 @@
             app:destination="@id/section4Q4"
             app:popUpTo="@id/section4Q5"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section4Q5_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section4Q6"
@@ -516,6 +595,9 @@
             app:destination="@id/section4Q5"
             app:popUpTo="@id/section4Q6"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section4Q6_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section4Q7"
@@ -546,6 +628,9 @@
         <action
             android:id="@+id/action_section5Q2_to_section5Q3"
             app:destination="@id/section5Q3" />
+        <action
+            android:id="@+id/action_section5Q2_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q3"
@@ -560,6 +645,9 @@
         <action
             android:id="@+id/action_section5Q3_to_section5Q4"
             app:destination="@id/section5Q4" />
+        <action
+            android:id="@+id/action_section5Q3_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q4"
@@ -574,6 +662,9 @@
         <action
             android:id="@+id/action_section5Q4_to_section5Q5"
             app:destination="@id/section5Q5" />
+        <action
+            android:id="@+id/action_section5Q4_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q5"
@@ -588,6 +679,9 @@
         <action
             android:id="@+id/action_section5Q5_to_section5Q6"
             app:destination="@id/section5Q6" />
+        <action
+            android:id="@+id/action_section5Q5_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q6"
@@ -602,6 +696,9 @@
         <action
             android:id="@+id/action_section5Q6_to_section5Q7"
             app:destination="@id/section5Q7" />
+        <action
+            android:id="@+id/action_section5Q6_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q7"
@@ -616,6 +713,9 @@
         <action
             android:id="@+id/action_section5Q7_to_section5Q8"
             app:destination="@id/section5Q8" />
+        <action
+            android:id="@+id/action_section5Q7_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q8"
@@ -630,6 +730,9 @@
         <action
             android:id="@+id/action_section5Q8_to_section5Q9"
             app:destination="@id/section5Q9" />
+        <action
+            android:id="@+id/action_section5Q8_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q9"
@@ -644,6 +747,9 @@
             app:destination="@id/section5Q8"
             app:popUpTo="@id/section5Q9"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section5Q9_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q10"
@@ -658,6 +764,9 @@
             app:destination="@id/section5Q9"
             app:popUpTo="@id/section5Q10"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section5Q10_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q11"
@@ -672,6 +781,9 @@
         <action
             android:id="@+id/action_section5Q11_to_section5Q12"
             app:destination="@id/section5Q12" />
+        <action
+            android:id="@+id/action_section5Q11_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q12"
@@ -686,6 +798,9 @@
         <action
             android:id="@+id/action_section5Q12_to_section5Q13"
             app:destination="@id/section5Q13" />
+        <action
+            android:id="@+id/action_section5Q12_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section5Q13"
@@ -730,6 +845,9 @@
         <action
             android:id="@+id/action_section6Q2_to_section6Q3"
             app:destination="@id/section6Q3" />
+        <action
+            android:id="@+id/action_section6Q2_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q3"
@@ -744,6 +862,9 @@
         <action
             android:id="@+id/action_section6Q3_to_section6Q4"
             app:destination="@id/section6Q4" />
+        <action
+            android:id="@+id/action_section6Q3_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q4"
@@ -758,6 +879,9 @@
         <action
             android:id="@+id/action_section6Q4_to_section6Q5"
             app:destination="@id/section6Q5" />
+        <action
+            android:id="@+id/action_section6Q4_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q5"
@@ -772,6 +896,9 @@
         <action
             android:id="@+id/action_section6Q5_to_section6Q6"
             app:destination="@id/section6Q6" />
+        <action
+            android:id="@+id/action_section6Q5_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q6"
@@ -786,6 +913,9 @@
         <action
             android:id="@+id/action_section6Q6_to_section6Q7"
             app:destination="@id/section6Q7" />
+        <action
+            android:id="@+id/action_section6Q6_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q7"
@@ -799,6 +929,9 @@
         <action
             android:id="@+id/action_section6Q7_to_section6Q8"
             app:destination="@id/section6Q8" />
+        <action
+            android:id="@+id/action_section6Q7_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q8"
@@ -813,6 +946,9 @@
             app:destination="@id/section6Q7"
             app:popUpTo="@id/section6Q8"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section6Q8_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q9"
@@ -827,6 +963,9 @@
             app:destination="@id/section6Q8"
             app:popUpTo="@id/section6Q9"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_section6Q9_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q10"
@@ -841,6 +980,9 @@
         <action
             android:id="@+id/action_section6Q10_to_section6Q11"
             app:destination="@id/section6Q11" />
+        <action
+            android:id="@+id/action_section6Q10_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q11"
@@ -855,6 +997,9 @@
         <action
             android:id="@+id/action_section6Q11_to_section6Q12"
             app:destination="@id/section6Q12" />
+        <action
+            android:id="@+id/action_section6Q11_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q12"
@@ -869,6 +1014,9 @@
         <action
             android:id="@+id/action_section6Q12_to_section6Q13"
             app:destination="@id/section6Q13" />
+        <action
+            android:id="@+id/action_section6Q12_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q13"
@@ -883,6 +1031,9 @@
         <action
             android:id="@+id/action_section6Q13_to_section6Q14"
             app:destination="@id/section6Q14" />
+        <action
+            android:id="@+id/action_section6Q13_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
     </fragment>
     <fragment
         android:id="@+id/section6Q14"

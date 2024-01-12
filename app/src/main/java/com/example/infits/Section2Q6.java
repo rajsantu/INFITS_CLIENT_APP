@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.customDialog.SectionPref;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Section2Q6#newInstance} factory method to
@@ -23,7 +27,7 @@ public class Section2Q6 extends Fragment {
 
     ImageButton imgBack;
     Button yes, no;
-    String yesno=null;
+    String yesno="";
 
     Button nextbtn;
     TextView backbtn, medtv;
@@ -83,6 +87,35 @@ public class Section2Q6 extends Fragment {
 
         medtv = view.findViewById(R.id.textView77);
 
+
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q6_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP2Q6", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("ongoingMed", "");
+        if(!storedvalue.isEmpty()) {
+           switch (storedvalue){
+               case "Yes":
+                   yes.setBackgroundColor(Color.rgb(0,161,45));
+                   no.setBackgroundColor(Color.rgb(255,255,255));
+                   yesno = "Yes";
+                   break;
+               case "No":
+                   no.setBackgroundColor(Color.rgb(183,0,0));
+                   yes.setBackgroundColor(Color.rgb(255,255,255));
+                   yesno = "No";
+               break;
+               default:
+
+           }
+        }
+
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,10 +142,13 @@ public class Section2Q6 extends Fragment {
 
                 DataSectionTwo.ongoingMed = yesno;
                 DataSectionTwo.s2q6 = medtv.getText().toString();
-                if (yesno.equals(null))
+                if (yesno.equals(""))
                     Toast.makeText(getContext(), "Select yes/no", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection2 += 1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC2PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress2",0);
+                    SectionPref.saveformsection2("ongoingMed",yesno,5,preval,6,"STEP2Q6",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section2Q6_to_section2Q7);
                 }
             }

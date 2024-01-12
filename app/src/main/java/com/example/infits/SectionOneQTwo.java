@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 import java.util.LinkedHashMap;
 
@@ -82,7 +86,21 @@ public class SectionOneQTwo extends Fragment {
 
         nametv = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_sectionOneQTwo_to_consultationFragment);
 
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q2", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("name", "");
+        if(!storedvalue.isEmpty()) {
+            eTextName.setText(storedvalue);
+            DataSectionOne.name = storedvalue;
+        }
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +114,20 @@ public class SectionOneQTwo extends Fragment {
                     Toast.makeText(getContext(),"Add your name",Toast.LENGTH_SHORT).show();
                 else{
                     ConsultationFragment.psection1+=1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress",0);
+                    SectionPref.saveform("name",eTextName.getText().toString(),1,preval,2,"STEP1Q2",requireContext());
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q2", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("name", eTextName.getText().toString());
+//                    editor.apply();
+//                    String sharedname = sharedPreferences.getString("name", "");
+//                    if (!(sharedname.isEmpty()) && preval==1){
+//                        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+//                        editor1.putInt("progress", 2);
+//                        editor1.apply();
+//                    }
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQTwo_to_sectionOneQThree);
             }}
         });

@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,66 +91,60 @@ public class Section4Q5 extends Fragment {
         textView77 = view.findViewById(R.id.textView77);
 
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section4Q5_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP4Q5", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("cardio", "");
+        if(!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "No":
+                    No();
+                    break;
+                case "Daily":
+                    Daily();
+                    break;
+                case "Once a week":
+                    OneWeek();
+                    break;
+                case "Twice a week":
+                    TwoWeek();
+                    break;
+                case "3-5 times a week":
+                    ThrWeek();
+                    break;
+                case "Monthly":
+                    Monthly();
+                    break;
+                default:
+
+            }
+            DataSectionFour.cardio = storedvalue;
+        }
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                no.setBackgroundResource(R.drawable.radiobtn_on);
-                daily.setBackgroundResource(R.drawable.radiobtn_off);
-                oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                twWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                monthly.setBackgroundResource(R.drawable.radiobtn_off);
-
-                no.setTextColor(Color.WHITE);
-                daily.setTextColor(Color.BLACK);
-                oneWeek.setTextColor(Color.BLACK);
-                twWeek.setTextColor(Color.BLACK);
-                thrWeek.setTextColor(Color.BLACK);
-                monthly.setTextColor(Color.BLACK);
-
-                cardio="No";
+                No();
             }
         });
 
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                daily.setBackgroundResource(R.drawable.radiobtn_on);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                twWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                monthly.setBackgroundResource(R.drawable.radiobtn_off);
-
-                daily.setTextColor(Color.WHITE);
-                no.setTextColor(Color.BLACK);
-                oneWeek.setTextColor(Color.BLACK);
-                twWeek.setTextColor(Color.BLACK);
-                thrWeek.setTextColor(Color.BLACK);
-                monthly.setTextColor(Color.BLACK);
-
-                cardio="Daily";
+                Daily();
             }
         });
 
         oneWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                oneWeek.setBackgroundResource(R.drawable.radiobtn_on);
-                daily.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                twWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                monthly.setBackgroundResource(R.drawable.radiobtn_off);
-
-                oneWeek.setTextColor(Color.WHITE);
-                daily.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                twWeek.setTextColor(Color.BLACK);
-                thrWeek.setTextColor(Color.BLACK);
-                monthly.setTextColor(Color.BLACK);
-
-                cardio="Once a week";
+                OneWeek();
             }
         });
 
@@ -154,66 +152,23 @@ public class Section4Q5 extends Fragment {
         twWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                twWeek.setBackgroundResource(R.drawable.radiobtn_on);
-                daily.setBackgroundResource(R.drawable.radiobtn_off);
-                oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                monthly.setBackgroundResource(R.drawable.radiobtn_off);
-
-                twWeek.setTextColor(Color.WHITE);
-                daily.setTextColor(Color.BLACK);
-                oneWeek.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                thrWeek.setTextColor(Color.BLACK);
-                monthly.setTextColor(Color.BLACK);
-
-                cardio="Twice a week";
+                TwoWeek();
             }
         });
 
         thrWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                thrWeek.setBackgroundResource(R.drawable.radiobtn_on);
-                daily.setBackgroundResource(R.drawable.radiobtn_off);
-                oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                twWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                monthly.setBackgroundResource(R.drawable.radiobtn_off);
-
-                thrWeek.setTextColor(Color.WHITE);
-                daily.setTextColor(Color.BLACK);
-                oneWeek.setTextColor(Color.BLACK);
-                twWeek.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-                monthly.setTextColor(Color.BLACK);
-
-                cardio="3-5 times a week";
+                ThrWeek();
             }
         });
 
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monthly.setBackgroundResource(R.drawable.radiobtn_on);
-                daily.setBackgroundResource(R.drawable.radiobtn_off);
-                oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                twWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-
-                monthly.setTextColor(Color.WHITE);
-                daily.setTextColor(Color.BLACK);
-                oneWeek.setTextColor(Color.BLACK);
-                twWeek.setTextColor(Color.BLACK);
-                thrWeek.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-
-                cardio="Monthly";
+                Monthly();
             }
         });
-
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,7 +182,9 @@ public class Section4Q5 extends Fragment {
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection4 += 1;
-
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC4PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress4",0);
+                    SectionPref.saveformsection4("cardio",cardio,4,preval,5,"STEP4Q5",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section4Q5_to_section4Q6);
                 }
             }
@@ -245,5 +202,112 @@ public class Section4Q5 extends Fragment {
         imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
+    }
+    private void No() {
+        no.setBackgroundResource(R.drawable.radiobtn_on);
+        daily.setBackgroundResource(R.drawable.radiobtn_off);
+        oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        twWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        monthly.setBackgroundResource(R.drawable.radiobtn_off);
+
+        no.setTextColor(Color.WHITE);
+        daily.setTextColor(Color.BLACK);
+        oneWeek.setTextColor(Color.BLACK);
+        twWeek.setTextColor(Color.BLACK);
+        thrWeek.setTextColor(Color.BLACK);
+        monthly.setTextColor(Color.BLACK);
+
+        cardio="No";
+    }
+
+    private void Daily() {
+        daily.setBackgroundResource(R.drawable.radiobtn_on);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        twWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        monthly.setBackgroundResource(R.drawable.radiobtn_off);
+
+        daily.setTextColor(Color.WHITE);
+        no.setTextColor(Color.BLACK);
+        oneWeek.setTextColor(Color.BLACK);
+        twWeek.setTextColor(Color.BLACK);
+        thrWeek.setTextColor(Color.BLACK);
+        monthly.setTextColor(Color.BLACK);
+
+        cardio="Daily";
+    }
+
+    private void OneWeek() {
+        oneWeek.setBackgroundResource(R.drawable.radiobtn_on);
+        daily.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        twWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        monthly.setBackgroundResource(R.drawable.radiobtn_off);
+
+        oneWeek.setTextColor(Color.WHITE);
+        daily.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        twWeek.setTextColor(Color.BLACK);
+        thrWeek.setTextColor(Color.BLACK);
+        monthly.setTextColor(Color.BLACK);
+
+        cardio="Once a week";
+    }
+
+    private void TwoWeek() {
+        twWeek.setBackgroundResource(R.drawable.radiobtn_on);
+        daily.setBackgroundResource(R.drawable.radiobtn_off);
+        oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        monthly.setBackgroundResource(R.drawable.radiobtn_off);
+
+        twWeek.setTextColor(Color.WHITE);
+        daily.setTextColor(Color.BLACK);
+        oneWeek.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        thrWeek.setTextColor(Color.BLACK);
+        monthly.setTextColor(Color.BLACK);
+
+        cardio="Twice a week";
+    }
+
+    private void ThrWeek() {
+        thrWeek.setBackgroundResource(R.drawable.radiobtn_on);
+        daily.setBackgroundResource(R.drawable.radiobtn_off);
+        oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        twWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        monthly.setBackgroundResource(R.drawable.radiobtn_off);
+
+        thrWeek.setTextColor(Color.WHITE);
+        daily.setTextColor(Color.BLACK);
+        oneWeek.setTextColor(Color.BLACK);
+        twWeek.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+        monthly.setTextColor(Color.BLACK);
+
+        cardio="3-5 times a week";
+    }
+
+    private void Monthly() {
+        monthly.setBackgroundResource(R.drawable.radiobtn_on);
+        daily.setBackgroundResource(R.drawable.radiobtn_off);
+        oneWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        twWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        thrWeek.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+
+        monthly.setTextColor(Color.WHITE);
+        daily.setTextColor(Color.BLACK);
+        oneWeek.setTextColor(Color.BLACK);
+        twWeek.setTextColor(Color.BLACK);
+        thrWeek.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+
+        cardio="Monthly";
     }
 }

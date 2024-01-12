@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,52 +84,53 @@ public class Section5Q11 extends Fragment {
         yes = view.findViewById(R.id.yes);
         no = view.findViewById(R.id.no);
         occ = view.findViewById(R.id.occ);
-
         textView77 = view.findViewById(R.id.textView77);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section5Q11_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP5Q11", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("smoking", "");
+
+        if (!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "Yes":
+                   Yes();
+                    break;
+                case "No":
+                   No();
+                    break;
+                case "Occasionally":
+                   Occ();
+                    break;
+                default:
+            }
+        }
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                yes.setBackgroundResource(R.drawable.radiobtn_on);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-
-                yes.setTextColor(Color.WHITE);
-                no.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-
-                smoking="Yes";
+                Yes();
             }
         });
 
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                no.setBackgroundResource(R.drawable.radiobtn_on);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-                occ.setBackgroundResource(R.drawable.radiobtn_off);
-
-                no.setTextColor(Color.WHITE);
-                yes.setTextColor(Color.BLACK);
-                occ.setTextColor(Color.BLACK);
-
-                smoking="No";
+               No();
             }
         });
 
         occ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                occ.setBackgroundResource(R.drawable.radiobtn_on);
-                yes.setBackgroundResource(R.drawable.radiobtn_off);
-                no.setBackgroundResource(R.drawable.radiobtn_off);
-
-                occ.setTextColor(Color.WHITE);
-                yes.setTextColor(Color.BLACK);
-                no.setTextColor(Color.BLACK);
-
-                smoking="Occasionally";
+                Occ();
             }
         });
 
@@ -143,7 +148,9 @@ public class Section5Q11 extends Fragment {
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection5 += 1;
-
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC5PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress5",0);
+                    SectionPref.saveformsection5("smoking",smoking,10,preval,11,"STEP5Q11",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section5Q11_to_section5Q12);
                 }
 
@@ -165,5 +172,41 @@ public class Section5Q11 extends Fragment {
         imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
+    }
+
+    private void Yes() {
+        yes.setBackgroundResource(R.drawable.radiobtn_on);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+
+        yes.setTextColor(Color.WHITE);
+        no.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+
+        smoking="Yes";
+    }
+
+    private void No() {
+        no.setBackgroundResource(R.drawable.radiobtn_on);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+        occ.setBackgroundResource(R.drawable.radiobtn_off);
+
+        no.setTextColor(Color.WHITE);
+        yes.setTextColor(Color.BLACK);
+        occ.setTextColor(Color.BLACK);
+
+        smoking="No";
+    }
+
+    private void Occ() {
+        occ.setBackgroundResource(R.drawable.radiobtn_on);
+        yes.setBackgroundResource(R.drawable.radiobtn_off);
+        no.setBackgroundResource(R.drawable.radiobtn_off);
+
+        occ.setTextColor(Color.WHITE);
+        yes.setTextColor(Color.BLACK);
+        no.setTextColor(Color.BLACK);
+
+        smoking="Occasionally";
     }
 }

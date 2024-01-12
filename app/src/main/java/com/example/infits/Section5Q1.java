@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,133 +91,86 @@ public class Section5Q1 extends Fragment {
         vegan = view.findViewById(R.id.vegan);
         gluten = view.findViewById(R.id.gluten);
         oth = view.findViewById(R.id.oth);
-
         textView77 = view.findViewById(R.id.textView77);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section5Q1_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP5Q1", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("preference", "");
+        String othVal = oth.getText().toString();
+        if(!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "Vegetarian":
+                   Veg();
+                    break;
+                case "Non-vegetarian":
+                    NonVeg();
+                    break;
+                case "Ovo-vegetarian":
+                    Ovo();
+                    break;
+                case "Vegan":
+                    Vegan();
+                    break;
+                case "Gluten-free":
+                   Gluten();
+                    break;
+                default:
+
+            }
+            if(storedvalue==othVal){
+                Other();
+                oth.setText(storedvalue);
+            }
+            DataSectionFive.preference = storedvalue;
+        }
 
         veg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                veg.setBackgroundResource(R.drawable.radiobtn_on);
-                nonveg.setBackgroundResource(R.drawable.radiobtn_off);
-                ovo.setBackgroundResource(R.drawable.radiobtn_off);
-                vegan.setBackgroundResource(R.drawable.radiobtn_off);
-                gluten.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                veg.setTextColor(Color.WHITE);
-                nonveg.setTextColor(Color.BLACK);
-                ovo.setTextColor(Color.BLACK);
-                vegan.setTextColor(Color.BLACK);
-                gluten.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                preference="Vegetarian";
+                Veg();
             }
         });
 
         nonveg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nonveg.setBackgroundResource(R.drawable.radiobtn_on);
-                veg.setBackgroundResource(R.drawable.radiobtn_off);
-                ovo.setBackgroundResource(R.drawable.radiobtn_off);
-                vegan.setBackgroundResource(R.drawable.radiobtn_off);
-                gluten.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                nonveg.setTextColor(Color.WHITE);
-                veg.setTextColor(Color.BLACK);
-                ovo.setTextColor(Color.BLACK);
-                vegan.setTextColor(Color.BLACK);
-                gluten.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                preference="Non-vegetarian";
+                NonVeg();
             }
         });
 
         ovo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ovo.setBackgroundResource(R.drawable.radiobtn_on);
-                nonveg.setBackgroundResource(R.drawable.radiobtn_off);
-                veg.setBackgroundResource(R.drawable.radiobtn_off);
-                vegan.setBackgroundResource(R.drawable.radiobtn_off);
-                gluten.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                ovo.setTextColor(Color.WHITE);
-                nonveg.setTextColor(Color.BLACK);
-                veg.setTextColor(Color.BLACK);
-                vegan.setTextColor(Color.BLACK);
-                gluten.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                preference="Ovo-vegetarian";
+                Ovo();
             }
         });
 
         vegan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vegan.setBackgroundResource(R.drawable.radiobtn_on);
-                nonveg.setBackgroundResource(R.drawable.radiobtn_off);
-                ovo.setBackgroundResource(R.drawable.radiobtn_off);
-                veg.setBackgroundResource(R.drawable.radiobtn_off);
-                gluten.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                vegan.setTextColor(Color.WHITE);
-                nonveg.setTextColor(Color.BLACK);
-                ovo.setTextColor(Color.BLACK);
-                veg.setTextColor(Color.BLACK);
-                gluten.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                preference="Vegan";
+                Vegan();
             }
         });
 
         gluten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gluten.setBackgroundResource(R.drawable.radiobtn_on);
-                nonveg.setBackgroundResource(R.drawable.radiobtn_off);
-                ovo.setBackgroundResource(R.drawable.radiobtn_off);
-                vegan.setBackgroundResource(R.drawable.radiobtn_off);
-                veg.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                gluten.setTextColor(Color.WHITE);
-                nonveg.setTextColor(Color.BLACK);
-                ovo.setTextColor(Color.BLACK);
-                vegan.setTextColor(Color.BLACK);
-                veg.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                preference="Gluten-free";
+                Gluten();
             }
         });
 
         oth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                oth.setBackgroundResource(R.drawable.radiobtn_on);
-                nonveg.setBackgroundResource(R.drawable.radiobtn_off);
-                ovo.setBackgroundResource(R.drawable.radiobtn_off);
-                vegan.setBackgroundResource(R.drawable.radiobtn_off);
-                gluten.setBackgroundResource(R.drawable.radiobtn_off);
-                veg.setBackgroundResource(R.drawable.radiobtn_off);
-
-                oth.setTextColor(Color.WHITE);
-                nonveg.setTextColor(Color.BLACK);
-                ovo.setTextColor(Color.BLACK);
-                vegan.setTextColor(Color.BLACK);
-                veg.setTextColor(Color.BLACK);
-                gluten.setTextColor(Color.BLACK);
-
-                preference=oth.getText().toString();
+                Other();
             }
         });
 
@@ -229,7 +186,9 @@ public class Section5Q1 extends Fragment {
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection5 += 1;
-
+//                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC5PROG", Context.MODE_PRIVATE);
+//                    int preval =       sharedPreferences2.getInt("progress4",0);
+                    SectionPref.saveformsection5("preference",preference,0,0,1,"STEP5Q1",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section5Q1_to_section5Q2);
                 }
             }
@@ -248,4 +207,112 @@ public class Section5Q1 extends Fragment {
 
         return view;
     }
+    private void Veg() {
+        veg.setBackgroundResource(R.drawable.radiobtn_on);
+        nonveg.setBackgroundResource(R.drawable.radiobtn_off);
+        ovo.setBackgroundResource(R.drawable.radiobtn_off);
+        vegan.setBackgroundResource(R.drawable.radiobtn_off);
+        gluten.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        veg.setTextColor(Color.WHITE);
+        nonveg.setTextColor(Color.BLACK);
+        ovo.setTextColor(Color.BLACK);
+        vegan.setTextColor(Color.BLACK);
+        gluten.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        preference="Vegetarian";
+    }
+    private void NonVeg() {
+        nonveg.setBackgroundResource(R.drawable.radiobtn_on);
+        veg.setBackgroundResource(R.drawable.radiobtn_off);
+        ovo.setBackgroundResource(R.drawable.radiobtn_off);
+        vegan.setBackgroundResource(R.drawable.radiobtn_off);
+        gluten.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        nonveg.setTextColor(Color.WHITE);
+        veg.setTextColor(Color.BLACK);
+        ovo.setTextColor(Color.BLACK);
+        vegan.setTextColor(Color.BLACK);
+        gluten.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        preference="Non-vegetarian";
+    }
+
+    private void Ovo() {
+        ovo.setBackgroundResource(R.drawable.radiobtn_on);
+        nonveg.setBackgroundResource(R.drawable.radiobtn_off);
+        veg.setBackgroundResource(R.drawable.radiobtn_off);
+        vegan.setBackgroundResource(R.drawable.radiobtn_off);
+        gluten.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        ovo.setTextColor(Color.WHITE);
+        nonveg.setTextColor(Color.BLACK);
+        veg.setTextColor(Color.BLACK);
+        vegan.setTextColor(Color.BLACK);
+        gluten.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        preference="Ovo-vegetarian";
+    }
+
+    private void Vegan() {
+        vegan.setBackgroundResource(R.drawable.radiobtn_on);
+        nonveg.setBackgroundResource(R.drawable.radiobtn_off);
+        ovo.setBackgroundResource(R.drawable.radiobtn_off);
+        veg.setBackgroundResource(R.drawable.radiobtn_off);
+        gluten.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        vegan.setTextColor(Color.WHITE);
+        nonveg.setTextColor(Color.BLACK);
+        ovo.setTextColor(Color.BLACK);
+        veg.setTextColor(Color.BLACK);
+        gluten.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        preference="Vegan";
+    }
+
+    private void Gluten() {
+        gluten.setBackgroundResource(R.drawable.radiobtn_on);
+        nonveg.setBackgroundResource(R.drawable.radiobtn_off);
+        ovo.setBackgroundResource(R.drawable.radiobtn_off);
+        vegan.setBackgroundResource(R.drawable.radiobtn_off);
+        veg.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        gluten.setTextColor(Color.WHITE);
+        nonveg.setTextColor(Color.BLACK);
+        ovo.setTextColor(Color.BLACK);
+        vegan.setTextColor(Color.BLACK);
+        veg.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        preference="Gluten-free";
+    }
+
+    private void Other() {
+        oth.setBackgroundResource(R.drawable.radiobtn_on);
+        nonveg.setBackgroundResource(R.drawable.radiobtn_off);
+        ovo.setBackgroundResource(R.drawable.radiobtn_off);
+        vegan.setBackgroundResource(R.drawable.radiobtn_off);
+        gluten.setBackgroundResource(R.drawable.radiobtn_off);
+        veg.setBackgroundResource(R.drawable.radiobtn_off);
+
+        oth.setTextColor(Color.WHITE);
+        nonveg.setTextColor(Color.BLACK);
+        ovo.setTextColor(Color.BLACK);
+        vegan.setTextColor(Color.BLACK);
+        veg.setTextColor(Color.BLACK);
+        gluten.setTextColor(Color.BLACK);
+
+        preference=oth.getText().toString();
+    }
+
+
 }

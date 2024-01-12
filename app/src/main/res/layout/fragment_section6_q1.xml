@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:fontFamily="@font/baloo2"
         android:text="Question 1/14"
         android:textColor="@color/black"
@@ -52,7 +52,7 @@
     <ImageView
         android:id="@+id/imageView27"
         android:layout_width="0dp"
-        android:layout_height="587dp"
+        android:layout_height="600dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="30dp"
@@ -234,10 +234,36 @@
         android:backgroundTint="#704CFF"
         android:textSize="18sp"
         app:cornerRadius="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.744"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
+    <TextView
+        android:id="@+id/gotomainsection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/black"
+        android:text="Go to main section"
+        android:fontFamily="@font/nats_regular"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintRight_toRightOf="@id/imageView27"
+        app:layout_constraintLeft_toLeftOf="@id/imageView27"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="145dp" />
+    <ProgressBar
+        android:id="@+id/download_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_marginTop="3sp"
+        android:layout_marginHorizontal="30sp"
+        android:background="@drawable/sec1_progress_shape"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:progress="7"
+        android:progressDrawable="@drawable/lightblue_progress_sec1"
+        app:layout_constraintTop_toBottomOf="@+id/textView34"
+        tools:layout_editor_absoluteX="23dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

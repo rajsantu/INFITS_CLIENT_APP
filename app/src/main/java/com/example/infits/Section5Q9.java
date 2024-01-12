@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,169 +89,231 @@ public class Section5Q9 extends Fragment {
         hostel = view.findViewById(R.id.hostel);
         twohome = view.findViewById(R.id.twohome);
         oth = view.findViewById(R.id.oth);
-
         textView77 = view.findViewById(R.id.textView77);
 
-
-        home.setOnClickListener(new View.OnClickListener() {
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                home.setBackgroundResource(R.drawable.radiobtn_on);
-                hotel.setBackgroundResource(R.drawable.radiobtn_off);
-                onehome.setBackgroundResource(R.drawable.radiobtn_off);
-                hostel.setBackgroundResource(R.drawable.radiobtn_off);
-                twohome.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section5Q9_to_consultationFragment);
 
-                home.setTextColor(Color.WHITE);
-                hotel.setTextColor(Color.BLACK);
-                onehome.setTextColor(Color.BLACK);
-                hostel.setTextColor(Color.BLACK);
-                twohome.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                daily_food="Home";
             }
         });
 
-        hotel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hotel.setBackgroundResource(R.drawable.radiobtn_on);
-                home.setBackgroundResource(R.drawable.radiobtn_off);
-                onehome.setBackgroundResource(R.drawable.radiobtn_off);
-                hostel.setBackgroundResource(R.drawable.radiobtn_off);
-                twohome.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                hotel.setTextColor(Color.WHITE);
-                home.setTextColor(Color.BLACK);
-                onehome.setTextColor(Color.BLACK);
-                hostel.setTextColor(Color.BLACK);
-                twohome.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                daily_food="Hotel/canteen";
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP5Q9", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("daily_food", "");
+        String othVal = oth.getText().toString();
+        if (!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "Home":
+                    Home();
+                    break;
+                case "Hotel/canteen":
+                    Hotel();
+                    break;
+                case "Hostel":
+                    Hostel();
+                    break;
+                case "1 meal home others in hotel/canteen":
+                    OneHome();
+                    break;
+                case "2 meal at home others in hotel/canteen":
+                    Twohome();
+                    break;
+                default:
             }
-        });
-
-        onehome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onehome.setBackgroundResource(R.drawable.radiobtn_on);
-                hotel.setBackgroundResource(R.drawable.radiobtn_off);
-                home.setBackgroundResource(R.drawable.radiobtn_off);
-                hostel.setBackgroundResource(R.drawable.radiobtn_off);
-                twohome.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                onehome.setTextColor(Color.WHITE);
-                hotel.setTextColor(Color.BLACK);
-                home.setTextColor(Color.BLACK);
-                hostel.setTextColor(Color.BLACK);
-                twohome.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                daily_food="1 meal home others in hotel/canteen";
+            if(storedvalue==othVal){
+                Other();
+                oth.setText(storedvalue);
             }
-        });
+        }
 
-        hostel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hostel.setBackgroundResource(R.drawable.radiobtn_on);
-                hotel.setBackgroundResource(R.drawable.radiobtn_off);
-                onehome.setBackgroundResource(R.drawable.radiobtn_off);
-                home.setBackgroundResource(R.drawable.radiobtn_off);
-                twohome.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                hostel.setTextColor(Color.WHITE);
-                hotel.setTextColor(Color.BLACK);
-                onehome.setTextColor(Color.BLACK);
-                home.setTextColor(Color.BLACK);
-                twohome.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                daily_food="Hostel";
-            }
-        });
-
-        twohome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                twohome.setBackgroundResource(R.drawable.radiobtn_on);
-                hotel.setBackgroundResource(R.drawable.radiobtn_off);
-                onehome.setBackgroundResource(R.drawable.radiobtn_off);
-                hostel.setBackgroundResource(R.drawable.radiobtn_off);
-                home.setBackgroundResource(R.drawable.radiobtn_off);
-                oth.setBackgroundResource(R.drawable.radiobtn_off);
-
-                twohome.setTextColor(Color.WHITE);
-                hotel.setTextColor(Color.BLACK);
-                onehome.setTextColor(Color.BLACK);
-                hostel.setTextColor(Color.BLACK);
-                home.setTextColor(Color.BLACK);
-                oth.setTextColor(Color.BLACK);
-
-                daily_food="2 meal at home others in hotel/canteen";
-            }
-        });
-
-        oth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oth.setBackgroundResource(R.drawable.radiobtn_on);
-                hotel.setBackgroundResource(R.drawable.radiobtn_off);
-                onehome.setBackgroundResource(R.drawable.radiobtn_off);
-                hostel.setBackgroundResource(R.drawable.radiobtn_off);
-                twohome.setBackgroundResource(R.drawable.radiobtn_off);
-                home.setBackgroundResource(R.drawable.radiobtn_off);
-
-                oth.setTextColor(Color.WHITE);
-                hotel.setTextColor(Color.BLACK);
-                onehome.setTextColor(Color.BLACK);
-                hostel.setTextColor(Color.BLACK);
-                twohome.setTextColor(Color.BLACK);
-                home.setTextColor(Color.BLACK);
-
-                daily_food=oth.getText().toString();;
-            }
-        });
-
-        nextbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
-
-                DataSectionFive.daily_food = daily_food;
-                DataSectionFive.s5q9 = textView77.getText().toString();
-
-                if (daily_food.equals(""))
-                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
-                else {
-                    ConsultationFragment.psection5 += 1;
-
-                    Navigation.findNavController(v).navigate(R.id.action_section5Q9_to_section5Q10);
+            home.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Home();
                 }
+            });
 
-            }
-        });
+            hotel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Hotel();
+                }
+            });
 
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            onehome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OneHome();
+                }
+            });
 
-                if(ConsultationFragment.psection5>0)
-                    ConsultationFragment.psection5-=1;
+            hostel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Hostel();
+                }
+            });
 
-                requireActivity().onBackPressed();
-            }
-        });
+            twohome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Twohome();
+                }
+            });
 
-        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
+            oth.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Other();
+                }
+            });
 
-        return view;
+            nextbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
+
+                    DataSectionFive.daily_food = daily_food;
+                    DataSectionFive.s5q9 = textView77.getText().toString();
+
+                    if (daily_food.equals(""))
+                        Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                    else {
+                        ConsultationFragment.psection5 += 1;
+                        SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC5PROG", Context.MODE_PRIVATE);
+                        int preval =       sharedPreferences2.getInt("progress5",0);
+                        SectionPref.saveformsection5("daily_food",daily_food,8,preval,9,"STEP5Q9",requireContext());
+                        Navigation.findNavController(v).navigate(R.id.action_section5Q9_to_section5Q10);
+                    }
+
+                }
+            });
+
+            backbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (ConsultationFragment.psection5 > 0)
+                        ConsultationFragment.psection5 -= 1;
+
+                    requireActivity().onBackPressed();
+                }
+            });
+
+            imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
+
+            return view;
+        }
+
+
+    private void Home() {
+        home.setBackgroundResource(R.drawable.radiobtn_on);
+        hotel.setBackgroundResource(R.drawable.radiobtn_off);
+        onehome.setBackgroundResource(R.drawable.radiobtn_off);
+        hostel.setBackgroundResource(R.drawable.radiobtn_off);
+        twohome.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        home.setTextColor(Color.WHITE);
+        hotel.setTextColor(Color.BLACK);
+        onehome.setTextColor(Color.BLACK);
+        hostel.setTextColor(Color.BLACK);
+        twohome.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        daily_food="Home";
+    }
+
+    private void Hotel() {
+        hotel.setBackgroundResource(R.drawable.radiobtn_on);
+        home.setBackgroundResource(R.drawable.radiobtn_off);
+        onehome.setBackgroundResource(R.drawable.radiobtn_off);
+        hostel.setBackgroundResource(R.drawable.radiobtn_off);
+        twohome.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        hotel.setTextColor(Color.WHITE);
+        home.setTextColor(Color.BLACK);
+        onehome.setTextColor(Color.BLACK);
+        hostel.setTextColor(Color.BLACK);
+        twohome.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        daily_food="Hotel/canteen";
+    }
+
+    private void OneHome() {
+        onehome.setBackgroundResource(R.drawable.radiobtn_on);
+        hotel.setBackgroundResource(R.drawable.radiobtn_off);
+        home.setBackgroundResource(R.drawable.radiobtn_off);
+        hostel.setBackgroundResource(R.drawable.radiobtn_off);
+        twohome.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        onehome.setTextColor(Color.WHITE);
+        hotel.setTextColor(Color.BLACK);
+        home.setTextColor(Color.BLACK);
+        hostel.setTextColor(Color.BLACK);
+        twohome.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        daily_food="1 meal home others in hotel/canteen";
+    }
+
+    private void Hostel() {
+        hostel.setBackgroundResource(R.drawable.radiobtn_on);
+        hotel.setBackgroundResource(R.drawable.radiobtn_off);
+        onehome.setBackgroundResource(R.drawable.radiobtn_off);
+        home.setBackgroundResource(R.drawable.radiobtn_off);
+        twohome.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        hostel.setTextColor(Color.WHITE);
+        hotel.setTextColor(Color.BLACK);
+        onehome.setTextColor(Color.BLACK);
+        home.setTextColor(Color.BLACK);
+        twohome.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        daily_food="Hostel";
+    }
+
+    private void Twohome() {
+        twohome.setBackgroundResource(R.drawable.radiobtn_on);
+        hotel.setBackgroundResource(R.drawable.radiobtn_off);
+        onehome.setBackgroundResource(R.drawable.radiobtn_off);
+        hostel.setBackgroundResource(R.drawable.radiobtn_off);
+        home.setBackgroundResource(R.drawable.radiobtn_off);
+        oth.setBackgroundResource(R.drawable.radiobtn_off);
+
+        twohome.setTextColor(Color.WHITE);
+        hotel.setTextColor(Color.BLACK);
+        onehome.setTextColor(Color.BLACK);
+        hostel.setTextColor(Color.BLACK);
+        home.setTextColor(Color.BLACK);
+        oth.setTextColor(Color.BLACK);
+
+        daily_food="2 meal at home others in hotel/canteen";
+    }
+
+    private void Other() {
+        oth.setBackgroundResource(R.drawable.radiobtn_on);
+        hotel.setBackgroundResource(R.drawable.radiobtn_off);
+        onehome.setBackgroundResource(R.drawable.radiobtn_off);
+        hostel.setBackgroundResource(R.drawable.radiobtn_off);
+        twohome.setBackgroundResource(R.drawable.radiobtn_off);
+        home.setBackgroundResource(R.drawable.radiobtn_off);
+
+        oth.setTextColor(Color.WHITE);
+        hotel.setTextColor(Color.BLACK);
+        onehome.setTextColor(Color.BLACK);
+        hostel.setTextColor(Color.BLACK);
+        twohome.setTextColor(Color.BLACK);
+        home.setTextColor(Color.BLACK);
+
+        daily_food=oth.getText().toString();;
     }
 }

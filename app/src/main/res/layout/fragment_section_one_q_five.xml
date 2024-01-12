@@ -66,7 +66,7 @@
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
-        android:layout_height="404dp"
+        android:layout_height="380dp"
         android:layout_alignTop="@+id/textView77"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="15dp"
@@ -154,7 +154,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="50dp"
         android:clickable="true"
         android:fontFamily="@font/nats_regular"
         android:text="Back"
@@ -181,10 +181,36 @@
         android:backgroundTint="#704CFF"
         android:textSize="18sp"
         app:cornerRadius="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.744"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
+    <TextView
+        android:id="@+id/gotomainsection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:textColor="@color/black"
+        android:text="Go to main section"
+        android:fontFamily="@font/nats_regular"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintRight_toRightOf="@id/imageView27"
+        app:layout_constraintLeft_toLeftOf="@id/imageView27"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="145dp" />
+    <ProgressBar
+        android:id="@+id/download_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_marginTop="3sp"
+        android:layout_marginHorizontal="30sp"
+        android:background="@drawable/sec1_progress_shape"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:progress="62"
+        android:progressDrawable="@drawable/lightblue_progress_sec1"
+        app:layout_constraintTop_toBottomOf="@+id/textView34"
+        tools:layout_editor_absoluteX="23dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

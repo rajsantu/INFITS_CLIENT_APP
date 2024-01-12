@@ -11,6 +11,13 @@
         <item name="android:paddingHorizontal">10dp</item>
         <item name="text_size">14sp</item>
     </style>
+    <style name="CustomNumberPickerStyle">
+        <!-- Text appearance for selected value -->
+        <item name="android:textColorPrimary">@color/black</item>
+
+        <!-- Text appearance for unselected values -->
+        <item name="android:textColorSecondary">@color/black</item>
+    </style>
 
     <style name="account_edt_views1">
         <item name="android:layout_width">200dp</item>
@@ -65,5 +72,4 @@
         <item name="android:layout_marginHorizontal">25dp</item>
         <item name="android:lineHeight">20dp</item>
     </style>
-
 </resources>

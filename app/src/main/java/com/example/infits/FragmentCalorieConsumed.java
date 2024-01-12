@@ -219,8 +219,9 @@ public class FragmentCalorieConsumed extends Fragment {
         calorieInfos.clear();
 
         //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
-        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
-
+       // String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
+      String calorieUrl=  "http://192.168.222.94/phpProjects/calorieConsumed.php";
+      //String url = "http://192.168.41.94/phpProjects/saveMeal.php";
         StringRequest calorieRequest = new StringRequest( Request.Method.POST, calorieUrl,
                 response -> {
                     Log.d("CalorieConsumed Data Bro", response);
@@ -478,8 +479,8 @@ public class FragmentCalorieConsumed extends Fragment {
     private void BreakFastInfo(){
         String mealType="BreakFast";
         //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
-        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
-
+     //   String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
+        String calorieUrl=  "http://192.168.222.94/phpProjects/calorieConsumed.php";
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {
                     Log.d("Breakfast Info Bro", response);
@@ -543,8 +544,8 @@ public class FragmentCalorieConsumed extends Fragment {
     private void LunchInfo(){
         String mealType="Lunch";
         //String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
-        String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
-
+      //  String calorieUrl = "https://infits.in/androidApi/calorieConsumed.php";
+        String calorieUrl=  "http://192.168.222.94/phpProjects/calorieConsumed.php";
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {
                     Log.d("Lunch Info Bro", response);
@@ -601,8 +602,8 @@ public class FragmentCalorieConsumed extends Fragment {
     }
     private void SnacksInfo(){
         String mealType = "Snacks";
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
-
+       // String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl=  "http://192.168.222.94/phpProjects/calorieConsumed.php";
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {
                     Log.d("Snacks Info Bro", response);
@@ -660,8 +661,8 @@ public class FragmentCalorieConsumed extends Fragment {
     }
     private void DinnerInfo(){
         String mealType="Dinner";
-        String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
-
+       // String calorieUrl = String.format("%scalorieConsumed.php", DataFromDatabase.ipConfig);
+        String calorieUrl=  "http://192.168.222.94/phpProjects/calorieConsumed.php";
         StringRequest calorieRequest = new StringRequest(Request.Method.POST, calorieUrl,
                 response -> {
                     Log.d("Dinner Info Bro", response);

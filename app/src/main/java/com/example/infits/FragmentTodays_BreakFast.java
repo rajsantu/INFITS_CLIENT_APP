@@ -1,6 +1,7 @@
 package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Handler;
 import android.os.MemoryFile;
 import android.util.Base64;
@@ -30,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.airbnb.lottie.L;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,16 +42,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 
@@ -131,6 +138,7 @@ public class FragmentTodays_BreakFast extends Fragment {
 
 
 
+
         date = new Date();
         headerTitle = view.findViewById(R.id.header_title);
 
@@ -138,6 +146,8 @@ public class FragmentTodays_BreakFast extends Fragment {
 //        doneMeal = view.findViewById(R.id.done_meal);
         headerTitle.setText(getMeal());
 //        doneMeal.setText(getMeal());
+
+
 
         recyclerView_Todays_breakfast.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         DisplayDataInList();
@@ -150,6 +160,9 @@ public class FragmentTodays_BreakFast extends Fragment {
         //backbutton
 //        calorieImgback = view.findViewById(R.id.calorieImgback);
         calorieImgback.setOnClickListener(v -> requireActivity().onBackPressed());
+
+
+
 
 
 
@@ -241,6 +254,9 @@ public class FragmentTodays_BreakFast extends Fragment {
 
 
 
+
+
+
             SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("BitMapInfo", Context.MODE_PRIVATE);
             Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto", "").toString());
             String base64String = sharedPreferences1.getString("ClickedPhoto", "").toString();
@@ -310,6 +326,7 @@ public class FragmentTodays_BreakFast extends Fragment {
             return Meal_Type;
 
         } catch (Exception e) {
+
             Log.d("getMeal: ", "Json shared meal error");
         }
         return null;
@@ -333,6 +350,15 @@ public class FragmentTodays_BreakFast extends Fragment {
             // Set the Bitmap as the Drawable of the ImageView
 
 //        holder.addmealIcon.setImageDrawable(new BitmapDrawable(context.getResources(), decodedBitmap));
+            SharedPreferences sharedPreferences1=getActivity().getSharedPreferences("BitMapInfo", MODE_PRIVATE);
+            Log.d("lastBreakFast", sharedPreferences1.getString("ClickedPhoto",""));
+            String base64String= sharedPreferences1.getString("ClickedPhoto","");
+            byte[] imageAsBytes = Base64.decode(base64String.getBytes(), Base64.DEFAULT);
+            Bitmap   myImage= BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+
+
+
+
 
 
 

@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -16,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.customDialog.SectionPref;
+
 import java.util.LinkedHashMap;
 
 /**
@@ -29,7 +33,7 @@ public class SectionOneQSix extends Fragment {
     Button nextbtn;
     TextView backbtn, jobtv;
     RadioButton emp, unEmp, pTime;
-    String employment;
+    String employment = "";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +90,57 @@ public class SectionOneQSix extends Fragment {
         RadioGroup r1=view.findViewById(R.id.radioGroup);
         jobtv = view.findViewById(R.id.textView77);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_sectionOneQSix_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q6", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("employment", "");
+        if(!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "Employed":
+                    emp.setBackgroundResource(R.drawable.radiobtn_on);
+                    unEmp.setBackgroundResource(R.drawable.radiobtn_off);
+                    pTime.setBackgroundResource(R.drawable.radiobtn_off);
+
+                    emp.setTextColor(Color.WHITE);
+                    unEmp.setTextColor(Color.BLACK);
+                    pTime.setTextColor(Color.BLACK);
+                    employment="Employed";
+                    break;
+                case "Un employed":
+                    emp.setBackgroundResource(R.drawable.radiobtn_off);
+                    unEmp.setBackgroundResource(R.drawable.radiobtn_on);
+                    pTime.setBackgroundResource(R.drawable.radiobtn_off);
+
+                    unEmp.setTextColor(Color.WHITE);
+                    emp.setTextColor(Color.BLACK);
+                    pTime.setTextColor(Color.BLACK);
+
+                    employment="Un employed";
+                    break;
+                case "Part-time":
+                    emp.setBackgroundResource(R.drawable.radiobtn_off);
+                    unEmp.setBackgroundResource(R.drawable.radiobtn_off);
+                    pTime.setBackgroundResource(R.drawable.radiobtn_on);
+
+                    pTime.setTextColor(Color.WHITE);
+                    emp.setTextColor(Color.BLACK);
+                    unEmp.setTextColor(Color.BLACK);
+
+                    employment="Part-time";
+                    break;
+                default:
+
+            }
+            DataSectionOne.employment = storedvalue;
+        }
+
 
         emp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +196,24 @@ public class SectionOneQSix extends Fragment {
 
                 DataSectionOne.employment = employment;
                 DataSectionOne.s1q6 = jobtv.getText().toString();
-                if (r1.getCheckedRadioButtonId() == -1)
+                if (employment.isEmpty())
                     Toast.makeText(getContext(), "Select your employment status", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection1 += 1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress",0);
+                    SectionPref.saveform("employment",employment,5,preval,6,"STEP1Q6",requireContext());
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q6", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("employment", employment);
+//                    editor.apply();
+//                    String sharedemp = sharedPreferences.getString("employment", "");
+//                    if (!(sharedemp.isEmpty()) && preval==5) {
+//                        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+//                        editor1.putInt("progress", 6);
+//                        editor1.apply();
+//                    }
                     Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
                 }
             }

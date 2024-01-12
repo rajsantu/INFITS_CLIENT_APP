@@ -1,14 +1,13 @@
 package com.example.infits;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.customDialog.SectionPref;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +37,15 @@ public class Section2Q5 extends Fragment {
     TextView backbtn, diagtv;
     CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl,lactose;
     EditText oth;
+    private SharedPreferences checkboxPrefs;
+    private SharedPreferences.Editor editor;
+    private boolean isDiag;
+    private boolean isHyperthy;
+    private boolean isHypothy;
+    private boolean isHyperten;
+    private boolean isPcod;
+    private boolean isFattly;
+    private boolean isLactose;
     ArrayList<String> diagnosed;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -96,77 +108,107 @@ public class Section2Q5 extends Fragment {
         lactose = view.findViewById(R.id.lactose);
         oth = view.findViewById(R.id.oth);
 
+
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q5_to_consultationFragment);
+
+            }
+        });
+
         diagnosed = new ArrayList<>();
+        checkboxPrefs = requireContext().getSharedPreferences("checkbox_prefs", Context.MODE_PRIVATE);
+        editor = checkboxPrefs.edit();
+
+        boolean isChecked1 = checkboxPrefs.getBoolean("diabetes", false);
+        dia.setChecked(isChecked1);
+        isDiag = isChecked1;
+
+
+        boolean isChecked2 = checkboxPrefs.getBoolean("hyperthy", false);
+        hyperthy.setChecked(isChecked2);
+        isHyperthy = isChecked2;
+
+        boolean isChecked3 = checkboxPrefs.getBoolean("hypothy", false);
+        hypothy.setChecked(isChecked3);
+        isHypothy = isChecked3;
+
+        boolean isChecked4 = checkboxPrefs.getBoolean("hyperten", false);
+        hyperten.setChecked(isChecked4);
+        isHyperten = isChecked4;
+
+        boolean isChecked5 = checkboxPrefs.getBoolean("pcod", false);
+        pcod.setChecked(isChecked5);
+        isPcod = isChecked5;
+
+        boolean isChecked6 = checkboxPrefs.getBoolean("fattly", false);
+        fattyl.setChecked(isChecked6);
+        isFattly = isChecked6;
+
+        boolean isChecked7 = checkboxPrefs.getBoolean("lactose", false);
+        lactose.setChecked(isChecked7);
+        isLactose = isChecked7;
 
         diagtv = view.findViewById(R.id.textView77);
-
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP2Q3", Context.MODE_PRIVATE);
+//        String json = sharedPreferences.getString("diagnosed", "");
+//        Gson gson = new Gson();
+//        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+//        ArrayList<String> arrayList = gson.fromJson(json, type);
+//        DataSectionTwo.diagnosed = arrayList;
+//        diagnosed=arrayList;
+        //Toast.makeText(requireContext(), String.valueOf(diagnosed), Toast.LENGTH_SHORT).show();
+//        if(!json.isEmpty()) {
+//
+//        }
         dia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dia.isChecked())
-                    diagnosed.add("Diabetes");
-                else
-                    diagnosed.remove("Diabetes");
+               Diagnosed();
             }
         });
 
         hyperthy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hyperthy.isChecked())
-                    diagnosed.add("Hyperthyroidism");
-                else
-                    diagnosed.remove("Hyperthyroidism");
+               Hyperthy();
             }
         });
 
         hypothy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hypothy.isChecked())
-                    diagnosed.add("Hypothyroidism");
-                else
-                    diagnosed.remove("Hypothyroidism");
+               Hypothy();
             }
         });
 
         hyperten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hyperten.isChecked())
-                    diagnosed.add("Hypertension");
-                else
-                    diagnosed.remove("Hypertension");
+                Hyperten();
             }
         });
 
         pcod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pcod.isChecked())
-                    diagnosed.add("PCOD/PCOS");
-                else
-                    diagnosed.remove("PCOD/PCOS");
+                Pcod();
             }
         });
 
         fattyl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fattyl.isChecked())
-                    diagnosed.add("Fatty liver");
-                else
-                    diagnosed.remove("Fatty liver");
+                Fattyl();
             }
         });
 
         lactose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fattyl.isChecked())
-                    diagnosed.add("Lactose intolerance");
-                else
-                    diagnosed.remove("Lactose intolerance");
+                Lactose();
             }
         });
 
@@ -194,6 +236,26 @@ public class Section2Q5 extends Fragment {
                 else {
                     DataSectionTwo.diagnosed = diagnosed;
                     ConsultationFragment.psection2 += 1;
+                    editor.putBoolean("diabetes", isDiag);
+                   // editor.apply();
+                    editor.putBoolean("hyperthy", isHyperthy);
+                   // editor.apply();
+                    editor.putBoolean("hypothy", isHypothy);
+                   // editor.apply();
+                    editor.putBoolean("hyperten", isHyperten);
+                   // editor.apply();
+                    editor.putBoolean("pcod", isPcod);
+                   // editor.apply();
+                    editor.putBoolean("fattly", isFattly);
+                   // editor.apply();
+                    editor.putBoolean("lactose", isLactose);
+                    editor.apply();
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(diagnosed);
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC2PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress2",0);
+                    SectionPref.saveformsection2("diagnosed",json,4,preval,5,"STEP2Q5",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q6);
                 }
                 if (!other.isEmpty()){
@@ -218,5 +280,88 @@ public class Section2Q5 extends Fragment {
 
         return view;
 
+    }
+
+    private void Lactose() {
+        if(lactose.isChecked()) {
+            diagnosed.add("Lactose intolerance");
+            isLactose = lactose.isChecked();
+        }
+        else {
+            diagnosed.remove("Lactose intolerance");
+            isLactose = lactose.isChecked();
+        }
+    }
+
+    private void Fattyl() {
+        if(fattyl.isChecked()) {
+            diagnosed.add("Fatty liver");
+            isFattly = fattyl.isChecked();
+        }
+        else {
+            diagnosed.remove("Fatty liver");
+            isFattly = fattyl.isChecked();
+        }
+    }
+
+    private void Pcod() {
+        if(pcod.isChecked()) {
+            diagnosed.add("PCOD/PCOS");
+            isPcod = pcod.isChecked();
+        }
+        else {
+            diagnosed.remove("PCOD/PCOS");
+            isPcod = pcod.isChecked();
+        }
+    }
+
+    private void Hyperten() {
+        if(hyperten.isChecked()) {
+            diagnosed.add("Hypertension");
+            isHyperten = hyperten.isChecked();
+        }
+        else {
+            diagnosed.remove("Hypertension");
+            isHyperten = hyperten.isChecked();
+        }
+    }
+
+    private void Hypothy() {
+        if(hypothy.isChecked()) {
+            diagnosed.add("Hypothyroidism");
+            isHypothy = hypothy.isChecked();
+        }
+        else {
+            diagnosed.remove("Hypothyroidism");
+            isHypothy = hypothy.isChecked();
+        }
+    }
+
+    private void Hyperthy() {
+        if(hyperthy.isChecked()) {
+            diagnosed.add("Hyperthyroidism");
+            isHyperthy = hyperthy.isChecked();
+        }
+        else {
+            diagnosed.remove("Hyperthyroidism");
+            isHyperthy = hyperthy.isChecked();
+        }
+    }
+
+
+    @SuppressLint("SuspiciousIndentation")
+    private void Diagnosed() {
+        if(dia.isChecked()) {
+            diagnosed.add("Diabetes");
+            isDiag = dia.isChecked();
+//            editor.putBoolean("diabetes", dia.isChecked());
+//            editor.apply();
+        }
+        else {
+            diagnosed.remove("Diabetes");
+            isDiag = dia.isChecked();
+        }
+//           editor.putBoolean("diabetes",dia.isChecked());
+//           editor.apply();
     }
 }

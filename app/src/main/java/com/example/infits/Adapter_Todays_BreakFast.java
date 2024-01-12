@@ -31,7 +31,8 @@ public class Adapter_Todays_BreakFast extends RecyclerView.Adapter<Adapter_Today
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.icon.setImageDrawable(todays_breakFast_infos.get(position).icon);
+     //   holder.icon.setImageDrawable(todays_breakFast_infos.get(position).icon);
+        holder.icon.setImageBitmap(todays_breakFast_infos.get(position).icon);
 //        holder.icon.setImageBitmap(todays_breakFast_infos.get(position).icon);
         holder.mealName.setText(todays_breakFast_infos.get(position).mealName);
         holder.calorieValue.setText(todays_breakFast_infos.get(position).calorieValue);

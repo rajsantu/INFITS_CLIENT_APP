@@ -4,7 +4,9 @@ package com.example.infits;
 import static androidx.fragment.app.FragmentManager.TAG;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -73,8 +75,7 @@ public class ConsultationFragment extends Fragment {
     public static int psection4=0;
     public static int psection5=0;
     public static int psection6=0;
-
-
+    private SharedPreferences sharedPreferences;
     private static final int STORAGE_CODE = 1000;
 
     //private String filePath = Environment.getExternalStorageDirectory().getPath() + "/Download/" + DataFromDatabase.clientuserID + "_healthform.pdf";
@@ -168,19 +169,45 @@ public class ConsultationFragment extends Fragment {
         TextView t4=view.findViewById(R.id.section4perc);
         TextView t5=view.findViewById(R.id.section5perc);
         TextView t6=view.findViewById(R.id.section6perc);
+        sharedPreferences = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+        p1.setProgress((float)sharedPreferences.getInt("progress",0)/8);
+        Log.d("PROGRESSVALUE",String.valueOf(sharedPreferences.getInt("progress",0)));
+       // Toast.makeText(getActivity().getApplicationContext(), String.valueOf(sharedPreferences.getInt("progress",0)), Toast.LENGTH_SHORT).show();
+       // t1.setText(String.valueOf(psection1/8*100)+"%");
+        t1.setText(String.valueOf((sharedPreferences.getInt("progress",0))/0.08)+"%");
+//        p2.setProgress(psection2/8);
+        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC2PROG",Context.MODE_PRIVATE);
+        int progress2 = sharedPreferences1.getInt("progress2",0);
+        p2.setProgress((float) progress2/8);
+        t2.setText(String.valueOf((progress2)/0.08)+"%");
+        //t2.setText(String.valueOf(psection2/8*100)+"%");
 
-        p1.setProgress(psection1/8);
-        t1.setText(String.valueOf(psection1/8*100)+"%");
-        p2.setProgress(psection2/8);
-        t2.setText(String.valueOf(psection2/8*100)+"%");
-        p3.setProgress(psection3/11);
-        t3.setText(String.valueOf(psection3/11*100)+"%");
-        p4.setProgress(psection4/7);
-        t4.setText(String.valueOf(psection4/7*100)+"%");
-        p5.setProgress(psection5/13);
-        t5.setText(String.valueOf(psection5/13*100)+"%");
-        p6.setProgress(psection6/14);
-        t6.setText(String.valueOf(psection6/14*100)+"%");
+        SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC3PROG", Context.MODE_PRIVATE);
+        int progress3 =       sharedPreferences2.getInt("progress3",0);
+        p3.setProgress((float) progress3/11);
+        String text = String.format("%.2f", (progress3)/0.11);
+        t3.setText(text+"%");
+
+//        p3.setProgress(psection3/11);
+//        t3.setText(String.valueOf(psection3/11*100)+"%");
+        SharedPreferences sharedPreferences4 = requireContext().getSharedPreferences("SEC4PROG", Context.MODE_PRIVATE);
+        int progress4 =       sharedPreferences4.getInt("progress4",0);
+        p4.setProgress((float) progress4/7);
+        t4.setText((String.format("%.2f", (progress4)/0.07))+"%");
+//        p4.setProgress(psection4/7);
+//        t4.setText(String.valueOf(psection4/7*100)+"%");
+        SharedPreferences sharedPreferences5 = requireContext().getSharedPreferences("SEC5PROG", Context.MODE_PRIVATE);
+        int progress5 =       sharedPreferences5.getInt("progress5",0);
+        p5.setProgress((float) progress5/13);
+        t5.setText((String.format("%.2f", (progress5)/0.13))+"%");
+//        p5.setProgress(psection5/13);
+//        t5.setText(String.valueOf(psection5/13*100)+"%");
+        SharedPreferences sharedPreferences6 = requireContext().getSharedPreferences("SEC6PROG", Context.MODE_PRIVATE);
+        int progress6 =       sharedPreferences6.getInt("progress6",0);
+        p6.setProgress((float) progress6/14);
+        t6.setText((String.format("%.2f", (progress6)/0.14))+"%");
+//        p6.setProgress(psection6/14);
+//        t6.setText(String.valueOf(psection6/14*100)+"%");
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,19 +5,15 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,21 +21,18 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModel;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,8 +46,11 @@ public class MyService extends Service implements SensorEventListener {
     long lastUpdatetime;
     float speed,distance,s=1;
     int pre_step=0,current=0, flag = 0;
+
     SensorManager sensorManager;
     Sensor stepSensor, accelerometer;
+    SharedPreferences sharedPreferences;
+
     PendingIntent pendingIntent = null;
     boolean updatePrev = true, notificationPermission, inAppNotificationUpdated = false;
     float goal;
@@ -62,6 +58,7 @@ public class MyService extends Service implements SensorEventListener {
 
     NotificationCompat.Builder notificationBuilder;
     Intent intentAction = new Intent("com.example.infits");
+    private ViewModel viewModel;
     private boolean isNotificationPermissionGranted, sensoravailable;
 
     int stepCount, stepGoal;
@@ -69,7 +66,9 @@ public class MyService extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         super.onCreate();
-
+//         sharedPreferences = getSharedPreferences("CurrentSteps",MODE_PRIVATE);
+////        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        int storedStepCount = sharedPreferences.getInt("currentsteps", 0);
 
     }
 
@@ -81,15 +80,9 @@ public class MyService extends Service implements SensorEventListener {
         Last_accelerometer_values=new float[3];
 
 
-
-
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer= sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-
-
-
 
 
 
@@ -138,6 +131,7 @@ public class MyService extends Service implements SensorEventListener {
     }
 
 
+
     @SuppressLint("SuspiciousIndentation")
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -151,9 +145,12 @@ public class MyService extends Service implements SensorEventListener {
         }
 
         Log.d("Sensor changing", "1");
-
+//        SharedPreferences sharedPreferences = getSharedPreferences("CurrentSteps",MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             current= (int) event.values[0];
+//            editor.putFloat("currentsteps",current-pre_step);
+//            editor.apply();
             FetchTrackerInfos.currentSteps  =  current - pre_step;
             FetchTrackerInfos.Distance= (float)0.0005*FetchTrackerInfos.currentSteps;
             Log.d("steps",String.valueOf(FetchTrackerInfos.currentSteps));
@@ -175,48 +172,38 @@ public class MyService extends Service implements SensorEventListener {
         }
 
         if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
-                long current_time=System.currentTimeMillis();
-                long elapsed_time=current_time-lastUpdatetime;
+            long current_time=System.currentTimeMillis();
+            long elapsed_time=current_time-lastUpdatetime;
 
-                    float[] values=event.values;
-                    float x,y,z;
-                    x=values[0];
-                    y=values[1];
-                    z=values[2];
+            float[] values=event.values;
+            float x,y,z;
+            x=values[0];
+            y=values[1];
+            z=values[2];
 
+            float acceleration=(float)(Math.sqrt(x*x + y*y + z*z));
 
+            float dV=acceleration *elapsed_time;
+            speed+=dV;
+            FetchTrackerInfos.speed=speed;
+            s++;
+            Last_accelerometer_values=values;
 
-
-                    float acceleration=(float)(Math.sqrt(x*x + y*y + z*z));
-
-                    float dV=acceleration *elapsed_time;
-                    speed+=dV;
-                    FetchTrackerInfos.speed=speed;
-                    s++;
-                    Last_accelerometer_values=values;
-
-                    float dT=elapsed_time/1000f;
-
-
-                   FetchTrackerInfos.Avg_speed= String.format("%2f",(speed/s));
+            float dT=elapsed_time/1000f;
+            FetchTrackerInfos.Avg_speed= String.format("%2f",(speed/s));
 
             FetchTrackerInfos.avgs= FetchTrackerInfos.Avg_speed.charAt(0);
 
             //float average= (speed/s);
-                   //Log.d("avggggg=",String.valueOf(average));
+            //Log.d("avggggg=",String.valueOf(average));
 
-                  //  Log.d("Sensor_data_speed",String.valueOf(speed));
+            //  Log.d("Sensor_data_speed",String.valueOf(speed));
             Log.d("Sensor_data_Avg_speed",String.valueOf(FetchTrackerInfos.Avg_speed.charAt(0)));
             Log.d("distance",String.valueOf(FetchTrackerInfos.Distance));
         }
 
 
-
-
     }
-
-
-
 
     private void updateInAppNotifications(int goal) {
         SharedPreferences inAppPrefs = getApplicationContext().getSharedPreferences("inAppNotification", MODE_PRIVATE);

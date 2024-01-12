@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +83,21 @@ public class Section2Q3 extends Fragment {
 
         uweighttv = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q3_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP2Q3", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("uweight", "");
+        if(!storedvalue.isEmpty()) {
+            eTextuWeight.setText(storedvalue);
+            DataSectionTwo.usualWeight = storedvalue;
+        }
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +112,9 @@ public class Section2Q3 extends Fragment {
                     Toast.makeText(getContext(), "Enter your usual weight", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection2 += 1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC2PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress2",0);
+                    SectionPref.saveformsection2("uweight",usual_weight,2,preval,3,"STEP2Q3",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section2Q3_to_section2Q4);
                 }
             }

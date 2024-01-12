@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -16,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.customDialog.SectionPref;
+
 import java.util.LinkedHashMap;
 
 /**
@@ -29,7 +33,7 @@ public class SectionOneQFive extends Fragment {
     Button nextbtn;
     TextView backbtn, gendertv;
     RadioButton male, female, other;
-    String uGender;
+    String uGender ="";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +90,55 @@ public class SectionOneQFive extends Fragment {
         RadioGroup radio=view.findViewById(R.id.radioGroup);
         gendertv = view.findViewById(R.id.textView77);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_sectionOneQFive_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q5", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("uGender", "");
+        if(!storedvalue.isEmpty()) {
+            switch (storedvalue) {
+                case "male":
+                    male.setBackgroundResource(R.drawable.radiobtn_on);
+                    female.setBackgroundResource(R.drawable.radiobtn_off);
+                    other.setBackgroundResource(R.drawable.radiobtn_off);
+
+                    male.setTextColor(Color.WHITE);
+                    female.setTextColor(Color.BLACK);
+                    other.setTextColor(Color.BLACK);
+                    uGender="male";
+                    break;
+                case "female":
+                    female.setBackgroundResource(R.drawable.radiobtn_on);
+                    male.setBackgroundResource(R.drawable.radiobtn_off);
+                    other.setBackgroundResource(R.drawable.radiobtn_off);
+
+                    female.setTextColor(Color.WHITE);
+                    male.setTextColor(Color.BLACK);
+                    other.setTextColor(Color.BLACK);
+                    uGender="female";
+                    break;
+                case "other":
+                    other.setBackgroundResource(R.drawable.radiobtn_on);
+                    female.setBackgroundResource(R.drawable.radiobtn_off);
+                    male.setBackgroundResource(R.drawable.radiobtn_off);
+
+                    other.setTextColor(Color.WHITE);
+                    male.setTextColor(Color.BLACK);
+                    female.setTextColor(Color.BLACK);
+                    uGender="other";
+                    break;
+                default:
+
+            }
+            DataSectionOne.gender = storedvalue;
+        }
+
 
         male.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,10 +192,25 @@ public class SectionOneQFive extends Fragment {
                 DataSectionOne.gender = uGender;
                 DataSectionOne.s1q5 = gendertv.getText().toString();
 
-                if(radio.getCheckedRadioButtonId()==-1)
+                if(uGender.isEmpty())
                     Toast.makeText(getContext(),"Select a gender",Toast.LENGTH_SHORT).show();
                 else{
                     ConsultationFragment.psection1+=1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress",0);
+                    SectionPref.saveform("uGender",uGender,4,preval,5,"STEP1Q5",requireContext());
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q5", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("uGender", uGender);
+//                    editor.apply();
+//                    String sharedage = sharedPreferences.getString("uGender", "");
+//
+//                    if (!(sharedage.isEmpty()) && preval==4){
+//                        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+//                        editor1.putInt("progress", 5);
+//                        editor1.apply();
+//                    }
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFive_to_sectionOneQSix);
             }
             }

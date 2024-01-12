@@ -1,11 +1,14 @@
 package com.example.infits;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -25,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.infits.customDialog.SectionPref;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -35,7 +40,7 @@ import java.io.InputStream;
  * create an instance of this fragment.
  */
 public class Section2Q4 extends Fragment {
-
+    //Android
     ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, reporttv, textView79;
@@ -45,6 +50,7 @@ public class Section2Q4 extends Fragment {
 
     private Bitmap bitmap;
     private File destination = null;
+    private String imagePath="";
     private InputStream inputStreamImg;
     private String imgpath = null;
     private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
@@ -107,6 +113,27 @@ public class Section2Q4 extends Fragment {
 
         ivUploadimg = view.findViewById(R.id.ivUploadimg);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q4_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP2Q4", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("image", "");
+        if(!storedvalue.isEmpty()) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] imageBytes = baos.toByteArray();
+            imageBytes = Base64.decode(storedvalue, Base64.DEFAULT);
+            Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            ivUploadimg.setImageBitmap(decodedImage);
+            //eTextuWeight.setText(storedvalue);
+            //DataSectionTwo.usualWeight = storedvalue;\
+            imagePath=storedvalue;
+        }
         ivUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,10 +150,13 @@ public class Section2Q4 extends Fragment {
 
                 DataSectionTwo.s2q4 = reporttv.getText().toString();
                 try {
-                    if (imgpath.equals("") || imgpath.equals(" "))
+                    if (imagePath.equals("") || imagePath.isEmpty())
                         Toast.makeText(getContext(), "Upload an image", Toast.LENGTH_SHORT).show();
                     else {
                         ConsultationFragment.psection2 += 1;
+                        SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC2PROG", Context.MODE_PRIVATE);
+                        int preval =       sharedPreferences2.getInt("progress2",0);
+                        SectionPref.saveformsection2("image",imagePath,3,preval,4,"STEP2Q4",requireContext());
                         Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q5);
                     }
                 }catch(NullPointerException ex){
@@ -184,7 +214,7 @@ public class Section2Q4 extends Fragment {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 50, baos);
                     byte[] b = baos.toByteArray();
                     DataSectionTwo.imgPath = Base64.encodeToString(b, Base64.DEFAULT);
-
+                    imagePath = Base64.encodeToString(b, Base64.DEFAULT);
                 }
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "No picture selected", Toast.LENGTH_SHORT).show();

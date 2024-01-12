@@ -605,6 +605,7 @@
         <FrameLayout
             android:id="@+id/bottomSheetN"
             android:layout_width="match_parent"
+            android:layout_marginTop="500sp"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             android:background="@drawable/rounded"

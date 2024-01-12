@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +86,21 @@ public class Section2Q2 extends Fragment {
 
         pweighttv = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_section2Q2_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP2Q2", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("weight", "");
+        if(!storedvalue.isEmpty()) {
+            eTextWeight.setText(storedvalue);
+            DataSectionTwo.weight = storedvalue;
+        }
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +115,9 @@ public class Section2Q2 extends Fragment {
                     Toast.makeText(getContext(), "Enter your weight", Toast.LENGTH_SHORT).show();
                 else {
                     ConsultationFragment.psection2 += 1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC2PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress2",0);
+                    SectionPref.saveformsection2("weight",user_weight,1,preval,2,"STEP2Q2",requireContext());
                     Navigation.findNavController(v).navigate(R.id.action_section2Q2_to_section2Q3);
                 }
             }

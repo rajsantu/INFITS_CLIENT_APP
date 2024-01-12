@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 import java.util.LinkedHashMap;
 
@@ -81,11 +85,25 @@ public class SectionOneQThree extends Fragment {
 
         agetv = view.findViewById(R.id.textView80);
 
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_sectionOneQThree_to_consultationFragment);
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q3", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("age", "");
+        if(!storedvalue.isEmpty()) {
+            eTextAge.setText(storedvalue);
+            DataSectionOne.age = storedvalue;
+        }
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String user_age = eTextAge.getText().toString();
                 //Toast.makeText(getContext(),user_age, Toast.LENGTH_SHORT).show();
 
@@ -95,6 +113,22 @@ public class SectionOneQThree extends Fragment {
                     Toast.makeText(getContext(),"Add your age",Toast.LENGTH_SHORT).show();
                 else{
                     ConsultationFragment.psection1+=1;
+                    SharedPreferences sharedPreferences2 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+                    int preval =       sharedPreferences2.getInt("progress",0);
+                    SectionPref.saveform("age",eTextAge.getText().toString(),2,preval,3,"STEP1Q3",requireContext());
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q3", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("age", eTextAge.getText().toString());
+//                    editor.apply();
+//
+//                    String sharedage = sharedPreferences.getString("age", "");
+////                    Toast.makeText(requireContext(), String.valueOf(ConsultationFragment.psection1)+" "+sharedage, Toast.LENGTH_SHORT).show();
+//                    if (!(sharedage.isEmpty()) && preval==2){
+//                        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+//                        editor1.putInt("progress", 3);
+//                        editor1.apply();
+//                    }
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQThree_to_sectionOneQFour);
             }
             }

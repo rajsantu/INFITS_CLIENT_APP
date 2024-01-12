@@ -1,10 +1,16 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infits.customDialog.SectionPref;
 
 import java.util.LinkedHashMap;
 
@@ -27,6 +35,7 @@ public class SectionOneQOne extends Fragment {
     Button nextbtn;
     TextView backbtn, emailtv;
     EditText eTextEmail;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     int position = 1;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -79,27 +88,63 @@ public class SectionOneQOne extends Fragment {
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         eTextEmail = view.findViewById(R.id.eTextEmail);
-
         emailtv = view.findViewById(R.id.textView80);
+
+        TextView gotomain = view.findViewById(R.id.gotomainsection);
+        gotomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_sectionOneQOne_to_consultationFragment);
+            }
+        });
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q1", Context.MODE_PRIVATE);
+        String storedvalue = sharedPreferences.getString("useremail", "");
+        if(!storedvalue.isEmpty()) {
+            eTextEmail.setText(storedvalue);
+            DataSectionOne.email = storedvalue;
+        }
 
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String user_email = eTextEmail.getText().toString();
+              //  String user_email = eTextEmail.getText().toString();
                 //Toast.makeText(getContext(),user_email, Toast.LENGTH_SHORT).show();
-
-                DataSectionOne.email = user_email;
+                String user_email = eTextEmail.getText().toString();
                 DataSectionOne.s1q1 = emailtv.getText().toString();
-                if(user_email.equals("")|| user_email.equals(" "))
-                    Toast.makeText(getContext(),"Add your email",Toast.LENGTH_SHORT).show();
-                else{
-                    ConsultationFragment.psection1+=1;
+                if(user_email.equals("")|| user_email.equals(" ")) {
+                    Toast.makeText(getContext(), "Add your email", Toast.LENGTH_SHORT).show();
+                }
+               else if(!isValidEmail(eTextEmail.getText().toString().trim())){
+                    Toast.makeText(requireContext(), "InValid Email Address.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    DataSectionOne.email = user_email;
+                    ConsultationFragment.psection1 += 1;
+                    SectionPref.saveform("useremail",eTextEmail.getText().toString(),0,0,1,"STEP1Q1",requireContext());
+//                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("STEP1Q1", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("useremail", eTextEmail.getText().toString());
+//                    editor.apply();
+//
+//                    String sharedemail = sharedPreferences.getString("useremail", "");
+//                    // Example in an Activity
+//                    Toast.makeText(requireContext(),sharedemail , Toast.LENGTH_SHORT).show();
+//
+//                    if (!(sharedemail.isEmpty()) && ConsultationFragment.psection1==1){
+//                        SharedPreferences sharedPreferences1 = requireContext().getSharedPreferences("SEC1PROG", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+//                    editor1.putInt("progress", ConsultationFragment.psection1);
+//                    editor1.apply();
+//                    }
+
                     Navigation.findNavController(v).navigate(R.id.action_sectionOneQOne_to_sectionOneQTwo);
                  }
             }
         });
+
+          // emailpref = requireContext().getSharedPreferences("SEC1Q1", Context.MODE_PRIVATE);
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,5 +158,9 @@ public class SectionOneQOne extends Fragment {
         imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }

@@ -28,7 +28,7 @@
     <color name="weightNotification">#18A98B</color>
     <color name="calorieNotification">#F76DA0</color>
     <color name="yellow">#FDD835</color>
-
+    <color name="editTextColor">#FFF1D6</color>
     <array name="range">
         <item>#5884FE</item>
         <item>#DA75EC</item>

@@ -64,11 +64,10 @@
                 android:id="@+id/progressBar"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
+
                 android:layout_centerInParent="true"
                 android:rotation="-15"
-
                 app:interactive="false"
-
                 app:progressGradient="@array/progress"
                 app:progressWidth="5dp"
                 app:startAngleDegrees="65"
