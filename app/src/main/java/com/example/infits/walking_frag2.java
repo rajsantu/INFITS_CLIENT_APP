@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 
@@ -40,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class walking_frag2 extends Fragment implements SensorEventListener {
-    ImageView imageback;
+
     SensorManager sensorManager;
     private RotateAnimation rotateAnimation;
     Sensor stepSensor;
@@ -76,7 +75,6 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
         View view = inflater.inflate(R.layout.fragment_walking_frag2, container, false);
 
 
-        imageback = view.findViewById(R.id.walk_imgback);
         btnPause = view.findViewById(R.id.imageView86);
         btnStart = view.findViewById(R.id.imageView105);
         btn_stop = view.findViewById(R.id.imageView89);
@@ -101,22 +99,6 @@ public class walking_frag2 extends Fragment implements SensorEventListener {
         }
 
         startRotationAnimation();
-
-
-        imageback.setOnClickListener(v -> {
-
-            Navigation.findNavController(v).navigate(
-                    R.id.action_walking_frag2_to_activityfourthFragment,
-                    null,
-                    new NavOptions.Builder()
-                            .setPopUpTo(R.id.activityfourthFragment, true)
-                            .build()
-            );
-
-              //  Navigation.findNavController(v).navigate(R.id.action_walking_frag2_to_activityfourthFragment);
-
-
-        });
 
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override

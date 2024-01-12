@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.os.SystemClock;
@@ -46,8 +45,6 @@ import java.util.Map;
 public class RopeJump extends Fragment implements SensorEventListener {
 
     SensorManager sensorManager;
-
-    ImageView imgback;
     private RotateAnimation rotateAnimation;
     Sensor stepSensor;
     int pre_step = 0, current = 0, flag_steps = 0, current_steps;
@@ -95,7 +92,6 @@ public class RopeJump extends Fragment implements SensorEventListener {
         imageView76 = view.findViewById(R.id.imageView76);
         imageView79 = view.findViewById(R.id.imageView79);
         imageView80 = view.findViewById(R.id.imageView80);
-        imgback = view.findViewById(R.id.jump_imgback);
 
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Bundle bundle = getArguments();
@@ -118,21 +114,6 @@ public class RopeJump extends Fragment implements SensorEventListener {
                 stopClockwiseRotation();
                 stopAntiClockwiseRotation();
             }
-        });
-
-        //back button
-        imgback.setOnClickListener(v -> {
-
-            Navigation.findNavController(v).navigate(
-                    R.id.action_RopeJump_to_activityRopeJump,
-                    null,
-                    new NavOptions.Builder()
-                            .setPopUpTo(R.id.activityRopeJump, true)
-                            .build()
-            );
-
-              //  Navigation.findNavController(v).navigate(R.id.action_RopeJump_to_activityRopeJump);
-
         });
 
         btnStart.setOnClickListener(new View.OnClickListener() {

@@ -780,16 +780,16 @@
                 android:text="Blueberry Pancake"
                 android:textColor="#1D1617"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/toggleButton"
-                app:layout_constraintEnd_toEndOf="@+id/toggleButton"
+                app:layout_constraintBottom_toTopOf="@+id/textView23"
+                app:layout_constraintEnd_toEndOf="@+id/textView23"
                 app:layout_constraintHorizontal_bias="0.177"
-                app:layout_constraintStart_toStartOf="@+id/toggleButton"
+                app:layout_constraintStart_toStartOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/imageView60"
                 app:layout_constraintVertical_bias="1.0" />
 
 
             <TextView
-                android:id="@+id/toggleButton"
+                android:id="@+id/textView23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-10dp"
@@ -816,7 +816,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageView61"
                 app:layout_constraintHorizontal_bias="0.052"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
             <TextView
                 android:id="@+id/textView59"
