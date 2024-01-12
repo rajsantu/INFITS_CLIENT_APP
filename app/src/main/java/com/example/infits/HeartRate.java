@@ -184,7 +184,7 @@ public class HeartRate extends Fragment {
 
         Volley.newRequestQueue(getActivity()).add(stringRequest);
 
-        rxBleClient = RxBleClient.create(getContext());
+        rxBleClient = RxBleClient.create(requireContext());
         result_from = view.findViewById(R.id.result_from);
         after_measured = view.findViewById(R.id.after_measured);
         after_measured_title = view.findViewById(R.id.after_measured_title);
@@ -197,9 +197,15 @@ public class HeartRate extends Fragment {
 
         measuring = view.findViewById(R.id.measuring);
         try {
-            device = rxBleClient.getBleDevice(DataFromDatabase.macAddress);
-            connectionObservable = prepareConnectionObservable();
-            deviceName.append(" "+device.getName());
+            if(DataFromDatabase.macAddress!=null)
+                {
+                    //BluetoothAdapter not available in the system to work
+                    //prevents crashes in case macAdddress is not available
+                    device = rxBleClient.getBleDevice(DataFromDatabase.macAddress);
+                    connectionObservable = prepareConnectionObservable();
+                    deviceName.append(" " + device.getName());
+                }
+
         }catch (NullPointerException ex){
             startListening.setClickable(false);
             startListening.setOnClickListener(null);
