@@ -1,14 +1,26 @@
 package com.example.infits;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +31,10 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.infits.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -64,7 +78,9 @@ public class connectingDietitian extends AppCompatActivity {
 
     private void fetchDataFromPhpFile() {
         progressBar.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sverify.php",DataFromDatabase.ipConfig),
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sverify.php",DataFromDatabase.ipConfig),
+           // BY ADITYA #pr44
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sverify_1.php",DataFromDatabase.ipConfig),
                 response->{
                     progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(connectingDietitian.this,response,Toast.LENGTH_SHORT).show();
@@ -104,7 +120,11 @@ public class connectingDietitian extends AppCompatActivity {
     }
     private void dietitianUpdate(){
         progressBar.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sdietitianUpdated.php",DataFromDatabase.ipConfig),
+
+
+//BY ADITYA pr44
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sdietitianUpdated_1.php",DataFromDatabase.ipConfig),
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST,String.format("%sdietitianUpdated.php",DataFromDatabase.ipConfig),
                 response->{
                     progressBar.setVisibility(View.INVISIBLE);
 
