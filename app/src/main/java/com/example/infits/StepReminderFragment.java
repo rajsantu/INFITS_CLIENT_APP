@@ -79,10 +79,14 @@ public class StepReminderFragment extends Fragment {
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(timeDiff == 0L){
+
+   //TODO: here we should rather have a "timeDiff" for repeating alarm , since timeDiff variable is not being updated and
+                //I can't see any reason behind setting up a repeating alarm
+
+                if(timeDiffOnce == 0L){//it is coming here
                     Toast.makeText(getContext(), "Please set Alarm first", Toast.LENGTH_SHORT).show();
                 }else{
-                    setAlarm(timeDiff);
+                    setAlarm(timeDiffOnce);
                     Toast.makeText(getContext(), "set: "+timeDiff/1000, Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(v).navigate(R.id.action_stepReminderFragment_to_stepTrackerFragment);
                 }
