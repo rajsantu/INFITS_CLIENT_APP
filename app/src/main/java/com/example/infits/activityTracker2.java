@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,8 +14,13 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,11 +30,19 @@ import java.util.List;
 
 public class activityTracker2 extends Fragment {
 
+    LinearLayout linear3;
+    LinearLayout linear4;
+    TextView toggleButton;
+
     RecyclerView recyclerView;
     List<Date> dateList;
     CalAdapter_at adapter;
     ImageView running_img,walking_img,cycling_img,jumprope_img,trekking_img,skating_img,dancing_img,stair_climbing;
     ImageButton backbutton;
+
+    private static final String PREFERENCES_NAME = "MyPreferences";
+    private static final String KEY_LINEAR3_VISIBILITY = "linear3Visibility";
+    private static final String KEY_LINEAR4_VISIBILITY = "linear4Visibility";
 
     public activityTracker2 () {
         // Required empty public constructor
@@ -39,15 +54,43 @@ public class activityTracker2 extends Fragment {
     public void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
 
+
+
+
     }
 
     @Override
     public View onCreateView ( LayoutInflater inflater , ViewGroup container ,
                                Bundle savedInstanceState ) {
+
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate ( R.layout.fragment_activity_tracker2 , container , false);
         Date today = new Date();
         dateList = new ArrayList<> ();
+
+
+        linear3 = view.findViewById(R.id.linear3);
+        linear4 = view.findViewById(R.id.linear4);
+        toggleButton = view.findViewById(R.id.toggleButton);
+
+
+        // Restore the visibility states from SharedPreferences
+        SharedPreferences preferences = requireActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+        int linear3Visibility = preferences.getInt(KEY_LINEAR3_VISIBILITY, View.GONE);
+        int linear4Visibility = preferences.getInt(KEY_LINEAR4_VISIBILITY, View.GONE);
+
+        linear3.setVisibility(linear3Visibility);
+        linear4.setVisibility(linear4Visibility);
+
+        // Update the UI and toggleButton text based on the visibility
+        if (linear3Visibility == View.VISIBLE) {
+            toggleButton.setText("View Less");
+        } else {
+            toggleButton.setText("View All");
+        }
+
 
         // Add some test data to the dateList
         Calendar calendar = Calendar.getInstance();
@@ -113,6 +156,16 @@ public class activityTracker2 extends Fragment {
         });
 
 
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleLinearLayoutVisibility();
+            }
+        });
+
+
+
+
         //  backbutton.setOnClickListener(new View.OnClickListener() {
         //    @Override
         //    public void onClick(View v) {
@@ -122,5 +175,26 @@ public class activityTracker2 extends Fragment {
 
 //        return inflater.inflate(R.layout.fragment_diet_fourth, container, false);
         return  view;
+    }
+
+
+
+    private void toggleLinearLayoutVisibility() {
+        if (linear3.getVisibility() == View.VISIBLE) {
+            linear3.setVisibility(View.GONE);
+            linear4.setVisibility(View.GONE);
+            toggleButton.setText("View All");
+        } else {
+            linear3.setVisibility(View.VISIBLE);
+            linear4.setVisibility(View.VISIBLE);
+            toggleButton.setText("View Less");
+        }
+
+        // Save the visibility states in SharedPreferences
+        SharedPreferences preferences = requireActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(KEY_LINEAR3_VISIBILITY, linear3.getVisibility());
+        editor.putInt(KEY_LINEAR4_VISIBILITY, linear4.getVisibility());
+        editor.apply();
     }
 }

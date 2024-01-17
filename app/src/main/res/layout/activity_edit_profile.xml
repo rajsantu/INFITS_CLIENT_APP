@@ -1,585 +1,675 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Account">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:background="#00000000"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:src="@mipmap/backarrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+           />
 
-        <!-- Profile -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fontFamily="@font/nats_regular"
+            android:text="Edit Profile"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_30sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/imgBack"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@mipmap/backarrow"
-                android:layout_marginTop="36dp"
-                android:layout_marginStart="23dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <TextView
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="-46dp"
-                android:fontFamily="@font/nats_regular"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Edit Profile"
-                android:textColor="@color/black"
-                android:textSize="26sp" />
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="13dp">
-
-                <ImageView
-                    android:layout_width="212dp"
-                    android:layout_height="214dp"
-                    android:src="@drawable/profile_bg"
-                    android:scaleType="fitXY"
-                    android:rotation="45"
-                    />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    app:cardCornerRadius="80dp"
-                    android:layout_centerInParent="true">
-
-                    <ImageView
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
-                        android:src="@drawable/profilepic"
-                        android:id="@+id/dp"
-                        android:scaleType="fitXY"/>
-                </androidx.cardview.widget.CardView>
-
-                <ImageView
-                    android:id="@+id/select_dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="130dp"
-                    android:layout_marginTop="140dp"
-                    android:elevation="2dp"
-                    android:src="@drawable/update_photo_new" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <!-- Edit form -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:scrollbars="vertical">
-
+                <!-- Profile -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="20dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="13dp">
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/ic_baseline_person_24" />
+                            android:layout_width="@dimen/_212sdp"
+                            android:layout_height="@dimen/_214sdp"
+                            android:rotation="45"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/profile_bg" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/name_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Your Name" />
-
-                            <EditText
-                                android:id="@+id/name_edt"
-                                android:hint="Enter you full name"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:layout_height="48dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/name_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/gender_title"
-                            style="@style/account_txt_views"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="0dp"
-                            android:text="Gender" />
-
-                        <RadioGroup
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/_140sdp"
+                            android:layout_height="@dimen/_140sdp"
+                            android:layout_centerInParent="true"
+                            app:cardCornerRadius="@dimen/_80sdp">
 
                             <ImageView
-                                android:id="@+id/gender_male_icon"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:layout_marginStart="83dp"
-                                android:adjustViewBounds="true"
-                                android:elevation="5dp"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/gender_male_selected" />
-
-                            <ImageView
-                                android:id="@+id/gender_female_icon"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:layout_marginStart="24dp"
-                                android:layout_marginLeft="5dp"
-                                android:elevation="5dp"
-                                android:src="@drawable/gender_female" />
-                        </RadioGroup>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
+                                android:id="@+id/dp"
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_140sdp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/profilepic" />
+                        </androidx.cardview.widget.CardView>
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/age_icon" />
+                            android:id="@+id/select_dp"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_130sdp"
+                            android:layout_marginTop="@dimen/_140sdp"
+                            android:elevation="@dimen/_2sdp"
+                            android:src="@drawable/update_photo_new" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/age_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Your Age" />
-
-                            <EditText
-                                android:id="@+id/age_edt"
-                                android:hint="Enter the age"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:layout_height="48dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/age_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/ic_baseline_email_24" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/email_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Email" />
-
-                            <EditText
-                                android:id="@+id/email_edt"
-                                android:hint="Enter the email address"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:layout_height="48dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp"
-                                />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/email_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/ic_baseline_local_phone_24" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/phone_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Phone No." />
-
-                            <EditText
-                                android:id="@+id/phone_edt"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:id="@+id/phone_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/ic_baseline_location_on_24" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/location_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Location" />
-
-                            <EditText
-                                android:id="@+id/location_edt"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:id="@+id/location_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/plan_icon" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/plan_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Plan" />
-
-                            <EditText
-                                android:id="@+id/plan_edt"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:id="@+id/plan_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/height_icon" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/height_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Height" />
-
-                            <EditText
-                                android:id="@+id/height_edt"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:id="@+id/height_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/weight_icon" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/weight_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Weight" />
-
-                            <EditText
-                                android:id="@+id/weight_edt"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:id="@+id/weight_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="17dp"
-                            android:layout_marginTop="12dp"
-                            android:src="@drawable/about_icon" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="28dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/about_title"
-                                style="@style/account_txt_views"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="about" />
-
-                            <EditText
-                                android:id="@+id/about_edt"
-                                style="@style/account_edt_views"
-                                android:layout_width="250dp"
-                                android:layout_height="100dp"
-                                android:cursorVisible="false"
-                                android:focusableInTouchMode="false"
-                                android:inputType="none"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:id="@+id/about_edt_button"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="30dp"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/button_editProfile"
-                            android:layout_width="140dp"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center_horizontal|bottom"
-                            android:backgroundTint="#4B9AFB"
-                            android:fontFamily="@font/nats_regular"
-                            android:text="Edit Profile"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            app:cornerRadius="10dp"
-                            />
-
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
-            </ScrollView>
+                <!-- Edit form -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="30dp">
 
-        </LinearLayout>
 
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-</FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_baseline_person_24" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical"
+                                android:layout_weight="10">
+
+                                <TextView
+                                    android:id="@+id/name_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Your Name" />
+
+                                <EditText
+                                    android:id="@+id/name_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:hint="Enter you full name"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/name_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/gender_title"
+                                style="@style/account_txt_views"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="0dp"
+                                android:text="Gender" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/gender_male_icon"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_marginStart="83dp"
+                                    android:adjustViewBounds="true"
+                                    android:elevation="5dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/gender_male_selected" />
+
+                                <ImageView
+                                    android:id="@+id/gender_female_icon"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:elevation="5dp"
+                                    android:src="@drawable/gender_female" />
+                            </RadioGroup>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/age_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical"
+                                android:layout_weight="10">
+
+                                <TextView
+                                    android:id="@+id/age_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Your Age" />
+
+                                <EditText
+                                    android:id="@+id/age_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:hint="Enter the age"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/age_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_baseline_email_24" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical"
+                                android:layout_weight="10">
+
+                                <TextView
+                                    android:id="@+id/email_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Email" />
+
+                                <EditText
+                                    android:id="@+id/email_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:hint="Enter the email address"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/email_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_baseline_local_phone_24" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical"
+                                android:layout_weight="10">
+
+                                <TextView
+                                    android:id="@+id/phone_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Phone No." />
+
+                                <EditText
+                                    android:id="@+id/phone_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/phone_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_baseline_location_on_24" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/location_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Location" />
+
+                                <EditText
+                                    android:id="@+id/location_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/location_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/plan_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/plan_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Plan" />
+
+                                <EditText
+                                    android:id="@+id/plan_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/plan_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/height_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/height_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Height" />
+
+                                <EditText
+                                    android:id="@+id/height_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/height_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/weight_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/weight_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Weight" />
+
+                                <EditText
+                                    android:id="@+id/weight_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/weight_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="12dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/about_icon" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"
+                                android:layout_marginStart="22dp"
+                                android:layout_marginEnd="28dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/about_title"
+                                    style="@style/account_txt_views"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="about" />
+
+                                <EditText
+                                    android:id="@+id/about_edt"
+                                    style="@style/account_edt_views"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="100dp"
+                                    android:cursorVisible="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_14sdp" />
+                            </LinearLayout>
+
+
+                            <ImageView
+                                android:id="@+id/about_edt_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="30dp"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/button_editProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="30dp"
+                                android:layout_gravity="center_horizontal|bottom"
+                                android:backgroundTint="#4B9AFB"
+                                android:fontFamily="@font/nats_regular"
+                                android:text="Edit Profile"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14sdp"
+                                app:cornerRadius="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
