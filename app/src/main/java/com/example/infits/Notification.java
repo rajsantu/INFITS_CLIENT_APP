@@ -121,17 +121,15 @@ public class Notification extends Fragment {
     CompoundButton.OnCheckedChangeListener listenerStep = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            SharedPreferences.Editor editor = preferences.edit();
             if (b) {
                 // start service
-                SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("stepSwitch", true);
-                editor.apply();
             } else {
                 // end service
-                SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("stepSwitch", false);
-                editor.apply();
             }
+            editor.apply();
         }
     };
 
@@ -149,14 +147,11 @@ public class Notification extends Fragment {
                 editor.putBoolean("waterSwitch", false);
                 editor.apply();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    cancelWaterNotification();
-                }
+                cancelWaterNotification();
             }
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void cancelWaterNotification() {
         Intent waterReceiverIntent = new Intent(requireContext(), WaterNotificationReceiver.class);
         PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -186,6 +181,17 @@ public class Notification extends Fragment {
     CompoundButton.OnCheckedChangeListener listenerCalorie = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b) {
+                // start service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("calorieSwitch", true);
+                editor.apply();
+            } else {
+                // end service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("calorieSwitch", false);
+                editor.apply();
+            }
 
         }
     };

@@ -72,4 +72,12 @@
         <item name="android:layout_marginHorizontal">25dp</item>
         <item name="android:lineHeight">20dp</item>
     </style>
+    <style name="editProfileEditTextViews">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/edit_profile_edit_text_background</item>
+        <item name="android:fontFamily">@font/nats_regular</item>
+        <item name="text_size">15sp</item>
+    </style>
+
 </resources>

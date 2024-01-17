@@ -283,6 +283,7 @@ public class caloriesetgoalFragment extends Fragment {
             public void onClick(View v) {
                 confirmed.setVisibility(View.GONE);
                 setgoal.setVisibility(View.VISIBLE);
+                Navigation.findNavController(v).navigate(R.id.action_caloriesetgoalFragment_to_calorieTrackerFragment);
             }
         });
 
@@ -402,7 +403,7 @@ public class caloriesetgoalFragment extends Fragment {
 
         setgoal = view.findViewById(R.id.caloriesetgoal);
         confirmed = view.findViewById(R.id.calsetgoalconfirmed);
-        backbutton = view.findViewById(R.id.setgoalimgback);
+        backbutton = view.findViewById(R.id.setGoalsBackButton);
 
         initialDataEntryFromSharedPreferences();
 

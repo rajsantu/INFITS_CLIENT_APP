@@ -31,9 +31,9 @@ import android.widget.TextView;
  */
 public class SettingsFragment extends Fragment {
 
-    ImageView profilepic;
+    ImageView profilepic,backButton;
 
-    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp, imgbtnKnowDt, backButton;
+    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp, imgbtnKnowDt;
 
     TextView tvName;
 

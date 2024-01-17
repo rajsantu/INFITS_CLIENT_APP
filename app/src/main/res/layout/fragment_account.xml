@@ -7,57 +7,68 @@
     android:layout_height="match_parent"
     tools:context=".Account">
 
+    <!--<Toolbar>-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarEditProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@color/white"
-            android:padding="4dp"
-            android:src="@mipmap/backarrow"
+            android:layout_width="52dp"
+            android:layout_height="38dp"
+            android:src="@drawable/back"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txtAccountProfileToolBar"
+            app:layout_constraintHorizontal_bias="0.17"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.454"
+            tools:ignore="contentDescription" />
 
         <TextView
-            android:id="@+id/textView91"
+            android:id="@+id/txtAccountProfileToolBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nats_regular"
-            android:text="PROFILE"
-            android:gravity="center"
+            android:layout_weight="11"
+            android:fontFamily="@font/baloo2"
+            android:text="@string/profile"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_30sdp"
+            android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintStart_toStartOf="@id/imgBack"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!--    <Guideline>-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingBottom="@dimen/_25sdp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEditProfile">
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -173,9 +184,8 @@
                                     <TextView
                                         android:id="@+id/name_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Name"
                                         android:textColor="@color/black" />
@@ -183,9 +193,7 @@
                                     <EditText
                                         android:id="@+id/name_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginLeft="@dimen/_2sdp"
                                         android:layout_marginTop="@dimen/_10sdp"
@@ -225,9 +233,8 @@
                                     <TextView
                                         android:id="@+id/gender_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Gender"
                                         android:textColor="@color/black" />
@@ -235,9 +242,7 @@
                                     <EditText
                                         android:id="@+id/gender_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_10sdp"
                                         android:cursorVisible="false"
@@ -271,9 +276,8 @@
                                     <TextView
                                         android:id="@+id/age_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Age"
                                         android:textColor="@color/black" />
@@ -281,9 +285,7 @@
                                     <EditText
                                         android:id="@+id/age_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -317,9 +319,8 @@
                                     <TextView
                                         android:id="@+id/email_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Email"
                                         android:textColor="@color/black" />
@@ -327,9 +328,7 @@
                                     <EditText
                                         android:id="@+id/email_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -362,9 +361,8 @@
                                     <TextView
                                         android:id="@+id/phone_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Phone No."
                                         android:textColor="@color/black" />
@@ -372,9 +370,7 @@
                                     <EditText
                                         android:id="@+id/phone_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -407,9 +403,8 @@
                                     <TextView
                                         android:id="@+id/location_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Location"
                                         android:textColor="@color/black" />
@@ -417,9 +412,7 @@
                                     <EditText
                                         android:id="@+id/location_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -452,9 +445,8 @@
                                     <TextView
                                         android:id="@+id/plan_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Plan"
                                         android:textColor="@color/black" />
@@ -462,9 +454,7 @@
                                     <EditText
                                         android:id="@+id/plan_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -497,9 +487,8 @@
                                     <TextView
                                         android:id="@+id/height_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_14sdp"
                                         android:text="Height"
                                         android:textColor="@color/black" />
@@ -507,9 +496,7 @@
                                     <EditText
                                         android:id="@+id/height_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -542,9 +529,8 @@
                                     <TextView
                                         android:id="@+id/weight_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="Weight"
                                         android:textColor="@color/black" />
@@ -552,9 +538,7 @@
                                     <EditText
                                         android:id="@+id/weight_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -587,9 +571,8 @@
                                     <TextView
                                         android:id="@+id/about_title"
                                         style="@style/account_txt_views"
-                                        android:layout_width="0dp"
+                                        android:layout_width="@dimen/_80sdp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_marginLeft="@dimen/_12sdp"
                                         android:text="About"
                                         android:textColor="@color/black" />
@@ -597,8 +580,7 @@
                                     <EditText
                                         android:id="@+id/about_edt"
                                         style="@style/account_edt_views"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="2"
+                                        android:layout_width="match_parent"
                                         android:layout_height="@dimen/_122sdp"
                                         android:layout_marginTop="@dimen/_8sdp"
                                         android:cursorVisible="false"
@@ -623,7 +605,7 @@
                                 <Button
                                     android:id="@+id/button_editProfile"
                                     android:layout_width="0dp"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="@dimen/_45sdp"
                                     android:layout_gravity="center_horizontal|bottom"
                                     android:layout_marginLeft="@dimen/_10sdp"
                                     android:layout_weight="1"
@@ -639,7 +621,7 @@
                                 <Button
                                     android:id="@+id/button_logout"
                                     android:layout_width="0dp"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="@dimen/_45sdp"
                                     android:layout_gravity="center_horizontal|bottom"
                                     android:layout_marginLeft="@dimen/_10sdp"
                                     android:layout_marginRight="@dimen/_10sdp"
@@ -823,7 +805,7 @@
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!--ScrollView LinearLayout End-->
 
 
 

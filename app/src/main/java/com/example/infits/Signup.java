@@ -53,7 +53,7 @@ public class Signup extends AppCompatActivity {
         age = findViewById(R.id.age_background);
         height = findViewById(R.id.new_height);
         weight = findViewById(R.id.new_weight);
-        referredCode = findViewById(R.id.new_referral_code);
+//        referredCode = findViewById(R.id.new_referral_code);
         maleRB = findViewById(R.id.male_rb);
         femaleRB = findViewById(R.id.female_rb);
         progressBar = findViewById(R.id.signUpProgress);

@@ -39,7 +39,7 @@ public class DataFromDatabase {
     public static String fatMeal,caloriesMeal,carbsMeal,proteinMeal,fiber,nameMeal,typeMeal;
     //Mustafa Changes
 
-    public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,plan,height,dietitian_id,client_id,dateandtime,verification,verification_code;
+    public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,plan,height,about,dietitian_id,client_id,dateandtime,verification,verification_code;
 
     public static Bitmap profile;
     public static Bitmap dtPhoto;
