@@ -1,19 +1,15 @@
 package com.example.infits;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,14 +18,12 @@ import android.widget.Toast;
  */
 public class HelpFragment extends Fragment {
 
-    CardView faqcard, email;
-    ImageButton imgback;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    CardView faqcard, email;
+    ImageView imgback;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -83,26 +77,11 @@ public class HelpFragment extends Fragment {
         email = view.findViewById(R.id.email);
         imgback = view.findViewById(R.id.imgback);
 
-        faqcard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_helpFragment_to_FAQFragment);
-            }
-        });
+        faqcard.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_helpFragment_to_FAQFragment));
 
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_helpFragment_to_emailFragment);
-            }
-        });
+        email.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_helpFragment_to_emailFragment));
 
-        imgback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_helpFragment_to_settingsFragment);
-            }
-        });
+        imgback.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_helpFragment_to_settingsFragment));
 
         return view;
     }

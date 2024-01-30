@@ -154,7 +154,7 @@ public class MealTrackerFragment extends Fragment {
 
         bottomSheetN = v.findViewById(R.id.bottomSheetN);
 
-        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(780);
+        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(220);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
 
     }

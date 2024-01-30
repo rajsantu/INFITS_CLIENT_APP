@@ -118,7 +118,6 @@ public class Account extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            Toast.makeText(getContext(),DataFromDatabase.clientuserID,Toast.LENGTH_LONG);
         }
     }
     //The code of infits

@@ -2,30 +2,21 @@ package com.example.infits;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.media.Image;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ImageView;
+
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,16 +25,74 @@ import android.widget.Toast;
  */
 public class Notification extends Fragment {
 
-    ImageButton imgback;
-    SwitchCompat stepSwitch, waterSwitch, sleepSwitch, calorieSwitch;
-
-    SharedPreferences preferences;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ImageView imgback;
+    SwitchCompat stepSwitch, waterSwitch, sleepSwitch, calorieSwitch;
+    SharedPreferences preferences;
+    CompoundButton.OnCheckedChangeListener listenerStep = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            SharedPreferences.Editor editor = preferences.edit();
+            // start service
+            // end service
+            editor.putBoolean("stepSwitch", b);
+            editor.apply();
+        }
+    };
+    CompoundButton.OnCheckedChangeListener listenerWater = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b) {
+                // start service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("waterSwitch", true);
+                editor.apply();
+            } else {
+                // end service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("waterSwitch", false);
+                editor.apply();
 
+                cancelWaterNotification();
+            }
+        }
+    };
+    CompoundButton.OnCheckedChangeListener listenerSleep = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b) {
+                // start service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("sleepSwitch", true);
+                editor.apply();
+            } else {
+                // end service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("sleepSwitch", false);
+                editor.apply();
+            }
+        }
+    };
+    CompoundButton.OnCheckedChangeListener listenerCalorie = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b) {
+                // start service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("calorieSwitch", true);
+                editor.apply();
+            } else {
+                // end service
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("calorieSwitch", false);
+                editor.apply();
+            }
+
+        }
+    };
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -85,7 +134,7 @@ public class Notification extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        imgback = view.findViewById(R.id.imgback);
+        imgback = view.findViewById(R.id.backBtn_Notification);
         stepSwitch = view.findViewById(R.id.step_switch);
         waterSwitch = view.findViewById(R.id.water_switch);
         sleepSwitch = view.findViewById(R.id.sleep_switch);
@@ -93,7 +142,7 @@ public class Notification extends Fragment {
 
         imgback.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_notification_to_settingsFragment));
 
-        preferences = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
+        preferences = requireActivity().getSharedPreferences("notificationDetails", MODE_PRIVATE);
 
 //        SharedPreferences.Editor editor = preferences.edit();
 //        editor.remove("stepSwitch");
@@ -118,40 +167,6 @@ public class Notification extends Fragment {
         return view;
     }
 
-    CompoundButton.OnCheckedChangeListener listenerStep = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            SharedPreferences.Editor editor = preferences.edit();
-            if (b) {
-                // start service
-                editor.putBoolean("stepSwitch", true);
-            } else {
-                // end service
-                editor.putBoolean("stepSwitch", false);
-            }
-            editor.apply();
-        }
-    };
-
-    CompoundButton.OnCheckedChangeListener listenerWater = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b) {
-                // start service
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("waterSwitch", true);
-                editor.apply();
-            } else {
-                // end service
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("waterSwitch", false);
-                editor.apply();
-
-                cancelWaterNotification();
-            }
-        }
-    };
-
     private void cancelWaterNotification() {
         Intent waterReceiverIntent = new Intent(requireContext(), WaterNotificationReceiver.class);
         PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -160,39 +175,4 @@ public class Notification extends Fragment {
 
         alarmManager.cancel(waterReceiverPendingIntent);
     }
-
-    CompoundButton.OnCheckedChangeListener listenerSleep = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b) {
-                // start service
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("sleepSwitch", true);
-                editor.apply();
-            } else {
-                // end service
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("sleepSwitch", false);
-                editor.apply();
-            }
-        }
-    };
-
-    CompoundButton.OnCheckedChangeListener listenerCalorie = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b) {
-                // start service
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("calorieSwitch", true);
-                editor.apply();
-            } else {
-                // end service
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("calorieSwitch", false);
-                editor.apply();
-            }
-
-        }
-    };
 }

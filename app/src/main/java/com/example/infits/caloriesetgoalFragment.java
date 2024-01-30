@@ -278,13 +278,10 @@ public class caloriesetgoalFragment extends Fragment {
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             }
         });
-        confirmed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmed.setVisibility(View.GONE);
-                setgoal.setVisibility(View.VISIBLE);
-                Navigation.findNavController(v).navigate(R.id.action_caloriesetgoalFragment_to_calorieTrackerFragment);
-            }
+        confirmed.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_caloriesetgoalFragment_to_calorieTrackerFragment);
+
+
         });
 
 

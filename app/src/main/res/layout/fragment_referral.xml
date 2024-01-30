@@ -14,18 +14,17 @@
         android:layout_height="56dp"
         android:alpha="0.92"
         android:background="#EFF8FF"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/img_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="52dp"
+            android:layout_height="38dp"
             android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/back"
             tools:ignore="ContentDescription,ImageContrastCheck,ImageContrastCheck"
             tools:layout_editor_absoluteX="16dp"
@@ -34,13 +33,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/nats_regular"
-            android:text="Refer a friend"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/baloo2"
+            android:text="@string/refer_a_friend"
             android:textAllCaps="false"
-            android:textColor="#1E1E1E"
-            android:textSize="28sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
             tools:ignore="TextContrastCheck"
             tools:layout_editor_absoluteX="54dp" />
     </androidx.appcompat.widget.Toolbar>
@@ -62,13 +62,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Refer" />
+            android:text="@string/refer" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Status" />
+            android:text="@string/status" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2

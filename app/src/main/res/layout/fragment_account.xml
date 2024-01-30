@@ -7,68 +7,51 @@
     android:layout_height="match_parent"
     tools:context=".Account">
 
-    <!--<Toolbar>-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/toolbarEditProfile"
+    <LinearLayout
+        android:id="@+id/linearlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/guideline"
+        android:background="#00000000"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgBack"
-            android:layout_width="52dp"
-            android:layout_height="38dp"
-            android:src="@drawable/back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/txtAccountProfileToolBar"
-            app:layout_constraintHorizontal_bias="0.17"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.454"
-            tools:ignore="contentDescription" />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:src="@mipmap/backarrow" />
 
         <TextView
-            android:id="@+id/txtAccountProfileToolBar"
+            android:id="@+id/textView91"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="11"
-            android:fontFamily="@font/baloo2"
-            android:text="@string/profile"
+            android:layout_height="@dimen/_56sdp"
+            android:layout_weight="1111"
             android:textAlignment="center"
+            android:fontFamily="@font/nats_regular"
+            android:text="PROFILE  "
             android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/imgBack"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    <Guideline>-->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingBottom="@dimen/_25sdp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarEditProfile">
+        app:layout_constraintTop_toBottomOf="@+id/linearlay">
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -805,7 +788,7 @@
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--ScrollView LinearLayout End-->
+
 
 
 

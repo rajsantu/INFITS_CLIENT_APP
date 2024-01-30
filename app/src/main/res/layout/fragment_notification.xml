@@ -1,195 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Notification">
-
-    <RelativeLayout
+    <!--<Toolbar>-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView67"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="13dp"
-            android:fontFamily="@font/nats_regular"
-            android:text="NOTIFICATION"
-            android:textColor="@color/black"
-            android:textSize="26sp" />
-
-        <ImageButton
-            android:id="@+id/imgback"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="23dp"
-            android:backgroundTint="@color/white"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
-            app:tint="@color/black" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="33dp"
-        android:gravity="center"
-        android:layout_marginTop="40dp">
         <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/step_tracker_notification"/>
+            android:id="@+id/backBtn_Notification"
+            android:layout_width="52dp"
+            android:layout_height="38dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txtNotification"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.454"
+            tools:ignore="contentDescription" />
+
         <TextView
+            android:id="@+id/txtNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Step Tracker"
-            android:textSize="15sp"
-            android:fontFamily="@font/nats_regular"
+            android:layout_weight="11"
+            android:fontFamily="@font/baloo2"
+            android:text="@string/notification"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:layout_marginStart="15dp"/>
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/step_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/backBtn_Notification"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    <Guideline>-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="33dp"
-        android:gravity="center"
-        android:layout_marginTop="40dp">
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/water_tracker_notification"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Water Tracker"
-            android:textSize="15sp"
-            android:fontFamily="@font/nats_regular"
-            android:textColor="@color/black"
-            android:layout_marginStart="15dp"/>
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/water_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/notificationProfile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="33dp"
-        android:gravity="center"
-        android:layout_marginTop="40dp">
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/sleep_tracker_notification"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Sleep Tracker"
-            android:textSize="15sp"
-            android:fontFamily="@font/nats_regular"
-            android:textColor="@color/black"
-            android:layout_marginStart="15dp"/>
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sleep_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline">
+        <!-- LinearLayout Start    -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="vertical">
+<!--Step Tracker-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="33dp"
-        android:gravity="center"
-        android:layout_marginTop="40dp">
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/calories_notification"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Calories Tracker"
-            android:textSize="15sp"
-            android:fontFamily="@font/nats_regular"
-            android:textColor="@color/black"
-            android:layout_marginStart="15dp"/>
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/calorie_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/step_tracker_notification"
+                    android:contentDescription="@string/step_tracker_icon" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/imgback"-->
-<!--        android:layout_width="55dp"-->
-<!--        android:layout_height="55dp"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.044"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.023"-->
-<!--        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"-->
-<!--        app:tint="@color/black" />-->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="@string/step_tracker"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/step_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+<!--Water Tracker-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center">
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView68"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Step Tracker"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="22sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.358"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.266" />-->
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/water_tracker_notification" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView20"-->
-<!--        android:layout_width="55dp"-->
-<!--        android:layout_height="55dp"-->
-<!--        android:background="#FFF3EF"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.078"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.26"-->
-<!--        app:shapeAppearanceOverlay="@style/CircularNotif"-->
-<!--        app:srcCompat="@drawable/notifpic1" />-->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="@string/water_tracker"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
 
-<!--    <androidx.appcompat.widget.SwitchCompat-->
-<!--        android:id="@+id/stepswitch"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:checked="true"-->
-<!--        android:track="@drawable/track_selector"-->
-<!--        android:theme="@drawable/ic_baseline_brightness_1_24"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.882"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.265" />-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/water_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+<!--Sleep Tracker-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center">
 
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/sleep_tracker_notification" />
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="@string/sleep_tracker"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sleep_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+<!--Calorie Tracker-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/calories_notification"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="@string/calories_tracker"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/calorie_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -20,6 +22,7 @@ import android.widget.Toast;
 public class EmailFragment extends Fragment {
     EditText editTextSubject, editTextContent,editTextToEmail;
     Button button;
+    ImageView back;
     public static EmailFragment newInstance() {
         EmailFragment fragment = new EmailFragment();
         Bundle args = new Bundle();
@@ -29,20 +32,16 @@ public class EmailFragment extends Fragment {
         return fragment;
     }
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-//
-//    public EmailFragment() {
-//        // Required empty public constructor
-//    }
-//
-//    /**
+//     TODO: Rename parameter arguments, choose names that match
+//     the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    public EmailFragment() {
+        // Required empty public constructor
+    }
+
+    /**
 //     * Use this factory method to create a new instance of
 //     * this fragment using the provided parameters.
 //     *
@@ -50,24 +49,25 @@ public class EmailFragment extends Fragment {
 //     * @param param2 Parameter 2.
 //     * @return A new instance of fragment EmailFragment.
 //     */
-//    // TODO: Rename and change types and number of parameters
-//    public static EmailFragment newInstance(String param1, String param2) {
-//        EmailFragment fragment = new EmailFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
+    // TODO: Rename and change types and number of parameters
+    public static EmailFragment newInstance(String param1, String param2) {
+        EmailFragment fragment = new EmailFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,11 +75,13 @@ public class EmailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_email, container, false);
 
         // Initialize views by finding their IDs in the inflated layout
+        back = view.findViewById(R.id.emailBack);
         button = view.findViewById(R.id.btnSend);
         editTextSubject = view.findViewById(R.id.subject);
         editTextContent = view.findViewById(R.id.content);
         editTextToEmail = view.findViewById(R.id.to_email);
 
+        back.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_emailFragment_to_helpFragment));
         // Set OnClickListener for the button
         button.setOnClickListener(v -> {
             // Retrieve data from EditText fields

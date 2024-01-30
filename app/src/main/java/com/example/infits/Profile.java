@@ -25,16 +25,14 @@ public class Profile extends Fragment {
 
     TextView name,qualification,location,aboutMe;
     DataFromDatabase dataFromDatabase;
-    RecyclerView recyclerView1;
-    ImageView pic;
-    ImageButton btnBack;
-    String reviewer_name[]={"Martha Finch", "Martha Finch","Martha Finch","Martha Finch"};
-    String reviwer_ratings[]={"4.8","4.8","4.8","4.8"};
-    String reviwer_review[]={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet... ",
+    ImageView pic,btnBack;
+    String[] reviewer_name ={"Martha Finch", "Martha Finch","Martha Finch","Martha Finch"};
+    String[] reviwer_ratings ={"4.8","4.8","4.8","4.8"};
+    String[] reviwer_review ={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet... ",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet... ",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet... ",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet... "};
-    String reviewer_image[]={"app/src/main/res/drawable-v24/review_profile.png"
+    String[] reviewer_image ={"app/src/main/res/drawable-v24/review_profile.png"
             ,"app/src/main/res/drawable-v24/review_profile.png", "app/src/main/res/drawable-v24/review_profile.png",
             "app/src/main/res/drawable-v24/review_profile.png"};
 
@@ -43,10 +41,6 @@ public class Profile extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Profile() {
         // Required empty public constructor
@@ -74,8 +68,9 @@ public class Profile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
 
@@ -87,7 +82,7 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_profile, container, false);
-        btnBack = v.findViewById(R.id.imgback);
+        btnBack = v.findViewById(R.id.backBtn_DieticianProfile);
         name = v.findViewById(R.id.dietician_profile_name);
         qualification = v.findViewById(R.id.qualificationProfile);
         pic=v.findViewById(R.id.dietician_profile_image);
@@ -109,9 +104,7 @@ public class Profile extends Fragment {
         r1.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         r1.setAdapter(adap);
 
-        btnBack.setOnClickListener(it -> {
-            Navigation.findNavController(it).navigate(R.id.action_profile2_to_settingsFragment);
-        });
+        btnBack.setOnClickListener(it -> Navigation.findNavController(it).navigate(R.id.action_profile2_to_settingsFragment));
 
         return v;
 

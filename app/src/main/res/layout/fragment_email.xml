@@ -1,38 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="50dp"
-    android:padding="20dp">
-
+    tools:context=".EmailFragment">
+<!--  Toolbar  -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline">
+        <ImageView
+            android:id="@+id/emailBack"
+            android:layout_width="52dp"
+            android:layout_height="38dp"
+            android:src="@drawable/back"
+            tools:ignore="ContentDescription,ImageContrastCheck,ImageContrastCheck" />
+    </androidx.appcompat.widget.Toolbar>
+    <!--    <Guideline>-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
     <!-- EditText fields for subject, content, and to_email -->
-    <EditText
-        android:id="@+id/subject"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Subject" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:layout_constraintVertical_bias="0.075"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp">
 
-    <EditText
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter content" />
+        <EditText
+            android:id="@+id/to_email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="@string/email"
+            android:autofillHints="emailAddress"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textEmailAddress"/>
 
-    <EditText
-        android:id="@+id/to_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter to email address" />
+        <EditText
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="@string/subject"
+            android:autofillHints="Subject"
+            android:inputType="text"/>
 
-    <!-- Button to send email -->
-    <Button
-        android:id="@+id/btnSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="@string/your_quiry"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:autofillHints="Content"
+            android:inputType="textLongMessage"/>
 
-        android:text="Send email" />
 
-</LinearLayout>
+        <!-- Button to send email -->
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="#3D95FF"
+            android:fontFamily="@font/nats_regular"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/send"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:cornerRadius="10dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

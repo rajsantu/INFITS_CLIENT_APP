@@ -190,7 +190,7 @@ public class CalorieTrackerFragment extends Fragment {
         //circularProgressIndicatorCC.setProgress(calConsumed,calgoal);
         // circularProgressIndicatorCB.setProgress(7000,10000);
 
-        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(350);
+        BottomSheetBehavior.from(bottomSheetN).setPeekHeight(220);
         BottomSheetBehavior.from(bottomSheetN).setState(BottomSheetBehavior.STATE_COLLAPSED);
 
         System.out.println(calConsumed);
@@ -234,12 +234,7 @@ public class CalorieTrackerFragment extends Fragment {
             }
         });
 
-        setgoalmicro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_calorieTrackerFragment_to_caloriesetgoalFragment);
-            }
-        });
+        setgoalmicro.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_calorieTrackerFragment_to_caloriesetgoalFragment));
 
 //        dailyMeals = new ArrayList<>();
 //        goalValue = 0f;
@@ -276,10 +271,6 @@ public class CalorieTrackerFragment extends Fragment {
         fibrePB = view.findViewById(R.id.progressView2);
         proteinPB = view.findViewById(R.id.progressView3);
         fatPB = view.findViewById(R.id.progressView4);
-        progressView1 = view.findViewById(R.id.progressView1);
-        progressView2 = view.findViewById(R.id.progressView2);
-        progressView3 = view.findViewById(R.id.progressView3);
-        progressView4 = view.findViewById(R.id.progressView4);
         circularProgressIndicatorCC = view.findViewById(R.id.circular_progressCC);
         circularProgressIndicatorCB = view.findViewById(R.id.circular_progressCB);
         bottomSheetN = view.findViewById(R.id.bottomSheetN);
@@ -290,7 +281,7 @@ public class CalorieTrackerFragment extends Fragment {
         calorieConsumed=view.findViewById(R.id.calorieConsumed);
         calorieBurnt=view.findViewById(R.id.calorieBurnt);
         setgoalmicro = view.findViewById(R.id.setgoalformicro);
-        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
+        imgBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_calorieTrackerFragment_to_dashBoardFragment));
 
     }
 }
